@@ -9,6 +9,10 @@ class LinkedList:
     self._head = None
     self._size = 0
 
+  def addBatch(self, data_list):
+    for data in data_list:
+      self.addNodeAtEnd(data)
+
   def addNodeAtEnd(self, data):
     new_node = Node(data, None)
     self._size += 1
