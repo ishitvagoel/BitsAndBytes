@@ -9,9 +9,13 @@ l.addBatch([1,2,3,4,5,6,7,8,9,10])
 l.printLinkedList()
 # 1 --> 2 --> 3 --> 4 --> 5 --> 6 --> 7 --> 8 --> 9 --> 10
 
-l.reverseList()
+l.reverseIteratively()
 l.printLinkedList()
 # 10 --> 9 --> 8 --> 7 --> 6 --> 5 --> 4 --> 3 --> 2 --> 1
+
+l.reverseRecursively(l._head)
+l.printLinkedList()
+# 1 --> 2 --> 3 --> 4 --> 5 --> 6 --> 7 --> 8 --> 9 --> 10
 
 '''
 
@@ -26,7 +30,7 @@ class LinkedList:
     for data in data_list:
       self.addNodeAtEnd(data)
 
-  def reverseList(self):
+  def reverseIteratively(self):
     current_node = self._head
     temp = None
     next_node = current_node.next
@@ -40,6 +44,19 @@ class LinkedList:
       else:
         self._head = current_node
         break
+
+  def reverseRecursively(self, current_node):
+    temp = None
+    if current_node == self._head:
+      temp = current_node.next
+    if not current_node.next:
+      self._head = current_node
+      return current_node
+    next_node = self.reverseRecursively(current_node.next)
+    next_node.next = current_node
+    if temp:
+      current_node.next = None
+    return current_node
 
   def addNodeAtEnd(self, data):
     new_node = Node(data, None)
