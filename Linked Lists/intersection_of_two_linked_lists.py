@@ -44,7 +44,7 @@ def findIntersection(list1, list2):
     length_difference = list1_length - list2_length
     longer_list_key = 'list1'
   else:
-    length_difference = list1_length - list2_length
+    length_difference = list2_length - list1_length
     longer_list_key = 'list2'
 
   for adjusting_step in range(length_difference):
