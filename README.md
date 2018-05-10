@@ -1,1 +1,1 @@
-This repository consists of my implementations for Data Strucrtures and Algorithms problems in Python. Let's get coding !
+This repository consists of my on going work on implementating Data Structures and Algorithms problems in Python. Let's get coding !
