@@ -1,13 +1,16 @@
 '''Repl.it : https://repl.it/@Ishitva/StackTemplate'''
 
 class StackFullException(Exception):
+    '''Exception when a stack is full.'''
     pass
 
 class StackEmptyException(Exception):
+    '''Exception when a stack is empty.'''
     pass
 
 
 def checkStackFull(func):
+    '''Decorator to check whether a stack is full.'''
     def execute(self, *args, **kwargs):
         if len(self.items) < self.limit:
             return func(self, *args, **kwargs)
@@ -17,6 +20,7 @@ def checkStackFull(func):
 
 
 def checkStackEmpty(func):
+    '''Decorator to check whether a stack is empty.'''
     def execute(self, *args, **kwargs):
         if len(self.items):
             return func(self, *args, **kwargs)
@@ -25,6 +29,7 @@ def checkStackEmpty(func):
 
 
 class Stack():
+    '''Template class for Stack.'''
     def __init__(self, limit=10):
         self.items = []
         self.limit = limit
