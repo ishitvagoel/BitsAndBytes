@@ -51,7 +51,7 @@ class LinkedList:
       data_list.append(current_node.data)
       current_node = current_node.next
 
-    print NODE_SEPARATOR.join(str(data) for data in data_list)
+    print(NODE_SEPARATOR.join(str(data) for data in data_list))
 
 class Node:
   def __init__(self, data, next_node):

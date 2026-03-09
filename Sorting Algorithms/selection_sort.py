@@ -14,9 +14,9 @@ def selectionSort(test_list, asc= True):
     eg: [-1, 0 , 1, 2, 5, 7]
   """
   list_length = len(test_list)
-  for outer_index in xrange(list_length-1):
+  for outer_index in range(list_length-1):
     min_index = outer_index
-    for inner_index in xrange(outer_index + 1, list_length):
+    for inner_index in range(outer_index + 1, list_length):
       if asc:
         replace = test_list[min_index] > test_list[inner_index]
       else:

@@ -11,8 +11,8 @@ SYMBOLS_MAP = {
 
 def areSymbolsBalanced(expression):
     symbol_stack = []
-    opening_symbols = SYMBOLS_MAP.values()
-    closing_symbols = SYMBOLS_MAP.keys()
+    opening_symbols = list(SYMBOLS_MAP.values())
+    closing_symbols = list(SYMBOLS_MAP.keys())
 
     for symbol in expression:
         if symbol in opening_symbols:
