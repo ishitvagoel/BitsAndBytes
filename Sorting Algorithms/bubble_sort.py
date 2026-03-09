@@ -14,10 +14,10 @@ def bubbleSort(input_list):
   """
   list_length = len(input_list)
   isSorted = False
-  for outer_index in xrange(list_length - 1):
+  for outer_index in range(list_length - 1):
     if not isSorted:
       isSorted = True
-      for inner_index in xrange(list_length - outer_index - 1):
+      for inner_index in range(list_length - outer_index - 1):
         if input_list[inner_index] > input_list[inner_index + 1]:
           isSorted = False
           input_list[inner_index], input_list[inner_index + 1] = input_list[inner_index + 1], input_list[inner_index]

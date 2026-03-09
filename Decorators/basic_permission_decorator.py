@@ -14,13 +14,13 @@ def UserPermission(function):
 
   def Wrapper(*args):
 
-    allow = raw_input("Allow to proceed the execution (y/n)?")
+    allow = input("Allow to proceed the execution (y/n)?")
     if allow == 'y' or allow == 'Y':
       function(*args)
-      print ("Method " + function.__name__ +
+      print("Method " + function.__name__ +
              " executed with %s arguments" % (len(args)))
     else:
-      print "Method execution denied by the user."
+      print("Method execution denied by the user.")
     return
 
   return Wrapper
@@ -28,7 +28,7 @@ def UserPermission(function):
 
 @UserPermission
 def main(*args):
-  print args
+  print(args)
 
 
 if __name__ == '__main__':

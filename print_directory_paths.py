@@ -15,11 +15,11 @@ def PrintFileStructure():
   try:
     for dir_name, sub_dir_list, file_list in os.walk(
         ROOT_DIR, topdown=TRAVERSAL_BOOLEAN_MAP[sys.argv[1]]):
-      print 'Found Directory: %s' % (dir_name)
+      print('Found Directory: %s' % (dir_name))
       for file_name in file_list:
-        print '\t%s' % (file_name)
+        print('\t%s' % (file_name))
   except IndexError as e:
-    print 'Traversal order not specified. Error: %s' % (e)
+    print('Traversal order not specified. Error: %s' % (e))
 
 
 def main():

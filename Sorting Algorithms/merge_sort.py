@@ -15,7 +15,7 @@ def mergeSort(array):
   if len(array) < 2:
     return array
 
-  middle = len(array)/2
+  middle = len(array)//2
   left_sub_array = array[:middle]
   right_sub_array = array[middle:]
 
@@ -25,7 +25,7 @@ def mergeSort(array):
   return merge(left_sub_array, right_sub_array)
 
 def merge(left_array, right_array):
-   """ Utility method to merge two given lists in ascending order.
+  """ Utility method to merge two given lists in ascending order.
 
   Call eg: merge([1, 2, 5, 7], [3, 6, 9])
 

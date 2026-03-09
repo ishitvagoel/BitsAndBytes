@@ -53,17 +53,17 @@ def GetUserPermissions(user):
 
 @AccessRequired('admin')
 def ManageUsers():
-  print "Managed Users successfully"
+  print("Managed Users successfully")
 
 
 @AccessRequired('dev')
 def ModifyDatabase():
-  print "Modified Database successfully"
+  print("Modified Database successfully")
 
 
 @AccessRequired('test')
 def ReadDatabase():
-  print "Read Database successfully"
+  print("Read Database successfully")
 
 
 def main():
