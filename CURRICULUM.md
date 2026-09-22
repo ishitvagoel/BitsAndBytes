@@ -145,8 +145,8 @@ MIT lectures 4 and 6–8, CLRS chapters 6 and 11–13, Princeton symbol tables, 
 | --- | --- | --- | --- | --- |
 | Traversals: preorder, inorder, postorder, level order | O(n) time. O(h) stack, or O(n) queue for levels. | Core | Present | `trees/traversals.py` and BST inorder |
 | Binary search tree, including deletion | O(h) search, insert, and delete. Sorted insertion makes h = n. | Core | Present | `trees/bst.py` |
-| Left-leaning red-black tree | O(log n) height after every insert and delete. | Core | Missing | This is the one balanced tree the course codes. The docstring derives it as a 2-3 tree stored in binary nodes. AVL is Named: MIT's lecture tree, same height bound, different rotations. A separate 2-3 type is not coded. |
-| Order-statistic tree | Rank and select in O(log n) once subtree sizes sit on the red-black nodes. | Core | Missing | One augmentation of the tree above, not a second species. |
+| Left-leaning red-black tree | O(log n) height after every insert and delete. | Core | Present | `trees/llrb.py` |
+| Order-statistic tree | Rank and select in O(log n) once subtree sizes sit on the red-black nodes. | Core | Present | Augmented `LeftLeaningRedBlackTree` |
 | Binary heap as a priority queue | `heapify` is O(n). Push and pop are O(log n). | Core | Present | `heaps/priority_queue.py` and `heapsort.py` |
 | `decrease-key` | O(log n) with an index map from the item to its heap slot. A linear scan is O(n) and does not earn the Dijkstra bound below. | Core | Present | `heaps/priority_queue.py` |
 | Heapsort | O(n log n) time, O(1) extra memory, not stable. | Core | Present | `heapsort` |
@@ -204,8 +204,8 @@ MIT lectures 9–14 and CLRS's graph part. The package today is a directed adjac
 | DFS and BFS orders | O(V + E) | Core | Present | `depth_first_order`, `breadth_first_order` |
 | Undirected versus directed | The same walk with a different edge rule answers a different question. | Core | Present | `UndirectedGraph` in `graphs/algorithms.py` |
 | Unweighted distances and parents | BFS order is the shortest-path order. The current function returns neither distances nor parents. | Core | Present | `bfs_distances_and_parents` |
-| Cycle detection and topological sort | A back edge is a cycle. A DAG has a finishing-time order. O(V + E). | Core | Partial | Topological sort in `graphs/algorithms.py`; cycle detection still Missing |
-| Connected components, and one strong-component algorithm | Kosaraju or Tarjan, not both. O(V + E). | Core | Partial | Undirected components in `connected_components`; strong components Missing |
+| Cycle detection and topological sort | A back edge is a cycle. A DAG has a finishing-time order. O(V + E). | Core | Present | `has_directed_cycle`, `topological_order` |
+| Connected components, and one strong-component algorithm | Kosaraju or Tarjan, not both. O(V + E). | Core | Present | `connected_components`, `kosaraju_strongly_connected_components` |
 | Weights stored on edges | `add_edge` already takes a weight. | Core | Present |
 | Dijkstra, scan and heap | Scan is O(V² + E) and stays documented. Heap is O((V + E) log V) with the index map from chapter 3. Non-negative weights only. | Core | Present |
 | Bellman-Ford | O(VE), and a negative cycle is detectable. This is why Dijkstra has a precondition. | Core | Present |
@@ -231,7 +231,7 @@ CLRS chapters on divide-and-conquer, dynamic programming, and greedy algorithms.
 
 ### 7.2 Dynamic programming
 
-**Core, Missing.** Checklist: subproblems, a recurrence, an order that respects dependencies, and a bottom-up table. Memoized recursion is a comparison, not the required form, and it states its stack depth. The interpreter's recursion limit is part of that sentence.
+**Core, Present.** Checklist: subproblems, a recurrence, an order that respects dependencies, and a bottom-up table. See `dynamic_programming/classic.py`.
 
 | Problem | Bound to derive | Why it is here |
 | --- | --- | --- |
@@ -373,16 +373,16 @@ Every **Core** topic that is Missing or Partial has one row. **Named** topics do
 | 7 | Comparison lower bound. Counting sort, integer radix, LSD string radix. Quickselect. Binary search on the answer. Inversion count. A quick-sort stability test on a type that defines `<=` | Sorts, binary search | **Done** — `sorting/selection_and_radix.py` |
 | 8 | Linear probing, and one degenerate hash on the chaining table | Chaining table | **Done** |
 | 9 | Union-find with and without the heuristics. Percolation | Nothing structural | **Done** |
-| 10 | Directed versus undirected. BFS distances and parents. Topological sort. One component algorithm. Bellman-Ford. DAG shortest paths. Heap Dijkstra, keeping the scan in the docstring. Prim. Kruskal. Bipartite test. 0-1 BFS. Floyd-Warshall | Rows 3, 5, and 9. Kruskal uses row 9. 0-1 BFS uses the deque. | **Mostly done** — `graphs/algorithms.py`; cycle detection and strong components still open |
-| 11 | Dynamic programming problems in section 7.2, bottom-up | Arrays. DAG DP uses row 10. |
-| 12 | Interval scheduling, fractional knapsack, Huffman | Heap, sort |
-| 13 | Backtracking. Two pointers, sliding window, prefix sums, monotonic queue | Arrays, hash table, deque |
-| 14 | Trie, KMP, Rabin-Karp, inverted index, run-length encoding, suffix array with LCP | Hashing, LSD radix from row 7 |
-| 15 | Fenwick tree, segment tree with lazy range add, sparse table | Arrays |
-| 16 | Bloom filter. Skip list. Persistent stack. | Hashing for the filter. Randomized levels for the skip list. |
-| 17 | B-tree. Toy LSM using the skip list or the red-black tree, the Bloom filter, and a replay log. Locality note beside `DynamicArray`. Exact nearest neighbor. | Rows 6 or 16 for the memtable, row 16 for the filter |
-| 18 | Vertex-cover 2-approximation | Graphs |
-| 19 | Worked traces on the Present modules that lack one: heapsort, chaining, BST, binary search | Those modules. Polish, not a new algorithm. |
+| 10 | Directed versus undirected. BFS distances and parents. Topological sort. One component algorithm. Bellman-Ford. DAG shortest paths. Heap Dijkstra, keeping the scan in the docstring. Prim. Kruskal. Bipartite test. 0-1 BFS. Floyd-Warshall | Rows 3, 5, and 9. Kruskal uses row 9. 0-1 BFS uses the deque. | **Done** — `graphs/algorithms.py` |
+| 11 | Dynamic programming problems in section 7.2, bottom-up | Arrays. DAG DP uses row 10. | **Done** — `dynamic_programming/classic.py` |
+| 12 | Interval scheduling, fractional knapsack, Huffman | Heap, sort | **Done** — `greedy/classic.py` |
+| 13 | Backtracking. Two pointers, sliding window, prefix sums, monotonic queue | Arrays, hash table, deque | **Done** — `backtracking/`, `patterns/` |
+| 14 | Trie, KMP, Rabin-Karp, inverted index, run-length encoding, suffix array with LCP | Hashing, LSD radix from row 7 | **Done** — `strings/algorithms.py` |
+| 15 | Fenwick tree, segment tree with lazy range add, sparse table | Arrays | **Done** — `range_queries/structures.py` |
+| 16 | Bloom filter. Skip list. Persistent stack. | Hashing for the filter. Randomized levels for the skip list. | **Done** — `approximate/structures.py` |
+| 17 | B-tree. Toy LSM using the skip list or the red-black tree, the Bloom filter, and a replay log. Locality note beside `DynamicArray`. Exact nearest neighbor. | Rows 6 or 16 for the memtable, row 16 for the filter | **Done** — `storage/engines.py` |
+| 18 | Vertex-cover 2-approximation | Graphs | **Done** — `limits/approximation.py` |
+| 19 | Worked traces on the Present modules that lack one: heapsort, chaining, BST, binary search | Those modules. Polish, not a new algorithm. | **Done** |
 
 Linked-list puzzles, the comparison sorts already in the tree, the stack lessons, binary search on a sorted array, separate chaining, and the O(V²) Dijkstra stay. They are not rows. Dijkstra is a row only for the heap bound.
 
