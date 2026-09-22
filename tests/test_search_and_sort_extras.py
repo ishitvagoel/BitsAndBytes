@@ -69,3 +69,30 @@ def test_lomuto_quick_sort_sorts_duplicate_integers() -> None:
     values = [0, 0, 0, 0, 0, 0, 0]
     quick_sort_three_way(values)
     assert values == [0, 0, 0, 0, 0, 0, 0]
+
+
+def test_lomuto_quick_sort_is_not_stable_on_equal_keys() -> None:
+    class Item:
+        def __init__(self, key: int, label: str) -> None:
+            self.key = key
+            self.label = label
+
+        def __lt__(self, other: object) -> bool:
+            assert isinstance(other, Item)
+            return self.key < other.key
+
+        def __le__(self, other: object) -> bool:
+            assert isinstance(other, Item)
+            return self.key <= other.key
+
+    stable_reference = [Item(1, "a"), Item(1, "c"), Item(2, "b")]
+    saw_instability = False
+    for seed in range(40):
+        items = [Item(1, "a"), Item(2, "b"), Item(1, "c")]
+        quick_sort(items, rng=random.Random(seed))
+        if [item.key for item in items] != [1, 1, 2]:
+            continue
+        if [item.label for item in items] != [item.label for item in stable_reference]:
+            saw_instability = True
+            break
+    assert saw_instability

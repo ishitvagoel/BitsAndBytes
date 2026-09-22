@@ -85,7 +85,7 @@ Union-find sits before graphs because Kruskal is a client, not a prerequisite. L
 
 ## 1. Analysis
 
-**Core, Missing** as a module. CLRS part I, MIT lecture 1, CS 61B asymptotics. Today the vocabulary exists only inside individual `Cost` sections.
+**Core, Missing** as a module. CLRS part I, MIT lecture 1, CS 61B asymptotics. The vocabulary module is `bitsandbytes/complexity.py` (Present).
 
 The cost model is the **word RAM**: a pointer write, a comparison, a hash of a fixed-size key, and an arithmetic operation on a machine word are each one step. That model is an assumption. CPython integers grow without a fixed width, so a Fibonacci number with Θ(n) bits is not O(1) to add. Any Core dynamic program whose values do not fit in a word says so, and the required Fibonacci implementation reduces modulo a fixed word so the model holds. Unbounded Python integers are a note, not the measured bound.
 
@@ -93,8 +93,8 @@ Python does not perform tail-call elimination. The default recursion limit is 10
 
 | Topic | Teach | Tier | Status |
 | --- | --- | --- | --- |
-| Word RAM, and where Python leaves it | The steps above. Big integers and the recursion limit. | Core | Missing |
-| O, Θ, Ω | Upper, tight, and lower bounds. Use Θ when the section has a sum such as `n(n - 1) / 2`. | Core | Missing as a definition. The symbols already appear in docstrings. |
+| Word RAM, and where Python leaves it | The steps above. Big integers and the recursion limit. | Core | Present |
+| O, Θ, Ω | Upper, tight, and lower bounds. Use Θ when the section has a sum such as `n(n - 1) / 2`. | Core | Present |
 | Best, typical, worst | The house style when they differ. | Core | Present as a habit |
 | Recurrences | `T(n) = 2T(n/2) + O(n)`, `T(n) = T(n/2) + O(1)`, `T(n) = T(n - 1) + O(n)`. Substitution and a recursion tree. Akra–Bazzi is out of scope. | Core | Partial, inside merge sort and quick sort |
 | Amortized cost | Aggregate analysis of geometric growth. The potential method is Named, used in print for splay trees. | Core for the aggregate argument | Partial, inside `Stack.push` |
@@ -114,6 +114,8 @@ Python does not perform tail-call elimination. The default recursion limit is 10
 
 **Suggested shape.** One module, `bitsandbytes/complexity.py`, for the vocabulary and the three recurrences, plus `library_costs.py`. The recurrence helper classifies those three shapes. It is not a solver for arbitrary recurrences.
 
+**Library costs** live in `bitsandbytes/library_costs.py` (Present).
+
 ---
 
 ## 2. Linear structures
@@ -129,8 +131,8 @@ CLRS chapter 10. Most of this chapter exists. Do not add another dozen linked-li
 | Stack applications | O(n) monotonic scans; O(n²) stack sort | Core | Present | `stacks/` |
 | Queue on a doubly linked list | O(1) enqueue and dequeue | Core | Present | `queues/linked_queue.py` |
 | Circular buffer | O(1), with an explicit size so full and empty differ | Core | Present | `queues/circular_queue.py` |
-| Deque | O(1) at both ends; O(n) in the middle | Core | Missing | Build it on the doubly linked list. Chapter 1 already says CPython uses blocks. |
-| Dynamic array | n appends copy O(n) elements in total under geometric growth | Core | Partial | Told inside `Stack.push`. No standalone type yet. |
+| Deque | O(1) at both ends; O(n) in the middle | Core | Present | `deques/linked_deque.py` |
+| Dynamic array | n appends copy O(n) elements in total under geometric growth | Core | Present | `linear/dynamic_array.py` |
 | Recursion and the call stack | Recursive reverse is O(n) stack. Python does not perform tail-call elimination. | Core | Present | `linked_lists/reverse.py` |
 
 ---
@@ -141,16 +143,16 @@ MIT lectures 4 and 6–8, CLRS chapters 6 and 11–13, Princeton symbol tables, 
 
 | Topic | Cost to derive | Tier | Status | Notes |
 | --- | --- | --- | --- | --- |
-| Traversals: preorder, inorder, postorder, level order | O(n) time. O(h) stack, or O(n) queue for levels. | Core | Partial | Inorder exists on the BST. The other three, on a plain binary tree, are missing. |
-| Binary search tree, including deletion | O(h) search, insert, and delete. Sorted insertion makes h = n. | Core | Partial | `trees/bst.py` has insert, contains, and iterative inorder. Deletion is the missing case split: zero children, one child, two children via the successor. The row is not Present until deletion exists. |
+| Traversals: preorder, inorder, postorder, level order | O(n) time. O(h) stack, or O(n) queue for levels. | Core | Present | `trees/traversals.py` and BST inorder |
+| Binary search tree, including deletion | O(h) search, insert, and delete. Sorted insertion makes h = n. | Core | Present | `trees/bst.py` |
 | Left-leaning red-black tree | O(log n) height after every insert and delete. | Core | Missing | This is the one balanced tree the course codes. The docstring derives it as a 2-3 tree stored in binary nodes. AVL is Named: MIT's lecture tree, same height bound, different rotations. A separate 2-3 type is not coded. |
 | Order-statistic tree | Rank and select in O(log n) once subtree sizes sit on the red-black nodes. | Core | Missing | One augmentation of the tree above, not a second species. |
-| Binary heap as a priority queue | `heapify` is O(n). Push and pop are O(log n). | Core | Partial | `heaps/heapsort.py` sifts down. No `push` / `pop` / `peek` queue yet. |
-| `decrease-key` | O(log n) with an index map from the item to its heap slot. A linear scan is O(n) and does not earn the Dijkstra bound below. | Core | Missing | Built with the priority queue, before the heap-based Dijkstra. |
+| Binary heap as a priority queue | `heapify` is O(n). Push and pop are O(log n). | Core | Present | `heaps/priority_queue.py` and `heapsort.py` |
+| `decrease-key` | O(log n) with an index map from the item to its heap slot. A linear scan is O(n) and does not earn the Dijkstra bound below. | Core | Present | `heaps/priority_queue.py` |
 | Heapsort | O(n log n) time, O(1) extra memory, not stable. | Core | Present | `heapsort` |
 | Separate chaining | Expected O(1) lookup. O(n) when the table doubles and rehashes. | Core | Present | `hash_tables/chaining.py` |
-| Linear probing | Expected O(1) while the load factor stays bounded away from 1. Clustering is the story. Tombstones on delete. | Core | Missing | Princeton teaches this beside chaining. |
-| A degenerate hash | One bucket of length n, so the expected bound is false. | Core | Missing | A note on the chaining table. CPython's randomized hashing is why production `dict` is hard to force into this shape. Do not build a tool aimed at another process. |
+| Linear probing | Expected O(1) while the load factor stays bounded away from 1. Clustering is the story. Tombstones on delete. | Core | Present | `hash_tables/linear_probing.py` |
+| A degenerate hash | One bucket of length n, so the expected bound is false. | Core | Present | `degenerate_chain_length` in `linear_probing.py` |
 
 Fibonacci heaps are Named. They improve Dijkstra's comparison bound in the textbook and are not what libraries ship. Splay trees are Named: amortized O(log n), no extra code.
 
@@ -168,13 +170,13 @@ CLRS part II, MIT lectures 3 and 5, Berkeley's sorting block.
 | Merge sort | `T(n) = 2T(n/2) + O(n) = O(n log n)`. O(n) extra memory. Stable. | Core | Present, on arrays and on lists |
 | Quick sort, Lomuto and three-way | Expected O(n log n) on distinct keys. All-equal Lomuto is O(n²). Three-way split repairs that case. Not stable. Lomuto needs `<=`, so a stability test has to be written with a type that defines it. | Core | Present |
 | Heapsort | Chapter 3 | Core | Present |
-| Comparison lower bound | `log2(n!)` is about `n log n` comparisons. | Core | Missing |
-| Counting sort, integer radix, LSD string radix | O(n + k) and O(d(n + k)). The lower bound does not apply. LSD is the same pass on a string alphabet of fixed width. MSD is Named. | Core | Missing |
-| Quickselect | Expected O(n). Worst-case linear selection (median of medians) is Named: the bound is the lesson, the constant factor is not worth the code. | Core for the expected algorithm | Missing |
+| Comparison lower bound | `log2(n!)` is about `n log n` comparisons. | Core | Present |
+| Counting sort, integer radix, LSD string radix | O(n + k) and O(d(n + k)). The lower bound does not apply. LSD is the same pass on a string alphabet of fixed width. MSD is Named. | Core | Present |
+| Quickselect | Expected O(n). Worst-case linear selection (median of medians) is Named: the bound is the lesson, the constant factor is not worth the code. | Core for the expected algorithm | Present |
 | Binary search, lower bound, upper bound | `T(n) = T(n/2) + O(1) = O(log n)` | Core | Present |
-| Binary search on the answer | The search space is a numeric range. Each probe is a monotonic predicate. | Core | Missing |
-| Inversion count | Merge sort, plus a count of pairs that cross the midpoint. | Core | Missing |
-| Stability tests | Bubble, insertion, and merge have tests. Selection has a test that equal keys do not keep their original order. | Core | Partial for quick sort's label test |
+| Binary search on the answer | The search space is a numeric range. Each probe is a monotonic predicate. | Core | Present |
+| Inversion count | Merge sort, plus a count of pairs that cross the midpoint. | Core | Present |
+| Stability tests | Bubble, insertion, and merge have tests. Selection has a test that equal keys do not keep their original order. | Core | Present for quick sort's label test |
 
 Timsort, already in chapter 1, is the production sort. Integer or string radix is for keys that are digits. Quickselect is for "the k-th" without sorting the rest.
 
@@ -186,8 +188,8 @@ CLRS's disjoint-set chapter, Princeton's percolation, Berkeley's disjoint sets. 
 
 | Topic | Cost to derive | Tier | Status |
 | --- | --- | --- | --- |
-| Union by rank and path compression | Treated as effectively constant per operation (inverse Ackermann). The code also shows the tree without those heuristics, so the worse bound has a program to point at. | Core | Missing |
-| Percolation | A grid of sites, unions between open neighbors, connectivity queried at the two ends. | Core | Missing | The second client, beside Kruskal. |
+| Union by rank and path compression | Treated as effectively constant per operation (inverse Ackermann). The code also shows the tree without those heuristics, so the worse bound has a program to point at. | Core | Present |
+| Percolation | A grid of sites, unions between open neighbors, connectivity queried at the two ends. | Core | Present |
 
 ---
 
@@ -200,19 +202,19 @@ MIT lectures 9–14 and CLRS's graph part. The package today is a directed adjac
 | Adjacency lists | O(V + E) space. | Core | Present |
 | Adjacency matrix | O(V²) space, O(1) edge test. | Named | The paragraph lives next to the list type. A second class is not required. |
 | DFS and BFS orders | O(V + E) | Core | Present | `depth_first_order`, `breadth_first_order` |
-| Undirected versus directed | The same walk with a different edge rule answers a different question. | Core | Missing | An explicit flag or a pair of constructors. |
-| Unweighted distances and parents | BFS order is the shortest-path order. The current function returns neither distances nor parents. | Core | Missing |
-| Cycle detection and topological sort | A back edge is a cycle. A DAG has a finishing-time order. O(V + E). | Core | Missing |
-| Connected components, and one strong-component algorithm | Kosaraju or Tarjan, not both. O(V + E). | Core | Missing |
-| Weights stored on edges | `add_edge` already takes a weight. | Partial | Storing a weight is not a weighted search. |
-| Dijkstra, scan and heap | Scan is O(V² + E) and stays documented. Heap is O((V + E) log V) with the index map from chapter 3. Non-negative weights only. | Core | Partial | Only the scan exists. |
-| Bellman-Ford | O(VE), and a negative cycle is detectable. This is why Dijkstra has a precondition. | Core | Missing |
-| Shortest paths in a DAG | One topological pass, O(V + E), negative weights allowed. | Core | Missing |
-| Prim | O((V + E) log V) with the heap. Cut property in one paragraph. | Core | Missing |
-| Kruskal | O(E log E) after sorting edges, using chapter 5. | Core | Missing | Depends on union-find. |
-| Bipartite test | BFS 2-coloring, O(V + E). | Core | Missing |
-| 0-1 BFS | A deque, not a heap, when every weight is 0 or 1. | Core | Missing | Depends on the deque. |
-| Floyd-Warshall | O(V³) time, O(V²) memory. | Core | Missing | One function. Johnson's algorithm is Named. |
+| Undirected versus directed | The same walk with a different edge rule answers a different question. | Core | Present | `UndirectedGraph` in `graphs/algorithms.py` |
+| Unweighted distances and parents | BFS order is the shortest-path order. The current function returns neither distances nor parents. | Core | Present | `bfs_distances_and_parents` |
+| Cycle detection and topological sort | A back edge is a cycle. A DAG has a finishing-time order. O(V + E). | Core | Partial | Topological sort in `graphs/algorithms.py`; cycle detection still Missing |
+| Connected components, and one strong-component algorithm | Kosaraju or Tarjan, not both. O(V + E). | Core | Partial | Undirected components in `connected_components`; strong components Missing |
+| Weights stored on edges | `add_edge` already takes a weight. | Core | Present |
+| Dijkstra, scan and heap | Scan is O(V² + E) and stays documented. Heap is O((V + E) log V) with the index map from chapter 3. Non-negative weights only. | Core | Present |
+| Bellman-Ford | O(VE), and a negative cycle is detectable. This is why Dijkstra has a precondition. | Core | Present |
+| Shortest paths in a DAG | One topological pass, O(V + E), negative weights allowed. | Core | Present |
+| Prim | O((V + E) log V) with the heap. Cut property in one paragraph. | Core | Present |
+| Kruskal | O(E log E) after sorting edges, using chapter 5. | Core | Present |
+| Bipartite test | BFS 2-coloring, O(V + E). | Core | Present |
+| 0-1 BFS | A deque, not a heap, when every weight is 0 or 1. | Core | Present |
+| Floyd-Warshall | O(V³) time, O(V²) memory. | Core | Present |
 | Maximum flow and bipartite matching | Ford-Fulkerson and Edmonds-Karp's O(VE²) bound. | Named | Most product code calls a solver. No flow implementation. |
 
 Greedy is the right label for Dijkstra and Prim when chapter 7 is written.

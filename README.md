@@ -2,6 +2,13 @@
 
 A study path for the data structures in this repository. Read the sections in order. Every function and method has a `Cost` section in its docstring that names the input size, counts the loops, and separates extra memory from the input. The notes below record only the result of that derivation. Worked traces for the trickiest pointer and stack walks live in those module docstrings.
 
+For the full target course order and gap list, see [CURRICULUM.md](CURRICULUM.md).
+
+## 0. Analysis and library costs
+
+* `bitsandbytes/complexity.py` — word RAM model, O/Θ/Ω vocabulary, recursion limit, and the three recurrence shapes (merge divide, halving, linear decrement).
+* `bitsandbytes/library_costs.py` — why BFS uses `deque`, `heapq.nsmallest`, `bisect.insort`, and Timsort; `list.pop(0)` costs O(n) element moves.
+
 ```mermaid
 flowchart TD
   lists[SinglyLinkedList]
@@ -73,26 +80,41 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 
 * `search/binary_search.py` — `binary_search`, `lower_bound`, and `upper_bound` on a sorted sequence. O(log n) time, O(1) extra memory each.
 
-## 7. Queues
+## 7. Queues and deque
 
 * `queues/linked_queue.py` — FIFO with a doubly linked list. Enqueue and dequeue are O(1).
 * `queues/circular_queue.py` — fixed-capacity ring buffer with an explicit size counter. Enqueue and dequeue are O(1).
+* `linear/dynamic_array.py` — geometric doubling; n appends copy O(n) elements in total.
+* `deques/linked_deque.py` — O(1) at both ends on a doubly linked list; middle insert is O(n).
 
 ## 8. Heaps
 
 * `heaps/heapsort.py` — `heapify` is O(n); `heapsort` is O(n log n) time and O(1) extra memory. Not stable.
+* `heaps/priority_queue.py` — min-heap with `decrease_key` through an index map. Push, pop, and decrease-key are O(log n).
 
 ## 9. Hash table
 
 * `hash_tables/chaining.py` — separate chaining. Expected O(1) lookup and insert; rehash is O(n) but amortized.
+* `hash_tables/linear_probing.py` — open addressing with tombstones. `degenerate_chain_length` explains a one-bucket table.
 
 ## 10. Binary search tree
 
-* `trees/bst.py` — insert and search are O(h) for height h; in-order walk is O(n) with O(h) stack memory.
+* `trees/bst.py` — insert, search, delete, and in-order walk. O(h) per operation for height h.
+* `trees/traversals.py` — preorder, postorder, and level order in O(n) time.
 
-## 11. Graphs
+## 11. Union-find
 
-* `graphs/adjacency_list.py` — adjacency lists. DFS and BFS are O(V + E). The teaching `dijkstra_distances` scans all unsettled vertices each step, so O(V²) time on dense graphs; a heap would be O((V + E) log V).
+* `union_find/disjoint_set.py` — with and without union-by-rank and path compression.
+* `union_find/percolation.py` — grid connectivity as a client.
+
+## 12. Sorting extras
+
+* `sorting/selection_and_radix.py` — comparison lower bound, counting and LSD radix sorts, quickselect, binary search on the answer, inversion count.
+
+## 13. Graphs
+
+* `graphs/adjacency_list.py` — adjacency lists. DFS and BFS are O(V + E). The teaching `dijkstra_distances` scans all unsettled vertices each step, so O(V²) time on dense graphs.
+* `graphs/algorithms.py` — BFS distances, topological sort, Bellman-Ford, heap Dijkstra, Kruskal, Prim, 0-1 BFS, Floyd-Warshall, bipartite test.
 
 ## Appendix: Python tools
 

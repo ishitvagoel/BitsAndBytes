@@ -14,8 +14,6 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
-
 T = TypeVar("T")
 
 
@@ -108,12 +106,53 @@ class BinarySearchTree(Generic[T]):
         nodes: O(h) extra memory.
         """
 
-        stack: AlgorithmStack[TreeNode[T]] = AlgorithmStack()
-        node = self.root
-        while node is not None or not stack.is_empty:
-            while node is not None:
-                stack.push(node)
-                node = node.left
-            current = stack.pop()
-            yield current.data
-            node = current.right
+        from bitsandbytes.trees.traversals import inorder_iter
+
+        yield from inorder_iter(self.root)
+
+    def delete(self, value: T) -> bool:
+        """Remove ``value`` if present. Return whether a node was removed.
+
+        Worked trace (delete ``3`` from ``2 <- 3 -> 5``):
+
+        * Search finds the node with one right child.
+        * Replace its data with the in-order successor ``5``, then delete the
+          successor leaf.
+
+        Cost
+        ----
+        Search is O(h). Each case performs a constant number of pointer
+        rewrites, except the two-child case which walks the right spine for
+        the successor, still O(h). Total O(h) time, O(1) extra memory
+        iteratively.
+        """
+
+        self.root, removed = _delete_node(self.root, value)
+        return removed
+
+
+def _delete_node(
+    node: TreeNode[T] | None,
+    value: T,
+) -> tuple[TreeNode[T] | None, bool]:
+    """Return the new subtree root and whether a deletion happened."""
+
+    if node is None:
+        return None, False
+    if value < node.data:
+        node.left, removed = _delete_node(node.left, value)
+        return node, removed
+    if node.data < value:
+        node.right, removed = _delete_node(node.right, value)
+        return node, removed
+    # Match found.
+    if node.left is None:
+        return node.right, True
+    if node.right is None:
+        return node.left, True
+    successor = node.right
+    while successor.left is not None:
+        successor = successor.left
+    node.data = successor.data
+    node.right, _ = _delete_node(node.right, successor.data)
+    return node, True
