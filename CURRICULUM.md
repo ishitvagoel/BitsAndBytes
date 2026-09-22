@@ -85,7 +85,7 @@ Union-find sits before graphs because Kruskal is a client, not a prerequisite. L
 
 ## 1. Analysis
 
-**Core, Missing** as a module. CLRS part I, MIT lecture 1, CS 61B asymptotics. The vocabulary module is `bitsandbytes/complexity.py` (Present).
+**Core, Present.** The vocabulary module is `bitsandbytes/complexity.py`.
 
 The cost model is the **word RAM**: a pointer write, a comparison, a hash of a fixed-size key, and an arithmetic operation on a machine word are each one step. That model is an assumption. CPython integers grow without a fixed width, so a Fibonacci number with Θ(n) bits is not O(1) to add. Any Core dynamic program whose values do not fit in a word says so, and the required Fibonacci implementation reduces modulo a fixed word so the model holds. Unbounded Python integers are a note, not the measured bound.
 
@@ -249,7 +249,7 @@ Interval DP is Named (one sentence on matrix-chain order). Digit DP, tree DP, an
 
 ### 7.3 Greedy algorithms
 
-**Core, Missing.** One exchange argument, and one counterexample where the greedy choice fails.
+**Core, Present.** See `greedy/classic.py`.
 
 | Problem | Bound | Docstring obligation |
 | --- | --- | --- |
@@ -259,11 +259,11 @@ Interval DP is Named (one sentence on matrix-chain order). Digit DP, tree DP, an
 
 ### 7.4 Backtracking
 
-**Core, Missing.** Permutations, combinations, subsets, and N-queens. Derive the size of the recursion tree. An early reject does not change the worst-case tree. State the stack depth. Sudoku is Named.
+**Core, Present.** See `backtracking/search.py`.
 
 ### 7.5 Array patterns
 
-**Missing.** These are not credited by the linked-list pointer walks in chapter 2. Those walks stay in chapter 2.
+**Present.** See `patterns/arrays.py`.
 
 | Pattern | Bound | Tier |
 | --- | --- | --- |
@@ -280,14 +280,14 @@ Princeton's string half and CLRS's string-matching chapter. Bracket matching sca
 
 | Topic | Cost to derive | Tier | Status |
 | --- | --- | --- | --- |
-| Trie | Build O(total characters). Query O(length of the key). | Core | Missing |
+| Trie | Build O(total characters). Query O(length of the key). | Core | Present | `strings/algorithms.py` |
 | Ternary search trie | Princeton's space-conscious alternative. | Named | Not a second implementation. |
-| Knuth-Morris-Pratt | Failure function O(m), then O(n + m). | Core | Missing |
-| Rabin-Karp | Expected O(n + m) with a rolling hash. A bad hash collides. | Core | Missing |
+| Knuth-Morris-Pratt | Failure function O(m), then O(n + m). | Core | Present |
+| Rabin-Karp | Expected O(n + m) with a rolling hash. A bad hash collides. | Core | Present |
 | Boyer-Moore | The skip is why it is often faster. The bad-character rule is the whole note. | Named | |
-| Inverted index | Build O(total tokens). Query O(postings of the term). | Core | Missing |
-| Run-length encoding | O(n) | Core | Missing | Huffman is chapter 7. |
-| Suffix arrays and LCP | O(n log² n) or O(n log n) by sorting suffixes. SA-IS is Named. | Core | Missing |
+| Inverted index | Build O(total tokens). Query O(postings of the term). | Core | Present |
+| Run-length encoding | O(n) | Core | Present | Huffman is chapter 7. |
+| Suffix arrays and LCP | O(n log² n) or O(n log n) by sorting suffixes. SA-IS is Named. | Core | Present |
 | Thompson's NFA construction | Princeton's closing topic. | Named | Not a regular-expression engine. |
 
 LSD radix sort is chapter 4, not a second string course.
@@ -300,13 +300,13 @@ These change a bound the earlier chapters cannot. Competitive-programming machin
 
 | Topic | Bound | Tier | Status |
 | --- | --- | --- | --- |
-| Fenwick tree | O(log n) point update and prefix query. | Core | Missing |
-| Segment tree, with lazy range add | O(log n) point update and range query. One lazy operation: range add. | Core | Missing |
-| Sparse table | O(n log n) build, O(1) idempotent range query, no updates. | Core | Missing |
-| Bloom filter | O(k) per insert and query. False positives. No false negatives. No deletes in the basic form. | Core | Missing |
+| Fenwick tree | O(log n) point update and prefix query. | Core | Present | `range_queries/structures.py` |
+| Segment tree, with lazy range add | O(log n) point update and range query. One lazy operation: range add. | Core | Present |
+| Sparse table | O(n log n) build, O(1) idempotent range query, no updates. | Core | Present |
+| Bloom filter | O(k) per insert and query. False positives. No false negatives. No deletes in the basic form. | Core | Present | `approximate/structures.py` |
 | Count-Min sketch, HyperLogLog | Approximate frequency, approximate cardinality. | Named | The Bloom filter is the one coded approximate structure. |
 | LFU with frequency buckets | O(1) operations. | Named | LRU is Present in `linked_lists/lru_cache.py`. |
-| Persistent stack | Old versions remain. O(1) per push. | Core | Missing | Path-copying a tree is Named. |
+| Persistent stack | Old versions remain. O(1) per push. | Core | Present |
 
 ---
 

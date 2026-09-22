@@ -115,7 +115,37 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 ## 13. Graphs
 
 * `graphs/adjacency_list.py` — adjacency lists. DFS and BFS are O(V + E). The teaching `dijkstra_distances` scans all unsettled vertices each step, so O(V²) time on dense graphs.
-* `graphs/algorithms.py` — BFS distances, topological sort, Bellman-Ford, heap Dijkstra, Kruskal, Prim, 0-1 BFS, Floyd-Warshall, bipartite test.
+* `graphs/algorithms.py` — BFS distances, topological sort, cycle detection, Kosaraju SCCs, Bellman-Ford, heap Dijkstra, Kruskal, Prim, 0-1 BFS, Floyd-Warshall, bipartite test.
+
+## 14. Dynamic programming
+
+* `dynamic_programming/classic.py` — bottom-up Fibonacci mod word, coin change, knapsack, LCS, edit distance, LIS, house robber, word break, DAG longest path, unbounded knapsack.
+
+## 15. Greedy algorithms
+
+* `greedy/classic.py` — interval scheduling, fractional knapsack, Huffman codes.
+
+## 16. Backtracking and array patterns
+
+* `backtracking/search.py` — permutations, combinations, subsets, N-queens count.
+* `patterns/arrays.py` — two pointers, sliding window, prefix sums, monotonic-queue window maximum.
+
+## 17. Strings
+
+* `strings/algorithms.py` — trie, KMP, Rabin-Karp, inverted index, run-length encoding, suffix array with LCP.
+
+## 18. Range queries and approximate structures
+
+* `range_queries/structures.py` — Fenwick tree, lazy segment tree, sparse table for RMQ.
+* `approximate/structures.py` — Bloom filter, skip list, persistent stack frames.
+
+## 19. Storage and locality
+
+* `storage/engines.py` — in-memory B-tree, write-ahead log, toy LSM with Bloom-filtered runs, scan benchmark, brute-force nearest neighbor.
+
+## 20. Limits and approximation
+
+* `limits/approximation.py` — 2-approximation vertex cover.
 
 ## Appendix: Python tools
 
