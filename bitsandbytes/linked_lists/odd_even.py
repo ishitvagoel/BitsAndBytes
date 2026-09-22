@@ -35,6 +35,8 @@ def group_by_position_parity(lst: LinkedList[T]) -> None:
     Each iteration rewrites two ``next`` pointers: O(1). Time is O(n). The
     final ``refresh`` is another O(n). Only ``odd``, ``even``, and
     ``even_head`` are stored: O(1) extra memory.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()

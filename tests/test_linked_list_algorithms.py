@@ -1,5 +1,7 @@
 """Linked-list algorithms, including the original sample inputs."""
 
+import random
+
 import pytest
 
 from bitsandbytes import LinkedList
@@ -138,7 +140,8 @@ def test_intersection_sample_and_miss() -> None:
     shared = find_intersection(first, second)
     assert shared is not None
     assert shared.data == 4
-    assert len(second) == 2
+    # require_linear rebuilds the cache from the spliced chain.
+    assert len(second) == 5
 
     assert find_intersection(LinkedList([1, 2]), LinkedList([3, 4])) is None
     assert find_intersection(LinkedList(), LinkedList([1])) is None
@@ -265,3 +268,26 @@ def test_reviewer_rotation_inserts_new_people_after_the_cursor() -> None:
     assert reviewers.next_reviewer().name == "Michael Schumacher"
     assert reviewers.next_reviewer().name == "Sachin Tendulkar"
     assert reviewers.next_reviewer().name == "Sergei Bubka"
+
+
+def test_reverse_iterative_matches_python_on_random_lists() -> None:
+    rng = random.Random(0)
+    for _ in range(20):
+        length = rng.randint(0, 12)
+        values = [rng.randint(-5, 5) for _ in range(length)]
+        lst = LinkedList(values)
+        reverse_iterative(lst)
+        assert list(lst) == list(reversed(values))
+
+
+def test_merge_sorted_matches_sorted_concatenation() -> None:
+    rng = random.Random(1)
+    for _ in range(15):
+        left_values = sorted(rng.randint(0, 9) for _ in range(rng.randint(0, 6)))
+        right_values = sorted(rng.randint(0, 9) for _ in range(rng.randint(0, 6)))
+        left = LinkedList(left_values)
+        right = LinkedList(right_values)
+        merged = merge_sorted(left, right)
+        assert list(merged) == sorted(left_values + right_values)
+        assert list(left) == []
+        assert list(right) == []

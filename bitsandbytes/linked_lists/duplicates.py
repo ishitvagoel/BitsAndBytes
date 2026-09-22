@@ -32,6 +32,8 @@ def remove_sorted_duplicates(lst: LinkedList[T]) -> None:
     number of times. Each examination compares two values and maybe rewrites
     one pointer: O(1). Time is O(n). ``refresh`` walks the survivors, still
     O(n). No auxiliary collection: O(1) extra memory.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()
@@ -57,6 +59,7 @@ def remove_unsorted_duplicates(lst: LinkedList[T]) -> None:
     expected, and unlinking is O(1). Time is O(n) expected. The set stores
     one entry per distinct value, at most n, so extra memory is O(n). The
     sorted version avoids that set only because equal values are neighbours.
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()

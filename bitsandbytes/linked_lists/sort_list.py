@@ -33,8 +33,10 @@ def sort_list(lst: LinkedList[T]) -> None:
     n. That is log2(n) passes. In one pass every node is cut into a run and
     merged once, which is O(n) pointer rewrites. Total time is
     O(n) * log2(n) = O(n log n). The anchor and a few references are O(1)
-    extra memory. There is no recursion, so the call stack is O(1) as well.
-    A list of length 0 or 1 returns before the loop: O(1).
+    extra memory for the merge itself. ``require_linear`` holds a ``seen``
+    set of n ids while it runs, so the peak extra memory of the call is O(n).
+    There is no recursion, so the call stack is O(1). A list of length 0 or
+    1 returns before the loop: O(1) besides that guard.
     """
 
     lst.require_linear()

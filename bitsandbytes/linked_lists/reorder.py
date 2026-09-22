@@ -38,6 +38,8 @@ def reorder(lst: LinkedList[T]) -> None:
     half per step, again O(n) pointer writes. ``refresh`` is O(n). The sum
     of a constant number of O(n) passes is still O(n) time. Extra memory is
     a handful of references: O(1).
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()

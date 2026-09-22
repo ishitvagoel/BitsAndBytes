@@ -25,6 +25,8 @@ def reverse_in_pairs(lst: LinkedList[T]) -> None:
     floor(n / 2) times. Each iteration rewrites three pointers: O(1). Time is
     O(n). ``require_linear`` and ``refresh`` are two more O(n) walks. The
     anchor is one extra node: O(1) extra memory.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()

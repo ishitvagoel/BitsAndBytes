@@ -19,9 +19,12 @@ def reverse_iterative(lst: LinkedList[T]) -> None:
     ----
     Let n be the length. The loop body runs once per node: n iterations.
     Each iteration reads and writes a constant number of pointers. Time is
-    n * O(1) = O(n). Three references are stored: O(1) extra memory.
-    ``require_linear`` and ``refresh`` are each another O(n) and do not
-    change the total. The call stack stays O(1) because nothing recurses.
+    n * O(1) = O(n). Three references are stored: O(1) extra memory for the
+    reversal loop. ``require_linear`` adds an O(n) peak from the ``seen`` set
+    inside ``refresh`` while that guard runs. ``refresh`` after the loop is
+    another O(n) walk with the same peak shape.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()
@@ -47,9 +50,8 @@ def reverse_recursive(lst: LinkedList[T]) -> None:
     ``_reverse`` is called once per node, so there are n calls. Each call
     does O(1) pointer work on the way back. Time is O(n). The calls are
     nested n deep before any of them returns, so the call stack is O(n)
-    extra memory. That is the cost of the recursive form compared with
-    ``reverse_iterative``, which uses O(1) extra memory for the same O(n)
-    time. ``require_linear`` and ``refresh`` add two more O(n) walks.
+    extra memory. ``require_linear`` adds an O(n) peak from the ``seen`` set
+    while that guard runs.
     """
 
     lst.require_linear()

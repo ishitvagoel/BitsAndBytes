@@ -444,8 +444,10 @@ class LinkedList(Generic[T]):
         Cost
         ----
         This is one ``refresh`` plus a constant check of ``tail.next``.
-        ``refresh`` is O(n) time and O(n) extra memory, and the check is O(1),
-        so the total is O(n) time and O(n) extra memory.
+        ``refresh`` is O(n) time and builds a ``seen`` set of n node ids while
+        it runs, so peak extra memory is O(n). The set is released when
+        ``refresh`` returns. Callers that only need O(1) scratch for their own
+        loop still pay this O(n) peak at the start of the call.
         """
 
         self.refresh()

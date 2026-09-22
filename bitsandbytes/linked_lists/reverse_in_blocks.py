@@ -35,6 +35,8 @@ def reverse_in_blocks(
     reversals each touch each node a constant number of times, so both are
     O(n), not O(n * k). ``require_linear`` and ``refresh`` are O(n). Total
     time O(n). The anchor and a few references are O(1) extra memory.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     if isinstance(k, bool) or not isinstance(k, int) or k < 1:

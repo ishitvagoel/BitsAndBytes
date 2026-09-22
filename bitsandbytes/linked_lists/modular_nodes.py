@@ -5,8 +5,9 @@ returns the last one, which is the greatest qualifying index.
 
 From the end, position 1 is the tail. The same "last hit wins" rule returns
 the greatest qualifying position, which is the match farthest from the tail.
-With ``n`` nodes that position is ``k * (n // k)``, and the node is at
-0-based index ``n % k`` from the head. Fewer than ``k`` nodes means there is
+With ``n`` nodes that position is ``k * (n // k)``. The node is the one that
+many steps from the tail along ``next`` links, which is the same node as
+``nth_from_end`` with that distance. Fewer than ``k`` nodes means there is
 no match.
 
 The original end-of-list function was ``pass``.
@@ -17,6 +18,7 @@ from __future__ import annotations
 from typing import TypeVar
 
 from bitsandbytes.linked_list import LinkedList, Node
+from bitsandbytes.linked_lists.nth_from_end import nth_from_end
 
 T = TypeVar("T")
 
@@ -50,21 +52,21 @@ def modular_node_from_end(
 
     Cost
     ----
-    The nodes are collected once: O(n) time and O(n) extra memory for the
-    list. The index ``n % k`` is then arithmetic: O(1). Total time O(n),
-    extra memory O(n). A two-pointer gap of ``n % k`` would avoid the list
-    and use O(1) extra memory; the index form makes the formula obvious.
+    ``require_linear`` is O(n) time with peak O(n) extra memory for its
+    ``seen`` set. ``nth_from_end`` walks two pointers with a fixed gap:
+    O(n) time and O(1) extra memory besides that peak. Total time O(n),
+    peak extra memory O(n) from the guard only.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     _require_positive(k)
-    nodes = list(lst.iter_nodes())
-    length = len(nodes)
+    lst.require_linear()
+    length = len(lst)
     if length < k:
         return None
     position_from_end = k * (length // k)
-    # ``length % k`` is 0 when ``length`` itself is a multiple of ``k``,
-    # which correctly selects the head: its distance from the tail is ``n``.
-    return position_from_end, nodes[length % k]
+    return position_from_end, nth_from_end(lst, position_from_end)
 
 
 def _require_positive(k: int) -> None:

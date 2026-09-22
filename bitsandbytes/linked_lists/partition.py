@@ -31,6 +31,8 @@ def partition(lst: LinkedList[T], pivot: T) -> None:
     exactly once. Append to a chain tail is O(1). Time is n * O(1) = O(n).
     The four head/tail references are O(1) extra memory. ``refresh`` adds
     another O(n) walk.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()
