@@ -151,7 +151,8 @@ def dijkstra_distances(
 
     best: dict[Vertex, int] = {start: 0}
     settled: set[Vertex] = set()
-    while len(settled) < len(graph.vertices()):
+    vertex_count = len(graph.vertices())
+    while len(settled) < vertex_count:
         candidate: Vertex | None = None
         candidate_distance: int | None = None
         for vertex, distance in best.items():

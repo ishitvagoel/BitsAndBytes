@@ -23,6 +23,8 @@ def reverse_iterative(lst: LinkedList[T]) -> None:
     reversal loop. ``require_linear`` adds an O(n) peak from the ``seen`` set
     inside ``refresh`` while that guard runs. ``refresh`` after the loop is
     another O(n) walk with the same peak shape.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     lst.require_linear()

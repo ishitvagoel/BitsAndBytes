@@ -32,6 +32,8 @@ def rotate_right(lst: LinkedList[T], k: int) -> None:
     ``n - (k % n) - 1``, which is at most n steps: O(n). Closing and cutting
     the circle is O(1), and ``refresh`` is another O(n). Total time O(n).
     No new node is allocated for the values: O(1) extra memory.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     if isinstance(k, bool) or not isinstance(k, int):

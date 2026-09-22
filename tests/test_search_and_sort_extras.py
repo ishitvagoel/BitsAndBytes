@@ -7,7 +7,7 @@ import random
 import pytest
 
 from bitsandbytes.search import binary_search, lower_bound, upper_bound
-from bitsandbytes.sorting import bubble_sort, quick_sort, quick_sort_three_way
+from bitsandbytes.sorting import bubble_sort, quick_sort, quick_sort_three_way, selection_sort
 
 
 def test_binary_search_and_bounds_on_duplicates() -> None:
@@ -43,6 +43,21 @@ def test_bubble_sort_is_stable() -> None:
 
     items = [Item(1, "a"), Item(2, "b"), Item(1, "c")]
     bubble_sort(items)
+    assert [item.label for item in items] == ["a", "c", "b"]
+
+
+def test_selection_sort_is_not_stable_on_equal_keys() -> None:
+    class Item:
+        def __init__(self, key: int, label: str) -> None:
+            self.key = key
+            self.label = label
+
+        def __lt__(self, other: object) -> bool:
+            assert isinstance(other, Item)
+            return self.key < other.key
+
+    items = [Item(2, "b"), Item(1, "a"), Item(1, "c")]
+    selection_sort(items)
     assert [item.label for item in items] == ["a", "c", "b"]
 
 

@@ -47,6 +47,8 @@ def merge_sorted_into(destination: LinkedList[T], source: LinkedList[T]) -> None
     O(n) + O(m). ``_merge_nodes`` links each node once: O(n + m). The two
     refreshes walk the merged chain and the empty source: O(n + m). Total
     time O(n + m). Extra memory is a few references: O(1).
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     if destination is source:
@@ -68,7 +70,8 @@ def _detach_merged(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | Non
     ----
     Two ``require_linear`` walks plus one merge plus two refreshes. With
     lengths n and m that is a constant number of O(n + m) passes: O(n + m)
-    time, O(1) extra memory.
+    time, O(1) extra memory for the merge loop. Peak extra memory is
+    O(max(n, m)) while the two ``require_linear`` guards run.
     """
 
     if first is second:

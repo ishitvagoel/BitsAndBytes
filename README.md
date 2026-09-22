@@ -39,7 +39,7 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 * `linked_lists/delete_node.py` — copy the successor forward. O(1). Cannot delete the tail.
 * `linked_lists/add_numbers.py` — least-significant digit at the head. O(n + m) time, O(1) scratch besides the result nodes.
 * `linked_lists/merge_sorted.py` — merge two sorted chains by relinking. O(n + m) time, O(1) extra memory.
-* `linked_lists/intersection.py` — equalize lengths, then walk in step. O(n + m) time, O(1) extra memory on acyclic lists.
+* `linked_lists/intersection.py` — `require_linear` on both lists, then equalize with cached lengths and walk in step. O(n + m) time; O(1) extra memory for the walk besides the guard peak.
 * `linked_lists/sort_list.py` — bottom-up merge sort. O(n log n) time, O(1) extra memory besides nodes. Stable.
 * `linked_lists/split_circular.py`, `modular_nodes.py`, `reviewers.py` — see each module’s `Cost` section. `modular_node_from_end` uses `nth_from_end`, so it is O(n) time and O(1) extra memory for the gap walk.
 
@@ -52,9 +52,14 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 ## 4. Stacks
 
 * `stacks/stack.py` — bounded stack: capacity, decorator guards, amortized O(1) `push`, O(1) `pop` and `peek`.
-* `stacks/algorithm_stack.py` — unbounded LIFO for algorithm lessons (monotonic scans, min stack, sort-a-stack). Same amortized costs without a limit check.
-* `stacks/symbol_balance.py` — one pass, stack holds at most n openers. O(n) time.
-* `stacks/min_stack.py`, `next_greater.py`, `stock_span.py`, `largest_rectangle.py`, `infix_postfix.py`, `sort_stack.py` — see README on master for cost summaries; module docstrings include worked traces where the stack state matters.
+* `stacks/algorithm_stack.py` — unbounded LIFO for algorithm lessons. Same amortized costs without a limit check.
+* `stacks/symbol_balance.py` — one pass. O(n) time, O(n) worst extra memory for openers.
+* `stacks/min_stack.py` — second stack of minima. `push`, `pop`, and `minimum` are O(1).
+* `stacks/next_greater.py` — monotonic stack. O(n) time, O(n) extra memory.
+* `stacks/stock_span.py` — same monotonic pattern. O(n) time.
+* `stacks/largest_rectangle.py` — histogram rectangle. O(n) time.
+* `stacks/infix_postfix.py` — shunting yard plus postfix evaluation. O(n) time.
+* `stacks/sort_stack.py` — one extra `AlgorithmStack`. Worst case O(n²) time, O(n) extra memory.
 
 ## 5. Sorting
 

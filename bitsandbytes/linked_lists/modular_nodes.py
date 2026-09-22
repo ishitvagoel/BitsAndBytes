@@ -56,6 +56,8 @@ def modular_node_from_end(
     ``seen`` set. ``nth_from_end`` walks two pointers with a fixed gap:
     O(n) time and O(1) extra memory besides that peak. Total time O(n),
     peak extra memory O(n) from the guard only.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     _require_positive(k)

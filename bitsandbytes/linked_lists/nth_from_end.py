@@ -32,6 +32,8 @@ def nth_from_end(lst: LinkedList[T], n: int) -> Node[T]:
     which is O(L). Each step is O(1). Extra memory is the two references:
     O(1). Counting the length first and then walking ``L - n`` is also O(L);
     the gap removes the subtraction but not the linear scan.
+
+    Peak extra memory is O(n) while ``require_linear`` runs its ``seen`` set.
     """
 
     _require_positive(n)
@@ -59,7 +61,9 @@ def remove_nth_from_end(lst: LinkedList[T], n: int) -> T:
     ----
     Same two-pointer walk as ``nth_from_end``: O(L) steps for a list of
     length L, each O(1). The unlink and ``refresh`` are another O(L) walk.
-    Total time O(L). The anchor is one extra node: O(1) extra memory.
+    Total time O(L). The anchor is one extra node: O(1) extra memory for the
+    walk. Peak extra memory is O(L) while ``require_linear`` runs its
+    ``seen`` set.
     """
 
     _require_positive(n)

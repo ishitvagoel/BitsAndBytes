@@ -23,6 +23,8 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
+from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+
 _PRECEDENCE = {"+": 1, "-": 1, "*": 2, "/": 2}
 _OPERATORS = set(_PRECEDENCE)
 
@@ -42,29 +44,29 @@ def infix_to_postfix(expression: str) -> list[str]:
     """
 
     output: list[str] = []
-    operators: list[str] = []
+    operators: AlgorithmStack[str] = AlgorithmStack()
     for token in _tokenize(expression):
         if token.isdigit():
             output.append(token)
             continue
         if token == "(":
-            operators.append(token)
+            operators.push(token)
             continue
         if token == ")":
-            while operators and operators[-1] != "(":
+            while not operators.is_empty and operators.peek() != "(":
                 output.append(operators.pop())
-            if not operators:
+            if operators.is_empty:
                 raise ValueError("Mismatched parentheses.")
             operators.pop()
             continue
         while (
-            operators
-            and operators[-1] != "("
-            and _PRECEDENCE[operators[-1]] >= _PRECEDENCE[token]
+            not operators.is_empty
+            and operators.peek() != "("
+            and _PRECEDENCE[operators.peek()] >= _PRECEDENCE[token]
         ):
             output.append(operators.pop())
-        operators.append(token)
-    while operators:
+        operators.push(token)
+    while not operators.is_empty:
         operator = operators.pop()
         if operator == "(":
             raise ValueError("Mismatched parentheses.")
@@ -84,23 +86,23 @@ def evaluate_postfix(tokens: Sequence[str]) -> int:
     ``int()`` and one append, both O(1) for the integers this parser emits
     (their digit count was already paid during tokenization). An operator
     pops two values, applies one arithmetic operation, and pushes the
-    result: O(1). Time is O(t). The value stack holds at most t integers,
-    so extra memory is O(t).
+    result: O(1). Time is O(t). The value stack holds at most t integers:
+    O(t) extra memory.
     """
 
-    values: list[int] = []
+    values: AlgorithmStack[int] = AlgorithmStack()
     for token in tokens:
         if token in _OPERATORS:
             if len(values) < 2:
                 raise ValueError(f"Operator {token!r} is missing an operand.")
             right = values.pop()
             left = values.pop()
-            values.append(_apply(token, left, right))
+            values.push(_apply(token, left, right))
         else:
-            values.append(int(token))
+            values.push(int(token))
     if len(values) != 1:
         raise ValueError("Expression does not leave a single result.")
-    return values[0]
+    return values.pop()
 
 
 def evaluate_infix(expression: str) -> int:
