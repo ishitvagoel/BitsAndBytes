@@ -6,6 +6,11 @@ operation; a sorted insert chain is O(n).
 
 In-order traversal visits left subtree, node, right subtree. The iterative
 version uses the same stack as depth-first search on a tree.
+
+Worked trace (insert 5, 2, 8 then search 2):
+
+* Insert 5 at root. Insert 2 as left child. Insert 8 as right child.
+* Search compares at 5, goes left, finds 2 in two steps.
 """
 
 from __future__ import annotations

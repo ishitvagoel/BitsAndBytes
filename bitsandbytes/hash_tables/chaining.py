@@ -8,6 +8,12 @@ is O(1).
 This table resizes when ``len(table) > 2 * bucket_count`` so buckets stay
 short. Rehashing every entry costs O(n) but happens rarely enough that
 insert stays O(1) amortized expected.
+
+Worked trace (insert keys ``a``, ``b`` with two buckets):
+
+* ``hash(a) % 2`` lands in bucket 0; append ``(a, value)``.
+* ``hash(b) % 2`` lands in bucket 1; append ``(b, value)``.
+* Lookup scans only one bucket list, not the whole table.
 """
 
 from __future__ import annotations

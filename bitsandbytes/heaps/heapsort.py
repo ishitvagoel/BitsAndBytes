@@ -8,6 +8,12 @@ The sum of subtree heights is linear, so ``heapify`` is O(n), not O(n log n).
 Heapsort repeatedly swaps the root with the last heap element, shrinks the
 heap by one, and sifts down. It is O(n log n) time and O(1) extra memory,
 but it is not stable.
+
+Worked trace (``heapsort`` on ``[3, 1, 4]``):
+
+* ``heapify`` builds max-heap ``[4, 3, 1]``.
+* Swap root with last → ``[1, 3, 4]``, sift down on prefix → ``[3, 1, 4]``.
+* Swap and sift again → sorted ``[1, 3, 4]``.
 """
 
 from __future__ import annotations

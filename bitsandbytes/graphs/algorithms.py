@@ -293,6 +293,77 @@ def is_bipartite(graph: Graph) -> bool:
     return True
 
 
+def has_directed_cycle(graph: Graph) -> bool:
+    """Return whether ``graph`` contains a directed cycle.
+
+    Cost
+    ----
+    O(V + E) DFS with three colors.
+    """
+
+    white, gray, black = 0, 1, 2
+    state: dict[Vertex, int] = {vertex: white for vertex in graph.vertices()}
+
+    def visit(vertex: Vertex) -> bool:
+        state[vertex] = gray
+        for neighbor, _weight in graph.neighbors(vertex):
+            if state[neighbor] == gray:
+                return True
+            if state[neighbor] == white and visit(neighbor):
+                return True
+        state[vertex] = black
+        return False
+
+    return any(state[vertex] == white and visit(vertex) for vertex in graph.vertices())
+
+
+def kosaraju_strongly_connected_components(
+    graph: Graph,
+) -> list[list[Vertex]]:
+    """Return strongly connected components using Kosaraju's algorithm.
+
+    Cost
+    ----
+    O(V + E) time, O(V) extra memory.
+    """
+
+    order: list[Vertex] = []
+    visited: set[Vertex] = set()
+
+    def dfs_finish(vertex: Vertex) -> None:
+        visited.add(vertex)
+        for neighbor, _weight in graph.neighbors(vertex):
+            if neighbor not in visited:
+                dfs_finish(neighbor)
+        order.append(vertex)
+
+    for vertex in graph.vertices():
+        if vertex not in visited:
+            dfs_finish(vertex)
+
+    reversed_graph: dict[Vertex, list[Vertex]] = {vertex: [] for vertex in graph.vertices()}
+    for source in graph.vertices():
+        for target, _weight in graph.neighbors(source):
+            reversed_graph[target].append(source)
+
+    visited.clear()
+    components: list[list[Vertex]] = []
+
+    def dfs_collect(vertex: Vertex, component: list[Vertex]) -> None:
+        visited.add(vertex)
+        component.append(vertex)
+        for neighbor in reversed_graph[vertex]:
+            if neighbor not in visited:
+                dfs_collect(neighbor, component)
+
+    for vertex in reversed(order):
+        if vertex not in visited:
+            component: list[Vertex] = []
+            dfs_collect(vertex, component)
+            components.append(component)
+    return components
+
+
 def zero_one_bfs_distances(graph: Graph, start: Vertex) -> dict[Vertex, int]:
     """Shortest paths when every edge weight is 0 or 1 using a deque.
 

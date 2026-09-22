@@ -364,16 +364,16 @@ Every **Core** topic that is Missing or Partial has one row. **Named** topics do
 
 | Order | Core work | Depends on |
 | --- | --- | --- |
-| 1 | Analysis module: word RAM, Python big integers, recursion limit, O/Θ/Ω, the three recurrences | Nothing |
-| 2 | `library_costs.py`: deque, heapq, bisect, Timsort, and why `list.pop(0)` is linear | Row 1's vocabulary |
-| 3 | `DynamicArray` and a deque | Doubling argument, doubly linked list |
-| 4 | BST deletion. Preorder, postorder, level order | Queue, BST |
-| 5 | Priority queue, including `decrease-key` with an index map | The sift-down heap |
-| 6 | Left-leaning red-black tree, then subtree sizes for rank and select | BST deletion |
-| 7 | Comparison lower bound. Counting sort, integer radix, LSD string radix. Quickselect. Binary search on the answer. Inversion count. A quick-sort stability test on a type that defines `<=` | Sorts, binary search |
-| 8 | Linear probing, and one degenerate hash on the chaining table | Chaining table |
-| 9 | Union-find with and without the heuristics. Percolation | Nothing structural |
-| 10 | Directed versus undirected. BFS distances and parents. Topological sort. One component algorithm. Bellman-Ford. DAG shortest paths. Heap Dijkstra, keeping the scan in the docstring. Prim. Kruskal. Bipartite test. 0-1 BFS. Floyd-Warshall | Rows 3, 5, and 9. Kruskal uses row 9. 0-1 BFS uses the deque. |
+| 1 | Analysis module: word RAM, Python big integers, recursion limit, O/Θ/Ω, the three recurrences | Nothing | **Done** — `complexity.py` |
+| 2 | `library_costs.py`: deque, heapq, bisect, Timsort, and why `list.pop(0)` is linear | Row 1's vocabulary | **Done** |
+| 3 | `DynamicArray` and a deque | Doubling argument, doubly linked list | **Done** |
+| 4 | BST deletion. Preorder, postorder, level order | Queue, BST | **Done** |
+| 5 | Priority queue, including `decrease-key` with an index map | The sift-down heap | **Done** |
+| 6 | Left-leaning red-black tree, then subtree sizes for rank and select | BST deletion | **Done** — `trees/llrb.py` |
+| 7 | Comparison lower bound. Counting sort, integer radix, LSD string radix. Quickselect. Binary search on the answer. Inversion count. A quick-sort stability test on a type that defines `<=` | Sorts, binary search | **Done** — `sorting/selection_and_radix.py` |
+| 8 | Linear probing, and one degenerate hash on the chaining table | Chaining table | **Done** |
+| 9 | Union-find with and without the heuristics. Percolation | Nothing structural | **Done** |
+| 10 | Directed versus undirected. BFS distances and parents. Topological sort. One component algorithm. Bellman-Ford. DAG shortest paths. Heap Dijkstra, keeping the scan in the docstring. Prim. Kruskal. Bipartite test. 0-1 BFS. Floyd-Warshall | Rows 3, 5, and 9. Kruskal uses row 9. 0-1 BFS uses the deque. | **Mostly done** — `graphs/algorithms.py`; cycle detection and strong components still open |
 | 11 | Dynamic programming problems in section 7.2, bottom-up | Arrays. DAG DP uses row 10. |
 | 12 | Interval scheduling, fractional knapsack, Huffman | Heap, sort |
 | 13 | Backtracking. Two pointers, sliding window, prefix sums, monotonic queue | Arrays, hash table, deque |
