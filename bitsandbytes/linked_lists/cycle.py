@@ -11,6 +11,13 @@ on the entrance after ``mu`` steps.
 
 The old method crashed on an empty list (``None.next``) and returned a
 sentence. This returns ``(1-based index, node)`` or ``None``.
+
+Worked trace when the tail points at node ``3`` in ``1 → 2 → 3 → 4 → 5``:
+
+* Slow and fast start at 1. Fast moves two steps per slow step until they
+  meet inside the loop (for example both at 4).
+* Reset one pointer to the head, keep the other at the meeting node, walk one
+  step at a time. They meet at node ``3``, the cycle entrance.
 """
 
 from __future__ import annotations

@@ -33,7 +33,8 @@ def add_numbers(left: LinkedList[int], right: LinkedList[int]) -> LinkedList[int
     max(n, m) + 1 iterations. Each iteration adds two digits and appends one
     result digit. Append is O(1). Time is O(n + m). The result list holds
     O(n + m) new nodes, which is the output, not scratch space. A few
-    references and the carry are O(1) scratch memory.
+    references and the carry are O(1) scratch memory. ``require_linear`` on
+    each input adds an O(n) or O(m) peak from each guard's ``seen`` set.
     """
 
     left.require_linear()

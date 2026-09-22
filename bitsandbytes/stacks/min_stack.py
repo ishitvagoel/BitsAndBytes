@@ -9,15 +9,15 @@ constant number of ends of a list.
 
 from __future__ import annotations
 
+from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
 from bitsandbytes.stacks.stack import StackEmptyError
 
 
 class MinStack:
     """LIFO stack with an O(1) ``minimum``.
 
-    Equal minima are stored again. Popping one copy of the minimum must
-    leave the earlier copy in place, so the second stack records every
-    value that ties the current minimum, not only strict improvements.
+    Values are compared with ``<=``. Equal minima are stored again on the
+    minima stack so popping one copy leaves the earlier minimum in place.
     """
 
     def __init__(self) -> None:
@@ -28,8 +28,8 @@ class MinStack:
         Two empty lists are allocated. Time and extra memory are O(1).
         """
 
-        self._items: list[int] = []
-        self._minima: list[int] = []
+        self._items: AlgorithmStack[int] = AlgorithmStack()
+        self._minima: AlgorithmStack[int] = AlgorithmStack()
 
     def __len__(self) -> int:
         """Return how many items are stored.
@@ -54,9 +54,9 @@ class MinStack:
         the minima stack as well: O(1) per push, O(n) after n pushes.
         """
 
-        self._items.append(value)
-        if not self._minima or value <= self._minima[-1]:
-            self._minima.append(value)
+        self._items.push(value)
+        if self._minima.is_empty or value <= self._minima.peek():
+            self._minima.push(value)
 
     def pop(self) -> int:
         """Remove and return the top item, dropping a minimum if it was one.
@@ -68,10 +68,10 @@ class MinStack:
         O(1). An empty stack raises before either pop. Extra memory is O(1).
         """
 
-        if not self._items:
+        if self._items.is_empty:
             raise StackEmptyError("Stack is empty.")
         value = self._items.pop()
-        if value == self._minima[-1]:
+        if value == self._minima.peek():
             self._minima.pop()
         return value
 
@@ -84,9 +84,9 @@ class MinStack:
         memory. An empty stack raises before the index.
         """
 
-        if not self._items:
+        if self._items.is_empty:
             raise StackEmptyError("Stack is empty.")
-        return self._items[-1]
+        return self._items.peek()
 
     def minimum(self) -> int:
         """Return the smallest value currently stored.
@@ -98,6 +98,6 @@ class MinStack:
         An empty stack raises before the index.
         """
 
-        if not self._minima:
+        if self._minima.is_empty:
             raise StackEmptyError("Stack is empty.")
-        return self._minima[-1]
+        return self._minima.peek()

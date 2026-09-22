@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from typing import TypeVar
 
+from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
 from bitsandbytes.stacks.stack import Stack
 
 T = TypeVar("T")
@@ -24,6 +25,9 @@ T = TypeVar("T")
 def sort_stack(stack: Stack[T]) -> Stack[T]:
     """Sort ``stack`` so the smallest item is on top. Returns the same stack.
 
+    Uses an :class:`~bitsandbytes.stacks.algorithm_stack.AlgorithmStack` as
+    the extra stack so the lesson is not tied to a capacity limit. The input
+    ``stack`` must still have room for items moved back during insertion.
     Ties keep the item that was already on the extra stack above the new
     one only when it is strictly larger; equal items are not moved again.
 
@@ -35,13 +39,15 @@ def sort_stack(stack: Stack[T]) -> Stack[T]:
     so each new item is smaller than everything already sorted) that scan
     walks ``k - 1`` items. The sum is ``0 + 1 + ... + (n - 1) = n(n - 1) / 2``,
     so worst-case time is O(n²). Each move is one ``pop`` and one ``push``,
-    both O(1). Best case (each inserted item is greater than or equal to the
-    current top) never rewinds: O(n). The extra stack holds every item by
+    both O(1). Worst case happens when pops from the input arrive in strictly
+    decreasing order (each new item is smaller than everything on the extra
+    stack). Best case (strictly increasing pop order) never rewinds: O(n).
+    The extra stack holds every item by
     the end of the first loop, so extra memory is O(n). The final pour is
     another n pops and n pushes, O(n), which does not change the bound.
     """
 
-    ordered: Stack[T] = Stack(limit=max(len(stack), 1))
+    ordered: AlgorithmStack[T] = AlgorithmStack()
     while not stack.is_empty:
         current = stack.pop()
         # Move strictly larger sorted values back. They belong above

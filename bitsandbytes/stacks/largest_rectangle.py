@@ -9,6 +9,12 @@ index, and its left edge is the index now underneath it.
 A sentinel index of -1 stands for "no bar to the left", so the width formula
 does not special-case an empty stack. Bars still on the stack after the scan
 extend all the way to the last index.
+
+Worked trace on ``[2, 1, 5, 6, 2, 3]`` when index 4 (height 2) arrives:
+
+* Pop index 3 (height 6): width to sentinel is 1, area 6.
+* Pop index 2 (height 5): width 2, area 10 (best so far).
+* Push index 4. Later pops finish bars still on the stack at the right edge.
 """
 
 from __future__ import annotations

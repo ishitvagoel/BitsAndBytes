@@ -11,6 +11,10 @@ with anything. Empty and single-node lists are palindromes.
 The previous recursive version returned a ``(bool, node)`` pair and crashed
 on an empty list because it read through a sentinel that this package no
 longer uses.
+
+Worked trace on ``[1, 2, 2, 1]``: ``end_of_first_half`` stops at the first
+``2``. Reverse the suffix ``2 → 1``, compare ``1,2`` with ``2,1``, then
+reverse the suffix back so the list reads ``1 → 2 → 2 → 1`` again.
 """
 
 from __future__ import annotations

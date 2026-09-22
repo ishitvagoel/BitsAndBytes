@@ -122,9 +122,19 @@ def test_infix_rejects_bad_tokens_and_parentheses() -> None:
     with pytest.raises(ValueError):
         infix_to_postfix("2+3)")
     with pytest.raises(ValueError):
+        evaluate_postfix(["2", "3"])
+    with pytest.raises(ValueError):
         evaluate_postfix(["+", "1"])
     with pytest.raises(ZeroDivisionError):
         evaluate_infix("1/0")
+
+
+def test_sort_stack_worst_case_on_full_bounded_stack() -> None:
+    stack: Stack[int] = Stack(limit=5)
+    for value in (5, 4, 3, 2, 1):
+        stack.push(value)
+    sort_stack(stack)
+    assert [stack.pop() for _ in range(5)] == [1, 2, 3, 4, 5]
 
 
 def test_sort_stack_leaves_the_smallest_on_top() -> None:

@@ -29,8 +29,8 @@ def find_intersection(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | 
     Let n and m be the lengths. Counting both lists is O(n + m). Advancing
     the longer list by the difference is at most max(n, m) steps. The lockstep
     walk is at most min(n, m) steps. Every step is O(1). Total time
-    O(n + m). A few references are stored: O(1) extra memory. A set of seen
-    nodes would also find the join but would use O(n + m) memory.
+    O(n + m). Only two moving references are stored: O(1) extra memory.
+    Both lists must be acyclic; a cycle would make the length counts wrong.
     """
 
     first_length = _length(first.head)
@@ -53,22 +53,19 @@ def find_intersection(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | 
 
 
 def _length(head: Node[T] | None) -> int:
-    """Count nodes reachable from ``head``, rejecting a cycle.
+    """Count nodes reachable from ``head``.
 
     Cost
     ----
-    Each reachable node is visited once. k nodes take k steps, and each step
-    hashes one id: O(k) expected time. The ``seen`` set holds k ids: O(k)
-    extra memory.
+    Each reachable node is visited once. k nodes take k steps: O(k) time.
+    One counter and one reference are stored: O(1) extra memory. The caller
+    must pass an acyclic chain; a cycle would never reach ``None`` and this
+    loop would not terminate.
     """
 
     count = 0
-    seen: set[int] = set()
     node = head
     while node is not None:
-        if id(node) in seen:
-            raise ValueError("Intersection search expects acyclic lists.")
-        seen.add(id(node))
         count += 1
         node = node.next
     return count

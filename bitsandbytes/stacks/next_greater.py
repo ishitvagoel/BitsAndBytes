@@ -8,6 +8,14 @@ end have no greater element.
 
 Each index is pushed once and popped at most once, so the nested loop does
 not make the whole scan quadratic.
+
+Worked trace on ``[2, 1, 2, 4, 3]`` (stack holds indexes, bottom to top):
+
+* Index 0 (2): stack ``[0]``.
+* Index 1 (1): no pop; stack ``[0,1]``.
+* Index 2 (2): pop 1, answer[1]=2; stack ``[0,2]``.
+* Index 3 (4): pop 2 and 0, answer[2]=4, answer[0]=4; stack ``[3]``.
+* Index 4 (3): no pop; stack ``[3,4]``. Index 4 stays unanswered.
 """
 
 from __future__ import annotations

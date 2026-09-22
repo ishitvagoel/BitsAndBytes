@@ -9,6 +9,14 @@ forces them out. Parentheses are a sub-expression: ``(`` is stacked, and
 Numbers are non-negative integers. ``+``, ``-``, ``*``, and ``/`` are binary.
 ``/`` is floor division. A unary minus is not an operator here; write
 subtraction as a binary ``-``.
+
+Worked trace for ``2+3*4`` (output and operator stack after each token):
+
+* ``2`` → output ``[2]``.
+* ``+`` → operators ``[+]``.
+* ``3`` → output ``[2,3]``.
+* ``*`` → operators ``[+,*]`` (``*`` binds tighter than ``+``).
+* ``4`` → output ``[2,3,4]``; drain gives ``[2,3,4,*,+]``.
 """
 
 from __future__ import annotations

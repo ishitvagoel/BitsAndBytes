@@ -17,7 +17,15 @@ Two conventions matter, and mixing them up breaks later algorithms:
 
 On an odd-length list both conventions land on the single middle node.
 
-Time O(n), extra memory O(1).
+Worked trace on ``[1, 2, 3, 4]`` (even):
+
+* Start ``slow=1``, ``fast=1``. Advance: ``slow=2``, ``fast=3``. Fast can still
+  take two steps from 3, so continue: ``slow=3``, ``fast`` falls off after 4.
+  ``middle_node`` returns ``3``.
+* ``end_of_first_half`` stops when ``fast.next.next`` is missing: after
+  ``slow=2``, ``fast=3`` has no ``next.next``, so the left half ends at ``2``.
+
+Time O(n) for the walk. Peak extra memory O(n) if ``require_linear`` runs first.
 """
 
 from __future__ import annotations
