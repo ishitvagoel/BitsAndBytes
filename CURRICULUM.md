@@ -1,409 +1,395 @@
 # Bits and Bytes curriculum
 
-A complete study path for data structures and algorithms, written for this repository. It combines the topic map of the standard textbooks and university courses with the structures and costs that show up in production Python and in current engineering interviews. This file is the plan. It does not add implementations.
+A study path for data structures and algorithms in this repository. It follows the textbooks and university courses listed below, then adds the costs that show up in production Python. This file is the plan. It does not add implementations.
 
-Read [README.md](README.md) for what is already in the tree, in the order those modules should be studied. Come back here to see which chapter that module belongs to, and what is still missing.
+Two orders are in force, and they are not the same:
 
-Status words used below:
+* **Read now.** Follow [README.md](README.md). That is the only path that exists in the tree today. Analysis is not a module yet, so do not try to start at chapter 1.
+* **Finished course.** The order in the second diagram, once the core rows of the gap list exist. The README is updated as those rows land. Until then the README is not a draft of this diagram.
 
-* **Present** means a module exists and its `Cost` section derives the bound.
-* **Partial** means the idea is started, and a named piece of the classic treatment is still absent.
-* **Missing** means a learner cannot study it from this repository yet.
+## Status and tier
 
-## What "complete" means here
+| Word | Meaning |
+| --- | --- |
+| **Present** | The operation is implemented and its `Cost` section derives the bound. A worked trace is not required for modules already in the tree. |
+| **Partial** | An implementation exists, and a named piece of the usual treatment is still absent. Partial is not "done." |
+| **Missing** | A learner cannot study this operation from the repository yet. |
+| **Core** | Required implementation: docstring, invariant, one worked trace, `Cost` section, and tests for the empty case, the one-element case, and one case that distinguishes it from a nearby algorithm. |
+| **Named** | Not implemented. A short note states the bound and the tool a professional would use instead. Named topics are not gap-list rows. |
 
-Complete, for this course, means a learner can do four things without leaving the repository:
+"Complete" applies only to **Core**. For every Core topic a learner can implement it from the docstring, derive the cost, and say which textbook result it is. For every **Named** topic the learner can say why this course does not code it and what to reach for instead. A Named topic does not fail the course by staying uncoded.
 
-1. Implement the structure or algorithm from the docstring and a worked trace.
-2. Derive the time and extra memory the way the existing `Cost` sections do: name the input size, count the loops, multiply by the work in the body, and separate extra memory from the input.
-3. Say which textbook result or production system the code is a small version of.
-4. Name the next structure a professional would reach for when the teaching version is the wrong tool, without implementing that production system inside this course.
+New modules follow the Core bar, including the worked trace. Existing Present modules stay Present without a new trace. Adding traces to heapsort, the chaining table, the BST, and binary search is polish, listed once in the gap list, not a redefinition of Present.
 
-The course stops short of a second degree. Numerical linear algebra, the FFT, linear programming, cryptography, and a full machine-learning course are named in the last section so they are not mistaken for gaps in the data-structure sequence. System design (capacity planning, replication, product APIs) is not this course. The data structures those designs sit on are.
+## What this course refuses to absorb
+
+Numerical linear algebra, the FFT, linear programming, cryptography, and a machine-learning course are named at the end so they are not mistaken for gaps. System design (capacity, replication, product APIs) is not this course. The structures those designs sit on are.
 
 ## Sources
 
 The sequence is a synthesis, not a copy of one syllabus.
 
-| Source | What it contributes |
-| --- | --- |
-| Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022 | The lasting map: foundations, sorting and order statistics, elementary and balanced trees, hashing, dynamic programming, greedy algorithms, amortization, union-find, graphs through matching, and the 4th-edition additions (online algorithms, bipartite matching). New chapters there on parallel algorithms and machine learning are listed as adjacent fields, not as coding modules. |
-| MIT 6.006, Spring 2020 (OpenCourseWare; the subject is now numbered 6.1210) | The undergraduate core in one term: dynamic arrays and hashing, sorting including linear-time sorting, AVL trees, binary heaps, BFS, DFS, Bellman-Ford, Dijkstra, dynamic programming, and a first lecture on complexity. |
-| Princeton COS 226, Spring 2026, and Sedgewick & Wayne, *Algorithms*, 4th ed., 2011 | What is "in use on computers today": union-find, symbol tables, red-black trees, hashing by chaining and linear probing, minimum spanning trees, shortest paths, string sorts, tries, substring search, and data compression. The Coursera form of the same book adds the concrete algorithm list used in the chapters below. |
-| UC Berkeley CS 61B, Fall 2025 (Hug and Kao) | Implementation discipline: asymptotics before cleverness, disjoint sets, 2-3 and left-leaning red-black trees, tries, the comparison-sort lower bound, and radix sort. The course also treats testing and ADTs as part of learning a structure. |
-| Python language documentation, "Time complexity of operations on built-in types" (current 3.x docs) | The costs of `list`, `dict`, `set`, and the advice to use `collections.deque` when both ends move. Those bounds are what the industry chapters have to match. |
-| Engineering interviews, 2024–2026 | The patterns that recur once the structures exist: two pointers, sliding window, binary search on a sorted range and on the answer, tree and graph traversal, topological sort, union-find, heaps, prefix sums, and backtracking. Coding is one part of a hiring loop, not the whole job. The same years added production vocabulary this course should teach at recognition level: B-trees and LSM-trees in storage engines, approximate membership (Bloom filters), and nearest-neighbor indexes over embeddings. |
+| Source | What it contributes | Decision when it conflicts |
+| --- | --- | --- |
+| Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*, 4th ed., MIT Press, 2022 | Foundations, sorting and order statistics, trees, hashing, dynamic programming, greedy algorithms, amortization, union-find, graphs, matching, online algorithms. | Parallel algorithms and the machine-learning chapter stay adjacent fields. |
+| MIT 6.006, Spring 2020 (OpenCourseWare; now numbered 6.1210) | One-term core: hashing, sorting, AVL trees, heaps, BFS, DFS, Bellman-Ford, Dijkstra, dynamic programming, complexity. | The coded balanced tree is not AVL. AVL is Named. The height bound is the same. |
+| Princeton COS 226, Spring 2026, and Sedgewick & Wayne, *Algorithms*, 4th ed., 2011 | Union-find, symbol tables, red-black trees, chaining and linear probing, spanning trees, shortest paths, tries, substring search, compression. | k-d trees are Named under geometry. String LSD radix sort is Core, beside integer radix, because it is the same algorithm on another alphabet. |
+| UC Berkeley CS 61B, Fall 2025 (Hug and Kao) | Asymptotics before cleverness, disjoint sets, 2-3 trees and left-leaning red-black trees, tries, the comparison lower bound, radix sort. | The coded balanced tree is a left-leaning red-black tree. The docstring teaches it as the binary encoding of a 2-3 tree. A separate 2-3 type is not coded. |
+| Python language documentation, "Time complexity of operations on built-in types" | Costs of `list`, `dict`, `set`, and the advice to use `collections.deque` when both ends move. | The library-cost module is Core and is built immediately after the analysis note, not at the end. |
+| Engineering interviews, 2024–2026 | Two pointers, sliding window, binary search including search on the answer, traversals, topological sort, union-find, heaps, prefix sums, backtracking. | One exercise per pattern, pointing at a module. Not a problem archive. B-trees, LSM-trees, and Bloom filters are Core. HNSW is Named. |
 
-When two sources disagree about which balanced tree to code, this course codes one (a 2-3 tree or a left-leaning red-black tree) and names the other. When they disagree about Dijkstra, the course replaces the current O(V²) scan with a binary heap, and keeps the scan in the docstring as the slower version it improves on.
+Dijkstra keeps two bounds. The O(V²) scan stays in the docstring as the version a binary heap replaces. The heap version is the Core bound, O((V + E) log V), for non-negative weights.
 
-## How each future module should be written
+## How a Core module is written
 
-Match the modules that are already Present:
+* The module docstring states the idea, the invariant, and one worked trace.
+* Every function has a `Cost` section that names the input size, counts the loops, multiplies by the work in the body, and separates extra memory from the input.
+* Tests cover empty, one element, and one distinguishing case (stability, a negative edge, a duplicate key, a cycle).
+* The README gains one bullet: file, idea, cost result. The algebra stays in the docstring.
+* New families get a package (`strings/`, `dynamic_programming/`). Paths stay importable.
 
-* A module docstring states the idea, the invariant, and one worked trace with the pointer or stack written out.
-* Every function has a `Cost` section that derives the bound.
-* Tests cover the empty case, a one-element case, and one case that distinguishes the algorithm from a nearby one (stability, a negative edge, a duplicate key, a cycle).
-* The README stays an index of results. The algebra stays in the docstring.
-* Package paths stay importable. New families get a package (`graphs/`, `strings/`, `dynamic_programming/`), not a numbered filename.
+## Finished-course order
 
-## Study order
+This order is the target. It is not the README.
 
 ```mermaid
 flowchart TD
-  foundations[Analysis]
+  now[ReadTheREADMEToday]
+  analysis[AnalysisAndLibraryCosts]
   linear[LinearStructures]
   trees[TreesHeapsHashing]
   sorting[SortingAndSelection]
+  unionfind[UnionFind]
   graphs[Graphs]
   design[Paradigms]
   strings[Strings]
-  advanced[AdvancedStructures]
-  practice[ProductionCosts]
-  limits[LimitsOfComputation]
-  foundations --> linear --> trees --> sorting --> graphs --> design --> strings --> advanced --> practice --> limits
+  ranges[RangeTrees]
+  storage[BloomSkipBtreeLSM]
+  limits[Limits]
+  now --> analysis --> linear --> trees --> sorting --> unionfind --> graphs --> design --> strings --> ranges --> storage --> limits
 ```
 
-Chapters 1 through 4 overlap the current README. Later chapters are the upgrade.
+Union-find sits before graphs because Kruskal is a client, not a prerequisite. Library costs sit beside analysis because `list.pop(0)` is the first production bug the analysis chapter names. Range trees do not depend on graphs. Storage structures depend on the Bloom filter and on a balanced tree or a skip list, so they come after both exist.
 
 ---
 
-## 0. How to study this repository
+## 0. How to study what is already here
 
-**Present**, as a convention rather than a module.
+**Present**, as a convention.
 
-* Read the README section, then the module docstring, then the `Cost` section, then the tests.
-* Re-derive one bound on paper before reading it: bubble sort's `n(n - 1) / 2`, or the claim that a monotonic stack is O(n) because each index is pushed and popped once.
-* Keep a note of peak extra memory versus the memory of the result. Several list algorithms are O(1) after `require_linear` returns, and O(n) while that guard holds its `seen` set.
+* Follow the README. Then read the module docstring, the `Cost` section, and the tests.
+* Re-derive one bound before reading it: bubble sort's `n(n - 1) / 2`, or the claim that a monotonic stack is O(n) because each index is pushed and popped once.
+* Several list algorithms are O(1) extra memory after `require_linear` returns, and O(n) while that guard holds its `seen` set. Peak and the memory of the result are different numbers.
 
 ---
 
 ## 1. Analysis
 
-The textbooks all start here (CLRS parts I; MIT lecture 1; CS 61B asymptotics). This repository currently teaches analysis only inside individual `Cost` sections. A short foundations module should make the vocabulary shared.
+**Core, Missing** as a module. CLRS part I, MIT lecture 1, CS 61B asymptotics. Today the vocabulary exists only inside individual `Cost` sections.
 
-| Topic | Teach | Status |
-| --- | --- | --- |
-| A model of a step | A pointer write, a comparison, a hash, and an arithmetic operation are the steps we count. Python bytecode and cache misses are acknowledged later, not in the first bound. | Missing as its own note |
-| O, Θ, Ω | Upper bound, tight bound, lower bound. Use Θ when the `Cost` section has a sum such as `n(n - 1) / 2`. | Used in docstrings, never defined |
-| Best, typical, worst | Already the house style when they differ (insertion sort, quick sort, hash tables). | Present as a habit |
-| Recurrences | Master theorem cases a learner will meet: `T(n) = 2T(n/2) + O(n)` for merge sort, `T(n) = T(n/2) + O(1)` for binary search, `T(n) = T(n - 1) + O(n)` for Lomuto on equals. Substitution and a recursion tree are enough; Akra–Bazzi is out of scope. | Partial, inside merge sort and quick sort |
-| Amortized cost | Aggregate analysis first (n dynamic-array doublings cost O(n) copies). Potential method is a later note, used for splay trees and dynamic tables if those are added. | Partial, on `list.append` via `Stack.push` |
-| Randomized expectation | A random pivot's expected O(n log n), and why all-equal Lomuto stays O(n²). | Partial, in `quick_sort.py` |
-| Loop invariants | One sentence per algorithm, already requested for Floyd, the histogram stack, and shunting-yard. Extend the habit. | Partial |
+The cost model is the **word RAM**: a pointer write, a comparison, a hash of a fixed-size key, and an arithmetic operation on a machine word are each one step. That model is an assumption. CPython integers grow without a fixed width, so a Fibonacci number with Θ(n) bits is not O(1) to add. Any Core dynamic program whose values do not fit in a word says so, and the required Fibonacci implementation reduces modulo a fixed word so the model holds. Unbounded Python integers are a note, not the measured bound.
 
-**Industry hook.** Production incidents that are "the algorithm is quadratic" start from this chapter: an `in` test on a list inside a loop, a `list.pop(0)` used as a queue, a hash table whose keys all collide.
+Python does not perform tail-call elimination. The default recursion limit is 1000. Recursive reverse already records an O(n) call stack. Memoized recursion is not the required form of a dynamic program. Bottom-up tables are. A memoized version, if shown, states the stack depth next to the time bound.
 
-**Suggested module.** `bitsandbytes/analysis.py` is the wrong shape. Prefer `docs` staying out of the package, and a single `bitsandbytes/complexity.py` that is only the vocabulary docstring plus two tiny functions: an instrumented counter a test can use, and a master-theorem classifier for the three recurrences above. The classifier is a study aid, not a solver for arbitrary recurrences.
+| Topic | Teach | Tier | Status |
+| --- | --- | --- | --- |
+| Word RAM, and where Python leaves it | The steps above. Big integers and the recursion limit. | Core | Missing |
+| O, Θ, Ω | Upper, tight, and lower bounds. Use Θ when the section has a sum such as `n(n - 1) / 2`. | Core | Missing as a definition. The symbols already appear in docstrings. |
+| Best, typical, worst | The house style when they differ. | Core | Present as a habit |
+| Recurrences | `T(n) = 2T(n/2) + O(n)`, `T(n) = T(n/2) + O(1)`, `T(n) = T(n - 1) + O(n)`. Substitution and a recursion tree. Akra–Bazzi is out of scope. | Core | Partial, inside merge sort and quick sort |
+| Amortized cost | Aggregate analysis of geometric growth. The potential method is Named, used in print for splay trees. | Core for the aggregate argument | Partial, inside `Stack.push` |
+| Randomized expectation | Random-pivot quick sort is expected O(n log n) on distinct keys. All-equal Lomuto stays O(n²). | Core | Partial, in `quick_sort.py` |
+| Loop invariants | One sentence. Floyd, the histogram stack, and shunting-yard already have traces. | Core as a habit | Partial |
+
+**Library costs are part of this chapter, not a late appendix.** The incident "the algorithm is quadratic" is usually `x in some_list` inside a loop, or `list.pop(0)` used as a queue. The Core module `bitsandbytes/library_costs.py` does not reimplement CPython. It uses `collections.deque`, `heapq`, and `bisect` for a queue, a top-k, and insertion into a sorted list, and each function's `Cost` section cites the library operation. Facts to state, from the language documentation:
+
+| Object | Fact |
+| --- | --- |
+| `list` | `append` and `pop()` at the end are amortized O(1). `insert(0, x)` and `pop(0)` are O(n). Indexing is O(1). |
+| `collections.deque` | O(1) at both ends. This is the queue for breadth-first search. CPython stores blocks, not one node per element. |
+| `dict` and `set` | Average O(1) lookup, insert, and delete when hashes spread out. Worst case O(n). Since 3.7, `dict` preserves insertion order. CPython randomizes hashes so a caller cannot cheaply force one bucket. The teaching table demonstrates a bad hash inside this process. It is not a recipe for attacking another service. |
+| `heapq` | Min-heap. `heappush` and `heappop` are O(log n). `heapify` is O(n). |
+| `bisect` | Binary search on a sorted `list`, O(log n). |
+| `list.sort` | Timsort, O(n log n), stable, adaptive on partially sorted runs. |
+
+**Suggested shape.** One module, `bitsandbytes/complexity.py`, for the vocabulary and the three recurrences, plus `library_costs.py`. The recurrence helper classifies those three shapes. It is not a solver for arbitrary recurrences.
 
 ---
 
 ## 2. Linear structures
 
-CLRS chapter 10 and CS 61B's list sequence. Most of this chapter exists.
+CLRS chapter 10. Most of this chapter exists. Do not add another dozen linked-list puzzles.
 
-| Topic | Cost to derive | Status | Where |
-| --- | --- | --- | --- |
-| Singly linked list, cached tail | `append` O(1); `node_at` and tail `pop` O(n) | Present | `linked_list.py` |
-| List algorithms: reverse, pairs, blocks, middle, Floyd, nth-from-end, duplicates, rotate, partition, odd-even, reorder, palindrome, delete-without-predecessor, add-two-numbers, merge, intersection, bottom-up list merge sort, circular split, modular nodes, reviewers | As in the README | Present | `linked_lists/` |
-| Doubly linked list | Unlink given the node is O(1) | Present | `doubly_linked_list.py` |
-| Stack, bounded and unbounded | Amortized O(1) `push`; O(1) `pop` | Present | `stacks/stack.py`, `algorithm_stack.py` |
-| Stack applications: brackets, min stack, next greater, stock span, histogram, shunting-yard, sort with one extra stack | O(n) monotonic scans; O(n²) stack sort | Present | `stacks/` |
-| Queue on a doubly linked list | O(1) enqueue and dequeue | Present | `queues/linked_queue.py` |
-| Circular buffer and the full-versus-empty ambiguity | O(1) with an explicit size | Present | `queues/circular_queue.py` |
-| Deque as the structure behind `collections.deque` | O(1) at both ends; O(n) in the middle | Missing | Build it on the doubly linked list, then state that CPython uses a block of arrays for locality |
-| Dynamic array, separate from "Python list" | Geometric growth: n appends are O(n) copies in total | Partial | Told inside `Stack.push`; there is no standalone `DynamicArray` |
-| Recursion, call stack, tail calls | Python does not optimize tail calls; recursive reverse is O(n) stack | Present as the reverse pair | `linked_lists/reverse.py` |
-
-**Do not add** another dozen linked-list puzzles. The pattern set in chapter 2 is enough. New list problems in later chapters should reuse `LinkedList`.
+| Topic | Cost to derive | Tier | Status | Where |
+| --- | --- | --- | --- | --- |
+| Singly linked list, cached tail | `append` O(1); `node_at` and tail `pop` O(n) | Core | Present | `linked_list.py` |
+| List algorithms already in `linked_lists/` | As in the README | Core | Present | `linked_lists/` |
+| Doubly linked list | Unlink given the node is O(1) | Core | Present | `doubly_linked_list.py` |
+| Stack, bounded and unbounded | Amortized O(1) `push`; O(1) `pop` | Core | Present | `stacks/stack.py`, `algorithm_stack.py` |
+| Stack applications | O(n) monotonic scans; O(n²) stack sort | Core | Present | `stacks/` |
+| Queue on a doubly linked list | O(1) enqueue and dequeue | Core | Present | `queues/linked_queue.py` |
+| Circular buffer | O(1), with an explicit size so full and empty differ | Core | Present | `queues/circular_queue.py` |
+| Deque | O(1) at both ends; O(n) in the middle | Core | Missing | Build it on the doubly linked list. Chapter 1 already says CPython uses blocks. |
+| Dynamic array | n appends copy O(n) elements in total under geometric growth | Core | Partial | Told inside `Stack.push`. No standalone type yet. |
+| Recursion and the call stack | Recursive reverse is O(n) stack. Python does not perform tail-call elimination. | Core | Present | `linked_lists/reverse.py` |
 
 ---
 
 ## 3. Trees, heaps, and hashing
 
-MIT lectures 4 and 6–8, CLRS chapters 11–13 and 6, Princeton symbol tables, Berkeley 2-3 trees and hashing.
+MIT lectures 4 and 6–8, CLRS chapters 6 and 11–13, Princeton symbol tables, Berkeley's 2-3 / red-black sequence.
 
-| Topic | Cost to derive | Status | Notes |
-| --- | --- | --- | --- |
-| Binary tree traversals: preorder, inorder, postorder, level order | O(n) time; O(h) stack or O(n) queue | Partial | Inorder exists on the BST. The other three, on a plain binary tree, are missing. Level order is the queue chapter applied to a tree. |
-| Binary search tree | O(h) search and insert; sorted insertion is h = n | Present | `trees/bst.py` has insert, contains, and iterative inorder. Deletion is missing, and deletion is where BSTs get their cases (two children, successor). |
-| Balanced search tree, one of AVL, 2-3, or left-leaning red-black | O(log n) height after every insert and delete | Missing | Code one. Name the others. Red-black is what `TreeMap` in Java and typical library trees resemble; 2-3 is the clearer invariant. |
-| Augmenting a tree | Order-statistic tree: rank and select in O(log n) once subtree sizes are stored | Missing | CLRS's point is the method, not a second species of tree. One augmented BST is enough. |
-| Binary heap | `heapify` O(n) because the sum of heights is linear; push and pop O(log n) | Partial | `heaps/heapsort.py` sifts down. There is no priority queue with `push`, `pop`, and `peek`. `decrease-key` waits until Dijkstra needs it, and an index map is the honest way to get O(log n) rather than a linear scan. |
-| Heapsort | O(n log n) time, O(1) extra memory, not stable | Present | `heapsort` |
-| Separate-chaining hash table | Expected O(1) lookup; O(n) rehash when the table doubles | Present | `hash_tables/chaining.py` |
-| Open addressing | Linear probing: expected O(1) under a load factor bounded away from 1; clustering is the story | Missing | Princeton teaches it beside chaining. Tombstones on delete are the bug to document. |
-| Hash quality | A hash that sends every key to one bucket makes the expected bound false. Python's `dict` assumes a well-distributed hash and records worst-case O(n) in the language docs. | Missing as a note on the chaining table | Do not invent a cryptographic hash. Show one bad hash and the resulting chain length. |
+| Topic | Cost to derive | Tier | Status | Notes |
+| --- | --- | --- | --- | --- |
+| Traversals: preorder, inorder, postorder, level order | O(n) time. O(h) stack, or O(n) queue for levels. | Core | Partial | Inorder exists on the BST. The other three, on a plain binary tree, are missing. |
+| Binary search tree, including deletion | O(h) search, insert, and delete. Sorted insertion makes h = n. | Core | Partial | `trees/bst.py` has insert, contains, and iterative inorder. Deletion is the missing case split: zero children, one child, two children via the successor. The row is not Present until deletion exists. |
+| Left-leaning red-black tree | O(log n) height after every insert and delete. | Core | Missing | This is the one balanced tree the course codes. The docstring derives it as a 2-3 tree stored in binary nodes. AVL is Named: MIT's lecture tree, same height bound, different rotations. A separate 2-3 type is not coded. |
+| Order-statistic tree | Rank and select in O(log n) once subtree sizes sit on the red-black nodes. | Core | Missing | One augmentation of the tree above, not a second species. |
+| Binary heap as a priority queue | `heapify` is O(n). Push and pop are O(log n). | Core | Partial | `heaps/heapsort.py` sifts down. No `push` / `pop` / `peek` queue yet. |
+| `decrease-key` | O(log n) with an index map from the item to its heap slot. A linear scan is O(n) and does not earn the Dijkstra bound below. | Core | Missing | Built with the priority queue, before the heap-based Dijkstra. |
+| Heapsort | O(n log n) time, O(1) extra memory, not stable. | Core | Present | `heapsort` |
+| Separate chaining | Expected O(1) lookup. O(n) when the table doubles and rehashes. | Core | Present | `hash_tables/chaining.py` |
+| Linear probing | Expected O(1) while the load factor stays bounded away from 1. Clustering is the story. Tombstones on delete. | Core | Missing | Princeton teaches this beside chaining. |
+| A degenerate hash | One bucket of length n, so the expected bound is false. | Core | Missing | A note on the chaining table. CPython's randomized hashing is why production `dict` is hard to force into this shape. Do not build a tool aimed at another process. |
 
-**Industry hook.** Language dictionaries, database indexes, and caches are this chapter. An LRU cache (already Present) is a hash table plus an order list. Say that explicitly when the hash chapter is reread.
+Fibonacci heaps are Named. They improve Dijkstra's comparison bound in the textbook and are not what libraries ship. Splay trees are Named: amortized O(log n), no extra code.
+
+The LRU cache is a hash table plus an order list. Say that again when this chapter is reread. The cache itself lives in `linked_lists/lru_cache.py` and is Present.
 
 ---
 
 ## 4. Sorting and selection
 
-CLRS part II, MIT lectures 3 and 5, Berkeley's sorting block, Princeton's quicksort and mergesort.
+CLRS part II, MIT lectures 3 and 5, Berkeley's sorting block.
 
-| Topic | Cost to derive | Status |
-| --- | --- | --- |
-| Bubble, selection, insertion | Quadratic comparison sorts; insertion is O(n) on sorted input; bubble and insertion are stable | Present |
-| Merge sort | `T(n) = 2T(n/2) + O(n) = O(n log n)`; O(n) extra memory; stable | Present, on arrays and on linked lists |
-| Quick sort, Lomuto, and three-way partition | Expected O(n log n) on distinct keys; Lomuto on all-equal keys is O(n²); three-way split repairs that | Present |
-| Heapsort | See chapter 3 | Present |
-| Comparison lower bound | `log2(n!)` is about `n log n` comparisons, so a comparison sort cannot beat that in the worst case | Missing |
-| Counting sort, radix sort | O(n + k) and O(d(n + k)) when keys are integers in a range. Not comparison sorts, so the lower bound does not apply | Missing |
-| Quickselect / median of medians | Expected O(n) selection; worst-case linear selection is the CLRS result worth stating even if the constant-factor version is only sketched | Missing |
-| Binary search, lower bound, upper bound | `T(n) = T(n/2) + O(1) = O(log n)` | Present |
-| Binary search on the answer | The search space is a numeric range, not an array index. Each probe is a monotonic predicate | Missing |
-| Stability and adaptivity | Which sorts keep equal keys in order, and which get faster on nearly sorted input | Partial | Tested for bubble, insertion, and merge. Selection and quick sort are documented as not stable. |
+| Topic | Cost to derive | Tier | Status |
+| --- | --- | --- | --- |
+| Bubble, selection, insertion | Quadratic. Insertion is O(n) on sorted input. Bubble and insertion are stable. Selection is not. | Core | Present |
+| Merge sort | `T(n) = 2T(n/2) + O(n) = O(n log n)`. O(n) extra memory. Stable. | Core | Present, on arrays and on lists |
+| Quick sort, Lomuto and three-way | Expected O(n log n) on distinct keys. All-equal Lomuto is O(n²). Three-way split repairs that case. Not stable. Lomuto needs `<=`, so a stability test has to be written with a type that defines it. | Core | Present |
+| Heapsort | Chapter 3 | Core | Present |
+| Comparison lower bound | `log2(n!)` is about `n log n` comparisons. | Core | Missing |
+| Counting sort, integer radix, LSD string radix | O(n + k) and O(d(n + k)). The lower bound does not apply. LSD is the same pass on a string alphabet of fixed width. MSD is Named. | Core | Missing |
+| Quickselect | Expected O(n). Worst-case linear selection (median of medians) is Named: the bound is the lesson, the constant factor is not worth the code. | Core for the expected algorithm | Missing |
+| Binary search, lower bound, upper bound | `T(n) = T(n/2) + O(1) = O(log n)` | Core | Present |
+| Binary search on the answer | The search space is a numeric range. Each probe is a monotonic predicate. | Core | Missing |
+| Inversion count | Merge sort, plus a count of pairs that cross the midpoint. | Core | Missing |
+| Stability tests | Bubble, insertion, and merge have tests. Selection has a test that equal keys do not keep their original order. | Core | Partial for quick sort's label test |
 
-**Industry hook.** Database `ORDER BY` is rarely a hand-written quick sort. The lesson is to know when the library Timsort (Python's `list.sort`, a stable adaptive merge sort) is the right call, and when an integer radix or a selection algorithm avoids sorting the whole input.
-
----
-
-## 5. Graphs
-
-MIT lectures 9–14, CLRS part VI, Princeton's graph half. The current package is an adjacency list, DFS, BFS, and a Dijkstra that scans unsettled vertices.
-
-| Topic | Cost to derive | Status |
-| --- | --- | --- |
-| Representations | Adjacency lists O(V + E) space; a matrix is O(V²) and answers "is there an edge?" in O(1). Lists are the default in this course. | Partial | Lists exist. The matrix is a paragraph, not a type. |
-| BFS and DFS | O(V + E) | Present | `breadth_first_order`, `depth_first_order` |
-| BFS distances on an unweighted graph | The queue order is the shortest-path order | Missing | The current BFS returns an order, not distances or parents |
-| Cycle detection, topological sort | A DAG has a finishing-time order; a back edge means a cycle. O(V + E) | Missing | This is the scheduling algorithm interviews and build systems both use |
-| Connected components, and strongly connected components | Kosaraju or Tarjan, O(V + E). Teach one. | Missing |
-| Undirected versus directed | The same code with a different edge rule will silently answer the wrong question | Missing as an explicit pair of classes or a flag |
-| Weighted edges | Already on `Graph.add_edge` | Present |
-| Dijkstra with a binary heap | O((V + E) log V) with a heap, for non-negative weights. The current scan is O(V² + E) and should remain in the docstring as the version this replaces | Partial |
-| Bellman-Ford | O(VE), detects a negative cycle. The reason Dijkstra's non-negative precondition exists | Missing |
-| Shortest paths in a DAG | One topological pass, O(V + E), negative weights allowed | Missing |
-| All-pairs (Floyd-Warshall) | O(V³) time, O(V²) memory. Johnson's algorithm can stay a citation | Missing |
-| Minimum spanning tree | Kruskal with union-find, and Prim with a heap. Cut property in one paragraph | Missing |
-| Bipartite test | BFS 2-coloring, O(V + E) | Missing |
-| Maximum flow and bipartite matching | Ford-Fulkerson is the classic capstone. Teach the idea and Edmonds-Karp's O(VE²) bound. A full library of flow algorithms is out of scope | Missing |
-| 0-1 BFS | A deque instead of a heap when weights are only 0 and 1 | Missing | Small, and it ties the deque chapter to graphs |
-
-**Industry hook.** Dependency graphs, web crawls, routing, and "is this user connected to that user?" are BFS, DFS, topological sort, and union-find. Matching and flow are the tools behind assignment problems; most product code calls a solver rather than hand-rolling Ford-Fulkerson.
+Timsort, already in chapter 1, is the production sort. Integer or string radix is for keys that are digits. Quickselect is for "the k-th" without sorting the rest.
 
 ---
 
-## 6. Design paradigms
+## 5. Union-find
 
-MIT's dynamic-programming block and CLRS chapters 14–16. These are techniques, so each module is a pair: the technique's invariant, then two or three problems that exist only to force that invariant. Do not collect a problem archive.
+CLRS's disjoint-set chapter, Princeton's percolation, Berkeley's disjoint sets. It is its own chapter so Kruskal cannot be assigned first.
 
-### 6.1 Divide and conquer
+| Topic | Cost to derive | Tier | Status |
+| --- | --- | --- | --- |
+| Union by rank and path compression | Treated as effectively constant per operation (inverse Ackermann). The code also shows the tree without those heuristics, so the worse bound has a program to point at. | Core | Missing |
+| Percolation | A grid of sites, unions between open neighbors, connectivity queried at the two ends. | Core | Missing | The second client, beside Kruskal. |
 
-**Partial.** Merge sort, quick sort, and binary search are the examples. Add the master theorem note from chapter 1, and one problem that is not a sort: closest pair is optional; an inversion count during merge is the right size for this repository because it reuses merge sort.
+---
 
-### 6.2 Dynamic programming
+## 6. Graphs
 
-**Missing.** Teach the checklist MIT uses: subproblems, a recurrence, a topological order of the subproblems (often just increasing length or a DAG), and the difference between memoized recursion and a bottom-up table.
+MIT lectures 9–14 and CLRS's graph part. The package today is a directed adjacency list, a DFS order, a BFS order, and a Dijkstra that scans unsettled vertices.
 
-Implement, with derived costs:
+| Topic | Cost to derive | Tier | Status |
+| --- | --- | --- | --- |
+| Adjacency lists | O(V + E) space. | Core | Present |
+| Adjacency matrix | O(V²) space, O(1) edge test. | Named | The paragraph lives next to the list type. A second class is not required. |
+| DFS and BFS orders | O(V + E) | Core | Present | `depth_first_order`, `breadth_first_order` |
+| Undirected versus directed | The same walk with a different edge rule answers a different question. | Core | Missing | An explicit flag or a pair of constructors. |
+| Unweighted distances and parents | BFS order is the shortest-path order. The current function returns neither distances nor parents. | Core | Missing |
+| Cycle detection and topological sort | A back edge is a cycle. A DAG has a finishing-time order. O(V + E). | Core | Missing |
+| Connected components, and one strong-component algorithm | Kosaraju or Tarjan, not both. O(V + E). | Core | Missing |
+| Weights stored on edges | `add_edge` already takes a weight. | Partial | Storing a weight is not a weighted search. |
+| Dijkstra, scan and heap | Scan is O(V² + E) and stays documented. Heap is O((V + E) log V) with the index map from chapter 3. Non-negative weights only. | Core | Partial | Only the scan exists. |
+| Bellman-Ford | O(VE), and a negative cycle is detectable. This is why Dijkstra has a precondition. | Core | Missing |
+| Shortest paths in a DAG | One topological pass, O(V + E), negative weights allowed. | Core | Missing |
+| Prim | O((V + E) log V) with the heap. Cut property in one paragraph. | Core | Missing |
+| Kruskal | O(E log E) after sorting edges, using chapter 5. | Core | Missing | Depends on union-find. |
+| Bipartite test | BFS 2-coloring, O(V + E). | Core | Missing |
+| 0-1 BFS | A deque, not a heap, when every weight is 0 or 1. | Core | Missing | Depends on the deque. |
+| Floyd-Warshall | O(V³) time, O(V²) memory. | Core | Missing | One function. Johnson's algorithm is Named. |
+| Maximum flow and bipartite matching | Ford-Fulkerson and Edmonds-Karp's O(VE²) bound. | Named | Most product code calls a solver. No flow implementation. |
+
+Greedy is the right label for Dijkstra and Prim when chapter 7 is written.
+
+---
+
+## 7. Design paradigms
+
+CLRS chapters on divide-and-conquer, dynamic programming, and greedy algorithms. Each Core problem exists to force one invariant. This is not a problem archive.
+
+### 7.1 Divide and conquer
+
+**Partial.** Merge sort, quick sort, and binary search are the examples. The inversion count in chapter 4 is the extra Core problem. Closest pair is Named, with computational geometry.
+
+### 7.2 Dynamic programming
+
+**Core, Missing.** Checklist: subproblems, a recurrence, an order that respects dependencies, and a bottom-up table. Memoized recursion is a comparison, not the required form, and it states its stack depth. The interpreter's recursion limit is part of that sentence.
 
 | Problem | Bound to derive | Why it is here |
 | --- | --- | --- |
-| Fibonacci, naive versus memoized versus bottom-up | Exponential versus O(n) | The definition of overlapping subproblems |
-| Coin change (minimum coins) | O(amount × coins) time, O(amount) memory | The first table people can fill by hand |
-| 0/1 knapsack | O(nW) time, and the one-row O(W) memory optimization | Pseudo-polynomial time, named as such |
-| Longest common subsequence | O(nm) time and memory | The grid recurrence |
-| Edit distance | O(nm), same grid, different local choice | Diff tools and spell correction |
-| Longest increasing subsequence | O(n²) and the O(n log n) patience-sorting form | Shows a DP that a search structure improves |
-| House robber / linear DP | O(n) | The smallest "adjacent constraint" |
-| Word break or unbounded knapsack | O(n · dictionary) or O(nW) | Reuses the coin pattern |
-| DP on a DAG | O(V + E) after a topological sort | Connects this chapter to chapter 5 |
+| Fibonacci modulo a fixed word, naive versus bottom-up | Exponential calls versus O(n) word operations | Overlapping subproblems, inside the word-RAM model |
+| Coin change (minimum coins) | O(amount × coins) time, O(amount) memory | The first hand-filled table |
+| 0/1 knapsack | O(nW) time, and the one-row O(W) memory form | Pseudo-polynomial time, named as such |
+| Longest common subsequence | O(nm) | The grid |
+| Edit distance | O(nm) | The same grid, a different local choice |
+| Longest increasing subsequence | O(n²), then O(n log n) with patience sorting | A table that a search structure improves |
+| Linear DP with an adjacent constraint | O(n) | The smallest recurrence of this shape |
+| One unbounded-knapsack or word-break | O(nW) or O(n · dictionary) | The coin pattern again |
+| DP on a DAG | O(V + E) after topological sort | Uses chapter 6 |
 
-Interval DP (matrix-chain order, burst balloons) is a second pass, one example only. Digit DP, tree DP, and bitmask DP are named as extensions, not required modules.
+Interval DP is Named (one sentence on matrix-chain order). Digit DP, tree DP, and bitmask DP are Named.
 
-### 6.3 Greedy algorithms
+### 7.3 Greedy algorithms
 
-**Missing.** The lesson is the exchange argument or the matroid intuition in one paragraph, plus a counterexample where the greedy choice fails.
+**Core, Missing.** One exchange argument, and one counterexample where the greedy choice fails.
 
-Implement:
-
-| Problem | Bound | Proof obligation in the docstring |
+| Problem | Bound | Docstring obligation |
 | --- | --- | --- |
-| Interval scheduling | O(n log n) after sorting by finish time | A greedy choice stays optimal |
-| Fractional knapsack | O(n log n) | Contrast with 0/1 knapsack, where this choice fails |
-| Huffman coding | O(n log n) with a heap | Connects heaps to compression, which Princeton teaches |
-| Dijkstra and Prim | Already placed in chapter 5 | They are greedy; say so when those modules are written |
+| Interval scheduling | O(n log n) after sorting by finish time | The greedy choice stays optimal |
+| Fractional knapsack | O(n log n) | The same choice fails for 0/1 knapsack |
+| Huffman coding | O(n log n) with a heap | Compression, the Princeton client of the heap |
 
-### 6.4 Backtracking
+### 7.4 Backtracking
 
-**Missing.** Permutations, combinations, subsets, and one constraint problem (N-queens or sudoku). Derive the size of the recursion tree rather than pretending it is polynomial. Pruning is part of the cost story: the worst-case tree does not shrink just because a test rejects early on some inputs.
+**Core, Missing.** Permutations, combinations, subsets, and N-queens. Derive the size of the recursion tree. An early reject does not change the worst-case tree. State the stack depth. Sudoku is Named.
 
-### 6.5 Two pointers, sliding window, and prefix sums
+### 7.5 Array patterns
 
-**Partial.** Fast/slow pointers, the nth-from-end gap, and three-way partition are the structural versions. The array versions are missing and are the ones interviews mean by these names.
+**Missing.** These are not credited by the linked-list pointer walks in chapter 2. Those walks stay in chapter 2.
 
-| Pattern | Bound | Status |
+| Pattern | Bound | Tier |
 | --- | --- | --- |
-| Two pointers on a sorted array (pair sum, container with most water) | O(n) after the array is sorted | Missing |
-| Sliding window with a monotonic predicate or a frequency map | O(n) because each index enters and leaves once | Missing |
-| Prefix sums, including a difference array | O(n) build, O(1) range sum | Missing |
-| Monotonic queue for sliding-window maximum | O(n), the histogram stack's cousin | Missing |
+| Two pointers on a sorted array | O(n) after the array is sorted | Core |
+| Sliding window | O(n), because each index enters and leaves once | Core |
+| Prefix sums | O(n) build, O(1) range sum | Core |
+| Monotonic queue for the sliding-window maximum | O(n) | Core | Uses the deque. The histogram stack is the cousin, not a substitute. |
 
 ---
 
-## 7. Strings
+## 8. Strings
 
-Princeton's second half and CLRS chapter 32. Nothing in the repository is a string algorithm yet, except that bracket matching scans a string.
+Princeton's string half and CLRS's string-matching chapter. Bracket matching scans a string and is not this chapter.
 
-| Topic | Cost to derive | Status |
-| --- | --- | --- |
-| Trie | O(total characters) to build; O(length of the query) to look up, independent of how many keys share no prefix | Missing |
-| Ternary search trie | Princeton's space-conscious alternative. Teach as a note beside the trie, or as a second type if the first one is solid | Missing |
-| Longest common prefix queries | The reason a trie beats a sorted list of strings plus binary search | Missing |
-| Knuth-Morris-Pratt | O(n + m) after the failure function, which is itself O(m) | Missing |
-| Rabin-Karp | Expected O(n + m) with a rolling hash; a bad hash collides | Missing |
-| Boyer-Moore | Often faster in practice because of the skip; the simplified bad-character rule is enough | Missing as a note if KMP and Rabin-Karp are coded |
-| Run-length encoding and Huffman | Huffman is chapter 6. Run-length encoding is the O(n) warmup | Missing |
-| Suffix arrays | CLRS 4th edition added them. One construction that is O(n log n) by sorting suffixes, plus LCP, is the right depth. Linear-time construction (SA-IS) is a citation | Missing |
-| Regular expressions to NFAs | Princeton's closing topic. Optional. If included, it is Thompson's construction, not a PCRE clone | Optional |
-
-**Industry hook.** Autocomplete, routers, and search boxes are tries. `grep` and editor search are string matching. Compression is Huffman plus a model. Full-text search engines use inverted indexes (a hash or sorted postings list), which should be one short module: build O(total tokens), query O(postings of the term).
-
----
-
-## 8. Advanced structures
-
-CLRS part V, plus the structures working engineers meet after the undergraduate core. Each one earns a place by changing a bound the earlier chapters could not.
-
-| Topic | Bound that justifies it | Status | Depth |
+| Topic | Cost to derive | Tier | Status |
 | --- | --- | --- | --- |
-| Union-find | Inverse Ackermann, treated as "effectively constant" per operation, with path compression and union by rank. Without those, the bound is worse and the code should show it | Missing | Implement. Kruskal and percolation are the two clients |
-| B-tree | O(log_B n) height with branching factor B, which is the disk-page or SSD-page parameter | Missing | Implement a small B-tree in memory. The page story is the docstring, not a disk driver |
-| Skip list | Expected O(log n) search, insert, delete, with randomized levels. This is a real alternative to a balanced tree (Redis's sorted sets are a well-known user) | Missing | Implement |
-| Segment tree, and a Fenwick tree | O(log n) point update and range query. Fenwick is shorter and handles prefix sums; the segment tree handles more general combinations | Missing | Implement both. Lazy propagation is the second lesson on the segment tree, one operation (range add) |
-| Sparse table | O(n log n) build, O(1) idempotent range query, no updates | Missing | One range-minimum module |
-| Bloom filter | O(k) per insert and query, false positives, no false negatives, no deletes in the basic form | Missing | Implement. Counting Bloom filters are a note |
-| Count-Min sketch and HyperLogLog | Approximate frequency and approximate cardinality in sublinear memory | Missing | One of them, not both, unless the first one is small. The lesson is the error guarantee |
-| LRU and LFU | LRU is Present. LFU with O(1) operations (frequency buckets) is the follow-up | Partial | `linked_lists/lru_cache.py` |
-| Splay tree | Amortized O(log n), self-adjusting. Optional once a balanced tree exists | Missing | Optional |
-| Persistent stack or list | Old versions remain, O(1) per update for a stack, path copying O(log n) for a tree | Missing | One persistent stack. It explains snapshots without a lecture on purely functional data structures |
-| Disjoint sparse table, heavy-light decomposition, link-cut trees | Competitive-programming machinery | Out of scope | Name them so the segment tree does not pretend to be the last word |
+| Trie | Build O(total characters). Query O(length of the key). | Core | Missing |
+| Ternary search trie | Princeton's space-conscious alternative. | Named | Not a second implementation. |
+| Knuth-Morris-Pratt | Failure function O(m), then O(n + m). | Core | Missing |
+| Rabin-Karp | Expected O(n + m) with a rolling hash. A bad hash collides. | Core | Missing |
+| Boyer-Moore | The skip is why it is often faster. The bad-character rule is the whole note. | Named | |
+| Inverted index | Build O(total tokens). Query O(postings of the term). | Core | Missing |
+| Run-length encoding | O(n) | Core | Missing | Huffman is chapter 7. |
+| Suffix arrays and LCP | O(n log² n) or O(n log n) by sorting suffixes. SA-IS is Named. | Core | Missing |
+| Thompson's NFA construction | Princeton's closing topic. | Named | Not a regular-expression engine. |
+
+LSD radix sort is chapter 4, not a second string course.
 
 ---
 
-## 9. Production costs and contemporary practice
+## 9. Range queries and approximate sets
 
-This chapter is the difference between a textbook course and a course for people who ship Python. It should be code where a small model is honest, and prose where a distributed system would be a pretense.
+These change a bound the earlier chapters cannot. Competitive-programming machinery beyond this table (heavy-light decomposition, link-cut trees, disjoint sparse tables) is Named in one sentence so the segment tree is not mistaken for the last word.
 
-### 9.1 The standard library, with the official bounds
+| Topic | Bound | Tier | Status |
+| --- | --- | --- | --- |
+| Fenwick tree | O(log n) point update and prefix query. | Core | Missing |
+| Segment tree, with lazy range add | O(log n) point update and range query. One lazy operation: range add. | Core | Missing |
+| Sparse table | O(n log n) build, O(1) idempotent range query, no updates. | Core | Missing |
+| Bloom filter | O(k) per insert and query. False positives. No false negatives. No deletes in the basic form. | Core | Missing |
+| Count-Min sketch, HyperLogLog | Approximate frequency, approximate cardinality. | Named | The Bloom filter is the one coded approximate structure. |
+| LFU with frequency buckets | O(1) operations. | Named | LRU is Present in `linked_lists/lru_cache.py`. |
+| Persistent stack | Old versions remain. O(1) per push. | Core | Missing | Path-copying a tree is Named. |
 
-**Missing** as a single study note tied to the Python docs. The implementations in earlier chapters exist so these lines mean something.
+---
 
-| Object | Fact to teach | Source |
+## 10. Storage, locality, and concurrency
+
+Code only what a small in-memory model can honestly show.
+
+| Topic | Tier | What is required |
 | --- | --- | --- |
-| `list` | `append` and `pop()` at the end are amortized O(1). `insert(0, x)` and `pop(0)` are O(n). Indexing is O(1). | Python "Time complexity" documentation |
-| `collections.deque` | O(1) at both ends. The right queue for BFS. CPython stores it as blocks, not one node per element | Same, plus the collections docs |
-| `dict` and `set` | Average O(1) lookup, insert, and delete if hashes spread out. Worst case O(n) when they do not. Since 3.7, `dict` preserves insertion order | Language docs |
-| `heapq` | Min-heap only. `heappush` and `heappop` are O(log n). `heapify` is O(n). A max-heap is negation, or a wrapper | `heapq` docs |
-| `bisect` | Binary search on a sorted `list`, O(log n) | `bisect` docs |
-| `list.sort` | Timsort, O(n log n), stable, adaptive on partially sorted runs | Implementation note worth one paragraph |
+| Locality | Core | Next to `DynamicArray` and the deque: one scan benchmark that is allowed to be noisy. The operation count remains the proof. The benchmark is why the array wins a scan. |
+| B-tree | Core | In memory. Height O(log_B n) with branching factor B. The page story is the docstring, not a disk driver. |
+| Skip list | Core | Expected O(log n) search, insert, and delete. Randomized levels. A real alternative to the red-black tree. |
+| Toy LSM | Core | A memtable (the skip list or the red-black tree), sorted runs merged like merge sort, and the Bloom filter in front of a run. Depends on the filter and on one of those two ordered structures. |
+| Write-ahead log | Core | A sequential append, replayed into the memtable. Not a crash-safe database. |
+| Single-flight and TTL | Named | Policies around the LRU cache, not new asymptotics. |
+| Concurrency | Named | A page, not a lock-free table. One thread's invariant is not two threads' invariant. A mutex around every method serializes the O(1) operation. Concurrent hash maps and lock-free stacks are memory-model arguments, which are another course. The persistent stack is the snapshot that needs no lock. |
+| Exact nearest neighbor | Core | O(nd) for n vectors of dimension d. |
+| HNSW and IVF | Named | A graph of long-range and short-range edges, or clusters, used so a search does not scan every vector. No approximate-index implementation. A naive one would teach the wrong constants. |
+| k-d trees | Named | Princeton assigns them. This course's geometric search stops at the linear scan and the Named approximate indexes. |
 
-A module `bitsandbytes/library_costs.py` should not reimplement CPython. It should be a short, tested guide: functions that *use* `deque`, `heapq`, and `bisect` for BFS, top-k, and a sorted insert, each with a `Cost` section that cites the library operation they rely on.
+---
 
-### 9.2 Locality
+## 11. Limits
 
-**Missing.** A linked list of nodes and a dynamic array of the same values do the same abstract operations at different constant factors, because of cache lines. The course should say this next to `DynamicArray` and the deque, with a small benchmark that is allowed to be noisy and is not a proof. The proof stays the operation count. The benchmark is the reason the array wins on a scan.
+MIT's complexity lecture and CLRS on NP-completeness and approximation. This chapter stops a search for an O(n log n) algorithm the problem does not allow.
 
-### 9.3 Storage engines
-
-**Missing**, at recognition depth plus one coded analogue.
-
-| Idea | What to say | What to code |
+| Topic | Tier | Depth |
 | --- | --- | --- |
-| B-tree versus LSM-tree | B-trees mutate pages in place (classic databases). LSM-trees append runs and merge them (many current key-value stores). Writes love LSMs; point reads pay for multiple runs unless a filter helps | The in-memory B-tree from chapter 8. An LSM is a docstring and a tiny in-memory version: a memtable (the balanced tree or skip list) plus sorted runs merged like merge sort |
-| Write-ahead log | Durability is a sequential append before the in-memory structure is considered committed | A dozen-line log that replays into the memtable. Not a crash-safe database |
-| Bloom filter in front of a run | The filter from chapter 8, used so a read can skip a run | Wire the filter to the toy LSM |
+| P, NP, and five problems: SAT, clique, vertex cover, Hamiltonian path, subset sum | Named | Definitions. No Cook-Levin proof. |
+| One reduction | Named | Vertex cover and independent set, in a page. |
+| What to do instead | Named | Exact exponential with a clear bound, pseudo-polynomial DP when one exists, an approximation, or a solver. |
+| 2-approximation for vertex cover | Core | Derive the ratio. This is the one approximation algorithm that is coded. Set cover's `H_n` bound is Named. |
+| Ski rental | Named | One competitive ratio, because the caches in chapter 10 are online. Paging is the citation. |
+| Work and span | Named | The parallel analogue of a recurrence. No parallel runtime. |
 
-### 9.4 Caches and approximate membership
-
-LRU is Present. Add the Bloom filter (chapter 8) and one sentence on single-flight and TTL: those are policies around a cache, not new asymptotic structures. LFU is optional.
-
-### 9.5 Concurrency, only the vocabulary
-
-**Do not** build a lock-free hash table in this course. Do write a page that states:
-
-* A structure that is correct for one thread is not thereby correct for two.
-* A mutex around the public methods is the coarse version, and it serializes the O(1) operation.
-* Readers-writer locks, concurrent hash maps, and lock-free stacks exist; their correctness arguments are memory-model arguments, which are a different course.
-* Immutability and the persistent stack from chapter 8 are one way to share a snapshot without a lock.
-
-### 9.6 Nearest-neighbor search
-
-**Missing**, recognition plus a brute-force module.
-
-Exact nearest neighbor in a list of vectors is O(nd) for n vectors of dimension d. That module belongs here because the contemporary demand (embedding search) starts from that bound. Approximate indexes (HNSW, IVF) exist to avoid it. Describe HNSW as a graph where search is greedy over long-range and short-range edges, and stop. Implementing a production ANN index is not required for "complete" coverage of classical DSA, and a naive one would teach the wrong constants.
-
-### 9.7 What interviews add, without turning the repo into a problem bank
-
-After chapters 2 through 7, a learner should be able to recognize these patterns and point at a module. A single `exercises/` set, maybe twenty problems, is in scope if each problem is one pattern and names the module it drills. Hundreds of unrelated problems are out of scope.
-
-The patterns, in the order to drill them: hash map, two pointers, sliding window, stack, binary search, binary search on the answer, linked list, tree traversal, heap / top-k, prefix sums, backtracking, graph traversal, topological sort, union-find, dynamic programming, intervals. That list matches the patterns that public write-ups of 2024–2026 hiring loops keep repeating. It is not a claim about any one company's process.
+Flow stays Named in chapter 6. It is not repeated here as an implementation.
 
 ---
 
-## 10. Limits, named so the course can end
+## 12. Adjacent fields
 
-MIT's last content lecture and CLRS chapters 34 and 35. This is not a complexity-theory course. It is the chapter that stops a learner from hunting for an O(n log n) algorithm that the problem statement does not allow.
-
-| Topic | Depth |
+| Field | Why it stays out |
 | --- | --- |
-| P and NP, as decision problems | Definitions and five canonical problems: SAT, clique, vertex cover, Hamiltonian path, subset sum. No proof of the Cook-Levin theorem |
-| NP-complete, in one paragraph | A polynomial reduction. One worked reduction that is small (vertex cover and independent set, or subset sum and knapsack's decision version) |
-| How to respond | Exact exponential with a clear bound, dynamic programming when a pseudo-polynomial bound exists, approximation when the problem is an optimization version, or a solver |
-| Approximation | One algorithm: a 2-approximation for vertex cover, or the greedy set-cover `H_n` bound. Derive the ratio |
-| Online algorithms | CLRS 4th edition's chapter. Ski rental or paging, one competitive ratio, because caches in chapter 9 are online |
-| Parallel algorithms | A note that work and span replace the single-thread recurrence (`T` infinity is the span). No CUDA |
-
----
-
-## Adjacent fields this course will not absorb
-
-Listed so a later pass does not quietly expand without a decision.
-
-| Field | Why it is adjacent |
-| --- | --- |
-| Machine learning algorithms (CLRS chapter 33) and ML system design | Gradient methods, feature stores, and model serving are a pipeline course. The indexes and caches underneath them are chapters 8 and 9 |
-| Computational geometry | Convex hull (Graham scan) is the one algorithm worth a module if geometry is ever added. Not required for completeness of the core |
-| Number theory | GCD and modular exponentiation are short and useful. RSA is a different course |
-| Linear programming, FFT, matrix multiplication | CLRS selected topics. Cite them when a recurrence or a matching problem would really be solved by one of these |
-| Distributed systems | Consensus, sharding, and replication use the logs and trees in chapter 9. The protocols themselves are not DSA modules |
+| Machine learning pipelines | Feature stores and model serving are another course. The indexes and caches under them are chapters 9 and 10. |
+| Computational geometry | Graham scan and closest pair are Named. k-d trees are Named in chapter 10. |
+| Number theory | GCD and modular exponentiation are useful and short. RSA is another course. They are Named, not gap rows. |
+| Linear programming, FFT, matrix multiplication | Cite them when a matching problem or a recurrence would actually be solved by one. |
+| Distributed systems | Consensus and replication use the log in chapter 10. The protocols are not modules. |
 
 ---
 
 ## Gap list
 
-Everything below is Missing or Partial. The order is the order to build it, because later rows use earlier ones.
+Every **Core** topic that is Missing or Partial has one row. **Named** topics do not. Later rows use earlier rows. Kruskal is after union-find. The LSM is after the Bloom filter and after a memtable structure. Library costs are row 2, next to the incident they explain.
 
-| Order | Work | Depends on |
+| Order | Core work | Depends on |
 | --- | --- | --- |
-| 1 | Analysis note: O/Θ/Ω, three recurrences, amortized doubling | Nothing |
-| 2 | `DynamicArray` and a deque | Linked list, doubling argument |
-| 3 | BST deletion; plain binary-tree traversals including level order | Queue, BST |
-| 4 | Priority queue on the binary heap, then Dijkstra with that heap | Heap, graph |
-| 5 | One balanced search tree | BST |
-| 6 | Comparison lower bound; counting sort and radix sort; quickselect | Sorts, binary search |
-| 7 | Open addressing and one pathological hash | Chaining table |
-| 8 | Graph parents and distances, topological sort, components, Bellman-Ford, a DAG shortest path, MST (Kruskal and Prim), bipartite test | Heap, and union-find for Kruskal |
-| 9 | Union-find with the two heuristics | Nothing structural, but Kruskal wants it |
-| 10 | Dynamic programming module: the eight problems in section 6.2 | Recursion, arrays |
-| 11 | Greedy module: intervals, fractional knapsack, Huffman | Heap, sort |
-| 12 | Backtracking, two pointers, sliding window, prefix sums | Arrays, hash table |
-| 13 | Trie, KMP, Rabin-Karp, inverted index | Hashing, strings |
-| 14 | Segment tree, Fenwick tree, sparse table | Arrays |
-| 15 | B-tree, skip list, Bloom filter, toy LSM | Balanced tree or skip list, Bloom filter |
-| 16 | Library-cost module for `deque`, `heapq`, `bisect`, Timsort | Chapters 2–4 |
-| 17 | Floyd-Warshall, flow at recognition depth, NP and one approximation, one online algorithm | Graphs, chapter 10 |
+| 1 | Analysis module: word RAM, Python big integers, recursion limit, O/Θ/Ω, the three recurrences | Nothing |
+| 2 | `library_costs.py`: deque, heapq, bisect, Timsort, and why `list.pop(0)` is linear | Row 1's vocabulary |
+| 3 | `DynamicArray` and a deque | Doubling argument, doubly linked list |
+| 4 | BST deletion. Preorder, postorder, level order | Queue, BST |
+| 5 | Priority queue, including `decrease-key` with an index map | The sift-down heap |
+| 6 | Left-leaning red-black tree, then subtree sizes for rank and select | BST deletion |
+| 7 | Comparison lower bound. Counting sort, integer radix, LSD string radix. Quickselect. Binary search on the answer. Inversion count. A quick-sort stability test on a type that defines `<=` | Sorts, binary search |
+| 8 | Linear probing, and one degenerate hash on the chaining table | Chaining table |
+| 9 | Union-find with and without the heuristics. Percolation | Nothing structural |
+| 10 | Directed versus undirected. BFS distances and parents. Topological sort. One component algorithm. Bellman-Ford. DAG shortest paths. Heap Dijkstra, keeping the scan in the docstring. Prim. Kruskal. Bipartite test. 0-1 BFS. Floyd-Warshall | Rows 3, 5, and 9. Kruskal uses row 9. 0-1 BFS uses the deque. |
+| 11 | Dynamic programming problems in section 7.2, bottom-up | Arrays. DAG DP uses row 10. |
+| 12 | Interval scheduling, fractional knapsack, Huffman | Heap, sort |
+| 13 | Backtracking. Two pointers, sliding window, prefix sums, monotonic queue | Arrays, hash table, deque |
+| 14 | Trie, KMP, Rabin-Karp, inverted index, run-length encoding, suffix array with LCP | Hashing, LSD radix from row 7 |
+| 15 | Fenwick tree, segment tree with lazy range add, sparse table | Arrays |
+| 16 | Bloom filter. Skip list. Persistent stack. | Hashing for the filter. Randomized levels for the skip list. |
+| 17 | B-tree. Toy LSM using the skip list or the red-black tree, the Bloom filter, and a replay log. Locality note beside `DynamicArray`. Exact nearest neighbor. | Rows 6 or 16 for the memtable, row 16 for the filter |
+| 18 | Vertex-cover 2-approximation | Graphs |
+| 19 | Worked traces on the Present modules that lack one: heapsort, chaining, BST, binary search | Those modules. Polish, not a new algorithm. |
 
-Chapters 2's linked-list puzzles, the five quadratic-or-better sorts already in the tree, the stack lessons, binary search, chaining, and the teaching Dijkstra stay. They are not gaps. Dijkstra is a gap only in the heap-based bound.
+Linked-list puzzles, the comparison sorts already in the tree, the stack lessons, binary search on a sorted array, separate chaining, and the O(V²) Dijkstra stay. They are not rows. Dijkstra is a row only for the heap bound.
 
-## How progress should be recorded
+## How progress is recorded
 
-When a row in the gap list becomes code:
+When a row becomes code:
 
-* The module's `Cost` section is the definition of done, together with tests for the empty, singleton, and distinguishing cases.
-* The README gains one bullet: file, idea, cost result.
-* This file's status cell changes from Missing to Present, and the worked-trace requirement is either met in the module docstring or the status stays Partial.
+* The Core bar in "How a Core module is written" is met, including the trace.
+* The README gains one bullet.
+* The status cell in this file changes to Present.
 
-The curriculum file remains the map. It should not grow a second copy of the algebra.
+This file stays the map. It does not grow a second copy of the algebra.
