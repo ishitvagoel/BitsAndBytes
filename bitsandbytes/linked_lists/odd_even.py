@@ -27,7 +27,15 @@ T = TypeVar("T")
 
 
 def group_by_position_parity(lst: LinkedList[T]) -> None:
-    """Move even-positioned nodes behind the odd-positioned ones."""
+    """Move even-positioned nodes behind the odd-positioned ones.
+
+    Cost
+    ----
+    The loop consumes two nodes per iteration, so it runs about n / 2 times.
+    Each iteration rewrites two ``next`` pointers: O(1). Time is O(n). The
+    final ``refresh`` is another O(n). Only ``odd``, ``even``, and
+    ``even_head`` are stored: O(1) extra memory.
+    """
 
     lst.require_linear()
     if lst.head is None or lst.head.next is None:

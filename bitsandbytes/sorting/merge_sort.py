@@ -19,7 +19,18 @@ T = TypeVar("T")
 
 
 def merge_sort(values: Sequence[T]) -> list[T]:
-    """Return a new list containing ``values`` in ascending order."""
+    """Return a new list containing ``values`` in ascending order.
+
+    Cost
+    ----
+    Let n be ``len(values)``. A list shorter than 2 returns in O(1). Otherwise
+    the work is two recursive calls on n/2 plus one merge of n items:
+    ``T(n) = 2 T(n/2) + O(n)``, with ``T(1) = O(1)``. Unrolling gives
+    ``log2(n)`` levels and O(n) work on each level, so time is O(n log n) for
+    every input order. Each level allocates new lists that together hold n
+    items, and the recursion is ``log2(n)`` frames deep. Extra memory is O(n)
+    for the halves, plus O(log n) for the call stack.
+    """
 
     if len(values) < 2:
         return list(values)
@@ -32,7 +43,17 @@ def merge_sort(values: Sequence[T]) -> list[T]:
 
 
 def _merge(left: list[T], right: list[T]) -> list[T]:
-    """Merge two ascending lists into one new ascending list."""
+    """Merge two ascending lists into one new ascending list.
+
+    Cost
+    ----
+    Let a be ``len(left)`` and b be ``len(right)``. The loop runs once per
+    item taken from either side, at most ``a + b`` times, and each step
+    appends one value in amortized O(1). The two ``extend`` calls copy the
+    leftovers, which were not yet counted, so every element is written
+    exactly once. Time is O(a + b). The result list is new and holds
+    ``a + b`` references: O(a + b) extra memory.
+    """
 
     merged: list[T] = []
     left_index = 0

@@ -24,7 +24,17 @@ OPENING = set(CLOSING_TO_OPENING.values())
 
 
 def symbols_are_balanced(expression: str) -> bool:
-    """Return whether every bracket in ``expression`` is correctly paired."""
+    """Return whether every bracket in ``expression`` is correctly paired.
+
+    Cost
+    ----
+    Let n be the number of characters. The loop body runs once per character:
+    n iterations. A bracket is either appended or popped. Both are amortized
+    O(1), and a non-bracket is a dictionary miss, also O(1). Time is
+    n * O(1) = O(n). The stack holds only unmatched openers, at most n of
+    them, so extra memory is O(n) in the worst case (a string of only
+    openers) and O(1) when brackets stay matched along the way.
+    """
 
     opening_stack: list[str] = []
     for character in expression:

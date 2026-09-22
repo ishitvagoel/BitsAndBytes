@@ -20,7 +20,14 @@ class Reviewer:
     next: Reviewer | None = None
 
     def __repr__(self) -> str:
-        # Omit ``next`` so a circle does not recurse forever.
+        """Return the name without following ``next``.
+
+        Cost
+        ----
+        Formatting one name is O(1) in the size of the circle. Following
+        ``next`` would not terminate.
+        """
+
         return f"Reviewer({self.name!r})"
 
 
@@ -28,15 +35,36 @@ class ReviewersList:
     """Round-robin reviewers stored as a circular singly linked list."""
 
     def __init__(self) -> None:
+        """Start with no reviewers.
+
+        Cost
+        ----
+        Three empty references: O(1) time and O(1) extra memory.
+        """
+
         self._head: Reviewer | None = None
         self._current: Reviewer | None = None
         self._size = 0
 
     def __len__(self) -> int:
+        """Return how many reviewers are in the circle.
+
+        Cost
+        ----
+        The size is cached on insert. O(1) time. The circle is not walked.
+        """
+
         return self._size
 
     def __iter__(self) -> Iterator[Reviewer]:
-        """Yield each reviewer once, starting from the first person added."""
+        """Yield each reviewer once, starting from the first person added.
+
+        Cost
+        ----
+        The loop runs ``_size`` times, once per reviewer. n reviewers take
+        n steps: O(n) time, O(1) extra memory. The cached size is what stops
+        the circle from being walked forever.
+        """
 
         node = self._head
         for _ in range(self._size):
@@ -46,13 +74,25 @@ class ReviewersList:
 
     @property
     def current(self) -> Reviewer:
+        """Return the reviewer who holds the cursor.
+
+        Cost
+        ----
+        One attribute read and maybe one exception. O(1) time.
+        """
+
         if self._current is None:
             raise RuntimeError("No reviewers have been added.")
         return self._current
 
     @property
     def current_name(self) -> str:
-        """Name of the reviewer who currently holds the cursor."""
+        """Name of the reviewer who currently holds the cursor.
+
+        Cost
+        ----
+        ``current`` is O(1) and reading ``name`` is O(1). Total O(1).
+        """
 
         return self.current.name
 
@@ -61,6 +101,11 @@ class ReviewersList:
 
         The cursor does not move. On an empty list the new reviewer becomes
         the cursor and points at themselves.
+
+        Cost
+        ----
+        The new node is linked to ``current.next``, which is already known.
+        No scan of the circle: O(1) time. One new node is allocated.
         """
 
         reviewer = Reviewer(name)
@@ -75,7 +120,13 @@ class ReviewersList:
         return reviewer
 
     def next_reviewer(self) -> Reviewer:
-        """Advance the cursor one step and return that reviewer."""
+        """Advance the cursor one step and return that reviewer.
+
+        Cost
+        ----
+        Follow one ``next`` pointer. O(1) time, O(1) extra memory, regardless
+        of how many reviewers are in the circle.
+        """
 
         current = self.current
         assert current.next is not None

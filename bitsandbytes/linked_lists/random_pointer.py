@@ -38,12 +38,29 @@ class RandomNode(Generic[T]):
     random: RandomNode[T] | None = None
 
     def __repr__(self) -> str:
-        # Follow neither link. ``random`` can point backward or at this node.
+        """Return this node's value without following ``next`` or ``random``.
+
+        Cost
+        ----
+        One value is formatted. ``random`` can point backward or at this
+        node, so following it would not be O(1) and might not terminate.
+        Time O(1), extra memory O(1).
+        """
+
         return f"RandomNode(data={self.data!r})"
 
 
 def clone_with_map(head: RandomNode[T] | None) -> RandomNode[T] | None:
-    """Clone ``head`` using a dictionary from each original node to its copy."""
+    """Clone ``head`` using a dictionary from each original node to its copy.
+
+    Cost
+    ----
+    Let n be the number of nodes. The first loop creates n copies: O(n).
+    The second loop wires ``next`` and ``random`` with two dictionary reads
+    per node. A dictionary read is O(1) expected, so the second loop is O(n)
+    expected. Total time O(n) expected. The dictionary stores n entries:
+    O(n) extra memory, on top of the n cloned nodes which are the output.
+    """
 
     if head is None:
         return None
@@ -65,7 +82,16 @@ def clone_with_map(head: RandomNode[T] | None) -> RandomNode[T] | None:
 
 
 def clone_interleaved(head: RandomNode[T] | None) -> RandomNode[T] | None:
-    """Clone ``head`` by weaving each copy into the original chain, then splitting."""
+    """Clone ``head`` by weaving each copy into the original chain, then splitting.
+
+    Cost
+    ----
+    Three passes each visit every original node once, and the woven chain
+    has 2n nodes during the middle pass. Each pass does a constant amount of
+    pointer work per node. Time is 3 * O(n) = O(n). No dictionary is kept.
+    Scratch memory is a few references: O(1), besides the n cloned nodes
+    that form the result.
+    """
 
     if head is None:
         return None

@@ -25,6 +25,15 @@ def add_numbers(left: LinkedList[int], right: LinkedList[int]) -> LinkedList[int
 
     Digits are non-negative integers. The usual representation uses ``0``
     through ``9``, but any non-negative digit works: the base is still 10.
+
+    Cost
+    ----
+    Let n and m be the lengths. The loop runs once per digit of the longer
+    number, plus one extra step when a final carry remains:
+    max(n, m) + 1 iterations. Each iteration adds two digits and appends one
+    result digit. Append is O(1). Time is O(n + m). The result list holds
+    O(n + m) new nodes, which is the output, not scratch space. A few
+    references and the carry are O(1) scratch memory.
     """
 
     left.require_linear()

@@ -23,7 +23,15 @@ T = TypeVar("T")
 
 
 def partition(lst: LinkedList[T], pivot: T) -> None:
-    """Rearrange ``lst`` so values ``< pivot`` precede the rest."""
+    """Rearrange ``lst`` so values ``< pivot`` precede the rest.
+
+    Cost
+    ----
+    Each of the n nodes is unlinked and appended to one of the two chains
+    exactly once. Append to a chain tail is O(1). Time is n * O(1) = O(n).
+    The four head/tail references are O(1) extra memory. ``refresh`` adds
+    another O(n) walk.
+    """
 
     lst.require_linear()
     smaller_head: Node[T] | None = None
@@ -54,6 +62,13 @@ def _append(
     tail: Node[T] | None,
     node: Node[T],
 ) -> tuple[Node[T], Node[T]]:
+    """Attach ``node`` after ``tail`` and return the chain's head and tail.
+
+    Cost
+    ----
+    One pointer write when the chain already has a tail, or two assignments
+    when it does not. O(1) time, O(1) extra memory.
+    """
     if tail is None:
         return node, node
     tail.next = node

@@ -22,7 +22,16 @@ T = TypeVar("T")
 
 
 def find_intersection(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | None:
-    """Return the first node shared by ``first`` and ``second``, or ``None``."""
+    """Return the first node shared by ``first`` and ``second``, or ``None``.
+
+    Cost
+    ----
+    Let n and m be the lengths. Counting both lists is O(n + m). Advancing
+    the longer list by the difference is at most max(n, m) steps. The lockstep
+    walk is at most min(n, m) steps. Every step is O(1). Total time
+    O(n + m). A few references are stored: O(1) extra memory. A set of seen
+    nodes would also find the join but would use O(n + m) memory.
+    """
 
     first_length = _length(first.head)
     second_length = _length(second.head)
@@ -44,6 +53,15 @@ def find_intersection(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | 
 
 
 def _length(head: Node[T] | None) -> int:
+    """Count nodes reachable from ``head``, rejecting a cycle.
+
+    Cost
+    ----
+    Each reachable node is visited once. k nodes take k steps, and each step
+    hashes one id: O(k) expected time. The ``seen`` set holds k ids: O(k)
+    extra memory.
+    """
+
     count = 0
     seen: set[int] = set()
     node = head
@@ -57,6 +75,14 @@ def _length(head: Node[T] | None) -> int:
 
 
 def _advance(node: Node[T] | None, steps: int) -> Node[T] | None:
+    """Follow ``next`` ``steps`` times.
+
+    Cost
+    ----
+    The loop runs ``steps`` times and each iteration is one pointer read.
+    Time O(steps), extra memory O(1).
+    """
+
     for _ in range(steps):
         if node is None:
             return None

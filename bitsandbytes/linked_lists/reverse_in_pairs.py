@@ -17,7 +17,15 @@ T = TypeVar("T")
 
 
 def reverse_in_pairs(lst: LinkedList[T]) -> None:
-    """Swap each adjacent pair in ``lst`` in place."""
+    """Swap each adjacent pair in ``lst`` in place.
+
+    Cost
+    ----
+    Let n be the length. Each iteration consumes two nodes, so the loop runs
+    floor(n / 2) times. Each iteration rewrites three pointers: O(1). Time is
+    O(n). ``require_linear`` and ``refresh`` are two more O(n) walks. The
+    anchor is one extra node: O(1) extra memory.
+    """
 
     lst.require_linear()
     if lst.head is None or lst.head.next is None:

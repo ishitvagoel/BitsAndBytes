@@ -27,6 +27,14 @@ def reverse_in_blocks(
     """Reverse every block of ``k`` nodes in ``lst``.
 
     ``k`` of 1 leaves the list unchanged. A non-positive ``k`` is rejected.
+
+    Cost
+    ----
+    There are about n / k blocks. Counting a block looks at k nodes, and
+    reversing it rewrites k pointers. Across every block the counts and the
+    reversals each touch each node a constant number of times, so both are
+    O(n), not O(n * k). ``require_linear`` and ``refresh`` are O(n). Total
+    time O(n). The anchor and a few references are O(1) extra memory.
     """
 
     if isinstance(k, bool) or not isinstance(k, int) or k < 1:
@@ -51,7 +59,13 @@ def reverse_in_blocks(
 
 
 def _count_available(node: Node[T] | None, limit: int) -> int:
-    """Count nodes from ``node``, stopping at ``limit``."""
+    """Count nodes from ``node``, stopping at ``limit``.
+
+    Cost
+    ----
+    The loop runs at most ``limit`` times and each step follows one ``next``.
+    Time O(limit), extra memory O(1).
+    """
 
     available = 0
     while node is not None and available < limit:
@@ -68,6 +82,11 @@ def _reverse_prefix(
 
     Returns the new head, the new tail (the old head), and the first node
     that was not part of the prefix.
+
+    Cost
+    ----
+    The loop runs ``count`` times. Each iteration rewrites one ``next``:
+    O(count) time, O(1) extra memory.
     """
 
     previous: Node[T] | None = None

@@ -23,7 +23,16 @@ T = TypeVar("T")
 
 
 def nth_from_end(lst: LinkedList[T], n: int) -> Node[T]:
-    """Return the node ``n`` places from the tail, counting the tail as 1."""
+    """Return the node ``n`` places from the tail, counting the tail as 1.
+
+    Cost
+    ----
+    Let L be the length. The leader first takes ``n`` steps, then both
+    pointers take ``L - n`` steps together. Total steps: n + 2 * (L - n),
+    which is O(L). Each step is O(1). Extra memory is the two references:
+    O(1). Counting the length first and then walking ``L - n`` is also O(L);
+    the gap removes the subtraction but not the linear scan.
+    """
 
     _require_positive(n)
     lst.require_linear()
@@ -44,7 +53,14 @@ def nth_from_end(lst: LinkedList[T], n: int) -> Node[T]:
 
 
 def remove_nth_from_end(lst: LinkedList[T], n: int) -> T:
-    """Remove the nth node from the tail and return its value."""
+    """Remove the nth node from the tail and return its value.
+
+    Cost
+    ----
+    Same two-pointer walk as ``nth_from_end``: O(L) steps for a list of
+    length L, each O(1). The unlink and ``refresh`` are another O(L) walk.
+    Total time O(L). The anchor is one extra node: O(1) extra memory.
+    """
 
     _require_positive(n)
     lst.require_linear()
@@ -77,5 +93,12 @@ def remove_nth_from_end(lst: LinkedList[T], n: int) -> T:
 
 
 def _require_positive(n: int) -> None:
+    """Reject a non-positive or non-integer ``n``.
+
+    Cost
+    ----
+    A constant number of type and range checks: O(1) time, O(1) extra memory.
+    """
+
     if isinstance(n, bool) or not isinstance(n, int) or n < 1:
         raise ValueError("n must be a positive integer.")

@@ -27,7 +27,15 @@ T = TypeVar("T")
 
 
 def delete_without_predecessor(node: Node[T]) -> None:
-    """Erase ``node`` by sliding the successor's value and link into it."""
+    """Erase ``node`` by sliding the successor's value and link into it.
+
+    Cost
+    ----
+    The successor is ``node.next``, already stored. Copying its value and
+    skipping it is a constant number of assignments: O(1) time, O(1) extra
+    memory. Finding the real predecessor from the head would be O(n); this
+    trick avoids that search and cannot be used on the tail.
+    """
 
     successor = node.next
     if successor is None:

@@ -20,6 +20,13 @@ def split_circular(source: LinkedList[T]) -> tuple[LinkedList[T], LinkedList[T]]
     """Break ``source`` into two linear lists and return ``(first, second)``.
 
     ``source`` itself becomes the first half. The second half is a new list.
+
+    Cost
+    ----
+    ``refresh`` counts n nodes: O(n). ``node_at`` walks at most n / 2 links:
+    O(n). Cutting the two links is O(1). Refreshing both halves visits each
+    node once more: O(n). Total time O(n). The second list object is O(1)
+    extra memory; its nodes are the original ones.
     """
 
     source.refresh()

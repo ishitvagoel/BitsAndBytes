@@ -23,7 +23,16 @@ T = TypeVar("T")
 
 
 def remove_sorted_duplicates(lst: LinkedList[T]) -> None:
-    """Keep one copy of each run of equal values. ``lst`` must be sorted."""
+    """Keep one copy of each run of equal values. ``lst`` must be sorted.
+
+    Cost
+    ----
+    Let n be the number of nodes. The scan advances once per kept node and
+    also once per deleted duplicate, so every node is examined a constant
+    number of times. Each examination compares two values and maybe rewrites
+    one pointer: O(1). Time is O(n). ``refresh`` walks the survivors, still
+    O(n). No auxiliary collection: O(1) extra memory.
+    """
 
     lst.require_linear()
     current = lst.head
@@ -40,7 +49,15 @@ def remove_sorted_duplicates(lst: LinkedList[T]) -> None:
 
 
 def remove_unsorted_duplicates(lst: LinkedList[T]) -> None:
-    """Keep the first occurrence of each value. Values must be hashable."""
+    """Keep the first occurrence of each value. Values must be hashable.
+
+    Cost
+    ----
+    Each of the n nodes is visited once. Membership in a set is O(1)
+    expected, and unlinking is O(1). Time is O(n) expected. The set stores
+    one entry per distinct value, at most n, so extra memory is O(n). The
+    sorted version avoids that set only because equal values are neighbours.
+    """
 
     lst.require_linear()
     seen: set[T] = set()

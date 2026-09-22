@@ -14,6 +14,14 @@ def reverse_iterative(lst: LinkedList[T]) -> None:
 
     ``previous`` is the reversed prefix, ``current`` is the node being
     flipped, and ``upcoming`` is saved before ``current.next`` is overwritten.
+
+    Cost
+    ----
+    Let n be the length. The loop body runs once per node: n iterations.
+    Each iteration reads and writes a constant number of pointers. Time is
+    n * O(1) = O(n). Three references are stored: O(1) extra memory.
+    ``require_linear`` and ``refresh`` are each another O(n) and do not
+    change the total. The call stack stays O(1) because nothing recurses.
     """
 
     lst.require_linear()
@@ -33,11 +41,29 @@ def reverse_recursive(lst: LinkedList[T]) -> None:
 
     The deepest call sees the tail and makes it the head. Each caller then
     points that returned node at itself and drops its old forward link.
+
+    Cost
+    ----
+    ``_reverse`` is called once per node, so there are n calls. Each call
+    does O(1) pointer work on the way back. Time is O(n). The calls are
+    nested n deep before any of them returns, so the call stack is O(n)
+    extra memory. That is the cost of the recursive form compared with
+    ``reverse_iterative``, which uses O(1) extra memory for the same O(n)
+    time. ``require_linear`` and ``refresh`` add two more O(n) walks.
     """
 
     lst.require_linear()
 
     def _reverse(node: Node[T]) -> Node[T]:
+        """Reverse the chain at ``node`` and return ``node`` after it is linked.
+
+        Cost
+        ----
+        One call per node in the suffix. The work outside the recursive call
+        is O(1). Summed over n nodes the time is O(n), and the deepest stack
+        holds n frames: O(n) extra memory.
+        """
+
         if node.next is None:
             lst.head = node
             return node

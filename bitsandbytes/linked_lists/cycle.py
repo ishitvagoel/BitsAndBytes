@@ -26,6 +26,14 @@ def find_cycle_start(lst: LinkedList[T]) -> tuple[int, Node[T]] | None:
     """Return where a cycle begins, or ``None`` when the list is acyclic.
 
     The index is 1-based, counting from the head along ``next`` links.
+
+    Cost
+    ----
+    ``_meeting_point`` moves the fast pointer at most a small constant times
+    around the nodes reachable from the head. With n reachable nodes that is
+    O(n). The second walk takes ``mu`` steps, and ``mu`` is at most n, so it
+    is also O(n). Total time O(n). Only a few references are stored: O(1)
+    extra memory.
     """
 
     if lst.head is None:
@@ -48,7 +56,16 @@ def find_cycle_start(lst: LinkedList[T]) -> tuple[int, Node[T]] | None:
 
 
 def _meeting_point(head: Node[T]) -> Node[T] | None:
-    """Return a node inside the cycle, or ``None`` if there is no cycle."""
+    """Return a node inside the cycle, or ``None`` if there is no cycle.
+
+    Cost
+    ----
+    Each iteration advances the fast pointer two steps. On an acyclic list
+    the fast pointer falls off after about n / 2 iterations. On a cyclic
+    list it gains one step per iteration on the slow pointer and meets
+    within one trip around the cycle after entering it, still O(n)
+    iterations. Each iteration is O(1). Time O(n), extra memory O(1).
+    """
 
     slow: Node[T] | None = head
     fast: Node[T] | None = head

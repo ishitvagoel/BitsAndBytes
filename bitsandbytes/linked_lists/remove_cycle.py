@@ -22,7 +22,16 @@ T = TypeVar("T")
 
 
 def remove_cycle(lst: LinkedList[T]) -> bool:
-    """Open a cycle if there is one. Return whether a cycle was removed."""
+    """Open a cycle if there is one. Return whether a cycle was removed.
+
+    Cost
+    ----
+    ``find_cycle_start`` is two O(n) walks (meet, then find the entrance).
+    Walking from the entrance back to itself visits each cycle node once,
+    at most n steps. ``refresh`` is another O(n). Total time O(n). Extra
+    memory is O(1) on top of whatever ``find_cycle_start`` uses, which is
+    also O(1).
+    """
 
     found = find_cycle_start(lst)
     if found is None:

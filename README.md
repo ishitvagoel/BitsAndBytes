@@ -1,88 +1,82 @@
 # Bits and Bytes
 
-Data structures and algorithms in Python 3.12+.
+A study path for the data structures in this repository. Read the sections in order. Every function and method has a `Cost` section in its docstring that names the input size, counts the loops, and separates extra memory from the input. The notes below record only the result of that derivation.
 
-The implementations share one linked list and one stack instead of copying a
-`Node` class into every file. Each algorithm module documents the approach,
-the complexity, and the steps that are easy to misread.
+```mermaid
+flowchart TD
+  lists[SinglyLinkedList]
+  listAlgos[ListAlgorithms]
+  doubly[DoublyListAndLRU]
+  stacks[Stacks]
+  sorts[Sorting]
+  tools[DecoratorsAndDirectoryWalk]
+  lists --> listAlgos --> doubly --> stacks --> sorts --> tools
+```
 
-## Layout
+## 1. Singly linked list
 
-| Path | What it is |
-| --- | --- |
-| `bitsandbytes/linked_list.py` | Singly linked list used by every list algorithm |
-| `bitsandbytes/doubly_linked_list.py` | Doubly linked list: O(1) delete when you already hold the node |
-| `bitsandbytes/sorting/` | Bubble, selection, insertion, merge, and quick sort |
-| `bitsandbytes/stacks/` | Bounded stack, and bracket matching |
-| `bitsandbytes/linked_lists/` | List algorithms, including the concepts below |
-| `bitsandbytes/decorators/` | Confirmation prompt, and permission checks |
-| `bitsandbytes/tools/print_directory.py` | Top-down or bottom-up directory walk |
+* `bitsandbytes/linked_list.py` — one `Node` chain with a cached tail and a cached length. `append`, `prepend`, and `len` are O(1). `node_at`, `insert`, and `insert_sorted` are O(n). `pop` of the tail is O(n) because the predecessor is not stored. `refresh` and `require_linear` are O(n) time and O(n) extra memory.
+
+## 2. List algorithms
+
+These modules only rewrite `next` on that shared list.
+
+* `linked_lists/reverse.py` — iterative reversal is O(n) time and O(1) extra memory. The recursive form is the same time and O(n) call-stack memory.
+* `linked_lists/reverse_in_pairs.py` — swap neighbours. O(n) time, O(1) extra memory.
+* `linked_lists/reverse_in_blocks.py` — reverse every block of `k`. Each node is touched a constant number of times, so time is O(n), not O(n·k). Extra memory is O(1).
+* `linked_lists/cycle.py` — Floyd's two pointers find whether a cycle exists and where it starts. O(n) time, O(1) extra memory.
+* `linked_lists/remove_cycle.py` — clear the one link that points back at the cycle entrance. O(n) time, O(1) extra memory.
+* `linked_lists/middle.py` — a fast pointer covers the list while a slow pointer stops halfway. O(n) time, O(1) extra memory. `middle_node` is the later middle on an even length; `end_of_first_half` is the earlier one.
+* `linked_lists/nth_from_end.py` — a fixed gap of `n` nodes, then one walk together. O(length) time, O(1) extra memory, including removal.
+* `linked_lists/duplicates.py` — sorted duplicates are removed with only the successor, O(n) time and O(1) extra memory. Unsorted duplicates use a set: expected O(n) time and O(n) extra memory.
+* `linked_lists/rotate.py` — close the chain, cut the new tail, open it. O(n) time, O(1) extra memory.
+* `linked_lists/partition.py` — values below the pivot, then the rest, original order kept inside each group. O(n) time, O(1) extra memory.
+* `linked_lists/odd_even.py` — odd positions in front of even positions. O(n) time, O(1) extra memory.
+* `linked_lists/reorder.py` — split at the left middle, reverse the right half, zip. O(n) time, O(1) extra memory.
+* `linked_lists/palindrome.py` — the same split and reverse, then compare the halves. O(n) time, O(1) extra memory.
+* `linked_lists/delete_node.py` — copy the successor into the node you hold, then drop the successor. O(1). This cannot delete the tail.
+* `linked_lists/add_numbers.py` — least-significant digit at the head, so the carry walk starts there. O(n + m) time, O(1) scratch besides the result nodes.
+* `linked_lists/merge_sorted.py` — merge two sorted chains by relinking nodes. O(n + m) time, O(1) extra memory.
+* `linked_lists/intersection.py` — equalize the lengths, then walk in step until the shared node. O(n + m) time, O(1) extra memory.
+* `linked_lists/sort_list.py` — bottom-up merge sort. `log2(n)` passes of O(n) merging, so O(n log n) time and O(1) extra memory. Stable.
+* `linked_lists/split_circular.py` — split one circular list into two. O(n) time, O(1) extra memory besides the second list object.
+* `linked_lists/modular_nodes.py` — every k-th node from the start is O(n) time. From the end, the version here stores the nodes, so extra memory is O(n).
+* `linked_lists/reviewers.py` — a circular review rotation. Inserting after the cursor and advancing it are both O(1).
+
+## 3. Doubly linked list and the LRU cache
+
+* `bitsandbytes/doubly_linked_list.py` — `prev` makes unlink and insert-beside-a-node O(1). Reversal is O(n) time and O(1) extra memory. A singly linked list pays O(n) to find the predecessor first.
+* `linked_lists/random_pointer.py` — clone a node that also has an arbitrary `random` link. The dictionary clone is expected O(n) time and O(n) extra memory. The interleaved clone is O(n) time and O(1) scratch besides the copy itself.
+* `linked_lists/lru_cache.py` — a dictionary finds the key's node and the doubly linked list orders nodes by use. `get` and `put` are expected O(1). Resident memory is O(capacity).
+
+## 4. Stacks
+
+* `stacks/stack.py` — a bounded stack on the end of a Python list. `push` is amortized O(1). `pop` and `peek` are O(1). A single resize copy is O(n).
+* `stacks/symbol_balance.py` — one pass over the characters. Time is O(n). The stack holds at most n unmatched openers.
+* `stacks/min_stack.py` — a second stack of minima. `push`, `pop`, and `minimum` are all O(1).
+* `stacks/next_greater.py` — monotonic stack. Each index is pushed and popped at most once, so n items are O(n), not O(n²).
+* `stacks/stock_span.py` — the same monotonic pattern. The span is the run of consecutive earlier prices that are still `<=` today. O(n) time.
+* `stacks/largest_rectangle.py` — largest rectangle in a histogram, one monotonic pass. O(n) time.
+* `stacks/infix_postfix.py` — shunting yard, then evaluate the postfix. Each token is handled once: O(n).
+* `stacks/sort_stack.py` — sort with one extra stack. Worst case each insertion scans the extra stack: O(n²) time, O(n) extra memory. Already-ordered input is O(n).
+
+## 5. Sorting
+
+All five sorts compare with `<`. The first three and quick sort rearrange the input list. Merge sort returns a new list.
+
+* `sorting/bubble_sort.py` — adjacent swaps. Worst and average time O(n²). A sorted list stops after one pass: O(n). Extra memory O(1). Stable.
+* `sorting/selection_sort.py` — one swap per position after the scan. Time is O(n²) for every input order. Extra memory O(1). Not stable.
+* `sorting/insertion_sort.py` — shift a hole through the sorted prefix. Worst and average time O(n²). Already sorted input is O(n). Extra memory O(1). Stable.
+* `sorting/merge_sort.py` — `T(n) = 2 T(n/2) + O(n)`, which is O(n log n) for every input. Extra memory O(n). Stable.
+* `sorting/quick_sort.py` — random pivot, Lomuto partition. Expected time O(n log n). Worst case O(n²). Expected extra memory O(log n) for the call stack, O(n) in the worst split. Not stable.
+
+## 6. Decorators and the directory walk
+
+* `decorators/permission.py` — the wrapper asks once, then either returns or calls the wrapped function. The wrapper is O(1) plus that call.
+* `decorators/access_control.py` — the wrapper looks the current user up in a permission table, an expected O(1) check, then calls the action or raises `PermissionError`.
+* `tools/print_directory.py` — `os.walk` visits each directory and each file once. Time and the output string are O(entries).
 
 `print_directory_paths.py` still runs the directory walk.
-
-## Linked list concepts
-
-Read these after reversal, cycle detection, and merging two sorted lists. The
-module docstring is the full explanation. This is the idea each one is teaching.
-
-**Two pointers at different speeds** (`middle.py`). One pointer moves two
-steps while the other moves one. When the fast pointer reaches the end, the
-slow pointer is halfway. On an even-length list there are two middles.
-`middle_node` returns the later one. `end_of_first_half` returns the earlier
-one, which is where a palindrome check and a reorder split the list. Getting
-those two conventions mixed up is the usual bug.
-
-**A fixed gap instead of a length** (`nth_from_end.py`). Park one pointer `n`
-nodes ahead of the other and walk them together. When the leader falls off,
-the trailer is `n` from the tail. Removal uses an anchor in front of the head
-so deleting the first node is the same code as deleting any other node.
-
-**Rewriting `next`, not allocating a new chain.**
-
-* `duplicates.py` — a sorted list only compares a node with its successor. An
-  unsorted list remembers values it has already kept. The first occurrence
-  stays, so order of first appearance survives.
-* `rotate.py` — close the list into a circle, cut it at the new tail, and
-  open it again. `k` larger than the length, and negative `k`, both reduce
-  with `%`.
-* `partition.py` — values less than the pivot form one chain, the rest form
-  another, then the second chain hangs off the first. Order inside each group
-  stays put.
-* `odd_even.py` — odd *positions* (1-based) are gathered in front of even
-  positions. The values are not tested for parity.
-* `reorder.py` — fold the list in half. Find the end of the left half, reverse
-  the right half, and zip them. `[1, 2, 3, 4, 5]` becomes `[1, 5, 2, 4, 3]`.
-
-**You usually need the predecessor** (`delete_node.py`). The predecessor's
-`next` is what skips a node. If you only hold the node, copy the successor
-into it and delete the successor instead. That cannot delete the tail.
-
-**A cycle is a loop you can open** (`remove_cycle.py`). Floyd's algorithm
-finds the entrance. The node that points back at the entrance is the end of
-the loop. Clear that one link and every node remains, once.
-
-**Digits grow from the head** (`add_numbers.py`). Put the least significant
-digit first. Addition, carry and all, then starts at the only end you can
-reach in constant time. A final carry is a new node.
-
-**Sort without indexes** (`sort_list.py`). Merge sort only rewrites `next`.
-The bottom-up form merges runs of length 1, then 2, then 4, so it never
-searches for a midpoint and never recurses. It is stable and uses a constant
-amount of extra memory.
-
-**A second pointer changes the cost** (`doubly_linked_list.py`). `prev` makes
-delete-this-node and insert-beside-this-node O(1). Reversal swaps the two
-links on each node, then swaps the head with the tail.
-
-**The cache that list is for** (`lru_cache.py`). A dictionary finds the key's
-node. The doubly linked list orders nodes by use: head is newest, tail is the
-one to evict. Both `get` and `put` are O(1). A singly linked list would make
-eviction O(capacity).
-
-**A pointer that is not `next`** (`random_pointer.py`). `random` may aim at
-any node. A dictionary from original to copy is the clear clone. Weaving each
-copy in front of the next original lets `copy.random` be `original.random.next`,
-then the two lists are split apart. That clone needs no dictionary.
 
 ## Try it
 

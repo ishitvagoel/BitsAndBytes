@@ -29,7 +29,16 @@ T = TypeVar("T")
 
 
 def reorder(lst: LinkedList[T]) -> None:
-    """Fold ``lst`` so nodes from the ends alternate toward the middle."""
+    """Fold ``lst`` so nodes from the ends alternate toward the middle.
+
+    Cost
+    ----
+    Finding the end of the first half is O(n). Reversing the right half
+    visits at most n / 2 nodes: O(n). The zip then takes one node from each
+    half per step, again O(n) pointer writes. ``refresh`` is O(n). The sum
+    of a constant number of O(n) passes is still O(n) time. Extra memory is
+    a handful of references: O(1).
+    """
 
     lst.require_linear()
     if lst.head is None or lst.head.next is None:
@@ -51,6 +60,14 @@ def reorder(lst: LinkedList[T]) -> None:
 
 
 def _reverse(head: Node[T] | None) -> Node[T] | None:
+    """Reverse the chain that starts at ``head`` and return its new head.
+
+    Cost
+    ----
+    Let k be the number of nodes in this chain. The loop runs k times and
+    each iteration rewrites one ``next``: O(k) time, O(1) extra memory.
+    """
+
     previous: Node[T] | None = None
     current = head
     while current is not None:

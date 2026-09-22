@@ -30,7 +30,17 @@ T = TypeVar("T")
 
 
 def middle_node(lst: LinkedList[T]) -> Node[T] | None:
-    """Return the middle node, or the second middle when the length is even."""
+    """Return the middle node, or the second middle when the length is even.
+
+    Cost
+    ----
+    Let n be the number of nodes. The fast pointer moves two steps and the
+    slow pointer one, and the loop stops when the fast pointer has crossed
+    the list. The fast pointer therefore takes about n steps in total and
+    the body runs about n / 2 times. Each body is O(1). Time is O(n). Three
+    references are stored: O(1) extra memory. ``require_linear`` adds another
+    O(n) walk, which does not change the total.
+    """
 
     lst.require_linear()
     slow = lst.head
@@ -47,6 +57,11 @@ def end_of_first_half(head: Node[T]) -> Node[T]:
 
     Odd length: the middle node. Even length: the left of the two middles.
     ``head`` must be the first node of a non-empty linear list.
+
+    Cost
+    ----
+    Same walk as ``middle_node``: the fast pointer covers the n links, the
+    body runs about n / 2 times, each O(1). Time O(n), extra memory O(1).
     """
 
     slow = head

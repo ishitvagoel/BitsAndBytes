@@ -24,6 +24,12 @@ def merge_sorted(first: LinkedList[T], second: LinkedList[T]) -> LinkedList[T]:
     """Return a new list that owns the nodes of ``first`` and ``second``.
 
     ``first`` and ``second`` are left empty.
+
+    Cost
+    ----
+    ``_detach_merged`` merges n + m nodes in O(n + m) time. ``refresh`` on
+    the result walks those nodes once more: still O(n + m). The result list
+    object is O(1) extra memory. The nodes themselves are reused, not copied.
     """
 
     merged: LinkedList[T] = LinkedList()
@@ -33,7 +39,15 @@ def merge_sorted(first: LinkedList[T], second: LinkedList[T]) -> LinkedList[T]:
 
 
 def merge_sorted_into(destination: LinkedList[T], source: LinkedList[T]) -> None:
-    """Splice ``source`` into ``destination``. ``source`` is left empty."""
+    """Splice ``source`` into ``destination``. ``source`` is left empty.
+
+    Cost
+    ----
+    Let n and m be the two lengths. ``require_linear`` on each list is
+    O(n) + O(m). ``_merge_nodes`` links each node once: O(n + m). The two
+    refreshes walk the merged chain and the empty source: O(n + m). Total
+    time O(n + m). Extra memory is a few references: O(1).
+    """
 
     if destination is source:
         raise ValueError("Cannot merge a list with itself.")
@@ -48,7 +62,14 @@ def merge_sorted_into(destination: LinkedList[T], source: LinkedList[T]) -> None
 
 
 def _detach_merged(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | None:
-    """Merge ``first`` and ``second`` and detach both lists from the result."""
+    """Merge ``first`` and ``second`` and detach both lists from the result.
+
+    Cost
+    ----
+    Two ``require_linear`` walks plus one merge plus two refreshes. With
+    lengths n and m that is a constant number of O(n + m) passes: O(n + m)
+    time, O(1) extra memory.
+    """
 
     if first is second:
         raise ValueError("Cannot merge a list with itself.")
@@ -63,7 +84,15 @@ def _detach_merged(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | Non
 
 
 def _merge_nodes(first: Node[T] | None, second: Node[T] | None) -> Node[T] | None:
-    """Relink two ascending chains into one and return its head."""
+    """Relink two ascending chains into one and return its head.
+
+    Cost
+    ----
+    Let n and m be the chain lengths. Each iteration takes one node from one
+    chain, so the loop runs at most n + m times and then the leftover chain
+    is attached in O(1). Each iteration is one comparison and one pointer
+    write. Time O(n + m), extra memory O(1).
+    """
 
     head: Node[T] | None = None
     tail: Node[T] | None = None

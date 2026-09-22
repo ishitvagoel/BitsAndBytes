@@ -25,7 +25,17 @@ T = TypeVar("T")
 
 
 def sort_list(lst: LinkedList[T]) -> None:
-    """Sort ``lst`` in ascending order in place."""
+    """Sort ``lst`` in ascending order in place.
+
+    Cost
+    ----
+    Let n be the length. Run length doubles each pass: 1, 2, 4, ..., up to
+    n. That is log2(n) passes. In one pass every node is cut into a run and
+    merged once, which is O(n) pointer rewrites. Total time is
+    O(n) * log2(n) = O(n log n). The anchor and a few references are O(1)
+    extra memory. There is no recursion, so the call stack is O(1) as well.
+    A list of length 0 or 1 returns before the loop: O(1).
+    """
 
     lst.require_linear()
     if lst.head is None or lst.head.next is None:
@@ -53,6 +63,11 @@ def _cut(start: Node[T] | None, count: int) -> tuple[Node[T] | None, Node[T] | N
     """Detach a run of at most ``count`` nodes.
 
     Returns ``(run, rest)``. The run's tail no longer points at ``rest``.
+
+    Cost
+    ----
+    The loop takes at most ``count`` steps and stops early if the chain ends.
+    Time is O(count), extra memory O(1).
     """
 
     if start is None:
@@ -71,7 +86,16 @@ def _merge_runs(
     left: Node[T] | None,
     right: Node[T] | None,
 ) -> tuple[Node[T], Node[T]]:
-    """Merge two sorted runs and return the head and tail of the result."""
+    """Merge two sorted runs and return the head and tail of the result.
+
+    Cost
+    ----
+    Let a and b be the lengths of the two runs. Each node is chosen and
+    linked exactly once, so the loop runs a + b times. Each choice is one
+    comparison and one pointer write: O(1). Time is O(a + b). Walking to the
+    tail of the leftover run is at most max(a, b) more steps, still O(a + b).
+    Extra memory is O(1).
+    """
 
     if left is None:
         assert right is not None
@@ -104,6 +128,14 @@ def _merge_runs(
 
 
 def _span(node: Node[T]) -> tuple[Node[T], Node[T]]:
+    """Return ``node`` and the last node of its chain.
+
+    Cost
+    ----
+    Follow ``next`` once per node in the chain. k nodes take k steps: O(k)
+    time, O(1) extra memory.
+    """
+
     tail = node
     while tail.next is not None:
         tail = tail.next

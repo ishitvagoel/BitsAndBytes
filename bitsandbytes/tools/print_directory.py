@@ -14,6 +14,15 @@ def format_tree(root: Path | str = ".", *, top_down: bool = True) -> str:
     ``top_down`` controls ``os.walk``: directories are listed before their
     children when it is true, and after them when it is false. Missing roots
     raise ``FileNotFoundError`` instead of printing nothing.
+
+    Cost
+    ----
+    Let e be the number of directory entries under ``root`` (each directory
+    and each file counted once). ``os.walk`` visits every directory once and
+    yields each of its names once, so the walk is O(e). Each visit appends
+    one line, amortized O(1) per entry, and joining the lines copies O(e)
+    characters. Time is O(e). The returned string is the output, so extra
+    memory is O(e). Checking that the root exists is O(1) before the walk.
     """
 
     root_path = Path(root)
@@ -35,6 +44,11 @@ def main(argv: list[str] | None = None) -> None:
 
     The optional positional argument is ``topdown`` (the default) or
     ``bottomup``. ``--root`` selects the directory; it defaults to ``.``.
+
+    Cost
+    ----
+    Parsing the two arguments is O(1). Printing the tree is proportional to
+    the string ``format_tree`` already built, which is O(e) for e entries.
     """
 
     parser = argparse.ArgumentParser(description="Print a directory tree.")

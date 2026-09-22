@@ -33,6 +33,14 @@ class LRUCache(Generic[K, V]):
     """Fixed-capacity cache that evicts the least recently used key."""
 
     def __init__(self, capacity: int) -> None:
+        """Create an empty cache that keeps at most ``capacity`` keys.
+
+        Cost
+        ----
+        An empty dictionary and an empty doubly linked list are O(1) to
+        allocate. No keys are copied.
+        """
+
         if isinstance(capacity, bool) or not isinstance(capacity, int) or capacity < 1:
             raise ValueError("capacity must be a positive integer.")
         self.capacity = capacity
@@ -40,12 +48,26 @@ class LRUCache(Generic[K, V]):
         self._order: DoublyLinkedList[tuple[K, V]] = DoublyLinkedList()
 
     def __len__(self) -> int:
+        """Return how many keys are currently stored.
+
+        Cost
+        ----
+        The dictionary stores its size. ``len`` is O(1).
+        """
+
         return len(self._nodes)
 
     def get(self, key: K) -> V | None:
         """Return the value for ``key``, or ``None`` if it is not cached.
 
         A hit counts as a use, so the key becomes the most recently used.
+
+        Cost
+        ----
+        Dictionary lookup is O(1) expected. ``move_to_front`` uses ``prev``
+        and ``next``, so it is O(1). A miss returns after the lookup. Total
+        O(1) expected time, O(1) extra memory. Scanning a list of capacity k
+        would be O(k); the dictionary is what removes that scan.
         """
 
         node = self._nodes.get(key)
@@ -55,7 +77,16 @@ class LRUCache(Generic[K, V]):
         return node.data[1]
 
     def put(self, key: K, value: V) -> None:
-        """Store ``value`` under ``key``, evicting the stale tail if needed."""
+        """Store ``value`` under ``key``, evicting the stale tail if needed.
+
+        Cost
+        ----
+        Lookup, update, ``move_to_front``, ``remove_node``, and ``prepend``
+        are each O(1) expected (dictionary) or O(1) exact (the doubly linked
+        list). At most one of those list edits runs. Time is O(1) expected.
+        Extra memory is O(1) per call. The cache as a whole holds at most
+        ``capacity`` nodes, so its resident memory is O(capacity).
+        """
 
         existing = self._nodes.get(key)
         if existing is not None:
