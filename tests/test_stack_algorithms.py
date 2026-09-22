@@ -130,8 +130,12 @@ def test_infix_rejects_bad_tokens_and_parentheses() -> None:
 
 
 def test_sort_stack_worst_case_on_full_bounded_stack() -> None:
+    # Pushing 1 then 2 then 3 leaves 3 on top, so pops arrive strictly
+    # decreasing: each insertion rewinds the extra stack. The input limit
+    # equals n, and items moved back still fit because one item was popped
+    # before those pushes.
     stack: Stack[int] = Stack(limit=5)
-    for value in (5, 4, 3, 2, 1):
+    for value in (1, 2, 3, 4, 5):
         stack.push(value)
     sort_stack(stack)
     assert [stack.pop() for _ in range(5)] == [1, 2, 3, 4, 5]

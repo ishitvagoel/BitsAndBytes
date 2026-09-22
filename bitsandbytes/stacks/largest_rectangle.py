@@ -12,8 +12,10 @@ extend all the way to the last index.
 
 Worked trace on ``[2, 1, 5, 6, 2, 3]`` when index 4 (height 2) arrives:
 
-* Pop index 3 (height 6): width to sentinel is 1, area 6.
-* Pop index 2 (height 5): width 2, area 10 (best so far).
+* Pop index 3 (height 6): the bar still underneath is index 2, so the width is
+  ``4 - 2 - 1 = 1`` and the area is 6.
+* Pop index 2 (height 5): the bar underneath is index 1, so the width is
+  ``4 - 1 - 1 = 2`` and the area is 10 (best so far).
 * Push index 4. Later pops finish bars still on the stack at the right edge.
 """
 

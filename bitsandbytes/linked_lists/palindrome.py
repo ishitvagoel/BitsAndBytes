@@ -13,8 +13,8 @@ on an empty list because it read through a sentinel that this package no
 longer uses.
 
 Worked trace on ``[1, 2, 2, 1]``: ``end_of_first_half`` stops at the first
-``2``. Reverse the suffix ``2 → 1``, compare ``1,2`` with ``2,1``, then
-reverse the suffix back so the list reads ``1 → 2 → 2 → 1`` again.
+``2``. Reverse the suffix ``2 → 1`` into ``1 → 2``, compare ``1, 2`` with
+``1, 2``, then reverse the suffix back so the list reads ``1 → 2 → 2 → 1``.
 """
 
 from __future__ import annotations
@@ -35,9 +35,10 @@ def is_palindrome(lst: LinkedList[T]) -> bool:
     ``require_linear`` and ``end_of_first_half`` are each O(n). Reversing the
     second half touches at most n / 2 nodes, and comparing the halves does
     the same. Restoring the second half is one more O(n) reverse. A constant
-    number of O(n) passes is O(n) time. Only a few node references are
-    stored: O(1) extra memory. The recursive palindrome used O(n) call-stack
-    frames; this one does not.
+    number of O(n) passes is O(n) time. The comparison stores a few node
+    references: O(1) extra memory. ``require_linear`` holds a ``seen`` set
+    of n ids while it runs, so the peak extra memory of the call is O(n).
+    The recursive palindrome used O(n) call-stack frames; this one does not.
     """
 
     lst.require_linear()
