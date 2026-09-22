@@ -1,0 +1,14 @@
+[project]
+name = "bitsandbytes"
+version = "1.0.0"
+description = "Data structures and algorithms implemented in modern Python."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
