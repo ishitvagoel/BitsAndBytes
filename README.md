@@ -6,6 +6,8 @@ For the full target course order and gap list, see [CURRICULUM.md](CURRICULUM.md
 
 ## 0. Analysis and library costs
 
+Lesson: [guide/00-analysis-and-library-costs.md](guide/00-analysis-and-library-costs.md)
+
 * `bitsandbytes/complexity.py` — word RAM model, O/Θ/Ω vocabulary, recursion limit, and the three recurrence shapes (merge divide, halving, linear decrement).
 * `bitsandbytes/library_costs.py` — why BFS uses `deque`, `heapq.nsmallest`, `bisect.insort`, and Timsort; `list.pop(0)` costs O(n) element moves.
 
@@ -27,9 +29,13 @@ flowchart TD
 
 ## 1. Singly linked list
 
+Lesson: [guide/01-singly-linked-list.md](guide/01-singly-linked-list.md)
+
 * `bitsandbytes/linked_list.py` — one `Node` chain with a cached tail and a cached length. `append`, `prepend`, and `len` are O(1). `node_at`, `insert`, and `insert_sorted` are O(n). `pop` of the tail is O(n) because the predecessor is not stored. `require_linear` and `refresh` are O(n) time; while they run they hold a `seen` set, so peak extra memory is O(n).
 
 ## 2. List algorithms
+
+Lesson: [guide/02-list-algorithms.md](guide/02-list-algorithms.md)
 
 These modules only rewrite `next` on that shared list. Any call that starts with `require_linear` inherits that O(n) peak before the main loop.
 
@@ -52,11 +58,15 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 
 ## 3. Doubly linked list and the LRU cache
 
+Lesson: [guide/03-doubly-linked-list-and-lru-cache.md](guide/03-doubly-linked-list-and-lru-cache.md)
+
 * `bitsandbytes/doubly_linked_list.py` — `prev` makes unlink and insert-beside-a-node O(1). Reversal is O(n) time and O(1) extra memory.
 * `linked_lists/random_pointer.py` — dictionary clone expected O(n) time and O(n) extra memory; interleaved clone O(n) time and O(1) scratch besides the copy.
 * `linked_lists/lru_cache.py` — dictionary plus doubly linked list. `get` and `put` are expected O(1). Resident memory is O(capacity). The hash table chapter explains why the dictionary lookup is expected O(1).
 
 ## 4. Stacks
+
+Lesson: [guide/04-stacks.md](guide/04-stacks.md)
 
 * `stacks/stack.py` — bounded stack: capacity, decorator guards, amortized O(1) `push`, O(1) `pop` and `peek`.
 * `stacks/algorithm_stack.py` — unbounded LIFO for algorithm lessons. Same amortized costs without a limit check.
@@ -70,6 +80,8 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 
 ## 5. Sorting
 
+Lesson: [guide/05-sorting.md](guide/05-sorting.md)
+
 * `sorting/bubble_sort.py` — O(n²) worst and average, O(n) best on sorted input, O(1) extra memory. Stable.
 * `sorting/selection_sort.py` — O(n²) for every input order. Not stable.
 * `sorting/insertion_sort.py` — O(n²) worst and average, O(n) best. Stable.
@@ -78,9 +90,13 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 
 ## 6. Binary search
 
+Lesson: [guide/06-binary-search.md](guide/06-binary-search.md)
+
 * `search/binary_search.py` — `binary_search`, `lower_bound`, and `upper_bound` on a sorted sequence. O(log n) time, O(1) extra memory each.
 
 ## 7. Queues and deque
+
+Lesson: [guide/07-queues-and-deque.md](guide/07-queues-and-deque.md)
 
 * `queues/linked_queue.py` — FIFO with a doubly linked list. Enqueue and dequeue are O(1).
 * `queues/circular_queue.py` — fixed-capacity ring buffer with an explicit size counter. Enqueue and dequeue are O(1).
@@ -89,15 +105,21 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 
 ## 8. Heaps
 
+Lesson: [guide/08-heaps.md](guide/08-heaps.md)
+
 * `heaps/heapsort.py` — `heapify` is O(n); `heapsort` is O(n log n) time and O(1) extra memory. Not stable.
 * `heaps/priority_queue.py` — min-heap with `decrease_key` through an index map. Push, pop, and decrease-key are O(log n).
 
 ## 9. Hash table
 
+Lesson: [guide/09-hash-table.md](guide/09-hash-table.md)
+
 * `hash_tables/chaining.py` — separate chaining. Expected O(1) lookup and insert; rehash is O(n) but amortized.
 * `hash_tables/linear_probing.py` — open addressing with tombstones. `degenerate_chain_length` explains a one-bucket table.
 
 ## 10. Binary search tree
+
+Lesson: [guide/10-binary-search-tree.md](guide/10-binary-search-tree.md)
 
 * `trees/bst.py` — insert, search, delete, and in-order walk. O(h) per operation for height h.
 * `trees/traversals.py` — preorder, postorder, and level order in O(n) time.
@@ -105,49 +127,71 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 
 ## 11. Union-find
 
+Lesson: [guide/11-union-find.md](guide/11-union-find.md)
+
 * `union_find/disjoint_set.py` — with and without union-by-rank and path compression.
 * `union_find/percolation.py` — grid connectivity as a client.
 
 ## 12. Sorting extras
 
+Lesson: [guide/12-sorting-extras.md](guide/12-sorting-extras.md)
+
 * `sorting/selection_and_radix.py` — comparison lower bound, counting and LSD radix sorts, quickselect, binary search on the answer, inversion count.
 
 ## 13. Graphs
+
+Lesson: [guide/13-graphs.md](guide/13-graphs.md)
 
 * `graphs/adjacency_list.py` — adjacency lists. DFS and BFS are O(V + E). The teaching `dijkstra_distances` scans all unsettled vertices each step, so O(V²) time on dense graphs.
 * `graphs/algorithms.py` — BFS distances, topological sort, cycle detection, Kosaraju SCCs, Bellman-Ford, heap Dijkstra, Kruskal, Prim, 0-1 BFS, Floyd-Warshall, bipartite test.
 
 ## 14. Dynamic programming
 
+Lesson: [guide/14-dynamic-programming.md](guide/14-dynamic-programming.md)
+
 * `dynamic_programming/classic.py` — bottom-up Fibonacci mod word, coin change, knapsack, LCS, edit distance, LIS, house robber, word break, DAG longest path, unbounded knapsack.
 
 ## 15. Greedy algorithms
 
+Lesson: [guide/15-greedy-algorithms.md](guide/15-greedy-algorithms.md)
+
 * `greedy/classic.py` — interval scheduling, fractional knapsack, Huffman codes.
 
 ## 16. Backtracking and array patterns
+
+Lesson: [guide/16-backtracking-and-array-patterns.md](guide/16-backtracking-and-array-patterns.md)
 
 * `backtracking/search.py` — permutations, combinations, subsets, N-queens count.
 * `patterns/arrays.py` — two pointers, sliding window, prefix sums, monotonic-queue window maximum.
 
 ## 17. Strings
 
+Lesson: [guide/17-strings.md](guide/17-strings.md)
+
 * `strings/algorithms.py` — trie, KMP, Rabin-Karp, inverted index, run-length encoding, suffix array with LCP.
 
 ## 18. Range queries and approximate structures
+
+Lesson: [guide/18-range-queries-and-approximate-structures.md](guide/18-range-queries-and-approximate-structures.md)
 
 * `range_queries/structures.py` — Fenwick tree, lazy segment tree, sparse table for RMQ.
 * `approximate/structures.py` — Bloom filter, skip list, persistent stack frames.
 
 ## 19. Storage and locality
 
+Lesson: [guide/19-storage-and-locality.md](guide/19-storage-and-locality.md)
+
 * `storage/engines.py` — in-memory B-tree, write-ahead log, toy LSM with Bloom-filtered runs, scan benchmark, brute-force nearest neighbor.
 
 ## 20. Limits and approximation
 
+Lesson: [guide/20-limits-and-approximation.md](guide/20-limits-and-approximation.md)
+
 * `limits/approximation.py` — 2-approximation vertex cover.
 
 ## Appendix: Python tools
+
+Lesson: [guide/21-appendix-python-tools.md](guide/21-appendix-python-tools.md)
 
 These are not the next data-structure lesson after graphs. They stay in the repo as small Python examples.
 
