@@ -18,6 +18,8 @@ Worked trace when the tail points at node ``3`` in ``1 → 2 → 3 → 4 → 5``
   meet inside the loop (for example both at 4).
 * Reset one pointer to the head, keep the other at the meeting node, walk one
   step at a time. They meet at node ``3``, the cycle entrance.
+* The invariant is that the fast pointer has taken twice as many steps as the
+  slow pointer, so they meet only inside the cycle.
 """
 
 from __future__ import annotations
