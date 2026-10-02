@@ -4,12 +4,17 @@ Pick a random index, move it to the end, and walk the range once. Every value
 less than or equal to the pivot is swapped into the left side. The pivot then
 drops into the boundary and is in its final position. Recurse on the two sides.
 
-A random pivot makes a sorted list of distinct keys expected O(n log n) instead
-of the O(n^2) trap of always pivoting on the last element. Lomuto still sends
-every equal key to the left of the pivot, so an all-equal list of length n
-gives ``T(n) = T(n - 1) + O(n) = O(n^2)`` for any pivot index. Use
-``quick_sort_three_way`` when duplicates are common. Extra memory is the
-recursion stack, expected O(log n).
+A random pivot on distinct keys is expected O(n log n) because the i-th and
+j-th order statistics are compared only when one of them is the first pivot
+chosen from the ``j - i + 1`` keys in that range, which has probability
+``2 / (j - i + 1)``, and the sum of those probabilities over pairs is at most
+``2 n H_n`` for the n-th harmonic number ``H_n``, which is O(n log n).
+
+All-equal Lomuto stays the linear-decrement recurrence
+``T(n) = T(n - 1) + O(n)`` because every key compares less than or equal to
+the pivot, the boundary advances to the last index, and the right side is
+empty. Use ``quick_sort_three_way`` when duplicates are common. Extra memory
+is the recursion stack, expected O(log n).
 
 Not stable. Sorts in place and returns the same list. Pass ``rng`` to control
 the pivot choices in tests.
@@ -33,7 +38,8 @@ def quick_sort(values: list[T], *, rng: random.Random | None = None) -> list[T]:
     ----
     Let n be ``len(values)``. This only builds the pivot chooser, O(1), then
     calls ``_quick_sort`` on the whole range. Expected time is O(n log n) and
-    worst-case time is O(n²); the recurrence is derived on ``_quick_sort``.
+    worst-case time is O(n²). The module docstring derives the expectation
+    and the all-equal linear-decrement recurrence.
     The list is rearranged in place. Extra memory is the recursion stack:
     expected O(log n), worst case O(n).
     """
@@ -54,13 +60,13 @@ def _quick_sort(
     Cost
     ----
     Let n be ``end - start + 1``. A range of length 0 or 1 returns in O(1).
-    Otherwise one partition costs O(n), then the two sides are sorted. A
-    balanced pivot gives ``T(n) = 2 T(n/2) + O(n) = O(n log n)``, which is
-    the expected case for a random pivot on distinct keys. A pivot that always
-    lands at an end gives ``T(n) = T(n - 1) + O(n) = O(n²)``. When every
-    value equals the pivot, Lomuto leaves an empty right side every time, so
-    the same ``T(n - 1) + O(n)`` recurrence applies. The call stack follows the
-    deeper side: expected O(log n) frames, O(n) frames in that worst split.
+    Otherwise one partition costs O(n), then the two sides are sorted. The
+    module docstring derives why a random pivot on distinct keys is expected
+    O(n log n). A pivot that always lands at an end gives
+    ``T(n) = T(n - 1) + O(n) = O(n²)``. When every value equals the pivot,
+    Lomuto leaves an empty right side every time, so all-equal input stays
+    that linear-decrement recurrence. The call stack follows the deeper
+    side: expected O(log n) frames, O(n) frames in that worst split.
     """
 
     # One element, or an empty range, is already partitioned.

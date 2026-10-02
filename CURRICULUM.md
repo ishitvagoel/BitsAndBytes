@@ -98,7 +98,7 @@ Python does not perform tail-call elimination. The default recursion limit is 10
 | Best, typical, worst | The house style when they differ. | Core | Present as a habit |
 | Recurrences | `T(n) = 2T(n/2) + O(n)`, `T(n) = T(n/2) + O(1)`, `T(n) = T(n - 1) + O(n)`. Substitution and a recursion tree. Akra–Bazzi is out of scope. | Core | Present |
 | Amortized cost | Aggregate analysis of geometric growth. The potential method is Named, used in print for splay trees. | Core for the aggregate argument | Partial, inside `Stack.push` |
-| Randomized expectation | Random-pivot quick sort is expected O(n log n) on distinct keys. All-equal Lomuto stays O(n²). | Core | Partial, in `quick_sort.py` |
+| Randomized expectation | Random-pivot quick sort is expected O(n log n) on distinct keys. All-equal Lomuto stays O(n²). | Core | Present |
 | Loop invariants | One sentence. Floyd, the histogram stack, and shunting-yard already have traces. | Core as a habit | Present |
 
 **Library costs are part of this chapter, not a late appendix.** The incident "the algorithm is quadratic" is usually `x in some_list` inside a loop, or `list.pop(0)` used as a queue. The Core module `bitsandbytes/library_costs.py` does not reimplement CPython. It uses `collections.deque`, `heapq`, and `bisect` for a queue, a top-k, and insertion into a sorted list, and each function's `Cost` section cites the library operation. Facts to state, from the language documentation:
