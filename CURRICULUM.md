@@ -97,7 +97,7 @@ Python does not perform tail-call elimination. The default recursion limit is 10
 | O, Θ, Ω | Upper, tight, and lower bounds. Use Θ when the section has a sum such as `n(n - 1) / 2`. | Core | Present |
 | Best, typical, worst | The house style when they differ. | Core | Present as a habit |
 | Recurrences | `T(n) = 2T(n/2) + O(n)`, `T(n) = T(n/2) + O(1)`, `T(n) = T(n - 1) + O(n)`. Substitution and a recursion tree. Akra–Bazzi is out of scope. | Core | Present |
-| Amortized cost | Aggregate analysis of geometric growth. The potential method is Named, used in print for splay trees. | Core for the aggregate argument | Partial, inside `Stack.push` |
+| Amortized cost | Aggregate analysis of geometric growth. The potential method is Named, used in print for splay trees. | Core for the aggregate argument | Present |
 | Randomized expectation | Random-pivot quick sort is expected O(n log n) on distinct keys. All-equal Lomuto stays O(n²). | Core | Present |
 | Loop invariants | One sentence. Floyd, the histogram stack, and shunting-yard already have traces. | Core as a habit | Present |
 
