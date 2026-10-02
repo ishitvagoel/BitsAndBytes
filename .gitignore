@@ -2,3 +2,6 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+
+site/node_modules/
+site/.next/

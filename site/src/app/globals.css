@@ -1,0 +1,115 @@
+:root {
+  --background: #faf9f6;
+  --foreground: #1a1a1a;
+  --muted: #5c5c5c;
+  --accent: #0b5fff;
+  --border: #e2e0d9;
+  --code-bg: #f0eeea;
+}
+
+html,
+body {
+  max-width: 100vw;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.site-shell {
+  min-height: 100vh;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+}
+
+.site-header a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.page {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.lede {
+  color: var(--muted);
+}
+
+.lesson-index {
+  padding-left: 1.25rem;
+}
+
+.lesson-index li {
+  margin: 0.5rem 0;
+}
+
+.back-link {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+}
+
+.module-list {
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.module-list h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.module-list ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.lesson-body :is(p, ul, ol) {
+  margin: 0 0 1rem;
+}
+
+.lesson-body code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.9em;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+.lesson-body pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--code-bg);
+}
+
+.lesson-body pre code {
+  padding: 0;
+  background: transparent;
+}
