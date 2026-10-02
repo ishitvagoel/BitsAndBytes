@@ -44,6 +44,14 @@ chapter).
 CPython does not eliminate tail calls. The default recursion limit is 1000
 (see ``recursion_limit``). Recursive algorithms in this repository state
 call-stack memory separately from loop-only memory.
+
+Industry
+--------
+A working engineer checks the language cost table before replacing a loop.
+Python's time-complexity documentation lists ``list.pop(0)`` as O(n),
+because every later element moves, and says to use a ``collections.deque``
+when both ends change. That deque documents approximately the same O(1) cost
+for appends and pops in either direction.
 """
 
 from __future__ import annotations

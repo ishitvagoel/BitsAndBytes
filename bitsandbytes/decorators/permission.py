@@ -9,6 +9,14 @@ returned; the old wrapper discarded that value.
 
 ``input_fn`` is injectable so tests do not have to type at a prompt. It has
 the same shape as :func:`input`: it receives the prompt and returns the answer.
+
+Industry
+--------
+A working engineer wraps a function instead of copying its body.
+``functools.wraps``, applied to the confirmation wrapper,
+copies the wrapped callable's metadata onto the wrapper so the visible name
+stays the original function's name. Walking a directory tree is ``os.walk``,
+which yields each directory top-down or bottom-up.
 """
 
 from __future__ import annotations

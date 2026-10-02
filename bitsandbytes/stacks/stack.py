@@ -6,6 +6,13 @@ reused (``peek`` uses the same empty check as ``pop``).
 
 ``functools.wraps`` keeps the original method name. Without it the wrapper
 replaced every method's ``__name__`` with ``execute``.
+
+Industry
+--------
+A working engineer uses a Python ``list`` as a stack. The language tutorial
+says to add with ``append`` and to retrieve with ``pop()`` and no index, so
+the last item added is the first retrieved. The time-complexity
+documentation lists an end ``append`` and an end ``pop`` as amortized O(1).
 """
 
 from __future__ import annotations

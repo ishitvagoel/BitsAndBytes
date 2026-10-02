@@ -14,6 +14,14 @@ Worked trace (``heapsort`` on ``[3, 1, 4]``):
 * ``heapify`` builds max-heap ``[4, 3, 1]``.
 * Swap root with last → ``[1, 3, 4]``, sift down on prefix → ``[3, 1, 4]``.
 * Swap and sift again → sorted ``[1, 3, 4]``.
+
+Industry
+--------
+A working engineer uses ``heapq`` as a priority queue. Python documents a
+min-heap whose smallest item is always ``heap[0]``, with ``heapify`` in
+linear time. Removing that root and restoring the heap is logarithmic, and
+repeating the removal sorts in O(n log n). The same page notes that this
+heapsort is not stable, which is also true of ``heapsort`` here.
 """
 
 from __future__ import annotations

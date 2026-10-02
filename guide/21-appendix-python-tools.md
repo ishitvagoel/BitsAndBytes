@@ -13,3 +13,11 @@ These are not the next data-structure lesson after graphs. They stay in the repo
 * `tools/print_directory.py` — `os.walk` is O(entries).
 
 `print_directory_paths.py` still runs the directory walk.
+
+## Industry
+
+A working engineer wraps a function instead of copying its body.
+`functools.wraps`, applied to the confirmation wrapper,
+copies the wrapped callable's metadata onto the wrapper so the visible name
+stays the original function's name. Walking a directory tree is `os.walk`,
+which yields each directory top-down or bottom-up.

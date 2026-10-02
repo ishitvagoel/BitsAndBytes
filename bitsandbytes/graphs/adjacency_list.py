@@ -6,6 +6,14 @@ Dijkstra's algorithm uses a min-heap keyed by tentative distance; here the
 smallest tentative distance is chosen by scanning the unsettled set, which is
 O(V) per step and O(V^2) overall, honest for a first teaching version on
 small graphs.
+
+Industry
+--------
+A working engineer stores a sparse graph as adjacency lists and searches
+with the structure the weights require. Unweighted breadth-first search uses
+``collections.deque``, which Python documents with approximately O(1)
+appends and pops at either end. Non-negative weights use ``heapq``, the
+min-heap whose smallest item is the root. The adjacency-list scan is the Dijkstra that heap replaces.
 """
 
 from __future__ import annotations

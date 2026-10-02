@@ -1,8 +1,19 @@
 """FIFO queue backed by a doubly linked list.
 
-``append`` at the tail and ``remove_node`` on the head are both O(1) because
-each node stores ``prev``. A singly linked queue would make dequeue O(n) when
-finding the predecessor of the head.
+``enqueue`` calls ``append`` on the cached tail, which is O(1).
+``dequeue`` calls ``remove_node`` on the head. That unlink follows
+``prev`` and ``next`` already stored on the node, so it is O(1). The
+head's ``prev`` is ``None``; dropping the head does not search for a
+predecessor.
+
+Industry
+--------
+A working engineer implements a queue with ``collections.deque``. The Python
+tutorial says a ``list`` is a poor queue, because an insert or pop at the
+beginning shifts every other element, and that ``collections.deque`` has
+fast appends and pops at both ends. The deque documentation states
+approximately the same O(1) performance in either direction, which is why
+``list.pop(0)`` is the operation to avoid.
 """
 
 from __future__ import annotations
