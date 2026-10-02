@@ -1,0 +1,23 @@
+order	title	slug	decision
+0	Analysis and library costs	analysis-and-library-costs	One lesson for README section 0; module lists both importable bitsandbytes.complexity and bitsandbytes.library_costs.
+1	Singly linked list	singly-linked-list	Single core list module bitsandbytes.linked_list matches README section 1.
+2	List algorithms	list-algorithms	Comma-separated bitsandbytes.linked_lists.* modules for every file named in README section 2.
+3	Doubly linked list and the LRU cache	doubly-linked-list-and-lru-cache	Section 3 modules use bitsandbytes package paths for doubly linked list and linked_list extras.
+4	Stacks	stacks	All nine stacks/*.py modules from README section 4 listed in module frontmatter.
+5	Sorting	sorting	Core comparison sorts from README section 5 only; selection_and_radix stays in section 12.
+6	Binary search	binary-search	Single search module bitsandbytes.search.binary_search for section 6.
+7	Queues and deque	queues-and-deque	Four linear-structure modules from README section 7 with bitsandbytes import paths.
+8	Heaps	heaps	Heapsort and priority queue modules for section 8.
+9	Hash table	hash-table	Chaining and linear probing hash table implementations for section 9.
+10	Binary search tree	binary-search-tree	BST, traversals, and LLRB modules for section 10.
+11	Union-find	union-find	Disjoint set and percolation client for section 11.
+12	Sorting extras	sorting-extras	selection_and_radix alone covers README section 12 extras.
+13	Graphs	graphs	Adjacency list representation plus algorithms module for section 13.
+14	Dynamic programming	dynamic-programming	classic.py aggregates DP topics named in README section 14.
+15	Greedy algorithms	greedy-algorithms	greedy.classic for section 15.
+16	Backtracking and array patterns	backtracking-and-array-patterns	Backtracking search and array patterns modules for section 16.
+17	Strings	strings	strings.algorithms for section 17.
+18	Range queries and approximate structures	range-queries-and-approximate-structures	Both structures.py modules (range_queries and approximate) for section 18.
+19	Storage and locality	storage-and-locality	storage.engines for section 19.
+20	Limits and approximation	limits-and-approximation	limits.approximation for section 20.
+21	Appendix: Python tools	appendix-python-tools	Appendix order 21; importable decorator and tools modules only; print_directory_paths.py mentioned in body not in module.
