@@ -17,6 +17,9 @@ Worked trace for ``2+3*4`` (output and operator stack after each token):
 * ``3`` → output ``[2,3]``.
 * ``*`` → operators ``[+,*]`` (``*`` binds tighter than ``+``).
 * ``4`` → output ``[2,3,4]``; drain gives ``[2,3,4,*,+]``.
+* The invariant is that the output holds the postfix of tokens already
+  flushed, and inside the current parenthesis group the operator stack
+  increases in precedence from bottom to top.
 """
 
 from __future__ import annotations

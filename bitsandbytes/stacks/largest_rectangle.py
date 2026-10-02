@@ -18,6 +18,8 @@ Worked trace on ``[2, 1, 5, 6, 2, 3]`` when index 4 (height 2) arrives:
 * Pop index 2 (height 5): the bar underneath is index 1, so the width is
   ``4 - 1 - 1 = 2`` and the area is 10 (best so far).
 * Push index 4. Later pops finish bars still on the stack at the right edge.
+* The invariant is that stack heights stay strictly increasing from bottom to
+  top.
 """
 
 from __future__ import annotations

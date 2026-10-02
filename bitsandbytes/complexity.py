@@ -9,6 +9,27 @@ Worked trace (classify ``MERGE_DIVIDE`` for n = 8):
 * There are log2(8) + 1 = 4 levels. The combine work at level i is 2**i *
   O(8 / 2**i) = O(8). Summing over levels gives O(n log n).
 
+Substitution for the merge-divide recurrence ``T(n) = 2T(n/2) + O(n)`` plugs
+``T(n/2) <= c (n/2) log2(n/2)`` into the recurrence and gets
+``T(n) <= c n log2(n)`` when ``c`` is at least the hidden constant in the
+``O(n)`` combine, the same bound ``merge_sort`` derives.
+
+Substitution for the halving recurrence ``T(n) = T(n/2) + O(1)`` plugs
+``T(n/2) <= c log2(n/2)`` into the recurrence and gets ``T(n) <= c log2(n)``
+when ``c`` is at least the hidden constant in the ``O(1)`` work, the same
+bound binary search derives.
+
+Unrolling the halving recursion tree leaves one subproblem on each of
+``log2(n)`` levels and O(1) work on a level, so the sum is O(log n).
+
+Substitution for the linear-decrement recurrence ``T(n) = T(n - 1) + O(n)``,
+the linear decrement behind the quicksort worst split, plugs
+``T(n - 1) <= c (n - 1) ** 2`` into the recurrence and gets
+``T(n) <= c n ** 2`` when ``c`` is large enough to cover the linear scan.
+
+Unrolling the linear-decrement recursion tree leaves one chain whose costs
+are ``n + (n - 1) + ... + 1 = n (n + 1) / 2``, so the sum is O(n**2).
+
 Cost model
 ----------
 The **word RAM** counts one step for a pointer write, a comparison, a hash of
@@ -32,7 +53,7 @@ from enum import Enum
 
 
 class RecurrenceShape(Enum):
-    """The three recurrence shapes used throughout the repository."""
+    """The three recurrence shapes: merge-divide, halving, and linear decrement."""
 
     MERGE_DIVIDE = "2T(n/2) + O(n)"
     HALVING = "T(n/2) + O(1)"
@@ -70,6 +91,29 @@ def recursion_limit() -> int:
 
 def classify_recurrence(shape: RecurrenceShape) -> str:
     """Return the Θ bound taught for ``shape``.
+
+    Substitution for the merge-divide recurrence ``T(n) = 2T(n/2) + O(n)``
+    plugs ``T(n/2) <= c (n/2) log2(n/2)`` into the recurrence and gets
+    ``T(n) <= c n log2(n)`` when ``c`` is at least the hidden constant in
+    the ``O(n)`` combine, the same bound ``merge_sort`` derives.
+
+    Substitution for the halving recurrence ``T(n) = T(n/2) + O(1)`` plugs
+    ``T(n/2) <= c log2(n/2)`` into the recurrence and gets
+    ``T(n) <= c log2(n)`` when ``c`` is at least the hidden constant in the
+    ``O(1)`` work, the same bound binary search derives.
+
+    Unrolling the halving recursion tree leaves one subproblem on each of
+    ``log2(n)`` levels and O(1) work on a level, so the sum is O(log n).
+
+    Substitution for the linear-decrement recurrence
+    ``T(n) = T(n - 1) + O(n)``, the linear decrement behind the quicksort
+    worst split, plugs ``T(n - 1) <= c (n - 1) ** 2`` into the recurrence
+    and gets ``T(n) <= c n ** 2`` when ``c`` is large enough to cover the
+    linear scan.
+
+    Unrolling the linear-decrement recursion tree leaves one chain whose
+    costs are ``n + (n - 1) + ... + 1 = n (n + 1) / 2``, so the sum is
+    O(n**2).
 
     Only the three shapes in ``RecurrenceShape`` are classified. This helper
     is not a general recurrence solver (Akra–Bazzi is out of scope).
