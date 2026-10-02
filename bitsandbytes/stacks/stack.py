@@ -148,10 +148,12 @@ class Stack(Generic[T]):
         ----
         The item is appended at the end of a Python list. Appending at the
         end is amortized O(1): most calls write one slot, and occasionally
-        the list allocates a larger array and copies n items. Across n pushes
-        those copies sum to O(n), so the average per push is O(1). The
-        fullness check in front of this method is also O(1). Worst case of a
-        single push that triggers a resize is O(n).
+        the list allocates a larger array and copies the live items.
+        Geometric doubling makes n pushes copy O(n) elements in total: the
+        sizes 1, 2, 4, … sum to less than 2n and are bounded by twice the
+        number of pushes, so the average per push is O(1). The fullness check
+        in front of this method is also O(1). Worst case of a single push
+        that triggers a resize is O(n).
         """
 
         self._items.append(item)
