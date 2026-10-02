@@ -7,6 +7,14 @@ sorted, and the scan stops.
 
 Time: O(n^2) comparisons, best case O(n) on sorted input. O(1) extra memory.
 Stable. Sorts in place and returns the same list.
+
+Industry
+--------
+A working engineer calls ``list.sort``. Python's sorting howto names Timsort
+and says it takes advantage of ordering already present in the data.
+``list.sort`` is guaranteed stable, and the time-complexity documentation
+lists it as O(n log n) in the worst case. The quadratic sorts in this lesson
+are the hand derivations of a worse bound.
 """
 
 from __future__ import annotations

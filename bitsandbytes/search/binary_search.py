@@ -12,6 +12,13 @@ Worked trace (``binary_search`` on ``[1, 3, 5, 7, 9]``, target ``7``):
 ``lower_bound`` is the first index whose value is ``>=`` target. ``upper_bound``
 is the first index whose value is ``>`` target. On duplicates they differ by
 one index.
+
+Industry
+--------
+A working engineer searches a sorted list with ``bisect.bisect_left``, which
+returns the insertion point to the left of any matching entries. The
+``bisect`` documentation states that this search is O(log n). ``insort`` is
+O(n) only because the following list insertion moves elements.
 """
 
 from __future__ import annotations

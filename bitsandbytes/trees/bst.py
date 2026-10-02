@@ -11,6 +11,15 @@ Worked trace (insert 5, 2, 8 then search 2):
 
 * Insert 5 at root. Insert 2 as left child. Insert 8 as right child.
 * Search compares at 5, goes left, finds 2 in two steps.
+
+Industry
+--------
+A working engineer reaches for a B-tree when keys must answer equality and
+range comparisons. PostgreSQL's index documentation says ``CREATE INDEX``
+builds a B-tree by default, and that a B-tree handles ``<``, ``<=``, ``=``,
+``>=``, and ``>``. The binary search tree in this lesson is that comparison
+walk in memory. Sorted insertion makes its height linear, which is why the
+left-leaning red-black tree keeps the height logarithmic.
 """
 
 from __future__ import annotations

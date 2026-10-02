@@ -1,4 +1,13 @@
-"""Reverse a linear linked list, iteratively and recursively."""
+"""Reverse a linear linked list, iteratively and recursively.
+
+Industry
+--------
+A working engineer rewrites links when the records are already a chain.
+Merging two sorted chains has a library twin: Python's ``heapq.merge``
+merges already-sorted inputs into one sorted output and does not pull every
+stream into memory at once. On these lists the same merge relinks the
+existing nodes.
+"""
 
 from __future__ import annotations
 

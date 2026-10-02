@@ -24,3 +24,11 @@ These modules only rewrite `next` on that shared list. Any call that starts with
 * `linked_lists/intersection.py` — `require_linear` on both lists, then equalize with cached lengths and walk in step. O(n + m) time; O(1) extra memory for the walk besides the guard peak.
 * `linked_lists/sort_list.py` — bottom-up merge sort. O(n log n) time, O(1) extra memory besides nodes. Stable.
 * `linked_lists/split_circular.py`, `modular_nodes.py`, `reviewers.py` — see each module’s `Cost` section. `modular_node_from_end` uses `nth_from_end`, so it is O(n) time and O(1) extra memory for the gap walk.
+
+## Industry
+
+A working engineer rewrites links when the records are already a chain.
+Merging two sorted chains has a library twin: Python's `heapq.merge` merges
+already-sorted inputs into one sorted output and does not pull every stream
+into memory at once. On these lists the same merge relinks the existing
+nodes.

@@ -13,6 +13,15 @@ the tail. After the swap, following ``next`` walks the old list backwards.
 
 Time for insert, append, prepend, and delete-given-the-node is O(1).
 Indexing is still O(n): the second pointer does not create random access.
+
+Industry
+--------
+A working engineer caches the most recent calls with
+``functools.lru_cache``, which saves up to ``maxsize`` most recent calls.
+This course builds that policy as a hash table plus an order list: the
+dictionary finds the key, and the doubly linked list unlinks that node and
+moves it to the front without a scan. A singly linked order list would have
+to walk from the head to find the predecessor.
 """
 
 from __future__ import annotations

@@ -17,6 +17,15 @@ cached tail and length after an algorithm rewires ``next`` pointers. A cycle
 that does not return to the head cannot be stored in this shape, so ``refresh``
 raises ``ValueError`` if it finds one. Floyd's cycle finder lives in
 ``bitsandbytes.linked_lists.cycle`` and does not use the cache.
+
+Industry
+--------
+A working engineer uses a singly linked list when a value must be added at
+the head, or appended at a cached tail, without sliding every later element.
+Python's time-complexity documentation charges ``list.insert`` and
+``list.pop`` at index 0 as O(n) for that slide. Popping this list's tail
+stays O(n), because the predecessor is not stored; a queue that needs the
+front uses ``collections.deque`` instead.
 """
 
 from __future__ import annotations

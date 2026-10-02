@@ -8,3 +8,11 @@ module: bitsandbytes.complexity, bitsandbytes.library_costs
 
 * `bitsandbytes/complexity.py` — word RAM model, O/Θ/Ω vocabulary, recursion limit, and the three recurrence shapes (merge divide, halving, linear decrement).
 * `bitsandbytes/library_costs.py` — why BFS uses `deque`, `heapq.nsmallest`, `bisect.insort`, and Timsort; `list.pop(0)` costs O(n) element moves.
+
+## Industry
+
+A working engineer checks the language cost table before replacing a loop.
+Python's time-complexity documentation lists `list.pop(0)` as O(n), because
+every later element moves, and says to use a `collections.deque` when both
+ends change. That deque documents approximately the same O(1) cost for
+appends and pops in either direction.

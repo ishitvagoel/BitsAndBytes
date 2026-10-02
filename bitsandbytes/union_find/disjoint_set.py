@@ -10,6 +10,13 @@ Worked trace (naive union of 0-1 and 1-2):
 * After ``union(0,1)``, parent[1]=0.
 * After ``union(1,2)``, parent[2]=0 through find(1).
 * ``find(2)`` walks two links.
+
+Industry
+--------
+A working engineer uses a disjoint set when the only updates are merges and
+the question is whether two items are already connected. Kruskal's minimum
+spanning tree, which this course schedules after union-find, sorts the edges
+and then unions endpoints that are still in different sets.
 """
 
 from __future__ import annotations
