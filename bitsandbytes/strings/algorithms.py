@@ -1,4 +1,13 @@
-"""String structures and matching."""
+"""String structures and matching.
+
+Industry
+--------
+A working engineer answers which documents contain a term with an inverted
+index. PostgreSQL documents GIN indexes as inverted indexes: a separate
+entry for each component value, so a query can test whether that value is
+present. ``InvertedIndex`` in this module is that map from a term to its
+posting list.
+"""
 
 from __future__ import annotations
 

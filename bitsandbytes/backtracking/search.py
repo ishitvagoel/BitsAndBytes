@@ -1,4 +1,13 @@
-"""Backtracking search templates."""
+"""Backtracking search templates.
+
+Industry
+--------
+A working engineer writes a backtracking search when a partial choice can be
+rejected, and a forward scan when the constraint is a window. The
+sliding-window maximum in this lesson keeps candidate indexes in a
+``collections.deque``. Python documents approximately O(1) appends and pops
+at either end, so each index can enter the deque and leave it once.
+"""
 
 from __future__ import annotations
 

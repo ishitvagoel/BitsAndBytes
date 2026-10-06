@@ -15,3 +15,10 @@ module: bitsandbytes.stacks.stack, bitsandbytes.stacks.algorithm_stack, bitsandb
 * `stacks/largest_rectangle.py` — histogram rectangle. O(n) time.
 * `stacks/infix_postfix.py` — shunting yard plus postfix evaluation. O(n) time.
 * `stacks/sort_stack.py` — one extra `AlgorithmStack`. Worst case O(n²) time, O(n) extra memory.
+
+## Industry
+
+A working engineer uses a Python `list` as a stack. The language tutorial
+says to add with `append` and to retrieve with `pop()` and no index, so the
+last item added is the first retrieved. The time-complexity documentation
+lists an end `append` and an end `pop` as amortized O(1).

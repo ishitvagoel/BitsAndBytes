@@ -1,4 +1,13 @@
-"""Non-comparison sorts and selection."""
+"""Non-comparison sorts and selection.
+
+Industry
+--------
+A working engineer does not sort the whole input when only the smallest few
+values are required. Python's sorting howto points at ``heapq.nsmallest``
+for that job: one pass that keeps only the requested number of elements.
+Digit keys are the other case in this lesson, counting sort and LSD radix,
+because a comparison lower bound does not apply to them.
+"""
 
 from __future__ import annotations
 

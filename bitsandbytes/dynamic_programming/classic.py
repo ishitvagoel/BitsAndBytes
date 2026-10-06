@@ -3,6 +3,15 @@
 Each function fills a table in dependency order. Memoized recursion is not the
 required form; the word-RAM Fibonacci uses a fixed modulus so each cell is one
 machine word.
+
+Industry
+--------
+A working engineer computes edit distance with a filled table. PostgreSQL's
+``fuzzystrmatch`` documentation provides ``levenshtein(source, target)``,
+the Levenshtein distance, and charges 1 for an insertion, a deletion, or a
+substitution when those costs are left at their defaults. ``edit_distance``
+in this module is that recurrence, filled bottom-up so each cell is computed
+once.
 """
 
 from __future__ import annotations

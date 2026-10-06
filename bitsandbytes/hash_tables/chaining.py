@@ -14,6 +14,14 @@ Worked trace (insert keys ``a``, ``b`` with two buckets):
 * ``hash(a) % 2`` lands in bucket 0; append ``(a, value)``.
 * ``hash(b) % 2`` lands in bucket 1; append ``(b, value)``.
 * Lookup scans only one bucket list, not the whole table.
+
+Industry
+--------
+A working engineer uses a ``dict`` for lookup by key. Python's
+time-complexity documentation lists average-case get, set, and delete as
+O(1), and O(n) when every key hashes to the same bucket. Separate chaining
+is one bucket's list; that worst case is why a degenerate hash is part of
+this lesson.
 """
 
 from __future__ import annotations
