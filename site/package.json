@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/validate-curriculum-data.mjs && node --experimental-strip-types scripts/validate-markdown-links.mjs && next build && node scripts/test-rendered-links.mjs && node scripts/test-critical-learning-journey.mjs && node scripts/measure-static-performance.mjs",
+    "build": "node scripts/validate-curriculum-data.mjs && node --experimental-strip-types scripts/validate-markdown-links.mjs && next build && node scripts/run-postbuild-checks.mjs",
     "measure:performance": "node scripts/measure-static-performance.mjs",
     "test:preview-routes": "node scripts/test-preview-http-routes.mjs",
     "test:progress": "node --experimental-strip-types scripts/test-learning-progress.mjs",
