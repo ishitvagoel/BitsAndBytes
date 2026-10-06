@@ -11,8 +11,13 @@ export type LessonMeta = {
   module: string;
 };
 
-export type Lesson = LessonMeta & {
+type LessonCore = LessonMeta & {
   content: string;
+};
+
+export type Lesson = LessonCore & {
+  previous?: LessonMeta;
+  next?: LessonMeta;
 };
 
 function getGuideDir(): string {
@@ -67,7 +72,7 @@ function parseFrontmatter(text: string): { meta: Record<string, string>; body: s
   return { meta, body };
 }
 
-function parseLessonFile(filePath: string): Lesson {
+function parseLessonFile(filePath: string): LessonCore {
   const raw = fs.readFileSync(filePath, "utf-8");
   const { meta, body } = parseFrontmatter(raw);
 
@@ -92,6 +97,38 @@ function parseLessonFile(filePath: string): Lesson {
   };
 }
 
+function attachAdjacentLessons(lessons: LessonCore[]): Lesson[] {
+  return lessons.map((lesson, index) => {
+    const previous = index > 0 ? lessons[index - 1] : undefined;
+    const next = index < lessons.length - 1 ? lessons[index + 1] : undefined;
+    return {
+      ...lesson,
+      ...(previous
+        ? {
+            previous: {
+              title: previous.title,
+              slug: previous.slug,
+              order: previous.order,
+              status: previous.status,
+              module: previous.module,
+            },
+          }
+        : {}),
+      ...(next
+        ? {
+            next: {
+              title: next.title,
+              slug: next.slug,
+              order: next.order,
+              status: next.status,
+              module: next.module,
+            },
+          }
+        : {}),
+    };
+  });
+}
+
 export function getAllLessons(): Lesson[] {
   const guideDir = getGuideDir();
   const files = fs
@@ -101,7 +138,7 @@ export function getAllLessons(): Lesson[] {
 
   const lessons = files.map((name) => parseLessonFile(path.join(guideDir, name)));
   lessons.sort((a, b) => a.order - b.order);
-  return lessons;
+  return attachAdjacentLessons(lessons);
 }
 
 export function getLessonBySlug(slug: string): Lesson | undefined {
