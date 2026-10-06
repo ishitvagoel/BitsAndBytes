@@ -57,11 +57,112 @@ a:hover {
 }
 
 .lesson-index {
-  padding-left: 1.25rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-.lesson-index li {
-  margin: 0.5rem 0;
+.lesson-index-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.lesson-index-row:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.lesson-index-position {
+  flex: 0 0 2rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.lesson-index-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: baseline;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--code-bg);
+  color: var(--muted);
+}
+
+.status-present {
+  background: #e6f4ea;
+  color: #137333;
+}
+
+.lesson-progress {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.lesson-status-line {
+  margin: 0.5rem 0 0;
+}
+
+.lesson-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.lesson-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  text-decoration: none;
+}
+
+.lesson-nav-link:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.lesson-nav-previous {
+  text-align: left;
+}
+
+.lesson-nav-next {
+  text-align: right;
+}
+
+.lesson-nav-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.lesson-nav-title {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.lesson-nav-spacer {
+  display: block;
 }
 
 .back-link {
@@ -88,6 +189,10 @@ a:hover {
 .module-list ul {
   margin: 0;
   padding-left: 1.25rem;
+}
+
+.lesson-body :is(h2, h3) {
+  margin: 2rem 0 0.75rem;
 }
 
 .lesson-body :is(p, ul, ol) {
