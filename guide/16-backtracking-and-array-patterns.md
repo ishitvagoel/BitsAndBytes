@@ -7,6 +7,15 @@ module: bitsandbytes.backtracking.search, bitsandbytes.patterns.arrays
 ---
 
 * `backtracking/search.py` — permutations, combinations, subsets, N-queens count.
+
+## Focused lessons
+
+- [Two-pointer patterns](./58-two-pointers.md)
+- [Sliding windows](./59-sliding-window.md)
+- [Prefix sums](./60-prefix-sums.md)
+- [Backtracking search](./61-backtracking.md)
+- [Greedy methods](./62-greedy-methods.md)
+- [Dynamic programming state and transitions](./63-dp-state-and-transition.md)
 * `patterns/arrays.py` — two pointers, sliding window, prefix sums, monotonic-queue window maximum.
 
 ## Industry

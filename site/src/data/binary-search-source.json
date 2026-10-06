@@ -1,0 +1,32 @@
+{
+  "sourcePath": "bitsandbytes/search/binary_search.py",
+  "code": "def binary_search(sorted_values: Sequence[T], target: T) -> int:\n    \"\"\"Return the index of ``target``, or ``-1`` if it is absent.\n\n    ``sorted_values`` must be non-decreasing under ``<``.\n\n    Cost\n    ----\n    Let n be ``len(sorted_values)``. For n >= 1, each iteration halves the\n    remaining range, so there are at most ``floor(log2(n)) + 1`` iterations.\n    An empty sequence takes no iterations. Each iteration uses at most two\n    value comparisons and O(1) index arithmetic. Time is O(log n) for\n    non-empty input.\n    A few integer indexes are stored: O(1) extra memory.\n    \"\"\"\n\n    left = 0\n    right = len(sorted_values) - 1\n    while left <= right:\n        middle = left + (right - left) // 2\n        middle_value = sorted_values[middle]\n        if middle_value < target:\n            left = middle + 1\n        elif target < middle_value:\n            right = middle - 1\n        else:\n            return middle\n    return -1",
+  "traceLines": {
+    "initialize": [
+      15,
+      16
+    ],
+    "compare-left": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "narrow-left": [
+      21
+    ],
+    "compare-right": [
+      22
+    ],
+    "narrow-right": [
+      23
+    ],
+    "return-match": [
+      24,
+      25
+    ],
+    "return-absent": [
+      26
+    ]
+  }
+}

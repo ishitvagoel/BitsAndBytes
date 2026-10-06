@@ -8,6 +8,10 @@ module: bitsandbytes.storage.engines
 
 * `storage/engines.py` — in-memory B-tree, write-ahead log, toy LSM with Bloom-filtered runs, scan benchmark, brute-force nearest neighbor.
 
+## Focused lesson
+
+- [Storage engines and locality](./68-storage-engines-and-locality.md)
+
 ## Industry
 
 A working engineer stores ordered keys in a B-tree, or buffers writes and

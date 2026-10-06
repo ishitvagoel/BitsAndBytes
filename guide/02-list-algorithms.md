@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.linked_lists.reverse, bitsandbytes.linked_lists.reverse_in_pairs, bitsandbytes.linked_lists.reverse_in_blocks, bitsandbytes.linked_lists.middle, bitsandbytes.linked_lists.cycle, bitsandbytes.linked_lists.remove_cycle, bitsandbytes.linked_lists.nth_from_end, bitsandbytes.linked_lists.duplicates, bitsandbytes.linked_lists.rotate, bitsandbytes.linked_lists.partition, bitsandbytes.linked_lists.odd_even, bitsandbytes.linked_lists.reorder, bitsandbytes.linked_lists.palindrome, bitsandbytes.linked_lists.delete_node, bitsandbytes.linked_lists.add_numbers, bitsandbytes.linked_lists.merge_sorted, bitsandbytes.linked_lists.intersection, bitsandbytes.linked_lists.sort_list, bitsandbytes.linked_lists.split_circular, bitsandbytes.linked_lists.modular_nodes, bitsandbytes.linked_lists.reviewers
 ---
 
+This is the legacy overview and complexity index for the repository's list exercises. Use the focused overviews for a first pass through [fast/slow pointers](./fast-slow-pointer-patterns.md), [reversal and relinking](./linked-list-reversal-and-relinking.md), [merge and sort](./linked-list-merge-and-sort.md), and [special input cases](./linked-list-special-cases.md).
+
 These modules only rewrite `next` on that shared list. Any call that starts with `require_linear` inherits that O(n) peak before the main loop.
 
 * `linked_lists/reverse.py` — iterative reversal is O(n) time and O(1) extra memory for the three pointers. The recursive form adds O(n) call-stack memory.

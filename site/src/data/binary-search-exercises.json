@@ -1,0 +1,150 @@
+[
+  {
+    "id": "binary-search-prediction",
+    "lessonSlug": "binary-search",
+    "storageId": "prediction",
+    "prompt": "The middle value is 5 and the target is 7. Which indexes can you rule out?",
+    "hints": ["Use the fact that the list is sorted, not just the middle value alone.", "Every index through the inspected index has a value no larger than 5."],
+    "options": [
+      {
+        "id": "left",
+        "label": "Indexes 0 through 2"
+      },
+      {
+        "id": "right",
+        "label": "Indexes 2 through 4"
+      },
+      {
+        "id": "none",
+        "label": "No indexes; keep searching the whole list"
+      }
+    ],
+    "answer": "left",
+    "correct": "Correct. Sorted order proves every value through index 2 is at most 5, so none can be 7.",
+    "retry": "Not quite. Since 7 is greater than 5, the middle and everything before it are too small.",
+    "objectiveId": "binary-search-justify-elimination"
+  },
+  {
+    "id": "binary-search-off-by-one",
+    "lessonSlug": "binary-search",
+    "storageId": "off-by-one",
+    "prompt": "For [1, 3], target 4, what is wrong with setting left = middle after finding a value that is too small?",
+    "hints": ["Check whether the next iteration changes the interval.", "With left 0 and right 1, middle is 0 again unless left moves past it."],
+    "options": [
+      {
+        "id": "no-progress",
+        "label": "The range may not shrink, so the same middle is checked forever"
+      },
+      {
+        "id": "skips",
+        "label": "It always skips the correct answer"
+      },
+      {
+        "id": "sort",
+        "label": "It changes the order of the input list"
+      }
+    ],
+    "answer": "no-progress",
+    "correct": "Correct. With left 0 and right 1, middle stays 0. Use left = middle + 1 to discard the checked index and guarantee progress.",
+    "retry": "Check whether the next iteration changes either boundary. On this input, middle remains 0 unless left advances past it.",
+    "objectiveId": "binary-search-diagnose-progress"
+  },
+  {
+    "id": "binary-search-duplicates",
+    "lessonSlug": "binary-search",
+    "storageId": "duplicates",
+    "prompt": "For [1, 2, 2, 2, 3], lower_bound(2) is 1 and upper_bound(2) is 4. How many 2s are present?",
+    "hints": ["The matching indexes form a half-open interval.", "Count positions in [1, 4) by subtracting its endpoints."],
+    "options": [
+      {
+        "id": "one",
+        "label": "1"
+      },
+      {
+        "id": "three",
+        "label": "3"
+      },
+      {
+        "id": "four",
+        "label": "4"
+      }
+    ],
+    "answer": "three",
+    "correct": "Correct. The half-open interval [1, 4) contains indexes 1, 2, and 3: 4 − 1 = 3 values.",
+    "retry": "Subtract the first index at least 2 (the lower bound, 1) from the first index greater than 2 (the upper bound, 4): 4 − 1 = 3.",
+    "objectiveId": "binary-search-trace-boundaries"
+  },
+  {
+    "id": "binary-search-insertion-cost",
+    "lessonSlug": "binary-search",
+    "storageId": "cost",
+    "prompt": "Why can bisect_left be O(log n) while insort is O(n)?",
+    "hints": ["Separate finding the position from changing the list.", "After finding it, insertion may shift every later item."],
+    "options": [
+      {
+        "id": "shift",
+        "label": "insort may shift many list elements after finding the insertion point"
+      },
+      {
+        "id": "sort-first",
+        "label": "bisect_left sorts the whole list before searching"
+      },
+      {
+        "id": "random",
+        "label": "insort chooses a random index"
+      }
+    ],
+    "answer": "shift",
+    "correct": "Correct. Finding the position halves the search range, but inserting into a Python list may move a linear number of later items.",
+    "retry": "Separate the work: first find the position, then make room at that position in the list.",
+    "objectiveId": "binary-search-separate-insertion-cost"
+  },
+  {
+    "id": "binary-search-transfer-trace",
+    "lessonSlug": "binary-search",
+    "storageId": "transfer-trace",
+    "prompt": "In [2, 5, 8, 12, 16, 20], you search for 9 and inspect index 2. Which indexes can you now rule out?",
+    "hints": ["The inspected value is smaller than the target.", "Because the list is sorted, all values at indices 0 through 2 are too small."],
+    "options": [
+      { "id": "indices-0-2", "label": "Indexes 0 through 2" },
+      { "id": "indices-3-5", "label": "Indexes 3 through 5" },
+      { "id": "none", "label": "No indexes; keep the whole range" }
+    ],
+    "answer": "indices-0-2",
+    "correct": "Correct. Index 2 contains 8, and every earlier value is no larger, so none can be 9.",
+    "retry": "Compare 9 with the inspected value 8, then use sorted order to reason about the earlier indexes.",
+    "objectiveId": "binary-search-justify-elimination"
+  },
+  {
+    "id": "binary-search-answer-monotonicity",
+    "lessonSlug": "binary-search-on-answer",
+    "storageId": "answer-monotonicity",
+    "prompt": "For piles [3, 6, 7, 11] and an 8-hour deadline, rate 3 takes 10 hours. Which conclusion follows from monotonicity?",
+    "hints": ["A slower rate cannot finish sooner than a rate that already fails.", "Rate 3 fails, so every rate at or below 3 also fails."],
+    "options": [
+      { "id": "discard-low", "label": "Rates 1 through 3 are infeasible; search above 3" },
+      { "id": "discard-high", "label": "Rates above 3 are infeasible; search below 3" },
+      { "id": "no-discard", "label": "No rates can be ruled out" }
+    ],
+    "answer": "discard-low",
+    "correct": "Correct. The predicate is false below the first feasible rate, so a failing midpoint rules out itself and every slower rate.",
+    "retry": "Order rates from slowest to fastest. Feasibility changes from false to true at most once.",
+    "objectiveId": "binary-search-answer-check-monotonicity"
+  },
+  {
+    "id": "binary-search-answer-boundary-trace",
+    "lessonSlug": "binary-search-on-answer",
+    "storageId": "answer-boundary-trace",
+    "prompt": "Rate 5 finishes exactly in 8 hours. What should the smallest-feasible search do next?",
+    "hints": ["Rate 5 is a valid upper bound, but a smaller rate may work too.", "Keep 5 and test the left part of the remaining interval."],
+    "options": [
+      { "id": "keep-and-left", "label": "Keep 5 as feasible and continue searching left" },
+      { "id": "discard-all", "label": "Return 5 immediately" },
+      { "id": "move-right", "label": "Discard 5 and search only larger rates" }
+    ],
+    "answer": "keep-and-left",
+    "correct": "Correct. A feasible midpoint may be the boundary, so retain it as the known-feasible high value while checking for a smaller answer.",
+    "retry": "The goal is the first feasible rate, not merely any feasible rate. Keep the midpoint and test smaller candidates.",
+    "objectiveId": "binary-search-answer-trace-search"
+  }
+]

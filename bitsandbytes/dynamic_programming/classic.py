@@ -183,18 +183,39 @@ def word_break_possible(text: str, dictionary: Sequence[str]) -> bool:
 
     Cost
     ----
-    O(n · d) for n = len(text) and d dictionary size (hash lookups expected
-    O(1)).
+    Let D be the total number of characters in the dictionary, L its longest
+    word, and n the text length. Building the prefix trie takes O(D) expected
+    time and O(D) memory. Each reachable text position walks at most L trie
+    edges, for O(nL) expected time. The reachability table uses O(n) memory,
+    so total extra memory is O(D + n). Trie child lookups are expected O(1).
     """
 
-    words = set(dictionary)
+    terminal = ""
+    trie: dict[str, object] = {}
+    for word in dictionary:
+        node = trie
+        for char in word:
+            child = node.get(char)
+            if not isinstance(child, dict):
+                child = {}
+                node[char] = child
+            node = child
+        if word:
+            node[terminal] = True
+
     reachable = [False] * (len(text) + 1)
     reachable[0] = True
-    for end in range(1, len(text) + 1):
-        for start in range(end):
-            if reachable[start] and text[start:end] in words:
-                reachable[end] = True
+    for start in range(len(text)):
+        if not reachable[start]:
+            continue
+        node = trie
+        for end in range(start, len(text)):
+            child = node.get(text[end])
+            if not isinstance(child, dict):
                 break
+            node = child
+            if terminal in node:
+                reachable[end + 1] = True
     return reachable[len(text)]
 
 

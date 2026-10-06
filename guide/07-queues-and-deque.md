@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.queues.linked_queue, bitsandbytes.queues.circular_queue, bitsandbytes.linear.dynamic_array, bitsandbytes.deques.linked_deque
 ---
 
+This legacy page is the implementation inventory. Learn FIFO and double-ended operations in [queue and deque operations](./queue-and-deque-operations.md), then compare resizing in [dynamic-array growth](./dynamic-array-growth.md).
+
 * `queues/linked_queue.py` — FIFO with a doubly linked list. Enqueue and dequeue are O(1).
 * `queues/circular_queue.py` — fixed-capacity ring buffer with an explicit size counter. Enqueue and dequeue are O(1).
 * `linear/dynamic_array.py` — geometric doubling; n appends copy O(n) elements in total.

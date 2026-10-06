@@ -1,11 +1,12 @@
 # Bits and Bytes curriculum
 
-A study path for data structures and algorithms in this repository. It follows the textbooks and university courses listed below, then adds the costs that show up in production Python. This file is the plan. It does not add implementations.
+A curriculum roadmap for the repository’s data structures and algorithms, grounded in the textbooks and university courses listed below. The website curriculum in `site/src/lib/curriculum.ts` is the canonical learner-facing lesson order and prerequisite graph. This document tracks module coverage, target competencies and gaps; a module being Present here does not mean its website lesson is Ready.
 
-Two orders are in force, and they are not the same:
+Use each order for its stated purpose:
 
-* **Read now.** Follow [README.md](README.md). That is the only path that exists in the tree today. Analysis is not a module yet, so do not try to start at chapter 1.
-* **Finished course.** The order in the second diagram, once the core rows of the gap list exist. The README is updated as those rows land. Until then the README is not a draft of this diagram.
+* **Website course.** The home page and curriculum manifest define the recommended learner path. All topics remain directly accessible.
+* **Repository reference.** Follow [README.md](README.md) to find implementation notes and cost analyses. It is grouped by topic, not a second course sequence.
+* **Longer-term target.** The order in the diagram below captures intended topic dependencies once the module gap list is complete. It is a roadmap, not the website’s current next-lesson sequence.
 
 ## Status and tier
 
@@ -50,7 +51,7 @@ Dijkstra keeps two bounds. The O(V²) scan stays in the docstring as the version
 
 ## Finished-course order
 
-This order is the target. It is not the README.
+This is the longer-term module target. Use the website manifest for current lesson navigation.
 
 ```mermaid
 flowchart TD

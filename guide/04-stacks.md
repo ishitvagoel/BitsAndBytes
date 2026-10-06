@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.stacks.stack, bitsandbytes.stacks.algorithm_stack, bitsandbytes.stacks.symbol_balance, bitsandbytes.stacks.min_stack, bitsandbytes.stacks.next_greater, bitsandbytes.stacks.stock_span, bitsandbytes.stacks.largest_rectangle, bitsandbytes.stacks.infix_postfix, bitsandbytes.stacks.sort_stack
 ---
 
+This legacy page is the implementation inventory. Start with [stack basics](./stack-basics.md), then choose [monotonic stack patterns](./monotonic-stack-patterns.md) or [stack parsing and expressions](./stack-parsing-and-expressions.md) for focused overviews.
+
 * `stacks/stack.py` — bounded stack: capacity, decorator guards, amortized O(1) `push`, O(1) `pop` and `peek`.
 * `stacks/algorithm_stack.py` — unbounded LIFO for algorithm lessons. Same amortized costs without a limit check.
 * `stacks/symbol_balance.py` — one pass. O(n) time, O(n) worst extra memory for openers.

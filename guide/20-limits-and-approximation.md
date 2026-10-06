@@ -8,11 +8,14 @@ module: bitsandbytes.limits.approximation
 
 * `limits/approximation.py` — 2-approximation vertex cover.
 
+## Focused lesson
+
+- [Approximation guarantees](./69-approximation-guarantees.md)
+
 ## Industry
 
-A working engineer stops looking for a polynomial algorithm the problem does
-not allow, and ships an approximation with a proved ratio or calls a solver.
-The vertex-cover function is the 2-approximation: both endpoints of an
-uncovered edge, repeated until every edge is covered. Maximum flow stays
-uncoded here because the curriculum records that most product code calls a
-solver.
+A working engineer distinguishes a proven lower bound from an unresolved
+complexity assumption. General minimum vertex cover is NP-hard; no exact
+polynomial-time algorithm is known. For a simple approximation, repeatedly
+choose an uncovered edge and add its endpoints. The chosen edges are pairwise
+vertex-disjoint, giving a 2-approximation.

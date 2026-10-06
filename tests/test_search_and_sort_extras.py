@@ -16,6 +16,23 @@ def test_binary_search_and_bounds_on_duplicates() -> None:
     assert binary_search(values, 4) == -1
     assert lower_bound(values, 2) == 1
     assert upper_bound(values, 2) == 4
+    assert upper_bound(values, 2) - lower_bound(values, 2) == 3
+
+
+def test_binary_search_and_bounds_need_only_strict_less_than() -> None:
+    class LessOnly:
+        def __init__(self, value: int) -> None:
+            self.value = value
+
+        def __lt__(self, other: object) -> bool:
+            assert isinstance(other, LessOnly)
+            return self.value < other.value
+
+    values = [LessOnly(value) for value in [1, 2, 2, 2, 3]]
+    target = LessOnly(2)
+    assert binary_search(values, target) in {1, 2, 3}
+    assert lower_bound(values, target) == 1
+    assert upper_bound(values, target) == 4
 
 
 @pytest.mark.parametrize(

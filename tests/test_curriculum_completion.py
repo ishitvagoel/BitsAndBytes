@@ -41,6 +41,11 @@ def test_dp_and_greedy_samples() -> None:
     assert edit_distance("kitten", "sitting") == 3
     assert lis_length_patience([10, 9, 2, 5, 3, 7, 101, 18]) == 4
     assert word_break_possible("leetcode", ["leet", "code"])
+    assert word_break_possible("", [])
+    assert word_break_possible("aaaa", ["a", "aa"])
+    assert not word_break_possible("catsandog", ["cats", "dog", "sand", "and", "cat"])
+    assert not word_break_possible("abc", [""])
+    assert word_break_possible("a" * 5000, ["a"])
     assert interval_scheduling_max_count([(1, 3, "a"), (2, 4, "b"), (3, 5, "c")]) == 2
     assert fractional_knapsack_value([10, 20], [60, 100], 50) == 160.0
     codes = huffman_codes({"a": 5, "b": 9, "c": 12})

@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.complexity, bitsandbytes.library_costs
 ---
 
+This legacy page is a short map to the foundation sequence: [input size and operation counts](./input-size-and-operation-counts.md), [asymptotic growth](./asymptotic-growth.md), [cost models](./cost-models.md), [loop invariants](./loop-invariants.md), [array and Python sequence costs](./arrays-and-python-costs.md), and [recursion and recurrences](./recursion-and-recurrences.md).
+
 * `bitsandbytes/complexity.py` — word RAM model, O/Θ/Ω vocabulary, recursion limit, and the three recurrence shapes (merge divide, halving, linear decrement).
 * `bitsandbytes/library_costs.py` — why BFS uses `deque`, `heapq.nsmallest`, `bisect.insort`, and Timsort; `list.pop(0)` costs O(n) element moves.
 

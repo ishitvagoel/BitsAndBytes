@@ -1,0 +1,7 @@
+[
+  {"id": "present", "label": "Target is present", "values": [1, 3, 5, 7, 9], "target": 7},
+  {"id": "missing", "label": "Target is missing", "values": [1, 3, 5, 7, 9], "target": 6},
+  {"id": "single", "label": "One-item list", "values": [8], "target": 8},
+  {"id": "empty", "label": "Empty list", "values": [], "target": 8},
+  {"id": "duplicates", "label": "Duplicate values", "values": [1, 2, 2, 2, 3], "target": 2}
+]
