@@ -18,9 +18,10 @@ Recorded 6 October 2026 for branch `codex/bitsandbytes-learning-redesign`. This 
 
 ## Remaining release gates
 
-- The first GitHub PR preview failed after Next.js had built: Vercel packaged its `.next` output before the repository's post-build static-artifact scripts tried to open `site/.next/server/app/index.html`. The follow-up keeps curriculum and Markdown validation in the build on Vercel, skips only those local-output-specific post-build checks there, and retains them in full for local production builds. The Vercel check must pass again after this fix.
+- The first GitHub PR preview failed after Next.js had built: Vercel packaged its `.next` output before the repository's post-build static-artifact scripts tried to open `site/.next/server/app/index.html`. The follow-up keeps curriculum and Markdown validation in the build on Vercel, skips only those local-output-specific post-build checks there, and retains them in full for local production builds. The follow-up preview and production build both reached `READY`.
 
-- The production preview server starts on loopback and the HTTP route smoke test passes, but the cloud browser blocks navigation to both `127.0.0.1` and `localhost` with `ERR_BLOCKED_BY_CLIENT`. The local agent-browser Chrome installation previously failed certificate validation. No tunnel or deployment was created.
+- PR #14 was merged to `master` on 6 October 2026 (merge commit `e2ab93d87df4d9d61a5c5d2bd65a96e600ef2959`). Its Vercel production deployment reached `READY` and is aliased to `bits-and-bytes-omega.vercel.app`. Read-only live checks returned HTTP 200 with a `<main>` landmark for `/`, `/lessons/binary-search` and `/lessons/binary-search-on-answer`.
+- The cloud browser still blocks navigation to loopback with `ERR_BLOCKED_BY_CLIENT`, and the local agent-browser Chrome installation previously failed certificate validation. A live HTTP response does not establish visual, responsive, keyboard, focus, touch-target or local-progress behavior; those browser checks remain open.
 - Responsive widths, browser zoom, keyboard/focus behavior, touch targets, overflow and home → lesson → revisit → home still need a real browser pass.
 - Progress persistence, version recheck and export/import need a real-browser round-trip.
 - Formative learning review needs 3–5 actual learners, pre/post transfer prompts, delayed recall and response-driven revisions. No participant contact or recruitment was performed.
@@ -29,4 +30,4 @@ Recorded 6 October 2026 for branch `codex/bitsandbytes-learning-redesign`. This 
 
 ## Release scope
 
-Accounts, cross-device synchronization, AI tutoring, arbitrary Python execution, leaderboards and a full LMS remain deferred. Browser visual/interaction checks, formative learner review and matched production performance comparison are TODO. This implementation has not been deployed or published.
+Accounts, cross-device synchronization, AI tutoring, arbitrary Python execution, leaderboards and a full LMS remain deferred. The site is deployed to Vercel production following the requested merge. Browser visual/interaction checks, formative learner review and matched production performance comparison remain TODO.
