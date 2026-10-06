@@ -7,6 +7,11 @@ module: bitsandbytes.range_queries.structures, bitsandbytes.approximate.structur
 ---
 
 * `range_queries/structures.py` — Fenwick tree, lazy segment tree, sparse table for RMQ.
+
+## Focused lessons
+
+- [Range-query structures](./66-range-query-structures.md)
+- [Approximate membership structures](./67-approximate-membership.md)
 * `approximate/structures.py` — Bloom filter, skip list, persistent stack frames.
 
 ## Industry

@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.sorting.selection_and_radix
 ---
 
+This legacy page is the implementation map. Use the focused pages for [counting and radix sorts](./noncomparison-sorts.md), [order-statistic selection](./order-statistic-selection.md), [binary search on a feasible answer](./binary-search-on-answer.md), and [inversion counting](./inversion-counting.md).
+
 * `sorting/selection_and_radix.py` — comparison lower bound, counting and LSD radix sorts, quickselect, binary search on the answer, inversion count.
 
 ## Industry

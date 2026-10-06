@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.sorting.bubble_sort, bitsandbytes.sorting.selection_sort, bitsandbytes.sorting.insertion_sort, bitsandbytes.sorting.merge_sort, bitsandbytes.sorting.quick_sort
 ---
 
+This legacy page is the overview map. Start with [comparison sorts](./comparison-sorts.md), then follow [merge sort](./merge-sort.md) and [quicksort and partition](./quicksort-and-partition.md). For ranks and non-comparison methods, see [the sorting extras overview](./sorting-extras.md).
+
 * `sorting/bubble_sort.py` — O(n²) worst and average, O(n) best on sorted input, O(1) extra memory. Stable.
 * `sorting/selection_sort.py` — O(n²) for every input order. Not stable.
 * `sorting/insertion_sort.py` — O(n²) worst and average, O(n) best. Stable.

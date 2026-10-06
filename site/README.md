@@ -14,4 +14,4 @@ Open [http://localhost:3000](http://localhost:3000). Lesson files are read from 
 
 ## Deploy on Vercel
 
-The repository root includes `vercel.json` with `"rootDirectory": "site"` so Vercel builds this app while still checking out the full repo (including `guide/`). No database or environment variables are required.
+In the Vercel project settings, set the **Root Directory** to `site`. Vercel still checks out the repository root, so this app can read the sibling `guide/` directory at build time. The root `vercel.json` selects the Next.js framework and build commands; it does not configure the project root directory. No database or environment variables are required.

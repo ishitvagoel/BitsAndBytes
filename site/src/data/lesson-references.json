@@ -1,0 +1,3491 @@
+{
+  "analysis-and-library-costs": {
+    "modules": [
+      {
+        "module": "bitsandbytes.complexity",
+        "sourcePath": "bitsandbytes/complexity.py",
+        "symbols": [
+          "RecurrenceShape",
+          "bound_vocabulary",
+          "recursion_limit",
+          "classify_recurrence"
+        ],
+        "testsBySymbol": {
+          "RecurrenceShape": [
+            "test_complexity_and_library.py"
+          ],
+          "bound_vocabulary": [
+            "test_complexity_and_library.py"
+          ],
+          "recursion_limit": [
+            "test_complexity_and_library.py"
+          ],
+          "classify_recurrence": [
+            "test_analysis_writeups.py",
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_analysis_writeups.py",
+          "test_complexity_and_library.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.library_costs",
+        "sourcePath": "bitsandbytes/library_costs.py",
+        "symbols": [
+          "bfs_layer_sizes",
+          "top_k_smallest",
+          "insert_into_sorted",
+          "timsort_sorted",
+          "list_pop_front_cost_demo"
+        ],
+        "testsBySymbol": {
+          "bfs_layer_sizes": [
+            "test_complexity_and_library.py"
+          ],
+          "top_k_smallest": [
+            "test_complexity_and_library.py"
+          ],
+          "insert_into_sorted": [
+            "test_complexity_and_library.py"
+          ],
+          "timsort_sorted": [
+            "test_complexity_and_library.py"
+          ],
+          "list_pop_front_cost_demo": [
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_complexity_and_library.py"
+        ]
+      }
+    ]
+  },
+  "singly-linked-list": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linked_list",
+        "sourcePath": "bitsandbytes/linked_list.py",
+        "symbols": [
+          "Node",
+          "LinkedList"
+        ],
+        "testsBySymbol": {
+          "Node": [],
+          "LinkedList": [
+            "test_linked_list.py",
+            "test_linked_list_algorithms.py",
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list.py",
+          "test_linked_list_algorithms.py",
+          "test_linked_list_concepts.py"
+        ]
+      }
+    ]
+  },
+  "list-algorithms": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linked_lists.reverse",
+        "sourcePath": "bitsandbytes/linked_lists/reverse.py",
+        "symbols": [
+          "reverse_iterative",
+          "reverse_recursive"
+        ],
+        "testsBySymbol": {
+          "reverse_iterative": [
+            "test_linked_list_algorithms.py"
+          ],
+          "reverse_recursive": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reverse_in_pairs",
+        "sourcePath": "bitsandbytes/linked_lists/reverse_in_pairs.py",
+        "symbols": [
+          "reverse_in_pairs"
+        ],
+        "testsBySymbol": {
+          "reverse_in_pairs": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reverse_in_blocks",
+        "sourcePath": "bitsandbytes/linked_lists/reverse_in_blocks.py",
+        "symbols": [
+          "reverse_in_blocks"
+        ],
+        "testsBySymbol": {
+          "reverse_in_blocks": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.middle",
+        "sourcePath": "bitsandbytes/linked_lists/middle.py",
+        "symbols": [
+          "middle_node",
+          "end_of_first_half"
+        ],
+        "testsBySymbol": {
+          "middle_node": [
+            "test_linked_list_concepts.py"
+          ],
+          "end_of_first_half": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.cycle",
+        "sourcePath": "bitsandbytes/linked_lists/cycle.py",
+        "symbols": [
+          "find_cycle_start"
+        ],
+        "testsBySymbol": {
+          "find_cycle_start": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.remove_cycle",
+        "sourcePath": "bitsandbytes/linked_lists/remove_cycle.py",
+        "symbols": [
+          "remove_cycle"
+        ],
+        "testsBySymbol": {
+          "remove_cycle": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.nth_from_end",
+        "sourcePath": "bitsandbytes/linked_lists/nth_from_end.py",
+        "symbols": [
+          "nth_from_end",
+          "remove_nth_from_end"
+        ],
+        "testsBySymbol": {
+          "nth_from_end": [
+            "test_linked_list_concepts.py"
+          ],
+          "remove_nth_from_end": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.duplicates",
+        "sourcePath": "bitsandbytes/linked_lists/duplicates.py",
+        "symbols": [
+          "remove_sorted_duplicates",
+          "remove_unsorted_duplicates"
+        ],
+        "testsBySymbol": {
+          "remove_sorted_duplicates": [
+            "test_linked_list_concepts.py"
+          ],
+          "remove_unsorted_duplicates": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.rotate",
+        "sourcePath": "bitsandbytes/linked_lists/rotate.py",
+        "symbols": [
+          "rotate_right"
+        ],
+        "testsBySymbol": {
+          "rotate_right": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.partition",
+        "sourcePath": "bitsandbytes/linked_lists/partition.py",
+        "symbols": [
+          "partition"
+        ],
+        "testsBySymbol": {
+          "partition": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.odd_even",
+        "sourcePath": "bitsandbytes/linked_lists/odd_even.py",
+        "symbols": [
+          "group_by_position_parity"
+        ],
+        "testsBySymbol": {
+          "group_by_position_parity": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reorder",
+        "sourcePath": "bitsandbytes/linked_lists/reorder.py",
+        "symbols": [
+          "reorder"
+        ],
+        "testsBySymbol": {
+          "reorder": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.palindrome",
+        "sourcePath": "bitsandbytes/linked_lists/palindrome.py",
+        "symbols": [
+          "is_palindrome"
+        ],
+        "testsBySymbol": {
+          "is_palindrome": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.delete_node",
+        "sourcePath": "bitsandbytes/linked_lists/delete_node.py",
+        "symbols": [
+          "delete_without_predecessor"
+        ],
+        "testsBySymbol": {
+          "delete_without_predecessor": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.add_numbers",
+        "sourcePath": "bitsandbytes/linked_lists/add_numbers.py",
+        "symbols": [
+          "add_numbers"
+        ],
+        "testsBySymbol": {
+          "add_numbers": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.merge_sorted",
+        "sourcePath": "bitsandbytes/linked_lists/merge_sorted.py",
+        "symbols": [
+          "merge_sorted",
+          "merge_sorted_into"
+        ],
+        "testsBySymbol": {
+          "merge_sorted": [
+            "test_linked_list_algorithms.py"
+          ],
+          "merge_sorted_into": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.intersection",
+        "sourcePath": "bitsandbytes/linked_lists/intersection.py",
+        "symbols": [
+          "find_intersection"
+        ],
+        "testsBySymbol": {
+          "find_intersection": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.sort_list",
+        "sourcePath": "bitsandbytes/linked_lists/sort_list.py",
+        "symbols": [
+          "sort_list"
+        ],
+        "testsBySymbol": {
+          "sort_list": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.split_circular",
+        "sourcePath": "bitsandbytes/linked_lists/split_circular.py",
+        "symbols": [
+          "split_circular"
+        ],
+        "testsBySymbol": {
+          "split_circular": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.modular_nodes",
+        "sourcePath": "bitsandbytes/linked_lists/modular_nodes.py",
+        "symbols": [
+          "modular_node_from_start",
+          "modular_node_from_end"
+        ],
+        "testsBySymbol": {
+          "modular_node_from_start": [
+            "test_linked_list_algorithms.py"
+          ],
+          "modular_node_from_end": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reviewers",
+        "sourcePath": "bitsandbytes/linked_lists/reviewers.py",
+        "symbols": [
+          "Reviewer",
+          "ReviewersList"
+        ],
+        "testsBySymbol": {
+          "Reviewer": [],
+          "ReviewersList": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "doubly-linked-list-and-lru-cache": {
+    "modules": [
+      {
+        "module": "bitsandbytes.doubly_linked_list",
+        "sourcePath": "bitsandbytes/doubly_linked_list.py",
+        "symbols": [
+          "DoublyNode",
+          "DoublyLinkedList"
+        ],
+        "testsBySymbol": {
+          "DoublyNode": [],
+          "DoublyLinkedList": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.random_pointer",
+        "sourcePath": "bitsandbytes/linked_lists/random_pointer.py",
+        "symbols": [
+          "RandomNode",
+          "clone_with_map",
+          "clone_interleaved"
+        ],
+        "testsBySymbol": {
+          "RandomNode": [
+            "test_linked_list_concepts.py"
+          ],
+          "clone_with_map": [
+            "test_linked_list_concepts.py"
+          ],
+          "clone_interleaved": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.lru_cache",
+        "sourcePath": "bitsandbytes/linked_lists/lru_cache.py",
+        "symbols": [
+          "LRUCache"
+        ],
+        "testsBySymbol": {
+          "LRUCache": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      }
+    ]
+  },
+  "stacks": {
+    "modules": [
+      {
+        "module": "bitsandbytes.stacks.stack",
+        "sourcePath": "bitsandbytes/stacks/stack.py",
+        "symbols": [
+          "StackFullError",
+          "StackEmptyError",
+          "Stack"
+        ],
+        "testsBySymbol": {
+          "StackFullError": [
+            "test_stacks.py"
+          ],
+          "StackEmptyError": [
+            "test_stack_algorithms.py",
+            "test_stacks.py"
+          ],
+          "Stack": [
+            "test_stack_aggregate.py",
+            "test_stack_algorithms.py",
+            "test_stacks.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_aggregate.py",
+          "test_stack_algorithms.py",
+          "test_stacks.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.algorithm_stack",
+        "sourcePath": "bitsandbytes/stacks/algorithm_stack.py",
+        "symbols": [
+          "AlgorithmStack"
+        ],
+        "testsBySymbol": {
+          "AlgorithmStack": []
+        },
+        "testPaths": []
+      },
+      {
+        "module": "bitsandbytes.stacks.symbol_balance",
+        "sourcePath": "bitsandbytes/stacks/symbol_balance.py",
+        "symbols": [
+          "symbols_are_balanced"
+        ],
+        "testsBySymbol": {
+          "symbols_are_balanced": [
+            "test_stacks.py"
+          ]
+        },
+        "testPaths": [
+          "test_stacks.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.min_stack",
+        "sourcePath": "bitsandbytes/stacks/min_stack.py",
+        "symbols": [
+          "MinStack"
+        ],
+        "testsBySymbol": {
+          "MinStack": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.next_greater",
+        "sourcePath": "bitsandbytes/stacks/next_greater.py",
+        "symbols": [
+          "next_greater"
+        ],
+        "testsBySymbol": {
+          "next_greater": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.stock_span",
+        "sourcePath": "bitsandbytes/stacks/stock_span.py",
+        "symbols": [
+          "stock_spans"
+        ],
+        "testsBySymbol": {
+          "stock_spans": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.largest_rectangle",
+        "sourcePath": "bitsandbytes/stacks/largest_rectangle.py",
+        "symbols": [
+          "largest_rectangle"
+        ],
+        "testsBySymbol": {
+          "largest_rectangle": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.infix_postfix",
+        "sourcePath": "bitsandbytes/stacks/infix_postfix.py",
+        "symbols": [
+          "infix_to_postfix",
+          "evaluate_postfix",
+          "evaluate_infix"
+        ],
+        "testsBySymbol": {
+          "infix_to_postfix": [
+            "test_stack_algorithms.py"
+          ],
+          "evaluate_postfix": [
+            "test_stack_algorithms.py"
+          ],
+          "evaluate_infix": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.sort_stack",
+        "sourcePath": "bitsandbytes/stacks/sort_stack.py",
+        "symbols": [
+          "sort_stack"
+        ],
+        "testsBySymbol": {
+          "sort_stack": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "sorting": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.bubble_sort",
+        "sourcePath": "bitsandbytes/sorting/bubble_sort.py",
+        "symbols": [
+          "bubble_sort"
+        ],
+        "testsBySymbol": {
+          "bubble_sort": [
+            "test_search_and_sort_extras.py",
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_search_and_sort_extras.py",
+          "test_sorting.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.sorting.selection_sort",
+        "sourcePath": "bitsandbytes/sorting/selection_sort.py",
+        "symbols": [
+          "selection_sort"
+        ],
+        "testsBySymbol": {
+          "selection_sort": [
+            "test_search_and_sort_extras.py",
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_search_and_sort_extras.py",
+          "test_sorting.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.sorting.insertion_sort",
+        "sourcePath": "bitsandbytes/sorting/insertion_sort.py",
+        "symbols": [
+          "insertion_sort"
+        ],
+        "testsBySymbol": {
+          "insertion_sort": [
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_sorting.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.sorting.merge_sort",
+        "sourcePath": "bitsandbytes/sorting/merge_sort.py",
+        "symbols": [
+          "merge_sort"
+        ],
+        "testsBySymbol": {
+          "merge_sort": [
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_sorting.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.sorting.quick_sort",
+        "sourcePath": "bitsandbytes/sorting/quick_sort.py",
+        "symbols": [
+          "quick_sort",
+          "quick_sort_three_way"
+        ],
+        "testsBySymbol": {
+          "quick_sort": [
+            "test_quicksort_expectation.py",
+            "test_search_and_sort_extras.py",
+            "test_sorting.py"
+          ],
+          "quick_sort_three_way": [
+            "test_search_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_quicksort_expectation.py",
+          "test_search_and_sort_extras.py",
+          "test_sorting.py"
+        ]
+      }
+    ]
+  },
+  "binary-search": {
+    "modules": [
+      {
+        "module": "bitsandbytes.search.binary_search",
+        "sourcePath": "bitsandbytes/search/binary_search.py",
+        "symbols": [
+          "binary_search",
+          "binary_search_trace",
+          "lower_bound",
+          "upper_bound"
+        ],
+        "testsBySymbol": {
+          "binary_search": [
+            "test_binary_search_trace_fixtures.py",
+            "test_search_and_sort_extras.py"
+          ],
+          "binary_search_trace": [
+            "test_binary_search_trace_fixtures.py"
+          ],
+          "lower_bound": [
+            "test_search_and_sort_extras.py"
+          ],
+          "upper_bound": [
+            "test_search_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_binary_search_trace_fixtures.py",
+          "test_search_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "queues-and-deque": {
+    "modules": [
+      {
+        "module": "bitsandbytes.queues.linked_queue",
+        "sourcePath": "bitsandbytes/queues/linked_queue.py",
+        "symbols": [
+          "LinkedQueue"
+        ],
+        "testsBySymbol": {
+          "LinkedQueue": [
+            "test_queues.py"
+          ]
+        },
+        "testPaths": [
+          "test_queues.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.queues.circular_queue",
+        "sourcePath": "bitsandbytes/queues/circular_queue.py",
+        "symbols": [
+          "CircularQueue"
+        ],
+        "testsBySymbol": {
+          "CircularQueue": [
+            "test_queues.py"
+          ]
+        },
+        "testPaths": [
+          "test_queues.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linear.dynamic_array",
+        "sourcePath": "bitsandbytes/linear/dynamic_array.py",
+        "symbols": [
+          "DynamicArray"
+        ],
+        "testsBySymbol": {
+          "DynamicArray": [
+            "test_linear_structures.py"
+          ]
+        },
+        "testPaths": [
+          "test_linear_structures.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.deques.linked_deque",
+        "sourcePath": "bitsandbytes/deques/linked_deque.py",
+        "symbols": [
+          "LinkedDeque"
+        ],
+        "testsBySymbol": {
+          "LinkedDeque": [
+            "test_linear_structures.py"
+          ]
+        },
+        "testPaths": [
+          "test_linear_structures.py"
+        ]
+      }
+    ]
+  },
+  "heaps": {
+    "modules": [
+      {
+        "module": "bitsandbytes.heaps.heapsort",
+        "sourcePath": "bitsandbytes/heaps/heapsort.py",
+        "symbols": [
+          "heapify",
+          "heapsort"
+        ],
+        "testsBySymbol": {
+          "heapify": [
+            "test_heaps.py"
+          ],
+          "heapsort": [
+            "test_heaps.py"
+          ]
+        },
+        "testPaths": [
+          "test_heaps.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.heaps.priority_queue",
+        "sourcePath": "bitsandbytes/heaps/priority_queue.py",
+        "symbols": [
+          "PriorityQueue"
+        ],
+        "testsBySymbol": {
+          "PriorityQueue": [
+            "test_priority_queue.py"
+          ]
+        },
+        "testPaths": [
+          "test_priority_queue.py"
+        ]
+      }
+    ]
+  },
+  "hash-table": {
+    "modules": [
+      {
+        "module": "bitsandbytes.hash_tables.chaining",
+        "sourcePath": "bitsandbytes/hash_tables/chaining.py",
+        "symbols": [
+          "ChainingHashTable"
+        ],
+        "testsBySymbol": {
+          "ChainingHashTable": [
+            "test_hash_tables.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_tables.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.hash_tables.linear_probing",
+        "sourcePath": "bitsandbytes/hash_tables/linear_probing.py",
+        "symbols": [
+          "LinearProbingHashTable",
+          "degenerate_chain_length"
+        ],
+        "testsBySymbol": {
+          "LinearProbingHashTable": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "degenerate_chain_length": [
+            "test_hash_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "binary-search-tree": {
+    "modules": [
+      {
+        "module": "bitsandbytes.trees.bst",
+        "sourcePath": "bitsandbytes/trees/bst.py",
+        "symbols": [
+          "TreeNode",
+          "BinarySearchTree"
+        ],
+        "testsBySymbol": {
+          "TreeNode": [
+            "test_trees_extended.py"
+          ],
+          "BinarySearchTree": [
+            "test_trees.py",
+            "test_trees_extended.py"
+          ]
+        },
+        "testPaths": [
+          "test_trees.py",
+          "test_trees_extended.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.trees.traversals",
+        "sourcePath": "bitsandbytes/trees/traversals.py",
+        "symbols": [
+          "preorder",
+          "postorder",
+          "level_order",
+          "map_inorder",
+          "inorder_iter"
+        ],
+        "testsBySymbol": {
+          "preorder": [
+            "test_trees_extended.py"
+          ],
+          "postorder": [
+            "test_trees_extended.py"
+          ],
+          "level_order": [
+            "test_trees_extended.py"
+          ],
+          "map_inorder": [],
+          "inorder_iter": []
+        },
+        "testPaths": [
+          "test_trees_extended.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.trees.llrb",
+        "sourcePath": "bitsandbytes/trees/llrb.py",
+        "symbols": [
+          "LLRBNode",
+          "LeftLeaningRedBlackTree"
+        ],
+        "testsBySymbol": {
+          "LLRBNode": [],
+          "LeftLeaningRedBlackTree": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "union-find": {
+    "modules": [
+      {
+        "module": "bitsandbytes.union_find.disjoint_set",
+        "sourcePath": "bitsandbytes/union_find/disjoint_set.py",
+        "symbols": [
+          "DisjointSet"
+        ],
+        "testsBySymbol": {
+          "DisjointSet": [
+            "test_union_find.py"
+          ]
+        },
+        "testPaths": [
+          "test_union_find.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.union_find.percolation",
+        "sourcePath": "bitsandbytes/union_find/percolation.py",
+        "symbols": [
+          "Percolation"
+        ],
+        "testsBySymbol": {
+          "Percolation": [
+            "test_union_find.py"
+          ]
+        },
+        "testPaths": [
+          "test_union_find.py"
+        ]
+      }
+    ]
+  },
+  "sorting-extras": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.selection_and_radix",
+        "sourcePath": "bitsandbytes/sorting/selection_and_radix.py",
+        "symbols": [
+          "comparison_sort_lower_bound",
+          "counting_sort",
+          "lsd_radix_sort",
+          "lsd_radix_sort_strings",
+          "quickselect",
+          "binary_search_on_answer",
+          "inversion_count"
+        ],
+        "testsBySymbol": {
+          "comparison_sort_lower_bound": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "counting_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort_strings": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "quickselect": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "binary_search_on_answer": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "inversion_count": [
+            "test_hash_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "graphs": {
+    "modules": [
+      {
+        "module": "bitsandbytes.graphs.adjacency_list",
+        "sourcePath": "bitsandbytes/graphs/adjacency_list.py",
+        "symbols": [
+          "Graph",
+          "depth_first_order",
+          "breadth_first_order",
+          "dijkstra_distances"
+        ],
+        "testsBySymbol": {
+          "Graph": [
+            "test_curriculum_completion.py",
+            "test_graph_algorithms.py",
+            "test_graphs.py",
+            "test_vertex_cover_approximation.py"
+          ],
+          "depth_first_order": [
+            "test_graphs.py"
+          ],
+          "breadth_first_order": [
+            "test_graphs.py"
+          ],
+          "dijkstra_distances": [
+            "test_graphs.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_graph_algorithms.py",
+          "test_graphs.py",
+          "test_vertex_cover_approximation.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.graphs.algorithms",
+        "sourcePath": "bitsandbytes/graphs/algorithms.py",
+        "symbols": [
+          "UndirectedGraph",
+          "bfs_distances_and_parents",
+          "topological_order",
+          "connected_components",
+          "bellman_ford_distances",
+          "dag_shortest_paths",
+          "dijkstra_distances_heap",
+          "kruskal_minimum_spanning_weight",
+          "prim_minimum_spanning_weight",
+          "is_bipartite",
+          "has_directed_cycle",
+          "kosaraju_strongly_connected_components",
+          "zero_one_bfs_distances",
+          "floyd_warshall"
+        ],
+        "testsBySymbol": {
+          "UndirectedGraph": [
+            "test_graph_algorithms.py"
+          ],
+          "bfs_distances_and_parents": [
+            "test_graph_algorithms.py"
+          ],
+          "topological_order": [
+            "test_graph_algorithms.py"
+          ],
+          "connected_components": [],
+          "bellman_ford_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "dag_shortest_paths": [
+            "test_graph_algorithms.py"
+          ],
+          "dijkstra_distances_heap": [
+            "test_graph_algorithms.py"
+          ],
+          "kruskal_minimum_spanning_weight": [
+            "test_graph_algorithms.py"
+          ],
+          "prim_minimum_spanning_weight": [],
+          "is_bipartite": [
+            "test_graph_algorithms.py"
+          ],
+          "has_directed_cycle": [
+            "test_curriculum_completion.py"
+          ],
+          "kosaraju_strongly_connected_components": [
+            "test_curriculum_completion.py"
+          ],
+          "zero_one_bfs_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "floyd_warshall": [
+            "test_graph_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_graph_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "dynamic-programming": {
+    "modules": [
+      {
+        "module": "bitsandbytes.dynamic_programming.classic",
+        "sourcePath": "bitsandbytes/dynamic_programming/classic.py",
+        "symbols": [
+          "fibonacci_modulo",
+          "min_coin_change",
+          "knapsack_01",
+          "longest_common_subsequence",
+          "edit_distance",
+          "lis_length_quadratic",
+          "lis_length_patience",
+          "max_non_adjacent_sum",
+          "word_break_possible",
+          "dag_dp_longest_path",
+          "unbounded_knapsack_max_value"
+        ],
+        "testsBySymbol": {
+          "fibonacci_modulo": [
+            "test_curriculum_completion.py"
+          ],
+          "min_coin_change": [
+            "test_curriculum_completion.py"
+          ],
+          "knapsack_01": [
+            "test_curriculum_completion.py"
+          ],
+          "longest_common_subsequence": [],
+          "edit_distance": [
+            "test_curriculum_completion.py"
+          ],
+          "lis_length_quadratic": [],
+          "lis_length_patience": [
+            "test_curriculum_completion.py"
+          ],
+          "max_non_adjacent_sum": [],
+          "word_break_possible": [
+            "test_curriculum_completion.py"
+          ],
+          "dag_dp_longest_path": [],
+          "unbounded_knapsack_max_value": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "greedy-algorithms": {
+    "modules": [
+      {
+        "module": "bitsandbytes.greedy.classic",
+        "sourcePath": "bitsandbytes/greedy/classic.py",
+        "symbols": [
+          "interval_scheduling_max_count",
+          "fractional_knapsack_value",
+          "huffman_codes"
+        ],
+        "testsBySymbol": {
+          "interval_scheduling_max_count": [
+            "test_curriculum_completion.py"
+          ],
+          "fractional_knapsack_value": [
+            "test_curriculum_completion.py"
+          ],
+          "huffman_codes": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "backtracking-and-array-patterns": {
+    "modules": [
+      {
+        "module": "bitsandbytes.backtracking.search",
+        "sourcePath": "bitsandbytes/backtracking/search.py",
+        "symbols": [
+          "permutations",
+          "combinations",
+          "subsets",
+          "n_queens_count",
+          "backtrack_find"
+        ],
+        "testsBySymbol": {
+          "permutations": [
+            "test_curriculum_completion.py"
+          ],
+          "combinations": [
+            "test_curriculum_completion.py"
+          ],
+          "subsets": [
+            "test_curriculum_completion.py"
+          ],
+          "n_queens_count": [
+            "test_curriculum_completion.py"
+          ],
+          "backtrack_find": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.patterns.arrays",
+        "sourcePath": "bitsandbytes/patterns/arrays.py",
+        "symbols": [
+          "two_sum_sorted",
+          "longest_unique_substring_length",
+          "PrefixSum",
+          "sliding_window_maximum"
+        ],
+        "testsBySymbol": {
+          "two_sum_sorted": [
+            "test_curriculum_completion.py"
+          ],
+          "longest_unique_substring_length": [
+            "test_curriculum_completion.py"
+          ],
+          "PrefixSum": [
+            "test_curriculum_completion.py"
+          ],
+          "sliding_window_maximum": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "strings": {
+    "modules": [
+      {
+        "module": "bitsandbytes.strings.algorithms",
+        "sourcePath": "bitsandbytes/strings/algorithms.py",
+        "symbols": [
+          "Trie",
+          "kmp_search",
+          "rabin_karp_search",
+          "InvertedIndex",
+          "run_length_encode",
+          "suffix_array_with_lcp"
+        ],
+        "testsBySymbol": {
+          "Trie": [
+            "test_curriculum_completion.py"
+          ],
+          "kmp_search": [
+            "test_curriculum_completion.py"
+          ],
+          "rabin_karp_search": [
+            "test_curriculum_completion.py"
+          ],
+          "InvertedIndex": [
+            "test_curriculum_completion.py"
+          ],
+          "run_length_encode": [
+            "test_curriculum_completion.py"
+          ],
+          "suffix_array_with_lcp": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "range-queries-and-approximate-structures": {
+    "modules": [
+      {
+        "module": "bitsandbytes.range_queries.structures",
+        "sourcePath": "bitsandbytes/range_queries/structures.py",
+        "symbols": [
+          "FenwickTree",
+          "SegmentTree",
+          "SparseTable"
+        ],
+        "testsBySymbol": {
+          "FenwickTree": [
+            "test_curriculum_completion.py"
+          ],
+          "SegmentTree": [
+            "test_curriculum_completion.py"
+          ],
+          "SparseTable": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.approximate.structures",
+        "sourcePath": "bitsandbytes/approximate/structures.py",
+        "symbols": [
+          "BloomFilter",
+          "SkipNode",
+          "SkipList",
+          "PersistentStackFrame"
+        ],
+        "testsBySymbol": {
+          "BloomFilter": [
+            "test_curriculum_completion.py"
+          ],
+          "SkipNode": [],
+          "SkipList": [
+            "test_curriculum_completion.py"
+          ],
+          "PersistentStackFrame": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "storage-and-locality": {
+    "modules": [
+      {
+        "module": "bitsandbytes.storage.engines",
+        "sourcePath": "bitsandbytes/storage/engines.py",
+        "symbols": [
+          "BTree",
+          "WriteAheadLog",
+          "ToyLSM",
+          "sequential_scan_sum",
+          "locality_scan_benchmark",
+          "nearest_neighbor_linear"
+        ],
+        "testsBySymbol": {
+          "BTree": [
+            "test_curriculum_completion.py"
+          ],
+          "WriteAheadLog": [],
+          "ToyLSM": [
+            "test_curriculum_completion.py"
+          ],
+          "sequential_scan_sum": [],
+          "locality_scan_benchmark": [],
+          "nearest_neighbor_linear": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "limits-and-approximation": {
+    "modules": [
+      {
+        "module": "bitsandbytes.limits.approximation",
+        "sourcePath": "bitsandbytes/limits/approximation.py",
+        "symbols": [
+          "vertex_cover_two_approximation"
+        ],
+        "testsBySymbol": {
+          "vertex_cover_two_approximation": [
+            "test_curriculum_completion.py",
+            "test_vertex_cover_approximation.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_vertex_cover_approximation.py"
+        ]
+      }
+    ]
+  },
+  "appendix-python-tools": {
+    "modules": [
+      {
+        "module": "bitsandbytes.decorators.permission",
+        "sourcePath": "bitsandbytes/decorators/permission.py",
+        "symbols": [
+          "require_confirmation",
+          "show_arguments",
+          "main"
+        ],
+        "testsBySymbol": {
+          "require_confirmation": [
+            "test_decorators.py"
+          ],
+          "show_arguments": [],
+          "main": [
+            "test_decorators.py"
+          ]
+        },
+        "testPaths": [
+          "test_decorators.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.decorators.access_control",
+        "sourcePath": "bitsandbytes/decorators/access_control.py",
+        "symbols": [
+          "UserContext",
+          "manage_users",
+          "modify_database",
+          "read_database",
+          "run_action",
+          "main"
+        ],
+        "testsBySymbol": {
+          "UserContext": [],
+          "manage_users": [],
+          "modify_database": [],
+          "read_database": [],
+          "run_action": [
+            "test_decorators.py"
+          ],
+          "main": [
+            "test_decorators.py"
+          ]
+        },
+        "testPaths": [
+          "test_decorators.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.tools.print_directory",
+        "sourcePath": "bitsandbytes/tools/print_directory.py",
+        "symbols": [
+          "format_tree",
+          "main"
+        ],
+        "testsBySymbol": {
+          "format_tree": [
+            "test_directory.py"
+          ],
+          "main": [
+            "test_directory.py"
+          ]
+        },
+        "testPaths": [
+          "test_directory.py"
+        ]
+      }
+    ]
+  },
+  "fast-slow-pointer-patterns": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linked_lists.middle",
+        "sourcePath": "bitsandbytes/linked_lists/middle.py",
+        "symbols": [
+          "middle_node",
+          "end_of_first_half"
+        ],
+        "testsBySymbol": {
+          "middle_node": [
+            "test_linked_list_concepts.py"
+          ],
+          "end_of_first_half": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.cycle",
+        "sourcePath": "bitsandbytes/linked_lists/cycle.py",
+        "symbols": [
+          "find_cycle_start"
+        ],
+        "testsBySymbol": {
+          "find_cycle_start": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.remove_cycle",
+        "sourcePath": "bitsandbytes/linked_lists/remove_cycle.py",
+        "symbols": [
+          "remove_cycle"
+        ],
+        "testsBySymbol": {
+          "remove_cycle": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.nth_from_end",
+        "sourcePath": "bitsandbytes/linked_lists/nth_from_end.py",
+        "symbols": [
+          "nth_from_end",
+          "remove_nth_from_end"
+        ],
+        "testsBySymbol": {
+          "nth_from_end": [
+            "test_linked_list_concepts.py"
+          ],
+          "remove_nth_from_end": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.palindrome",
+        "sourcePath": "bitsandbytes/linked_lists/palindrome.py",
+        "symbols": [
+          "is_palindrome"
+        ],
+        "testsBySymbol": {
+          "is_palindrome": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.modular_nodes",
+        "sourcePath": "bitsandbytes/linked_lists/modular_nodes.py",
+        "symbols": [
+          "modular_node_from_start",
+          "modular_node_from_end"
+        ],
+        "testsBySymbol": {
+          "modular_node_from_start": [
+            "test_linked_list_algorithms.py"
+          ],
+          "modular_node_from_end": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "linked-list-reversal-and-relinking": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linked_lists.reverse",
+        "sourcePath": "bitsandbytes/linked_lists/reverse.py",
+        "symbols": [
+          "reverse_iterative",
+          "reverse_recursive"
+        ],
+        "testsBySymbol": {
+          "reverse_iterative": [
+            "test_linked_list_algorithms.py"
+          ],
+          "reverse_recursive": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reverse_in_pairs",
+        "sourcePath": "bitsandbytes/linked_lists/reverse_in_pairs.py",
+        "symbols": [
+          "reverse_in_pairs"
+        ],
+        "testsBySymbol": {
+          "reverse_in_pairs": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reverse_in_blocks",
+        "sourcePath": "bitsandbytes/linked_lists/reverse_in_blocks.py",
+        "symbols": [
+          "reverse_in_blocks"
+        ],
+        "testsBySymbol": {
+          "reverse_in_blocks": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.rotate",
+        "sourcePath": "bitsandbytes/linked_lists/rotate.py",
+        "symbols": [
+          "rotate_right"
+        ],
+        "testsBySymbol": {
+          "rotate_right": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.partition",
+        "sourcePath": "bitsandbytes/linked_lists/partition.py",
+        "symbols": [
+          "partition"
+        ],
+        "testsBySymbol": {
+          "partition": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.odd_even",
+        "sourcePath": "bitsandbytes/linked_lists/odd_even.py",
+        "symbols": [
+          "group_by_position_parity"
+        ],
+        "testsBySymbol": {
+          "group_by_position_parity": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reorder",
+        "sourcePath": "bitsandbytes/linked_lists/reorder.py",
+        "symbols": [
+          "reorder"
+        ],
+        "testsBySymbol": {
+          "reorder": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      }
+    ]
+  },
+  "linked-list-merge-and-sort": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linked_lists.merge_sorted",
+        "sourcePath": "bitsandbytes/linked_lists/merge_sorted.py",
+        "symbols": [
+          "merge_sorted",
+          "merge_sorted_into"
+        ],
+        "testsBySymbol": {
+          "merge_sorted": [
+            "test_linked_list_algorithms.py"
+          ],
+          "merge_sorted_into": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.sort_list",
+        "sourcePath": "bitsandbytes/linked_lists/sort_list.py",
+        "symbols": [
+          "sort_list"
+        ],
+        "testsBySymbol": {
+          "sort_list": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.intersection",
+        "sourcePath": "bitsandbytes/linked_lists/intersection.py",
+        "symbols": [
+          "find_intersection"
+        ],
+        "testsBySymbol": {
+          "find_intersection": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "linked-list-special-cases": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linked_lists.duplicates",
+        "sourcePath": "bitsandbytes/linked_lists/duplicates.py",
+        "symbols": [
+          "remove_sorted_duplicates",
+          "remove_unsorted_duplicates"
+        ],
+        "testsBySymbol": {
+          "remove_sorted_duplicates": [
+            "test_linked_list_concepts.py"
+          ],
+          "remove_unsorted_duplicates": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.delete_node",
+        "sourcePath": "bitsandbytes/linked_lists/delete_node.py",
+        "symbols": [
+          "delete_without_predecessor"
+        ],
+        "testsBySymbol": {
+          "delete_without_predecessor": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.add_numbers",
+        "sourcePath": "bitsandbytes/linked_lists/add_numbers.py",
+        "symbols": [
+          "add_numbers"
+        ],
+        "testsBySymbol": {
+          "add_numbers": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.split_circular",
+        "sourcePath": "bitsandbytes/linked_lists/split_circular.py",
+        "symbols": [
+          "split_circular"
+        ],
+        "testsBySymbol": {
+          "split_circular": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.linked_lists.reviewers",
+        "sourcePath": "bitsandbytes/linked_lists/reviewers.py",
+        "symbols": [
+          "Reviewer",
+          "ReviewersList"
+        ],
+        "testsBySymbol": {
+          "Reviewer": [],
+          "ReviewersList": [
+            "test_linked_list_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "input-size-and-operation-counts": {
+    "modules": [
+      {
+        "module": "bitsandbytes.complexity",
+        "sourcePath": "bitsandbytes/complexity.py",
+        "symbols": [
+          "RecurrenceShape",
+          "bound_vocabulary",
+          "recursion_limit",
+          "classify_recurrence"
+        ],
+        "testsBySymbol": {
+          "RecurrenceShape": [
+            "test_complexity_and_library.py"
+          ],
+          "bound_vocabulary": [
+            "test_complexity_and_library.py"
+          ],
+          "recursion_limit": [
+            "test_complexity_and_library.py"
+          ],
+          "classify_recurrence": [
+            "test_analysis_writeups.py",
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_analysis_writeups.py",
+          "test_complexity_and_library.py"
+        ]
+      }
+    ]
+  },
+  "asymptotic-growth": {
+    "modules": [
+      {
+        "module": "bitsandbytes.complexity",
+        "sourcePath": "bitsandbytes/complexity.py",
+        "symbols": [
+          "RecurrenceShape",
+          "bound_vocabulary",
+          "recursion_limit",
+          "classify_recurrence"
+        ],
+        "testsBySymbol": {
+          "RecurrenceShape": [
+            "test_complexity_and_library.py"
+          ],
+          "bound_vocabulary": [
+            "test_complexity_and_library.py"
+          ],
+          "recursion_limit": [
+            "test_complexity_and_library.py"
+          ],
+          "classify_recurrence": [
+            "test_analysis_writeups.py",
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_analysis_writeups.py",
+          "test_complexity_and_library.py"
+        ]
+      }
+    ]
+  },
+  "cost-models": {
+    "modules": [
+      {
+        "module": "bitsandbytes.complexity",
+        "sourcePath": "bitsandbytes/complexity.py",
+        "symbols": [
+          "RecurrenceShape",
+          "bound_vocabulary",
+          "recursion_limit",
+          "classify_recurrence"
+        ],
+        "testsBySymbol": {
+          "RecurrenceShape": [
+            "test_complexity_and_library.py"
+          ],
+          "bound_vocabulary": [
+            "test_complexity_and_library.py"
+          ],
+          "recursion_limit": [
+            "test_complexity_and_library.py"
+          ],
+          "classify_recurrence": [
+            "test_analysis_writeups.py",
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_analysis_writeups.py",
+          "test_complexity_and_library.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.library_costs",
+        "sourcePath": "bitsandbytes/library_costs.py",
+        "symbols": [
+          "bfs_layer_sizes",
+          "top_k_smallest",
+          "insert_into_sorted",
+          "timsort_sorted",
+          "list_pop_front_cost_demo"
+        ],
+        "testsBySymbol": {
+          "bfs_layer_sizes": [
+            "test_complexity_and_library.py"
+          ],
+          "top_k_smallest": [
+            "test_complexity_and_library.py"
+          ],
+          "insert_into_sorted": [
+            "test_complexity_and_library.py"
+          ],
+          "timsort_sorted": [
+            "test_complexity_and_library.py"
+          ],
+          "list_pop_front_cost_demo": [
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_complexity_and_library.py"
+        ]
+      }
+    ]
+  },
+  "loop-invariants": {
+    "modules": [
+      {
+        "module": "bitsandbytes.complexity",
+        "sourcePath": "bitsandbytes/complexity.py",
+        "symbols": [
+          "RecurrenceShape",
+          "bound_vocabulary",
+          "recursion_limit",
+          "classify_recurrence"
+        ],
+        "testsBySymbol": {
+          "RecurrenceShape": [
+            "test_complexity_and_library.py"
+          ],
+          "bound_vocabulary": [
+            "test_complexity_and_library.py"
+          ],
+          "recursion_limit": [
+            "test_complexity_and_library.py"
+          ],
+          "classify_recurrence": [
+            "test_analysis_writeups.py",
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_analysis_writeups.py",
+          "test_complexity_and_library.py"
+        ]
+      }
+    ]
+  },
+  "arrays-and-python-costs": {
+    "modules": [
+      {
+        "module": "bitsandbytes.library_costs",
+        "sourcePath": "bitsandbytes/library_costs.py",
+        "symbols": [
+          "bfs_layer_sizes",
+          "top_k_smallest",
+          "insert_into_sorted",
+          "timsort_sorted",
+          "list_pop_front_cost_demo"
+        ],
+        "testsBySymbol": {
+          "bfs_layer_sizes": [
+            "test_complexity_and_library.py"
+          ],
+          "top_k_smallest": [
+            "test_complexity_and_library.py"
+          ],
+          "insert_into_sorted": [
+            "test_complexity_and_library.py"
+          ],
+          "timsort_sorted": [
+            "test_complexity_and_library.py"
+          ],
+          "list_pop_front_cost_demo": [
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_complexity_and_library.py"
+        ]
+      }
+    ]
+  },
+  "recursion-and-recurrences": {
+    "modules": [
+      {
+        "module": "bitsandbytes.complexity",
+        "sourcePath": "bitsandbytes/complexity.py",
+        "symbols": [
+          "RecurrenceShape",
+          "bound_vocabulary",
+          "recursion_limit",
+          "classify_recurrence"
+        ],
+        "testsBySymbol": {
+          "RecurrenceShape": [
+            "test_complexity_and_library.py"
+          ],
+          "bound_vocabulary": [
+            "test_complexity_and_library.py"
+          ],
+          "recursion_limit": [
+            "test_complexity_and_library.py"
+          ],
+          "classify_recurrence": [
+            "test_analysis_writeups.py",
+            "test_complexity_and_library.py"
+          ]
+        },
+        "testPaths": [
+          "test_analysis_writeups.py",
+          "test_complexity_and_library.py"
+        ]
+      }
+    ]
+  },
+  "stack-basics": {
+    "modules": [
+      {
+        "module": "bitsandbytes.stacks.stack",
+        "sourcePath": "bitsandbytes/stacks/stack.py",
+        "symbols": [
+          "StackFullError",
+          "StackEmptyError",
+          "Stack"
+        ],
+        "testsBySymbol": {
+          "StackFullError": [
+            "test_stacks.py"
+          ],
+          "StackEmptyError": [
+            "test_stack_algorithms.py",
+            "test_stacks.py"
+          ],
+          "Stack": [
+            "test_stack_aggregate.py",
+            "test_stack_algorithms.py",
+            "test_stacks.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_aggregate.py",
+          "test_stack_algorithms.py",
+          "test_stacks.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.algorithm_stack",
+        "sourcePath": "bitsandbytes/stacks/algorithm_stack.py",
+        "symbols": [
+          "AlgorithmStack"
+        ],
+        "testsBySymbol": {
+          "AlgorithmStack": []
+        },
+        "testPaths": []
+      }
+    ]
+  },
+  "monotonic-stack-patterns": {
+    "modules": [
+      {
+        "module": "bitsandbytes.stacks.next_greater",
+        "sourcePath": "bitsandbytes/stacks/next_greater.py",
+        "symbols": [
+          "next_greater"
+        ],
+        "testsBySymbol": {
+          "next_greater": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.stock_span",
+        "sourcePath": "bitsandbytes/stacks/stock_span.py",
+        "symbols": [
+          "stock_spans"
+        ],
+        "testsBySymbol": {
+          "stock_spans": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.largest_rectangle",
+        "sourcePath": "bitsandbytes/stacks/largest_rectangle.py",
+        "symbols": [
+          "largest_rectangle"
+        ],
+        "testsBySymbol": {
+          "largest_rectangle": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "stack-parsing-and-expressions": {
+    "modules": [
+      {
+        "module": "bitsandbytes.stacks.symbol_balance",
+        "sourcePath": "bitsandbytes/stacks/symbol_balance.py",
+        "symbols": [
+          "symbols_are_balanced"
+        ],
+        "testsBySymbol": {
+          "symbols_are_balanced": [
+            "test_stacks.py"
+          ]
+        },
+        "testPaths": [
+          "test_stacks.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.min_stack",
+        "sourcePath": "bitsandbytes/stacks/min_stack.py",
+        "symbols": [
+          "MinStack"
+        ],
+        "testsBySymbol": {
+          "MinStack": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.infix_postfix",
+        "sourcePath": "bitsandbytes/stacks/infix_postfix.py",
+        "symbols": [
+          "infix_to_postfix",
+          "evaluate_postfix",
+          "evaluate_infix"
+        ],
+        "testsBySymbol": {
+          "infix_to_postfix": [
+            "test_stack_algorithms.py"
+          ],
+          "evaluate_postfix": [
+            "test_stack_algorithms.py"
+          ],
+          "evaluate_infix": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.stacks.sort_stack",
+        "sourcePath": "bitsandbytes/stacks/sort_stack.py",
+        "symbols": [
+          "sort_stack"
+        ],
+        "testsBySymbol": {
+          "sort_stack": [
+            "test_stack_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_stack_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "queue-and-deque-operations": {
+    "modules": [
+      {
+        "module": "bitsandbytes.queues.linked_queue",
+        "sourcePath": "bitsandbytes/queues/linked_queue.py",
+        "symbols": [
+          "LinkedQueue"
+        ],
+        "testsBySymbol": {
+          "LinkedQueue": [
+            "test_queues.py"
+          ]
+        },
+        "testPaths": [
+          "test_queues.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.queues.circular_queue",
+        "sourcePath": "bitsandbytes/queues/circular_queue.py",
+        "symbols": [
+          "CircularQueue"
+        ],
+        "testsBySymbol": {
+          "CircularQueue": [
+            "test_queues.py"
+          ]
+        },
+        "testPaths": [
+          "test_queues.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.deques.linked_deque",
+        "sourcePath": "bitsandbytes/deques/linked_deque.py",
+        "symbols": [
+          "LinkedDeque"
+        ],
+        "testsBySymbol": {
+          "LinkedDeque": [
+            "test_linear_structures.py"
+          ]
+        },
+        "testPaths": [
+          "test_linear_structures.py"
+        ]
+      }
+    ]
+  },
+  "dynamic-array-growth": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linear.dynamic_array",
+        "sourcePath": "bitsandbytes/linear/dynamic_array.py",
+        "symbols": [
+          "DynamicArray"
+        ],
+        "testsBySymbol": {
+          "DynamicArray": [
+            "test_linear_structures.py"
+          ]
+        },
+        "testPaths": [
+          "test_linear_structures.py"
+        ]
+      }
+    ]
+  },
+  "comparison-sorts": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.bubble_sort",
+        "sourcePath": "bitsandbytes/sorting/bubble_sort.py",
+        "symbols": [
+          "bubble_sort"
+        ],
+        "testsBySymbol": {
+          "bubble_sort": [
+            "test_search_and_sort_extras.py",
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_search_and_sort_extras.py",
+          "test_sorting.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.sorting.insertion_sort",
+        "sourcePath": "bitsandbytes/sorting/insertion_sort.py",
+        "symbols": [
+          "insertion_sort"
+        ],
+        "testsBySymbol": {
+          "insertion_sort": [
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_sorting.py"
+        ]
+      },
+      {
+        "module": "bitsandbytes.sorting.selection_sort",
+        "sourcePath": "bitsandbytes/sorting/selection_sort.py",
+        "symbols": [
+          "selection_sort"
+        ],
+        "testsBySymbol": {
+          "selection_sort": [
+            "test_search_and_sort_extras.py",
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_search_and_sort_extras.py",
+          "test_sorting.py"
+        ]
+      }
+    ]
+  },
+  "merge-sort": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.merge_sort",
+        "sourcePath": "bitsandbytes/sorting/merge_sort.py",
+        "symbols": [
+          "merge_sort"
+        ],
+        "testsBySymbol": {
+          "merge_sort": [
+            "test_sorting.py"
+          ]
+        },
+        "testPaths": [
+          "test_sorting.py"
+        ]
+      }
+    ]
+  },
+  "quicksort-and-partition": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.quick_sort",
+        "sourcePath": "bitsandbytes/sorting/quick_sort.py",
+        "symbols": [
+          "quick_sort",
+          "quick_sort_three_way"
+        ],
+        "testsBySymbol": {
+          "quick_sort": [
+            "test_quicksort_expectation.py",
+            "test_search_and_sort_extras.py",
+            "test_sorting.py"
+          ],
+          "quick_sort_three_way": [
+            "test_search_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_quicksort_expectation.py",
+          "test_search_and_sort_extras.py",
+          "test_sorting.py"
+        ]
+      }
+    ]
+  },
+  "noncomparison-sorts": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.selection_and_radix",
+        "sourcePath": "bitsandbytes/sorting/selection_and_radix.py",
+        "symbols": [
+          "comparison_sort_lower_bound",
+          "counting_sort",
+          "lsd_radix_sort",
+          "lsd_radix_sort_strings",
+          "quickselect",
+          "binary_search_on_answer",
+          "inversion_count"
+        ],
+        "testsBySymbol": {
+          "comparison_sort_lower_bound": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "counting_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort_strings": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "quickselect": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "binary_search_on_answer": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "inversion_count": [
+            "test_hash_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "order-statistic-selection": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.selection_and_radix",
+        "sourcePath": "bitsandbytes/sorting/selection_and_radix.py",
+        "symbols": [
+          "comparison_sort_lower_bound",
+          "counting_sort",
+          "lsd_radix_sort",
+          "lsd_radix_sort_strings",
+          "quickselect",
+          "binary_search_on_answer",
+          "inversion_count"
+        ],
+        "testsBySymbol": {
+          "comparison_sort_lower_bound": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "counting_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort_strings": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "quickselect": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "binary_search_on_answer": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "inversion_count": [
+            "test_hash_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "binary-search-on-answer": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.selection_and_radix",
+        "sourcePath": "bitsandbytes/sorting/selection_and_radix.py",
+        "symbols": [
+          "comparison_sort_lower_bound",
+          "counting_sort",
+          "lsd_radix_sort",
+          "lsd_radix_sort_strings",
+          "quickselect",
+          "binary_search_on_answer",
+          "inversion_count"
+        ],
+        "testsBySymbol": {
+          "comparison_sort_lower_bound": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "counting_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort_strings": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "quickselect": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "binary_search_on_answer": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "inversion_count": [
+            "test_hash_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "inversion-counting": {
+    "modules": [
+      {
+        "module": "bitsandbytes.sorting.selection_and_radix",
+        "sourcePath": "bitsandbytes/sorting/selection_and_radix.py",
+        "symbols": [
+          "comparison_sort_lower_bound",
+          "counting_sort",
+          "lsd_radix_sort",
+          "lsd_radix_sort_strings",
+          "quickselect",
+          "binary_search_on_answer",
+          "inversion_count"
+        ],
+        "testsBySymbol": {
+          "comparison_sort_lower_bound": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "counting_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "lsd_radix_sort_strings": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "quickselect": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "binary_search_on_answer": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "inversion_count": [
+            "test_hash_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "hash-chaining": {
+    "modules": [
+      {
+        "module": "bitsandbytes.hash_tables.chaining",
+        "sourcePath": "bitsandbytes/hash_tables/chaining.py",
+        "symbols": [
+          "ChainingHashTable"
+        ],
+        "testsBySymbol": {
+          "ChainingHashTable": [
+            "test_hash_tables.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_tables.py"
+        ]
+      }
+    ]
+  },
+  "hash-linear-probing": {
+    "modules": [
+      {
+        "module": "bitsandbytes.hash_tables.linear_probing",
+        "sourcePath": "bitsandbytes/hash_tables/linear_probing.py",
+        "symbols": [
+          "LinearProbingHashTable",
+          "degenerate_chain_length"
+        ],
+        "testsBySymbol": {
+          "LinearProbingHashTable": [
+            "test_hash_and_sort_extras.py"
+          ],
+          "degenerate_chain_length": [
+            "test_hash_and_sort_extras.py"
+          ]
+        },
+        "testPaths": [
+          "test_hash_and_sort_extras.py"
+        ]
+      }
+    ]
+  },
+  "binary-search-tree-operations": {
+    "modules": [
+      {
+        "module": "bitsandbytes.trees.bst",
+        "sourcePath": "bitsandbytes/trees/bst.py",
+        "symbols": [
+          "TreeNode",
+          "BinarySearchTree"
+        ],
+        "testsBySymbol": {
+          "TreeNode": [
+            "test_trees_extended.py"
+          ],
+          "BinarySearchTree": [
+            "test_trees.py",
+            "test_trees_extended.py"
+          ]
+        },
+        "testPaths": [
+          "test_trees.py",
+          "test_trees_extended.py"
+        ]
+      }
+    ]
+  },
+  "tree-traversals": {
+    "modules": [
+      {
+        "module": "bitsandbytes.trees.traversals",
+        "sourcePath": "bitsandbytes/trees/traversals.py",
+        "symbols": [
+          "preorder",
+          "postorder",
+          "level_order",
+          "map_inorder",
+          "inorder_iter"
+        ],
+        "testsBySymbol": {
+          "preorder": [
+            "test_trees_extended.py"
+          ],
+          "postorder": [
+            "test_trees_extended.py"
+          ],
+          "level_order": [
+            "test_trees_extended.py"
+          ],
+          "map_inorder": [],
+          "inorder_iter": []
+        },
+        "testPaths": [
+          "test_trees_extended.py"
+        ]
+      }
+    ]
+  },
+  "balanced-search-trees": {
+    "modules": [
+      {
+        "module": "bitsandbytes.trees.llrb",
+        "sourcePath": "bitsandbytes/trees/llrb.py",
+        "symbols": [
+          "LLRBNode",
+          "LeftLeaningRedBlackTree"
+        ],
+        "testsBySymbol": {
+          "LLRBNode": [],
+          "LeftLeaningRedBlackTree": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "heap-operations": {
+    "modules": [
+      {
+        "module": "bitsandbytes.heaps.heapsort",
+        "sourcePath": "bitsandbytes/heaps/heapsort.py",
+        "symbols": [
+          "heapify",
+          "heapsort"
+        ],
+        "testsBySymbol": {
+          "heapify": [
+            "test_heaps.py"
+          ],
+          "heapsort": [
+            "test_heaps.py"
+          ]
+        },
+        "testPaths": [
+          "test_heaps.py"
+        ]
+      }
+    ]
+  },
+  "priority-queues": {
+    "modules": [
+      {
+        "module": "bitsandbytes.heaps.priority_queue",
+        "sourcePath": "bitsandbytes/heaps/priority_queue.py",
+        "symbols": [
+          "PriorityQueue"
+        ],
+        "testsBySymbol": {
+          "PriorityQueue": [
+            "test_priority_queue.py"
+          ]
+        },
+        "testPaths": [
+          "test_priority_queue.py"
+        ]
+      }
+    ]
+  },
+  "doubly-linked-list-operations": {
+    "modules": [
+      {
+        "module": "bitsandbytes.doubly_linked_list",
+        "sourcePath": "bitsandbytes/doubly_linked_list.py",
+        "symbols": [
+          "DoublyNode",
+          "DoublyLinkedList"
+        ],
+        "testsBySymbol": {
+          "DoublyNode": [],
+          "DoublyLinkedList": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      }
+    ]
+  },
+  "lru-cache": {
+    "modules": [
+      {
+        "module": "bitsandbytes.linked_lists.lru_cache",
+        "sourcePath": "bitsandbytes/linked_lists/lru_cache.py",
+        "symbols": [
+          "LRUCache"
+        ],
+        "testsBySymbol": {
+          "LRUCache": [
+            "test_linked_list_concepts.py"
+          ]
+        },
+        "testPaths": [
+          "test_linked_list_concepts.py"
+        ]
+      }
+    ]
+  },
+  "graph-representations": {
+    "modules": [
+      {
+        "module": "bitsandbytes.graphs.adjacency_list",
+        "sourcePath": "bitsandbytes/graphs/adjacency_list.py",
+        "symbols": [
+          "Graph",
+          "depth_first_order",
+          "breadth_first_order",
+          "dijkstra_distances"
+        ],
+        "testsBySymbol": {
+          "Graph": [
+            "test_curriculum_completion.py",
+            "test_graph_algorithms.py",
+            "test_graphs.py",
+            "test_vertex_cover_approximation.py"
+          ],
+          "depth_first_order": [
+            "test_graphs.py"
+          ],
+          "breadth_first_order": [
+            "test_graphs.py"
+          ],
+          "dijkstra_distances": [
+            "test_graphs.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_graph_algorithms.py",
+          "test_graphs.py",
+          "test_vertex_cover_approximation.py"
+        ]
+      }
+    ]
+  },
+  "graph-traversals": {
+    "modules": [
+      {
+        "module": "bitsandbytes.graphs.algorithms",
+        "sourcePath": "bitsandbytes/graphs/algorithms.py",
+        "symbols": [
+          "UndirectedGraph",
+          "bfs_distances_and_parents",
+          "topological_order",
+          "connected_components",
+          "bellman_ford_distances",
+          "dag_shortest_paths",
+          "dijkstra_distances_heap",
+          "kruskal_minimum_spanning_weight",
+          "prim_minimum_spanning_weight",
+          "is_bipartite",
+          "has_directed_cycle",
+          "kosaraju_strongly_connected_components",
+          "zero_one_bfs_distances",
+          "floyd_warshall"
+        ],
+        "testsBySymbol": {
+          "UndirectedGraph": [
+            "test_graph_algorithms.py"
+          ],
+          "bfs_distances_and_parents": [
+            "test_graph_algorithms.py"
+          ],
+          "topological_order": [
+            "test_graph_algorithms.py"
+          ],
+          "connected_components": [],
+          "bellman_ford_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "dag_shortest_paths": [
+            "test_graph_algorithms.py"
+          ],
+          "dijkstra_distances_heap": [
+            "test_graph_algorithms.py"
+          ],
+          "kruskal_minimum_spanning_weight": [
+            "test_graph_algorithms.py"
+          ],
+          "prim_minimum_spanning_weight": [],
+          "is_bipartite": [
+            "test_graph_algorithms.py"
+          ],
+          "has_directed_cycle": [
+            "test_curriculum_completion.py"
+          ],
+          "kosaraju_strongly_connected_components": [
+            "test_curriculum_completion.py"
+          ],
+          "zero_one_bfs_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "floyd_warshall": [
+            "test_graph_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_graph_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "topological-order": {
+    "modules": [
+      {
+        "module": "bitsandbytes.graphs.algorithms",
+        "sourcePath": "bitsandbytes/graphs/algorithms.py",
+        "symbols": [
+          "UndirectedGraph",
+          "bfs_distances_and_parents",
+          "topological_order",
+          "connected_components",
+          "bellman_ford_distances",
+          "dag_shortest_paths",
+          "dijkstra_distances_heap",
+          "kruskal_minimum_spanning_weight",
+          "prim_minimum_spanning_weight",
+          "is_bipartite",
+          "has_directed_cycle",
+          "kosaraju_strongly_connected_components",
+          "zero_one_bfs_distances",
+          "floyd_warshall"
+        ],
+        "testsBySymbol": {
+          "UndirectedGraph": [
+            "test_graph_algorithms.py"
+          ],
+          "bfs_distances_and_parents": [
+            "test_graph_algorithms.py"
+          ],
+          "topological_order": [
+            "test_graph_algorithms.py"
+          ],
+          "connected_components": [],
+          "bellman_ford_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "dag_shortest_paths": [
+            "test_graph_algorithms.py"
+          ],
+          "dijkstra_distances_heap": [
+            "test_graph_algorithms.py"
+          ],
+          "kruskal_minimum_spanning_weight": [
+            "test_graph_algorithms.py"
+          ],
+          "prim_minimum_spanning_weight": [],
+          "is_bipartite": [
+            "test_graph_algorithms.py"
+          ],
+          "has_directed_cycle": [
+            "test_curriculum_completion.py"
+          ],
+          "kosaraju_strongly_connected_components": [
+            "test_curriculum_completion.py"
+          ],
+          "zero_one_bfs_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "floyd_warshall": [
+            "test_graph_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_graph_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "shortest-paths": {
+    "modules": [
+      {
+        "module": "bitsandbytes.graphs.algorithms",
+        "sourcePath": "bitsandbytes/graphs/algorithms.py",
+        "symbols": [
+          "UndirectedGraph",
+          "bfs_distances_and_parents",
+          "topological_order",
+          "connected_components",
+          "bellman_ford_distances",
+          "dag_shortest_paths",
+          "dijkstra_distances_heap",
+          "kruskal_minimum_spanning_weight",
+          "prim_minimum_spanning_weight",
+          "is_bipartite",
+          "has_directed_cycle",
+          "kosaraju_strongly_connected_components",
+          "zero_one_bfs_distances",
+          "floyd_warshall"
+        ],
+        "testsBySymbol": {
+          "UndirectedGraph": [
+            "test_graph_algorithms.py"
+          ],
+          "bfs_distances_and_parents": [
+            "test_graph_algorithms.py"
+          ],
+          "topological_order": [
+            "test_graph_algorithms.py"
+          ],
+          "connected_components": [],
+          "bellman_ford_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "dag_shortest_paths": [
+            "test_graph_algorithms.py"
+          ],
+          "dijkstra_distances_heap": [
+            "test_graph_algorithms.py"
+          ],
+          "kruskal_minimum_spanning_weight": [
+            "test_graph_algorithms.py"
+          ],
+          "prim_minimum_spanning_weight": [],
+          "is_bipartite": [
+            "test_graph_algorithms.py"
+          ],
+          "has_directed_cycle": [
+            "test_curriculum_completion.py"
+          ],
+          "kosaraju_strongly_connected_components": [
+            "test_curriculum_completion.py"
+          ],
+          "zero_one_bfs_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "floyd_warshall": [
+            "test_graph_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_graph_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "minimum-spanning-trees": {
+    "modules": [
+      {
+        "module": "bitsandbytes.graphs.algorithms",
+        "sourcePath": "bitsandbytes/graphs/algorithms.py",
+        "symbols": [
+          "UndirectedGraph",
+          "bfs_distances_and_parents",
+          "topological_order",
+          "connected_components",
+          "bellman_ford_distances",
+          "dag_shortest_paths",
+          "dijkstra_distances_heap",
+          "kruskal_minimum_spanning_weight",
+          "prim_minimum_spanning_weight",
+          "is_bipartite",
+          "has_directed_cycle",
+          "kosaraju_strongly_connected_components",
+          "zero_one_bfs_distances",
+          "floyd_warshall"
+        ],
+        "testsBySymbol": {
+          "UndirectedGraph": [
+            "test_graph_algorithms.py"
+          ],
+          "bfs_distances_and_parents": [
+            "test_graph_algorithms.py"
+          ],
+          "topological_order": [
+            "test_graph_algorithms.py"
+          ],
+          "connected_components": [],
+          "bellman_ford_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "dag_shortest_paths": [
+            "test_graph_algorithms.py"
+          ],
+          "dijkstra_distances_heap": [
+            "test_graph_algorithms.py"
+          ],
+          "kruskal_minimum_spanning_weight": [
+            "test_graph_algorithms.py"
+          ],
+          "prim_minimum_spanning_weight": [],
+          "is_bipartite": [
+            "test_graph_algorithms.py"
+          ],
+          "has_directed_cycle": [
+            "test_curriculum_completion.py"
+          ],
+          "kosaraju_strongly_connected_components": [
+            "test_curriculum_completion.py"
+          ],
+          "zero_one_bfs_distances": [
+            "test_graph_algorithms.py"
+          ],
+          "floyd_warshall": [
+            "test_graph_algorithms.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_graph_algorithms.py"
+        ]
+      }
+    ]
+  },
+  "two-pointers": {
+    "modules": [
+      {
+        "module": "bitsandbytes.patterns.arrays",
+        "sourcePath": "bitsandbytes/patterns/arrays.py",
+        "symbols": [
+          "two_sum_sorted",
+          "longest_unique_substring_length",
+          "PrefixSum",
+          "sliding_window_maximum"
+        ],
+        "testsBySymbol": {
+          "two_sum_sorted": [
+            "test_curriculum_completion.py"
+          ],
+          "longest_unique_substring_length": [
+            "test_curriculum_completion.py"
+          ],
+          "PrefixSum": [
+            "test_curriculum_completion.py"
+          ],
+          "sliding_window_maximum": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "sliding-window": {
+    "modules": [
+      {
+        "module": "bitsandbytes.patterns.arrays",
+        "sourcePath": "bitsandbytes/patterns/arrays.py",
+        "symbols": [
+          "two_sum_sorted",
+          "longest_unique_substring_length",
+          "PrefixSum",
+          "sliding_window_maximum"
+        ],
+        "testsBySymbol": {
+          "two_sum_sorted": [
+            "test_curriculum_completion.py"
+          ],
+          "longest_unique_substring_length": [
+            "test_curriculum_completion.py"
+          ],
+          "PrefixSum": [
+            "test_curriculum_completion.py"
+          ],
+          "sliding_window_maximum": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "prefix-sums": {
+    "modules": [
+      {
+        "module": "bitsandbytes.patterns.arrays",
+        "sourcePath": "bitsandbytes/patterns/arrays.py",
+        "symbols": [
+          "two_sum_sorted",
+          "longest_unique_substring_length",
+          "PrefixSum",
+          "sliding_window_maximum"
+        ],
+        "testsBySymbol": {
+          "two_sum_sorted": [
+            "test_curriculum_completion.py"
+          ],
+          "longest_unique_substring_length": [
+            "test_curriculum_completion.py"
+          ],
+          "PrefixSum": [
+            "test_curriculum_completion.py"
+          ],
+          "sliding_window_maximum": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "backtracking": {
+    "modules": [
+      {
+        "module": "bitsandbytes.backtracking.search",
+        "sourcePath": "bitsandbytes/backtracking/search.py",
+        "symbols": [
+          "permutations",
+          "combinations",
+          "subsets",
+          "n_queens_count",
+          "backtrack_find"
+        ],
+        "testsBySymbol": {
+          "permutations": [
+            "test_curriculum_completion.py"
+          ],
+          "combinations": [
+            "test_curriculum_completion.py"
+          ],
+          "subsets": [
+            "test_curriculum_completion.py"
+          ],
+          "n_queens_count": [
+            "test_curriculum_completion.py"
+          ],
+          "backtrack_find": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "greedy-methods": {
+    "modules": [
+      {
+        "module": "bitsandbytes.greedy.classic",
+        "sourcePath": "bitsandbytes/greedy/classic.py",
+        "symbols": [
+          "interval_scheduling_max_count",
+          "fractional_knapsack_value",
+          "huffman_codes"
+        ],
+        "testsBySymbol": {
+          "interval_scheduling_max_count": [
+            "test_curriculum_completion.py"
+          ],
+          "fractional_knapsack_value": [
+            "test_curriculum_completion.py"
+          ],
+          "huffman_codes": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "dp-state-and-transition": {
+    "modules": [
+      {
+        "module": "bitsandbytes.dynamic_programming.classic",
+        "sourcePath": "bitsandbytes/dynamic_programming/classic.py",
+        "symbols": [
+          "fibonacci_modulo",
+          "min_coin_change",
+          "knapsack_01",
+          "longest_common_subsequence",
+          "edit_distance",
+          "lis_length_quadratic",
+          "lis_length_patience",
+          "max_non_adjacent_sum",
+          "word_break_possible",
+          "dag_dp_longest_path",
+          "unbounded_knapsack_max_value"
+        ],
+        "testsBySymbol": {
+          "fibonacci_modulo": [
+            "test_curriculum_completion.py"
+          ],
+          "min_coin_change": [
+            "test_curriculum_completion.py"
+          ],
+          "knapsack_01": [
+            "test_curriculum_completion.py"
+          ],
+          "longest_common_subsequence": [],
+          "edit_distance": [
+            "test_curriculum_completion.py"
+          ],
+          "lis_length_quadratic": [],
+          "lis_length_patience": [
+            "test_curriculum_completion.py"
+          ],
+          "max_non_adjacent_sum": [],
+          "word_break_possible": [
+            "test_curriculum_completion.py"
+          ],
+          "dag_dp_longest_path": [],
+          "unbounded_knapsack_max_value": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "string-search": {
+    "modules": [
+      {
+        "module": "bitsandbytes.strings.algorithms",
+        "sourcePath": "bitsandbytes/strings/algorithms.py",
+        "symbols": [
+          "Trie",
+          "kmp_search",
+          "rabin_karp_search",
+          "InvertedIndex",
+          "run_length_encode",
+          "suffix_array_with_lcp"
+        ],
+        "testsBySymbol": {
+          "Trie": [
+            "test_curriculum_completion.py"
+          ],
+          "kmp_search": [
+            "test_curriculum_completion.py"
+          ],
+          "rabin_karp_search": [
+            "test_curriculum_completion.py"
+          ],
+          "InvertedIndex": [
+            "test_curriculum_completion.py"
+          ],
+          "run_length_encode": [
+            "test_curriculum_completion.py"
+          ],
+          "suffix_array_with_lcp": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "tries-and-text-indexes": {
+    "modules": [
+      {
+        "module": "bitsandbytes.strings.algorithms",
+        "sourcePath": "bitsandbytes/strings/algorithms.py",
+        "symbols": [
+          "Trie",
+          "kmp_search",
+          "rabin_karp_search",
+          "InvertedIndex",
+          "run_length_encode",
+          "suffix_array_with_lcp"
+        ],
+        "testsBySymbol": {
+          "Trie": [
+            "test_curriculum_completion.py"
+          ],
+          "kmp_search": [
+            "test_curriculum_completion.py"
+          ],
+          "rabin_karp_search": [
+            "test_curriculum_completion.py"
+          ],
+          "InvertedIndex": [
+            "test_curriculum_completion.py"
+          ],
+          "run_length_encode": [
+            "test_curriculum_completion.py"
+          ],
+          "suffix_array_with_lcp": []
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "range-query-structures": {
+    "modules": [
+      {
+        "module": "bitsandbytes.range_queries.structures",
+        "sourcePath": "bitsandbytes/range_queries/structures.py",
+        "symbols": [
+          "FenwickTree",
+          "SegmentTree",
+          "SparseTable"
+        ],
+        "testsBySymbol": {
+          "FenwickTree": [
+            "test_curriculum_completion.py"
+          ],
+          "SegmentTree": [
+            "test_curriculum_completion.py"
+          ],
+          "SparseTable": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "approximate-membership": {
+    "modules": [
+      {
+        "module": "bitsandbytes.approximate.structures",
+        "sourcePath": "bitsandbytes/approximate/structures.py",
+        "symbols": [
+          "BloomFilter",
+          "SkipNode",
+          "SkipList",
+          "PersistentStackFrame"
+        ],
+        "testsBySymbol": {
+          "BloomFilter": [
+            "test_curriculum_completion.py"
+          ],
+          "SkipNode": [],
+          "SkipList": [
+            "test_curriculum_completion.py"
+          ],
+          "PersistentStackFrame": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "storage-engines-and-locality": {
+    "modules": [
+      {
+        "module": "bitsandbytes.storage.engines",
+        "sourcePath": "bitsandbytes/storage/engines.py",
+        "symbols": [
+          "BTree",
+          "WriteAheadLog",
+          "ToyLSM",
+          "sequential_scan_sum",
+          "locality_scan_benchmark",
+          "nearest_neighbor_linear"
+        ],
+        "testsBySymbol": {
+          "BTree": [
+            "test_curriculum_completion.py"
+          ],
+          "WriteAheadLog": [],
+          "ToyLSM": [
+            "test_curriculum_completion.py"
+          ],
+          "sequential_scan_sum": [],
+          "locality_scan_benchmark": [],
+          "nearest_neighbor_linear": [
+            "test_curriculum_completion.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py"
+        ]
+      }
+    ]
+  },
+  "approximation-guarantees": {
+    "modules": [
+      {
+        "module": "bitsandbytes.limits.approximation",
+        "sourcePath": "bitsandbytes/limits/approximation.py",
+        "symbols": [
+          "vertex_cover_two_approximation"
+        ],
+        "testsBySymbol": {
+          "vertex_cover_two_approximation": [
+            "test_curriculum_completion.py",
+            "test_vertex_cover_approximation.py"
+          ]
+        },
+        "testPaths": [
+          "test_curriculum_completion.py",
+          "test_vertex_cover_approximation.py"
+        ]
+      }
+    ]
+  }
+}

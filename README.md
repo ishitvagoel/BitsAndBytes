@@ -1,8 +1,8 @@
 # Bits and Bytes
 
-A study path for the data structures in this repository. Read the sections in order. Every function and method has a `Cost` section in its docstring that names the input size, counts the loops, and separates extra memory from the input. The notes below record only the result of that derivation. Worked traces for the trickiest pointer and stack walks live in those module docstrings.
+A module and complexity reference for the data structures in this repository. Use the website curriculum as the learner-facing course order; the sections below group implementation notes by topic. Every function and method has a `Cost` section in its docstring that names the input size, counts the loops, and separates extra memory from the input.
 
-For the full target course order and gap list, see [CURRICULUM.md](CURRICULUM.md).
+The website’s recommended stages are Foundations → Linear structures → Search and ordering → Lookup and priority → Graphs → Problem-solving methods → Advanced applications, followed by a separate Python reference. The website curriculum in `site/src/lib/curriculum.ts` is authoritative for lesson order and prerequisites. For the repository module inventory and longer-term curriculum gaps, see [CURRICULUM.md](CURRICULUM.md).
 
 ## 0. Analysis and library costs
 
@@ -13,18 +13,14 @@ Lesson: [guide/00-analysis-and-library-costs.md](guide/00-analysis-and-library-c
 
 ```mermaid
 flowchart TD
-  lists[SinglyLinkedList]
-  listAlgos[ListAlgorithms]
-  doubly[DoublyListAndLRU]
-  stacks[Stacks]
-  sorts[Sorting]
-  search[BinarySearch]
-  queue[Queues]
-  heap[Heaps]
-  hash[HashTable]
-  tree[BST]
-  graph[Graphs]
-  lists --> listAlgos --> doubly --> stacks --> sorts --> search --> queue --> heap --> hash --> tree --> graph
+  foundations[Foundations]
+  linear[Linear structures]
+  search[Search and ordering]
+  lookup[Lookup and priority]
+  graphs[Graphs]
+  methods[Problem-solving methods]
+  advanced[Advanced applications]
+  foundations --> linear --> search --> lookup --> graphs --> methods --> advanced
 ```
 
 ## 1. Singly linked list
@@ -149,7 +145,7 @@ Lesson: [guide/13-graphs.md](guide/13-graphs.md)
 
 Lesson: [guide/14-dynamic-programming.md](guide/14-dynamic-programming.md)
 
-* `dynamic_programming/classic.py` — bottom-up Fibonacci mod word, coin change, knapsack, LCS, edit distance, LIS, house robber, word break, DAG longest path, unbounded knapsack.
+* `dynamic_programming/classic.py` — bottom-up Fibonacci mod word, coin change, knapsack, LCS, edit distance, LIS, house robber, trie-backed word break (O(nL + D) expected), DAG longest path, unbounded knapsack. Here `n` is text length, `L` the maximum dictionary-word length, and `D` the total dictionary characters.
 
 ## 15. Greedy algorithms
 

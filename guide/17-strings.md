@@ -8,6 +8,11 @@ module: bitsandbytes.strings.algorithms
 
 * `strings/algorithms.py` — trie, KMP, Rabin-Karp, inverted index, run-length encoding, suffix array with LCP.
 
+## Focused lessons
+
+- [String search algorithms](./64-string-search.md)
+- [Tries and text indexes](./65-tries-and-text-indexes.md)
+
 ## Industry
 
 A working engineer answers which documents contain a term with an inverted

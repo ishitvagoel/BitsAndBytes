@@ -2,12 +2,11 @@
 
 Industry
 --------
-A working engineer stops looking for a polynomial algorithm the problem does
-not allow, and ships an approximation with a proved ratio or calls a solver.
-The vertex-cover function is the 2-approximation: both endpoints of an
-uncovered edge, repeated until every edge is covered. Maximum flow stays
-uncoded here because the curriculum records that most product code calls a
-solver.
+A working engineer distinguishes a proven lower bound from an unresolved
+complexity assumption. General minimum vertex cover is NP-hard; no exact
+polynomial-time algorithm is known. For a simple approximation, repeatedly
+choose an uncovered edge and add its endpoints. The chosen edges are pairwise
+vertex-disjoint, giving a 2-approximation.
 """
 
 from __future__ import annotations
@@ -16,29 +15,27 @@ from bitsandbytes.graphs.adjacency_list import Graph
 
 
 def vertex_cover_two_approximation(graph: Graph) -> set:
-    """Return a vertex cover within twice the optimum size on any graph.
+    """Return a 2-approximate vertex cover by scanning graph edges once.
 
-    Repeatedly take both endpoints of any uncovered edge until none remain.
+    An edge here is an adjacency-list entry ``(source, target)``; a directed
+    graph is treated as an edge set for vertex-cover purposes. When neither
+    endpoint has been selected, add both. Every selected pair is disjoint from
+    earlier pairs, so any cover must select at least one endpoint per pair.
+    The result selects at most two endpoints per pair and is therefore at
+    most twice the optimum. Self-loops add their single endpoint once.
 
     Cost
     ----
-    O(V + E) time, O(V) memory for the cover set.
+    Let V be the vertices and E the adjacency-list entries. Copying the vertex
+    list and inspecting each edge once takes O(V + E) expected time, assuming
+    expected O(1) set membership. The returned cover is O(V); ``vertices``
+    also creates an O(V) temporary list, so peak extra memory is O(V).
     """
 
-    remaining_edges: list[tuple] = []
+    cover: set = set()
     for source in graph.vertices():
         for target, _weight in graph.neighbors(source):
-            remaining_edges.append((source, target))
-    cover: set = set()
-    uncovered = set(remaining_edges)
-    while uncovered:
-        edge = uncovered.pop()
-        first, second = edge
-        cover.add(first)
-        cover.add(second)
-        uncovered = {
-            candidate
-            for candidate in uncovered
-            if candidate[0] not in cover and candidate[1] not in cover
-        }
+            if source not in cover and target not in cover:
+                cover.add(source)
+                cover.add(target)
     return cover
