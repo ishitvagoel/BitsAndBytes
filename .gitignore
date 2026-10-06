@@ -5,3 +5,5 @@ __pycache__/
 
 site/node_modules/
 site/.next/
+.vercel
+.env*
