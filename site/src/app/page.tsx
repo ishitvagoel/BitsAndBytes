@@ -47,7 +47,7 @@ export default function Home() {
   ]));
 
   return (
-    <main id="main-content" className="home-page">
+    <main id="main-content" className="home-page" tabIndex={-1}>
       <section className="home-hero" aria-labelledby="home-title">
         <p className="eyebrow">BITS AND BYTES · ALGORITHMS, MADE UNDERSTANDABLE</p>
         <h1 id="home-title">Learn the idea.<br /><span>Then follow the steps.</span></h1>

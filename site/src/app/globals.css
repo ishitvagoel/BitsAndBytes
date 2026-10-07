@@ -43,7 +43,8 @@ a:focus-visible,
 button:focus-visible,
 select:focus-visible,
 input:focus-visible,
-summary:focus-visible {
+summary:focus-visible,
+main:focus-visible {
   outline: 3px solid #f29a38;
   outline-offset: 3px;
 }
@@ -257,12 +258,17 @@ summary:focus-visible {
   margin: 0 0 1rem;
 }
 
+.lesson-body a {
+  padding-block: 0.28em;
+}
+
 .lesson-body code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.9em;
   background: var(--code-bg);
   padding: 0.1em 0.35em;
   border-radius: 4px;
+  overflow-wrap: anywhere;
 }
 
 .lesson-body pre {
@@ -275,6 +281,7 @@ summary:focus-visible {
 .lesson-body pre code {
   padding: 0;
   background: transparent;
+  overflow-wrap: normal;
 }
 
 .code-block-wrapper {
@@ -572,6 +579,7 @@ summary:focus-visible {
 
 .support-page {
   width: min(100% - 3rem, 48rem);
+  min-width: 0;
   margin: 0 auto;
   padding: 2rem 0 5rem;
 }
@@ -625,6 +633,7 @@ summary:focus-visible {
 .readiness-question pre,
 .bridge-content pre {
   max-width: 100%;
+  min-width: 0;
   margin: 0.7rem 0;
   padding: 0.85rem 1rem;
   overflow-x: auto;
@@ -719,9 +728,11 @@ summary:focus-visible {
 .bridge-content {
   display: grid;
   gap: 1.4rem;
+  min-width: 0;
 }
 
 .bridge-content section {
+  min-width: 0;
   padding-bottom: 1.1rem;
   border-bottom: 1px solid var(--border);
 }
@@ -1051,10 +1062,11 @@ summary:focus-visible {
   align-items: center;
 }
 
-.curriculum-search input {
+.curriculum-search input,
+.reference-search input {
   min-width: 0;
   width: 100%;
-  min-height: 2.9rem;
+  min-height: 2.75rem;
   padding: 0.65rem 0.85rem;
   border: 1px solid #cbd3e1;
   border-radius: 0.65rem;
@@ -1068,7 +1080,7 @@ summary:focus-visible {
 }
 
 .curriculum-clear {
-  min-height: 2.65rem;
+  min-height: 2.75rem;
   padding: 0.45rem 0.75rem;
   border: 1px solid #cbd3e1;
   border-radius: 0.55rem;
@@ -1867,6 +1879,7 @@ summary:focus-visible {
   border-radius: 0.25rem;
   background: #e7ebf5;
   font-size: 0.9em;
+  overflow-wrap: anywhere;
 }
 
 .python-token-keyword {
@@ -1955,7 +1968,7 @@ summary:focus-visible {
 }
 
 .practice-hint button {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.35rem 0.2rem;
   border: 0;
   color: #29468f;
@@ -2030,10 +2043,15 @@ summary:focus-visible {
 }
 
 .source-disclosure {
+  min-width: 0;
   margin: 2.5rem 0 0;
   border: 1px solid var(--border);
   border-radius: 0.8rem;
   background: var(--surface);
+}
+
+.source-disclosure code {
+  overflow-wrap: anywhere;
 }
 
 .source-disclosure > p,
@@ -2282,10 +2300,63 @@ summary:focus-visible {
   }
 }
 
+.site-header a,
+.readiness-link,
+.back-link,
+.bridge-actions a,
+.lesson-index-title-line a,
+.prerequisite-line a,
+.prerequisite-card a,
+.contents-panel a,
+.glossary-list dd a,
+.reference-table-wrap a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.lesson-index-title-line a,
+.prerequisite-line a,
+.prerequisite-card a,
+.contents-panel a,
+.glossary-list dd a,
+.reference-table-wrap a {
+  min-width: 2.75rem;
+  padding-inline: 0.15rem;
+}
+
+.lesson-outcomes summary,
+.progress-tools > summary,
+.course-rail li a {
+  min-height: 2.75rem;
+}
+
+.course-rail li a {
+  align-items: center;
+}
+
+.code-copy-button,
+.scenario-picker select,
+.readiness-option,
+.practice-option {
+  min-height: 2.75rem;
+}
+
+.code-copy-button {
+  min-width: 2.75rem;
+}
+
+.readiness-option,
+.practice-option {
+  align-items: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
