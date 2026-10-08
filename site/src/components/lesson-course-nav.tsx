@@ -7,28 +7,57 @@ export type CourseLink = {
   editorialState: string;
 };
 
-export function LessonCourseNav({ lessons, currentSlug }: { lessons: CourseLink[]; currentSlug: string }) {
-  return (
-    <nav className="course-rail" aria-label="Course lessons">
-      <ol>
-        {lessons.map((item, index) => (
-          <li key={item.slug} className={item.slug === currentSlug ? "course-rail-current" : undefined}>
-            <Link href={`/lessons/${item.slug}`} aria-current={item.slug === currentSlug ? "page" : undefined}>
-              <span className="course-rail-number">{index + 1}</span>
-              <span><span className="course-rail-title">{item.title}</span><span className="course-rail-stage">{item.stageTitle}</span></span>
-            </Link>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
+function chapterHeadingId(title: string) {
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return `course-chapter-${slug}`;
 }
 
-export function MobileLessonMenu({ lessons, currentSlug }: { lessons: CourseLink[]; currentSlug: string }) {
+export function CoursePlace({
+  lessons,
+  currentSlug,
+  currentTitle,
+  currentStage,
+}: {
+  lessons: CourseLink[];
+  currentSlug: string;
+  currentTitle: string;
+  currentStage: string;
+}) {
+  const chapters: Array<{ title: string; lessons: CourseLink[] }> = [];
+  for (const lesson of lessons) {
+    const chapter = chapters[chapters.length - 1];
+    if (!chapter || chapter.title !== lesson.stageTitle) {
+      chapters.push({ title: lesson.stageTitle, lessons: [lesson] });
+    } else {
+      chapter.lessons.push(lesson);
+    }
+  }
+
   return (
-    <details className="mobile-course-menu">
-      <summary>Course lessons <span>{lessons.length} topics</span></summary>
-      <LessonCourseNav lessons={lessons} currentSlug={currentSlug} />
-    </details>
+    <section className="course-place" aria-labelledby="course-place-title">
+      <div className="course-place-heading">
+        <h2 id="course-place-title">Course place</h2>
+        <p>{currentStage} · {currentTitle}</p>
+      </div>
+      <div className="course-place-chapters">
+        {chapters.map((chapter) => {
+          const headingId = chapterHeadingId(chapter.title);
+          return (
+            <section className="course-chapter" aria-labelledby={headingId} key={chapter.title}>
+              <h3 id={headingId}>{chapter.title}</h3>
+              <ol>
+                {chapter.lessons.map((item) => (
+                  <li key={item.slug} className={item.slug === currentSlug ? "course-place-current" : undefined}>
+                    <Link href={`/lessons/${item.slug}`} aria-current={item.slug === currentSlug ? "page" : undefined}>
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          );
+        })}
+      </div>
+    </section>
   );
 }
