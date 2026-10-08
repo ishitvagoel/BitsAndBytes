@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { isValidElement, type ReactNode } from "react";
 
 import { CopyableCodeBlock } from "@/components/copyable-code-block";
-import { LessonCourseNav, MobileLessonMenu } from "@/components/lesson-course-nav";
+import { CoursePlace } from "@/components/lesson-course-nav";
 import { ResumeLine, ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
 import lessonSlugAliases from "@/data/lesson-slug-aliases.json";
@@ -177,17 +177,57 @@ export default async function LessonPage({ params }: LessonPageProps) {
     : undefined;
   const excerpts: Record<string, SourceCodeExcerpt> = sourceExcerpt ? { "binary-search": sourceExcerpt } : {};
   const lessonSlugs = new Set(lessons.map((item) => item.slug));
-  const binarySearchParts = lesson.slug === "binary-search"
-    ? lesson.content.split("## The idea: keep only possible answers")
-    : [];
+  const hasWorkshopBench = Boolean(sourceExcerpt);
+  const coursePlace = (
+    <CoursePlace
+      lessons={courseLinks}
+      currentSlug={lesson.slug}
+      currentTitle={lesson.title}
+      currentStage={lesson.stageTitle}
+    />
+  );
+  const lessonContext = (
+    <>
+      <details className="lesson-outcomes lesson-page-outcomes">
+        <summary>What you will learn <span>{lesson.outcomes.length}</span></summary>
+        <ul>{lesson.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
+      </details>
+
+      {lesson.prerequisites.length > 0 && (
+        <section className="prerequisite-card" aria-labelledby="prerequisite-title">
+          <h2 id="prerequisite-title">Recommended first</h2>
+          <p>These topics introduce ideas used here. They are recommendations; you can continue directly.</p>
+          <ul>
+            {lesson.prerequisites.map((prerequisite) => (
+              <li key={prerequisite.slug}><Link href={`/lessons/${prerequisite.slug}`}>{prerequisite.title}</Link></li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {sections.length > 0 && (
+        <details className="contents-panel">
+          <summary>On this page <span>{sections.length} sections</span></summary>
+          <nav aria-label="On this page">
+            <ol>
+              {sections.map((section) => (
+                <li className={section.level === 3 ? "contents-subsection" : undefined} key={`${section.id}-${section.title}`}>
+                  <a href={`#${section.id}`}>{section.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </details>
+      )}
+    </>
+  );
 
   return (
-    <main id="main-content" className="lesson-layout" tabIndex={-1}>
+    <main id="main-content" className={hasWorkshopBench ? "lesson-layout lesson-layout-bench" : "lesson-layout"} tabIndex={-1}>
       <div className="lesson-main-column">
         <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} />
         <ResumeLine lessons={resumeLessons} />
         <Link className="back-link" href="/">← Course home</Link>
-        <MobileLessonMenu lessons={courseLinks} currentSlug={lesson.slug} />
         <p className="lesson-kicker">{lesson.stageTitle.toUpperCase()} <span aria-hidden="true">/</span> {position > 0 ? `LESSON ${position} OF ${learningSequence.length}` : "REFERENCE"}</p>
         <h1 className="lesson-title">{lesson.title}</h1>
         <p className="lesson-subtitle">
@@ -199,52 +239,24 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <span>About {lesson.estimatedMinutes} min</span>
         </div>
 
-        <details className="lesson-outcomes lesson-page-outcomes">
-          <summary>What you will learn <span>{lesson.outcomes.length}</span></summary>
-          <ul>{lesson.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
-        </details>
-
-        {lesson.prerequisites.length > 0 && (
-          <section className="prerequisite-card" aria-labelledby="prerequisite-title">
-            <h2 id="prerequisite-title">Recommended first</h2>
-            <p>These topics introduce ideas used here. They are recommendations; you can continue directly.</p>
-            <ul>
-              {lesson.prerequisites.map((prerequisite) => (
-                <li key={prerequisite.slug}><Link href={`/lessons/${prerequisite.slug}`}>{prerequisite.title}</Link></li>
-              ))}
-            </ul>
-          </section>
+        {hasWorkshopBench && sourceExcerpt && (
+          <div className="workshop-bench">
+            <div className="workshop-trace">
+              <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />
+            </div>
+            <div className="workshop-check">
+              <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />
+            </div>
+          </div>
         )}
 
-        {sections.length > 0 && (
-          <details className="contents-panel">
-            <summary>On this page <span>{sections.length} sections</span></summary>
-            <nav aria-label="On this page">
-              <ol>
-                {sections.map((section) => (
-                  <li className={section.level === 3 ? "contents-subsection" : undefined} key={`${section.id}-${section.title}`}>
-                    <a href={`#${section.id}`}>{section.title}</a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          </details>
-        )}
+        {hasWorkshopBench && coursePlace}
+
+        {lessonContext}
 
         <article className="lesson-body">
-          {lesson.slug === "binary-search" && binarySearchParts.length > 1 ? (
-            <>
-              <Markdown source={binarySearchParts[0]} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
-              {sourceExcerpt && <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />}
-              <Markdown source={`## The idea: keep only possible answers${binarySearchParts.slice(1).join("## The idea: keep only possible answers")}`} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
-              <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />
-            </>
-          ) : (
-            <>
-              <Markdown source={lesson.content} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
-              {lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />}
-            </>
-          )}
+          <Markdown source={lesson.content} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
+          {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />}
         </article>
 
         <details className="source-disclosure">
@@ -294,25 +306,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
             </Link>
           ) : <span />}
         </nav>
+        {!hasWorkshopBench && coursePlace}
       </div>
-
-      <aside className="lesson-aside" aria-label="Lesson details">
-        <details className="course-rail-disclosure" open>
-          <summary>Course lessons</summary>
-          <LessonCourseNav lessons={courseLinks} currentSlug={lesson.slug} />
-        </details>
-        <div className="aside-card">
-          <p className="eyebrow">In this lesson</p>
-          <p>{lesson.slug === "binary-search" ? "Trace a search, reason about boundaries, and check your understanding." : lesson.title}</p>
-          <a href={`#${sections[0]?.id ?? ""}`}>Back to lesson start ↑</a>
-        </div>
-        <div className="aside-card aside-next">
-          <p className="eyebrow">Keep going</p>
-          {lesson.next ? (
-            <Link href={`/lessons/${lesson.next.slug}`}>{lesson.next.title} <span aria-hidden="true">→</span></Link>
-          ) : <Link href="/">Browse the course guide <span aria-hidden="true">→</span></Link>}
-        </div>
-      </aside>
     </main>
   );
 }

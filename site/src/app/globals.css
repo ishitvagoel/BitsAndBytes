@@ -1369,17 +1369,129 @@ main:focus-visible {
 }
 
 .lesson-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 48rem) minmax(12rem, 15rem);
-  gap: clamp(2rem, 5vw, 5rem);
-  width: min(100% - 3rem, 72rem);
+  display: block;
+  width: min(100% - 2rem, 48rem);
+  min-width: 0;
   margin: 0 auto;
-  padding: 2rem 0 5rem;
-  align-items: start;
+  padding: 1.5rem 0 5rem;
+}
+
+.lesson-layout-bench {
+  width: min(100% - 2rem, 76rem);
 }
 
 .lesson-main-column {
   min-width: 0;
+}
+
+.workshop-bench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0.25rem 0 1.5rem;
+}
+
+.workshop-trace,
+.workshop-check {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.workshop-trace .learning-lab,
+.workshop-check .practice-section {
+  margin: 0;
+}
+
+.course-place {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 0 2rem;
+  padding: 1rem 1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.course-place-heading h2 {
+  margin: 0;
+  color: #17223b;
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
+}
+
+.course-place-heading p {
+  margin: 0.3rem 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.course-place-chapters {
+  display: grid;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.course-chapter {
+  min-width: 0;
+  padding: 0.75rem 0.8rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.course-chapter h3 {
+  margin: 0 0 0.35rem;
+  color: #253453;
+  font-size: 0.95rem;
+}
+
+.course-chapter ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.course-chapter li a {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.15rem 0.2rem;
+  overflow-wrap: anywhere;
+  color: #27344c;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  text-decoration-thickness: 0.06em;
+}
+
+.course-place-current {
+  background: #eaf0ff;
+  border-radius: 0.45rem;
+  box-shadow: inset 3px 0 #3458cf;
+}
+
+@media (min-width: 720px) {
+  .course-place-chapters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .workshop-bench {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: start;
+  }
+}
+
+.lesson-layout-bench .lesson-body,
+.lesson-layout-bench .lesson-outcomes,
+.lesson-layout-bench .prerequisite-card,
+.lesson-layout-bench .contents-panel,
+.lesson-layout-bench .source-disclosure,
+.lesson-layout-bench .lesson-nav {
+  max-width: 48rem;
 }
 
 .mobile-course-menu {
