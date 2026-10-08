@@ -6,7 +6,7 @@ import { isValidElement, type ReactNode } from "react";
 
 import { CopyableCodeBlock } from "@/components/copyable-code-block";
 import { LessonCourseNav, MobileLessonMenu } from "@/components/lesson-course-nav";
-import { ResumeTracker } from "@/components/resume-progress";
+import { ResumeLine, ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
 import lessonSlugAliases from "@/data/lesson-slug-aliases.json";
 import {
@@ -150,6 +150,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const learningSequence = lessons.filter((item) => item.editorialState !== "reference");
   const position = learningSequence.findIndex((item) => item.slug === lesson.slug) + 1;
   const sections = getLessonSections(lesson);
+  const resumeLessons = lessons.map((item) => ({
+    slug: item.slug,
+    title: item.title,
+    sections: getLessonSections(item).map(({ id, title }) => ({ id, title })),
+  }));
   const progressConfigs: Record<string, LessonProgressConfig> = Object.fromEntries(lessons.map((item) => [
     item.slug,
     {
@@ -180,6 +185,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
     <main id="main-content" className="lesson-layout" tabIndex={-1}>
       <div className="lesson-main-column">
         <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} />
+        <ResumeLine lessons={resumeLessons} />
         <Link className="back-link" href="/">← Course home</Link>
         <MobileLessonMenu lessons={courseLinks} currentSlug={lesson.slug} />
         <p className="lesson-kicker">{lesson.stageTitle.toUpperCase()} <span aria-hidden="true">/</span> {position > 0 ? `LESSON ${position} OF ${learningSequence.length}` : "REFERENCE"}</p>

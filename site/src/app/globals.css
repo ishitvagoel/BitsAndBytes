@@ -756,6 +756,13 @@ main:focus-visible {
   margin-top: 1.6rem;
 }
 
+.resume-line {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
 .resume-card {
   display: flex;
   justify-content: space-between;

@@ -137,6 +137,19 @@ export function ResumeTracker({
   return null;
 }
 
+export function ResumeLine({ lessons }: { lessons: ResumeLesson[] }) {
+  const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
+  const resume = useMemo(() => readRecord(raw, lessons), [raw, lessons]);
+  if (!resume) return null;
+  const sectionTitle = resume.section?.title;
+
+  return (
+    <p className="resume-line">
+      Saved on this device: {resume.lesson.title}{sectionTitle ? ` · ${sectionTitle}` : ""}
+    </p>
+  );
+}
+
 export function ResumeCard({ lessons }: { lessons: ResumeLesson[] }) {
   const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
   const resume = useMemo(() => readRecord(raw, lessons), [raw, lessons]);
