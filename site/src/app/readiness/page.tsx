@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function ReadinessPage() {
   return (
-    <main id="main-content" className="support-page">
+    <main id="main-content" className="support-page" tabIndex={-1}>
       <Link className="back-link" href="/">← Course home</Link>
       <p className="eyebrow">OPTIONAL · ABOUT 3 MINUTES</p>
       <h1>Check the Python basics</h1>

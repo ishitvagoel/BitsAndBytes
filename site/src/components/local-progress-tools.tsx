@@ -177,7 +177,7 @@ export function LocalProgressTools({
       }
       window.dispatchEvent(new Event("bitsandbytes:resume"));
       window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
-      setStatus("Device-local learning progress has been reset.");
+      setStatus("Device-local learning progress on this browser has been cleared.");
     } catch {
       setStatus("Progress could not be reset in this browser.");
     }

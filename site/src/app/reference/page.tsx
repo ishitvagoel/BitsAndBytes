@@ -66,7 +66,7 @@ const terms: GlossaryTerm[] = [
 
 export default function ReferencePage() {
   return (
-    <main id="main-content" className="reference-page">
+    <main id="main-content" className="reference-page" tabIndex={-1}>
       <p className="eyebrow">ALGORITHM AND PYTHON REFERENCE</p>
       <h1>Glossary and library choices</h1>
       <p className="reference-intro">Search short definitions and compare Python tools with the algorithm idea they support. These reference lookups do not change course progress.</p>
