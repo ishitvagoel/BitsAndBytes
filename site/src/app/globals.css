@@ -1378,6 +1378,23 @@ main:focus-visible {
 
 .lesson-layout-bench {
   width: min(100% - 2rem, 76rem);
+  padding-top: 0.75rem;
+}
+
+.lesson-layout-bench .back-link {
+  margin-bottom: 0.25rem;
+}
+
+.lesson-layout-bench .lesson-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.lesson-layout-bench .lesson-subtitle {
+  margin: 0.4rem 0 0.55rem;
+}
+
+.lesson-layout-bench .lesson-readiness {
+  margin: 0.15rem 0 0.55rem;
 }
 
 .lesson-main-column {
