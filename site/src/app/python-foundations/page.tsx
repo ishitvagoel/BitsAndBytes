@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function PythonFoundationsPage() {
   return (
-    <main id="main-content" className="support-page python-bridge">
+    <main id="main-content" className="support-page python-bridge" tabIndex={-1}>
       <Link className="back-link" href="/readiness">← Python readiness check</Link>
       <p className="eyebrow">OPTIONAL FOUNDATION · ABOUT 10 MINUTES</p>
       <h1>Python basics used in this guide</h1>

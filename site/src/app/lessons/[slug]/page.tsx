@@ -177,7 +177,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
     : [];
 
   return (
-    <main id="main-content" className="lesson-layout">
+    <main id="main-content" className="lesson-layout" tabIndex={-1}>
       <div className="lesson-main-column">
         <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} />
         <Link className="back-link" href="/">← Course home</Link>
