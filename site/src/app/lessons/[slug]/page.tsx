@@ -252,6 +252,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         {hasWorkshopBench && coursePlace}
 
+        <div className="reading-card">
         {lessonContext}
 
         <article className="lesson-body">
@@ -306,6 +307,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
             </Link>
           ) : <span />}
         </nav>
+        </div>
         {!hasWorkshopBench && coursePlace}
       </div>
     </main>

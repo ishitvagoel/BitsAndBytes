@@ -113,14 +113,14 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
       {filteredGroups.length > 0 ? (
         <div className="curriculum-stages">
           {filteredGroups.map((group) => (
-            <section className="curriculum-stage" key={group.id} aria-labelledby={`stage-${group.id}`}>
+            <section className={`curriculum-stage${group.lessons.some((lesson) => lesson.slug === lastVisitedSlug) ? " is-current" : ""}`} key={group.id} aria-labelledby={`stage-${group.id}`}>
               <div className="curriculum-stage-heading">
                 <h3 id={`stage-${group.id}`}>{group.title}</h3>
                 <p>{group.description}</p>
               </div>
               <ol className="lesson-index">
                 {group.lessons.map((lesson) => (
-                  <li key={lesson.slug} className={`lesson-index-row${lesson.editorialState === "pilot" ? " lesson-index-featured" : ""}`}>
+                  <li key={lesson.slug} className={`lesson-index-row${lesson.editorialState === "pilot" ? " lesson-index-featured" : ""}${lastVisitedSlug === lesson.slug ? " is-current" : ""}`}>
                     <span className="lesson-index-position" aria-hidden="true">{lesson.position === null ? "REF" : String(lesson.position).padStart(2, "0")}</span>
                     <div className="lesson-index-main">
                       <div className="lesson-index-title-line">

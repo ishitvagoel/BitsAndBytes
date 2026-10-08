@@ -1,21 +1,32 @@
 :root {
-  --background: #f5f6fa;
-  --foreground: #172033;
-  --muted: #59677f;
-  --accent: #3458cf;
-  --border: #dfe4ed;
-  --code-bg: #edf0f6;
-  --surface: #fff;
-  --surface-soft: #f9faff;
-  --success: #18704e;
-  --success-soft: #e7f5ee;
-  --warning: #8c5420;
-  --warning-soft: #fff3e4;
+  --background: #101318;
+  --foreground: #f4f0e6;
+  --muted: #b7b1a6;
+  --accent: #e6b15a;
+  --border: #2c313a;
+  --code-bg: #efe8dc;
+  --surface: #fffdf8;
+  --surface-soft: #f7f4ee;
+  --success: #1d6b4a;
+  --success-soft: #e7f6ee;
+  --warning: #8a3d22;
+  --warning-soft: #fde8e1;
+  --ink: #241c14;
+  --paper: #f7f4ee;
+  --amber: #e6b15a;
+  --amber-ink: #1a1408;
+  --panel: #181c23;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html,
 body {
-  max-width: 100vw;
+  max-width: 100%;
   min-height: 100%;
 }
 
@@ -56,10 +67,10 @@ main:focus-visible {
 .site-header {
   position: relative;
   z-index: 2;
-  border-bottom: 1px solid rgba(223, 228, 237, 0.85);
+  border-bottom: 1px solid var(--border);
   padding: 0.9rem max(1.25rem, calc((100vw - 76rem) / 2));
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--background);
 }
 
 .site-header a {
@@ -96,8 +107,8 @@ main:focus-visible {
   transform: translateY(-150%);
   padding: 0.65rem 0.85rem;
   border-radius: 0.5rem;
-  color: #fff;
-  background: #25396b;
+  color: var(--amber-ink);
+  background: var(--amber);
   font-weight: 650;
 }
 
@@ -403,8 +414,8 @@ main:focus-visible {
   height: 1.8rem;
   place-items: center;
   border-radius: 0.55rem;
-  background: #25396b;
-  color: white;
+  background: var(--amber);
+  color: var(--amber-ink);
   font-size: 0.9rem;
   font-weight: 750;
 }
@@ -957,13 +968,13 @@ main:focus-visible {
 }
 
 .button-primary {
-  color: #fff;
-  background: #344fae;
-  box-shadow: 0 3px 8px rgba(39, 63, 143, 0.18);
+  color: var(--amber-ink);
+  background: var(--amber);
+  border-color: var(--amber);
 }
 
 .button-primary:hover:not(:disabled) {
-  background: #263f95;
+  background: #f0c57a;
 }
 
 .button-secondary {
@@ -1484,9 +1495,13 @@ main:focus-visible {
 }
 
 .course-place-current {
-  background: #eaf0ff;
   border-radius: 0.45rem;
-  box-shadow: inset 3px 0 #3458cf;
+  box-shadow: inset 3px 0 var(--amber);
+}
+
+.course-place-current a {
+  color: var(--amber);
+  font-weight: 700;
 }
 
 @media (min-width: 720px) {
@@ -1499,6 +1514,11 @@ main:focus-visible {
   .workshop-bench {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     align-items: start;
+  }
+
+  .course-place-chapters,
+  .chapter-grid .curriculum-stages {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1799,10 +1819,10 @@ main:focus-visible {
 .learning-lab {
   margin: 1.5rem 0 3rem;
   padding: clamp(1rem, 3vw, 1.5rem);
-  border: 1px solid #d8e0f4;
+  border: 1px solid #e2d8c8;
   border-radius: 1rem;
-  background: linear-gradient(145deg, #fff 15%, #f4f6ff 100%);
-  box-shadow: 0 12px 32px rgba(40, 58, 110, 0.06);
+  color: var(--ink);
+  background: var(--paper);
 }
 
 .interaction-loading {
@@ -2495,5 +2515,326 @@ main:focus-visible {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+.home-page,
+.lesson-layout,
+.support-page,
+.reference-page,
+.not-found-page {
+  min-width: 0;
+}
+
+.home-page {
+  width: min(100% - 2rem, 76rem);
+  padding: 1.25rem 0 3rem;
+}
+
+.home-page h1 {
+  margin: 0 0 0.35rem;
+  color: var(--foreground);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  align-items: center;
+  margin: 1.25rem 0 0;
+}
+
+.home-page .readiness-link {
+  margin-top: 0;
+  color: var(--amber);
+}
+
+.resume-line {
+  margin: 0 0 0.85rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.chapter-grid {
+  margin-top: 0;
+}
+
+.chapter-grid .curriculum-stages {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+}
+
+.chapter-grid .curriculum-stage {
+  min-width: 0;
+  padding: 0.55rem 0.7rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.chapter-grid .curriculum-stage.is-current {
+  border-color: var(--amber);
+}
+
+.chapter-grid .curriculum-stage-heading {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.chapter-grid .curriculum-stage-heading h3 {
+  color: var(--foreground);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chapter-grid .curriculum-stage-heading p,
+.chapter-grid .lesson-index-position,
+.chapter-grid .lesson-index-arrow,
+.chapter-grid .lesson-index-main > p,
+.chapter-grid .lesson-index-metadata,
+.chapter-grid .lesson-outcomes,
+.chapter-grid .prerequisite-line,
+.chapter-grid .editorial-badge {
+  display: none;
+}
+
+.chapter-grid .curriculum-stage.is-current .curriculum-stage-heading p {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.chapter-grid .lesson-index,
+.chapter-grid .lesson-index-row {
+  border: 0;
+  background: transparent;
+}
+
+.chapter-grid .lesson-index-row {
+  display: block;
+  min-height: 0;
+  padding: 0;
+}
+
+.chapter-grid .lesson-index-row:hover,
+.chapter-grid .lesson-index-featured {
+  background: transparent;
+}
+
+.chapter-grid .lesson-index-title-line a {
+  color: var(--foreground);
+}
+
+.chapter-grid .lesson-index-row.is-current .lesson-index-title-line a {
+  color: var(--amber);
+  font-weight: 700;
+}
+
+.chapter-grid .curriculum-search label,
+.chapter-grid .curriculum-result-count,
+.home-footer {
+  color: var(--muted);
+}
+
+.chapter-grid .curriculum-search input,
+.chapter-grid .curriculum-clear {
+  border-color: var(--border);
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.home-page .progress-tools,
+.home-page .review-queue {
+  border-color: var(--border);
+  color: var(--foreground);
+  background: var(--panel);
+}
+
+.home-page .progress-tools > p,
+.home-page .review-queue > p:not(.eyebrow),
+.home-page .review-queue li span,
+.home-page .review-queue-note {
+  color: var(--muted);
+}
+
+.lesson-kicker,
+.lesson-subtitle,
+.back-link {
+  color: var(--muted);
+}
+
+.lesson-title {
+  color: var(--foreground);
+}
+
+.back-link {
+  color: var(--amber);
+}
+
+.reading-card,
+.support-page,
+.reference-page,
+.not-found-page {
+  border: 1px solid #e2d8c8;
+  border-radius: 14px;
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.reading-card {
+  min-width: 0;
+  max-width: 48rem;
+  margin-top: 0.5rem;
+  padding: 1.15rem 1.25rem 1.4rem;
+}
+
+.support-page,
+.reference-page {
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 1.25rem 2.5rem;
+}
+
+.not-found-page {
+  margin: 2.5rem auto;
+}
+
+.reading-card a,
+.learning-lab a,
+.support-page a,
+.reference-page a,
+.not-found-page a {
+  color: #8a4e12;
+}
+
+.reading-card a.button-primary,
+.support-page a.button-primary,
+.reference-page a.button-primary,
+.not-found-page a.button-primary,
+.home-page a.button-primary,
+a.button-primary {
+  color: var(--amber-ink);
+  background: var(--amber);
+}
+
+.support-page h1,
+.reference-page h1,
+.not-found-page h1,
+.reading-card h2,
+.reading-card h3 {
+  color: var(--ink);
+}
+
+.support-page h1,
+.reference-page h1,
+.not-found-page h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.learning-lab h2,
+.learning-lab .lab-question,
+.search-cell-value {
+  color: var(--ink);
+}
+
+.course-place {
+  border: 0;
+  background: transparent;
+  padding-inline: 0;
+}
+
+.course-place-heading h2,
+.course-chapter h3,
+.course-chapter li a {
+  color: var(--foreground);
+}
+
+.course-chapter {
+  border-color: var(--border);
+  background: var(--panel);
+}
+
+.course-chapter:has(.course-place-current) {
+  border-color: var(--amber);
+}
+
+.workshop-check .practice-section {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid #323844;
+  border-radius: 14px;
+  color: #f6f2ea;
+  background: #171b22;
+}
+
+.workshop-check .practice-section > h2,
+.workshop-check .practice-card legend {
+  color: #f6f2ea;
+}
+
+.workshop-check .eyebrow,
+.workshop-check .practice-intro,
+.workshop-check .local-progress-note {
+  color: #c9c2b6;
+}
+
+.workshop-check .practice-card {
+  border-color: #323844;
+  color: #f6f2ea;
+  background: transparent;
+}
+
+.workshop-check .practice-option {
+  border-color: #3a4150;
+  color: #f6f2ea;
+  background: #101318;
+}
+
+.workshop-check .practice-number,
+.workshop-check .check-answer {
+  border-color: var(--amber);
+  color: var(--amber-ink);
+  background: var(--amber);
+}
+
+.workshop-check .feedback-correct {
+  border-color: #173528;
+  color: #d9f5e6;
+  background: #173528;
+}
+
+.workshop-check .feedback-retry {
+  border-color: #3d221c;
+  color: #ffd7cc;
+  background: #3d221c;
+}
+
+.reading-card :focus-visible,
+.learning-lab :focus-visible,
+.support-page :focus-visible,
+.reference-page :focus-visible,
+.not-found-page :focus-visible {
+  outline-color: #8a4e12;
+}
+
+@media (min-width: 720px) {
+  .chapter-grid .curriculum-stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 719px) {
+  .workshop-bench,
+  .course-place-chapters,
+  .chapter-grid .curriculum-stages {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
