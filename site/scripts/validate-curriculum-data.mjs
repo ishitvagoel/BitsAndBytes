@@ -8,7 +8,7 @@ const guideDir = path.join(repositoryRoot, "guide");
 const references = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-references.json"), "utf8"));
 const traces = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/binary-search-traces.json"), "utf8"));
 const source = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/binary-search-source.json"), "utf8"));
-const exercises = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/binary-search-exercises.json"), "utf8"));
+const exercises = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/exercises.json"), "utf8"));
 const slugAliases = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-slug-aliases.json"), "utf8"));
 const curriculumSource = fs.readFileSync(path.join(siteDir, "../src/lib/curriculum.ts"), "utf8");
 

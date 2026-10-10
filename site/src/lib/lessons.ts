@@ -144,6 +144,11 @@ function metadata(lesson: LessonCore, stageId: string, stageTitle: string): Less
   if (!detail) throw new Error(`Missing curriculum details for ${lesson.slug}`);
   if (!objectiveIds || objectiveIds.length !== detail.outcomes.length) throw new Error(`Learning objective IDs do not match outcomes for ${lesson.slug}`);
   if (!references) throw new Error(`Missing source/test references for ${lesson.slug}`);
+  const words = lesson.content.trim().split(/\s+/).filter(Boolean).length;
+  const derivedMinutes = Math.max(
+    2,
+    Math.round(words / 180) + detail.exerciseIds.length * 2 + (detail.traceIds.length > 0 ? 3 : 0),
+  );
   return {
     title: lesson.title,
     slug: lesson.slug,
@@ -161,6 +166,7 @@ function metadata(lesson: LessonCore, stageId: string, stageTitle: string): Less
       return { slug, title: prerequisite };
     }),
     ...detail,
+    estimatedMinutes: derivedMinutes,
     objectiveIds,
     sourceReferences: references,
   };

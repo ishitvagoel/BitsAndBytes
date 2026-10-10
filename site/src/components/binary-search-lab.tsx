@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import traceFixtures from "@/data/binary-search-traces.json";
-import exerciseFixtures from "@/data/binary-search-exercises.json";
+import exerciseFixtures from "@/data/exercises.json";
 import { CopyableCodeBlock } from "@/components/copyable-code-block";
+import { practiceStorageKey } from "@/lib/practice-storage";
 import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
@@ -34,7 +35,6 @@ type TraceFrame = {
 const scenarios = traceFixtures as Scenario[];
 
 const TRACE_STORAGE_KEY = "bitsandbytes.binary-search-trace.v1";
-const PRACTICE_STORAGE_KEY = "bitsandbytes.binary-search-practice.v1";
 const memoryStore = new Map<string, string>();
 
 type PracticeQuestion = {
@@ -266,7 +266,7 @@ export function LessonPractice({
   lessonSlug,
   progressConfigs,
 }: { lessonSlug: string; progressConfigs: Record<string, LessonProgressConfig> }) {
-  const [answers, setAnswers] = useLocalJsonState(PRACTICE_STORAGE_KEY, {}, validatePracticeState);
+  const [answers, setAnswers] = useLocalJsonState(practiceStorageKey(lessonSlug), {}, validatePracticeState);
   const questions = useMemo(() => allQuestions.filter((question) => question.lessonSlug === lessonSlug), [lessonSlug]);
 
   useEffect(() => {

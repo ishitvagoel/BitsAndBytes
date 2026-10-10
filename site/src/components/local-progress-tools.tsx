@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import traceFixtures from "@/data/binary-search-traces.json";
-import exerciseFixtures from "@/data/binary-search-exercises.json";
+import exerciseFixtures from "@/data/exercises.json";
+import { practiceStorageKey } from "@/lib/practice-storage";
 import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
@@ -15,7 +16,6 @@ import {
 
 const RESUME_KEY = "bitsandbytes.resume.v1";
 const TRACE_KEY = "bitsandbytes.binary-search-trace.v1";
-const PRACTICE_KEY = "bitsandbytes.binary-search-practice.v1";
 const LEARNING_KEY = LEARNING_PROGRESS_KEY;
 
 type Lesson = { slug: string; sections: Array<{ id: string }> };
@@ -29,7 +29,8 @@ type StoredBundle = {
 };
 
 const traces = traceFixtures as Array<{ id: string; frames: unknown[] }>;
-const exercises = exerciseFixtures as Array<{ storageId: string; options: Array<{ id: string }>; hints?: string[] }>;
+const exercises = exerciseFixtures as Array<{ lessonSlug: string; storageId: string; options: Array<{ id: string }>; hints?: string[] }>;
+const practiceSlugs = [...new Set(exercises.map((exercise) => exercise.lessonSlug))];
 
 function readCurrent(progressConfigs: Record<string, LessonProgressConfig>): StoredBundle {
   const parse = (key: string) => {
@@ -41,7 +42,13 @@ function readCurrent(progressConfigs: Record<string, LessonProgressConfig>): Sto
   };
   const resume = parse(RESUME_KEY);
   const trace = parse(TRACE_KEY);
-  const practice = parse(PRACTICE_KEY);
+  const practice: StoredBundle["practice"] = {};
+  for (const slug of practiceSlugs) {
+    const saved = parse(practiceStorageKey(slug));
+    if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+      Object.assign(practice, saved);
+    }
+  }
   return {
     schemaVersion: 1,
     exportedAt: new Date().toISOString(),
@@ -129,11 +136,19 @@ export function LocalProgressTools({
       const bundle = validateBundle(parsed, lessons, progressConfigs);
       if (!bundle) throw new Error("This file does not match the supported progress format.");
       const defaultTrace = { scenarioId: traces[0].id, frameIndex: 0 };
+      const practiceBySlug = new Map<string, StoredBundle["practice"]>();
+      for (const slug of practiceSlugs) practiceBySlug.set(slug, {});
+      for (const [storageId, saved] of Object.entries(bundle.practice)) {
+        const owner = exercises.find((exercise) => exercise.storageId === storageId);
+        const bucket = owner ? practiceBySlug.get(owner.lessonSlug) : undefined;
+        if (!bucket) continue;
+        bucket[storageId] = saved;
+      }
       const values: Array<[string, unknown, boolean]> = [
         [RESUME_KEY, bundle.resume, bundle.resume === null],
         [TRACE_KEY, bundle.trace ?? defaultTrace, false],
-        [PRACTICE_KEY, bundle.practice, false],
         [LEARNING_KEY, bundle.learning, false],
+        ...practiceSlugs.map((slug) => [practiceStorageKey(slug), practiceBySlug.get(slug) ?? {}, false] as [string, unknown, boolean]),
       ];
       const previous = values.map(([key]) => [key, window.localStorage.getItem(key)] as const);
       try {
@@ -168,10 +183,10 @@ export function LocalProgressTools({
 
   function resetProgress() {
     try {
-      for (const key of [RESUME_KEY, TRACE_KEY, PRACTICE_KEY, LEARNING_KEY]) {
+      for (const key of [RESUME_KEY, TRACE_KEY, LEARNING_KEY, ...practiceSlugs.map(practiceStorageKey)]) {
         if (key === TRACE_KEY) window.localStorage.setItem(key, JSON.stringify({ scenarioId: traces[0].id, frameIndex: 0 }));
-        else if (key === PRACTICE_KEY) window.localStorage.setItem(key, "{}");
         else if (key === LEARNING_KEY) window.localStorage.setItem(key, JSON.stringify(emptyLearningProgress()));
+        else if (key.startsWith("bitsandbytes.practice.")) window.localStorage.setItem(key, "{}");
         else window.localStorage.removeItem(key);
         notifyLocalState(key);
       }
@@ -182,6 +197,29 @@ export function LocalProgressTools({
       setStatus("Progress could not be reset in this browser.");
     }
   }
+
+  const stored = useSyncExternalStore(
+    (callback) => {
+      window.addEventListener("storage", callback);
+      window.addEventListener("bitsandbytes:resume", callback);
+      window.addEventListener(LEARNING_PROGRESS_EVENT, callback);
+      return () => {
+        window.removeEventListener("storage", callback);
+        window.removeEventListener("bitsandbytes:resume", callback);
+        window.removeEventListener(LEARNING_PROGRESS_EVENT, callback);
+      };
+    },
+    () => {
+      try {
+        return `${window.localStorage.getItem(RESUME_KEY) ?? ""}|${window.localStorage.getItem(LEARNING_KEY) ?? ""}`;
+      } catch {
+        return "";
+      }
+    },
+    () => "",
+  );
+  const hasProgress = stored.split("|").some((part) => part && part !== "null" && part !== '{"schemaVersion":1,"lessons":{}}');
+  if (!hasProgress) return null;
 
   return (
     <details className="progress-tools">

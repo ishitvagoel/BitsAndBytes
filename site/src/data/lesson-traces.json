@@ -1,0 +1,2280 @@
+{
+  "input-size-and-operation-counts": [
+    {
+      "id": "input-size-and-operation-counts-core",
+      "title": "Count the pair checks",
+      "prompt": "Watch a nested scan of four items. The outer index moves once per item. The inner index only looks to the right.",
+      "frames": [
+        {
+          "label": "Start",
+          "narration": "Nothing has been compared. n is 4.",
+          "state": [
+            {
+              "name": "checks",
+              "value": "0"
+            },
+            {
+              "name": "n",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Items",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "idle"
+                },
+                {
+                  "text": "b",
+                  "status": "idle"
+                },
+                {
+                  "text": "c",
+                  "status": "idle"
+                },
+                {
+                  "text": "d",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Outer 0",
+          "narration": "Index 0 pairs with the three items to its right.",
+          "state": [
+            {
+              "name": "checks",
+              "value": "3"
+            },
+            {
+              "name": "outer",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Items",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "chosen"
+                },
+                {
+                  "text": "c",
+                  "status": "chosen"
+                },
+                {
+                  "text": "d",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Outer 1",
+          "narration": "Index 1 pairs with two items to its right. The total is 5.",
+          "state": [
+            {
+              "name": "checks",
+              "value": "5"
+            },
+            {
+              "name": "outer",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Items",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "done"
+                },
+                {
+                  "text": "b",
+                  "status": "active"
+                },
+                {
+                  "text": "c",
+                  "status": "chosen"
+                },
+                {
+                  "text": "d",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Outer 2",
+          "narration": "Index 2 pairs with one item. The total is 6, which is 4 * 3 / 2.",
+          "state": [
+            {
+              "name": "checks",
+              "value": "6"
+            },
+            {
+              "name": "outer",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Items",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "done"
+                },
+                {
+                  "text": "b",
+                  "status": "done"
+                },
+                {
+                  "text": "c",
+                  "status": "active"
+                },
+                {
+                  "text": "d",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "asymptotic-growth": [
+    {
+      "id": "asymptotic-growth-core",
+      "title": "Compare growth",
+      "prompt": "The same n is plugged into three formulas. Read which one pulls away.",
+      "frames": [
+        {
+          "label": "n = 4",
+          "narration": "Linear is still the smallest, but the three are close.",
+          "state": [
+            {
+              "name": "n",
+              "value": "4"
+            },
+            {
+              "name": "n log2 n",
+              "value": "8"
+            },
+            {
+              "name": "n\u00b2",
+              "value": "16"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Formulas",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "8",
+                  "status": "idle"
+                },
+                {
+                  "text": "16",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "n = 16",
+          "narration": "n\u00b2 is already 256. n log2 n is 64.",
+          "state": [
+            {
+              "name": "n",
+              "value": "16"
+            },
+            {
+              "name": "n log2 n",
+              "value": "64"
+            },
+            {
+              "name": "n\u00b2",
+              "value": "256"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Formulas",
+              "cells": [
+                {
+                  "text": "16",
+                  "status": "idle"
+                },
+                {
+                  "text": "64",
+                  "status": "active"
+                },
+                {
+                  "text": "256",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "n = 1024",
+          "narration": "The quadratic count is about a million. The linear count is still 1024.",
+          "state": [
+            {
+              "name": "n",
+              "value": "1024"
+            },
+            {
+              "name": "n log2 n",
+              "value": "10240"
+            },
+            {
+              "name": "n\u00b2",
+              "value": "1048576"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Formulas",
+              "cells": [
+                {
+                  "text": "1024",
+                  "status": "done"
+                },
+                {
+                  "text": "10240",
+                  "status": "active"
+                },
+                {
+                  "text": "1e6",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "loop-invariants": [
+    {
+      "id": "loop-invariants-core",
+      "title": "Insert 1 into a sorted prefix",
+      "prompt": "The prefix to the left of the active item stays sorted. Watch the hole move.",
+      "frames": [
+        {
+          "label": "Before insert",
+          "narration": "The prefix [3] is sorted. 1 is the next key.",
+          "state": [
+            {
+              "name": "prefix",
+              "value": "[3]"
+            },
+            {
+              "name": "key",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Shift",
+          "narration": "3 moves right because it is greater than 1. The hole is at index 0.",
+          "state": [
+            {
+              "name": "hole",
+              "value": "0"
+            },
+            {
+              "name": "key",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "hole",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Place",
+          "narration": "1 drops into the hole. The prefix of length 2 is sorted.",
+          "state": [
+            {
+              "name": "prefix",
+              "value": "[1, 3]"
+            },
+            {
+              "name": "i",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "arrays-and-python-costs": [
+    {
+      "id": "arrays-and-python-costs-core",
+      "title": "Remove the front of a list",
+      "prompt": "Three items sit in a contiguous array. Removing index 0 moves the other two.",
+      "frames": [
+        {
+          "label": "Before",
+          "narration": "b and c sit after a.",
+          "state": [
+            {
+              "name": "length",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Slots",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "idle"
+                },
+                {
+                  "text": "c",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Shift",
+          "narration": "b moves to index 0 and c moves to index 1.",
+          "state": [
+            {
+              "name": "copies",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Slots",
+              "cells": [
+                {
+                  "text": "b",
+                  "status": "chosen"
+                },
+                {
+                  "text": "c",
+                  "status": "chosen"
+                },
+                {
+                  "text": "empty",
+                  "status": "excluded"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "After",
+          "narration": "The length is 2. One removal copied n - 1 references.",
+          "state": [
+            {
+              "name": "length",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Slots",
+              "cells": [
+                {
+                  "text": "b",
+                  "status": "done"
+                },
+                {
+                  "text": "c",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dynamic-array-growth": [
+    {
+      "id": "dynamic-array-growth-core",
+      "title": "Append a, b, and c",
+      "prompt": "Capacity starts at 1 and doubles when an append finds the array full. Copied slots are marked chosen.",
+      "frames": [
+        {
+          "label": "Append a",
+          "narration": "Length 1, capacity 1. No copy.",
+          "state": [
+            {
+              "name": "length",
+              "value": "1"
+            },
+            {
+              "name": "capacity",
+              "value": "1"
+            },
+            {
+              "name": "copies",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Slots",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Append b",
+          "narration": "The array is full, so it doubles to 2 and copies a, then writes b.",
+          "state": [
+            {
+              "name": "length",
+              "value": "2"
+            },
+            {
+              "name": "capacity",
+              "value": "2"
+            },
+            {
+              "name": "copies",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Slots",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "done"
+                },
+                {
+                  "text": "b",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Append c",
+          "narration": "The array is full again. It doubles to 4 and copies a and b, then writes c.",
+          "state": [
+            {
+              "name": "length",
+              "value": "3"
+            },
+            {
+              "name": "capacity",
+              "value": "4"
+            },
+            {
+              "name": "copies",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Slots",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "done"
+                },
+                {
+                  "text": "b",
+                  "status": "done"
+                },
+                {
+                  "text": "c",
+                  "status": "chosen"
+                },
+                {
+                  "text": "empty",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "recursion-and-recurrences": [
+    {
+      "id": "recursion-and-recurrences-core",
+      "title": "Halve 8 until 1",
+      "prompt": "Each call splits into two half-size calls. This frame shows one root-to-leaf path and the size at that level.",
+      "frames": [
+        {
+          "label": "Level 0",
+          "narration": "The root call holds all 8 items.",
+          "state": [
+            {
+              "name": "size",
+              "value": "8"
+            },
+            {
+              "name": "level",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "8",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Level 1",
+          "narration": "One child holds 4 items. The other child is the same size.",
+          "state": [
+            {
+              "name": "size",
+              "value": "4"
+            },
+            {
+              "name": "level",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "8",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Level 2",
+          "narration": "The next call holds 2 items.",
+          "state": [
+            {
+              "name": "size",
+              "value": "2"
+            },
+            {
+              "name": "level",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "8",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Level 3",
+          "narration": "The leaf holds 1 item. log2(8) is 3.",
+          "state": [
+            {
+              "name": "size",
+              "value": "1"
+            },
+            {
+              "name": "level",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "8",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "singly-linked-list": [
+    {
+      "id": "singly-linked-list-core",
+      "title": "Append, then look at the tail",
+      "prompt": "Head and tail both move only when the end they point at changes.",
+      "frames": [
+        {
+          "label": "Empty",
+          "narration": "Head and tail are empty. Size is 0.",
+          "state": [
+            {
+              "name": "size",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Nodes",
+              "cells": [
+                {
+                  "text": "empty",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Append a",
+          "narration": "The only node is both head and tail.",
+          "state": [
+            {
+              "name": "size",
+              "value": "1"
+            },
+            {
+              "name": "tail",
+              "value": "a"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Nodes",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Append b",
+          "narration": "The old tail's next becomes b, and the tail pointer moves. Head stays a.",
+          "state": [
+            {
+              "name": "size",
+              "value": "2"
+            },
+            {
+              "name": "tail",
+              "value": "b"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Nodes",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "done"
+                },
+                {
+                  "text": "b",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Find index 1",
+          "narration": "The search starts at the head and follows one link.",
+          "state": [
+            {
+              "name": "steps",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Nodes",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stack-basics": [
+    {
+      "id": "stack-basics-core",
+      "title": "Push 1, 2, 3 and pop twice",
+      "prompt": "The right end is the top. The library Stack used here has a fixed limit.",
+      "frames": [
+        {
+          "label": "Push 1",
+          "narration": "The stack holds one item. Size is 1.",
+          "state": [
+            {
+              "name": "size",
+              "value": "1"
+            },
+            {
+              "name": "top",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bottom to top",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Push 2",
+          "narration": "2 is the new top. 1 stays underneath.",
+          "state": [
+            {
+              "name": "size",
+              "value": "2"
+            },
+            {
+              "name": "top",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bottom to top",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Push 3",
+          "narration": "3 is the top. The push order was 1, 2, 3.",
+          "state": [
+            {
+              "name": "size",
+              "value": "3"
+            },
+            {
+              "name": "top",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bottom to top",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Pop, pop",
+          "narration": "The first pop returns 3. The second pop returns 2. 1 remains.",
+          "state": [
+            {
+              "name": "size",
+              "value": "1"
+            },
+            {
+              "name": "returned",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bottom to top",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "queue-and-deque-operations": [
+    {
+      "id": "queue-and-deque-operations-core",
+      "title": "Enqueue a, b, c",
+      "prompt": "The left end is the front. Dequeue removes from the left.",
+      "frames": [
+        {
+          "label": "Enqueue a",
+          "narration": "a is both front and back.",
+          "state": [
+            {
+              "name": "front",
+              "value": "a"
+            },
+            {
+              "name": "size",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Front to back",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Enqueue b",
+          "narration": "b joins the back. a stays at the front.",
+          "state": [
+            {
+              "name": "front",
+              "value": "a"
+            },
+            {
+              "name": "size",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Front to back",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Enqueue c",
+          "narration": "c joins the back.",
+          "state": [
+            {
+              "name": "front",
+              "value": "a"
+            },
+            {
+              "name": "size",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Front to back",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "idle"
+                },
+                {
+                  "text": "c",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Dequeue twice",
+          "narration": "The first dequeue returns a. The second returns b. c remains.",
+          "state": [
+            {
+              "name": "returned",
+              "value": "b"
+            },
+            {
+              "name": "front",
+              "value": "c"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Front to back",
+              "cells": [
+                {
+                  "text": "c",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "comparison-sorts": [
+    {
+      "id": "comparison-sorts-core",
+      "title": "Insertion sort [3, 1, 2]",
+      "prompt": "The library insertion_sort shifts the prefix with a strict < comparison, so equal keys would not pass each other. This input has no ties.",
+      "frames": [
+        {
+          "label": "Start",
+          "narration": "The prefix of length 1 is [3].",
+          "state": [
+            {
+              "name": "prefix",
+              "value": "[3]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert 1",
+          "narration": "1 moves in front of 3. The prefix is [1, 3].",
+          "state": [
+            {
+              "name": "prefix",
+              "value": "[1, 3]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert 2",
+          "narration": "2 sits between 1 and 3. The list is sorted.",
+          "state": [
+            {
+              "name": "prefix",
+              "value": "[1, 2, 3]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "merge-sort": [
+    {
+      "id": "merge-sort-core",
+      "title": "Merge sort [3, 1, 4, 2]",
+      "prompt": "Each half is sorted, then the two sorted runs are merged by taking the smaller front. Ties would take the left run, which is why the sort is stable. merge_sort returns [1, 2, 3, 4].",
+      "frames": [
+        {
+          "label": "Split",
+          "narration": "The midpoint is 2. The halves are [3, 1] and [4, 2].",
+          "state": [
+            {
+              "name": "left",
+              "value": "[3, 1]"
+            },
+            {
+              "name": "right",
+              "value": "[4, 2]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Input",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Sort halves",
+          "narration": "Each half of length 2 is sorted. The runs are [1, 3] and [2, 4].",
+          "state": [
+            {
+              "name": "left",
+              "value": "[1, 3]"
+            },
+            {
+              "name": "right",
+              "value": "[2, 4]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Runs",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Take 1",
+          "narration": "Fronts are 1 and 2. Take 1.",
+          "state": [
+            {
+              "name": "output",
+              "value": "[1]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Fronts",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Take 2",
+          "narration": "Fronts are 3 and 2. Take 2.",
+          "state": [
+            {
+              "name": "output",
+              "value": "[1, 2]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Fronts",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Take 3 and 4",
+          "narration": "3 leaves, then 4. The merged list is sorted.",
+          "state": [
+            {
+              "name": "output",
+              "value": "[1, 2, 3, 4]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Output",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "quicksort-and-partition": [
+    {
+      "id": "quicksort-and-partition-core",
+      "title": "Partition [3, 1, 4, 2] with pivot 2",
+      "prompt": "The library swaps a chosen pivot to the end, then scans. This trace starts after 2 is already at the end, which is what happens when the chosen index is the last index.",
+      "frames": [
+        {
+          "label": "Pivot at end",
+          "narration": "2 is the pivot. The boundary starts at 0.",
+          "state": [
+            {
+              "name": "pivot",
+              "value": "2"
+            },
+            {
+              "name": "boundary",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "See 3",
+          "narration": "3 > 2, so the boundary stays 0.",
+          "state": [
+            {
+              "name": "boundary",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "excluded"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "See 1",
+          "narration": "1 \u2264 2. Swap it with the boundary and advance.",
+          "state": [
+            {
+              "name": "boundary",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "idle"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Place pivot",
+          "narration": "4 > 2, so it stays. Swap the pivot into index 1.",
+          "state": [
+            {
+              "name": "pivot index",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Array",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "excluded"
+                },
+                {
+                  "text": "3",
+                  "status": "excluded"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hash-chaining": [
+    {
+      "id": "hash-chaining-core",
+      "title": "Keys 0 and 4 share a bucket",
+      "prompt": "ChainingHashTable with 4 buckets stores (0, 1) and (4, 2) in the same chain, because hash(0) % 4 and hash(4) % 4 are both 0. Lookup of 0 walks that chain.",
+      "frames": [
+        {
+          "label": "Empty",
+          "narration": "Four buckets, no pairs.",
+          "state": [
+            {
+              "name": "size",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bucket",
+              "cells": [
+                {
+                  "text": "empty",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert 0",
+          "narration": "The pair (0, 1) is the only item in bucket 0.",
+          "state": [
+            {
+              "name": "size",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bucket 0",
+              "cells": [
+                {
+                  "text": "0:1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert 4",
+          "narration": "4 hashes to bucket 0 and is appended.",
+          "state": [
+            {
+              "name": "size",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bucket 0",
+              "cells": [
+                {
+                  "text": "0:1",
+                  "status": "done"
+                },
+                {
+                  "text": "4:2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Lookup 0",
+          "narration": "The scan sees 0 first and returns 1.",
+          "state": [
+            {
+              "name": "found",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Bucket 0",
+              "cells": [
+                {
+                  "text": "0:1",
+                  "status": "active"
+                },
+                {
+                  "text": "4:2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "binary-search-tree-operations": [
+    {
+      "id": "binary-search-tree-operations-core",
+      "title": "Insert 4, 2, 6, 1",
+      "prompt": "Each insert walks until it finds an empty child. The library inorder walk then returns [1, 2, 4, 6].",
+      "frames": [
+        {
+          "label": "Insert 4",
+          "narration": "The tree was empty. 4 becomes the root.",
+          "state": [
+            {
+              "name": "root",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert 2",
+          "narration": "2 < 4, and the left child is empty.",
+          "state": [
+            {
+              "name": "parent",
+              "value": "4"
+            },
+            {
+              "name": "side",
+              "value": "left"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert 6",
+          "narration": "6 > 4, and the right child is empty.",
+          "state": [
+            {
+              "name": "parent",
+              "value": "4"
+            },
+            {
+              "name": "side",
+              "value": "right"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "6",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert 1",
+          "narration": "1 < 4 and 1 < 2. It becomes the left child of 2.",
+          "state": [
+            {
+              "name": "parent",
+              "value": "2"
+            },
+            {
+              "name": "side",
+              "value": "left"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Path",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "done"
+                },
+                {
+                  "text": "6",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "heap-operations": [
+    {
+      "id": "heap-operations-core",
+      "title": "Heapify [3, 1, 4, 2]",
+      "prompt": "Children of index i are 2i + 1 and 2i + 2. heapify sifts from the last parent down to the root. heapsort then extracts until the array is sorted ascending.",
+      "frames": [
+        {
+          "label": "Before",
+          "narration": "The array is not a heap. Index 1 holds 1, and its child at index 3 holds 2.",
+          "state": [
+            {
+              "name": "root",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Indexes",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Sift index 1",
+          "narration": "1 is smaller than its child 2, so those values swap.",
+          "state": [
+            {
+              "name": "array",
+              "value": "[3, 2, 4, 1]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Indexes",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Sift index 0",
+          "narration": "3 is smaller than its child 4, so 4 becomes the root and the array is [4, 2, 3, 1].",
+          "state": [
+            {
+              "name": "root",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Indexes",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "After heapsort",
+          "narration": "Repeated extraction leaves the array sorted. The library returns [1, 2, 3, 4].",
+          "state": [
+            {
+              "name": "order",
+              "value": "ascending"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Indexes",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graph-traversals": [
+    {
+      "id": "graph-traversals-core",
+      "title": "Breadth-first search from A",
+      "prompt": "The library breadth_first_order on this graph returns [A, B, C, D]. The queue's left end is the front.",
+      "frames": [
+        {
+          "label": "Start",
+          "narration": "A is queued and marked visited before the loop.",
+          "state": [
+            {
+              "name": "queue",
+              "value": "[A]"
+            },
+            {
+              "name": "order",
+              "value": "[]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Queue",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Visit A",
+          "narration": "Dequeue A. Enqueue B and C.",
+          "state": [
+            {
+              "name": "queue",
+              "value": "[B, C]"
+            },
+            {
+              "name": "order",
+              "value": "[A]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Queue",
+              "cells": [
+                {
+                  "text": "B",
+                  "status": "active"
+                },
+                {
+                  "text": "C",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Visit B",
+          "narration": "Dequeue B. Enqueue D.",
+          "state": [
+            {
+              "name": "queue",
+              "value": "[C, D]"
+            },
+            {
+              "name": "order",
+              "value": "[A, B]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Queue",
+              "cells": [
+                {
+                  "text": "C",
+                  "status": "active"
+                },
+                {
+                  "text": "D",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Visit C and D",
+          "narration": "C has no new neighbor. D is last.",
+          "state": [
+            {
+              "name": "order",
+              "value": "[A, B, C, D]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Order",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "done"
+                },
+                {
+                  "text": "B",
+                  "status": "done"
+                },
+                {
+                  "text": "C",
+                  "status": "done"
+                },
+                {
+                  "text": "D",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "union-find": [
+    {
+      "id": "union-find-core",
+      "title": "Union 0-1 and 1-2 without heuristics",
+      "prompt": "Parent pointers start as self-links. The library DisjointSet without heuristics links the second root under the first.",
+      "frames": [
+        {
+          "label": "Singletons",
+          "narration": "Each item is its own parent.",
+          "state": [
+            {
+              "name": "parent",
+              "value": "[0, 1, 2]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Parent",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Union 0 and 1",
+          "narration": "find(1) is 1. Its parent becomes 0.",
+          "state": [
+            {
+              "name": "parent",
+              "value": "[0, 0, 2]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Parent",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "chosen"
+                },
+                {
+                  "text": "0",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Union 1 and 2",
+          "narration": "find(1) walks to 0. 2's parent becomes 0.",
+          "state": [
+            {
+              "name": "parent",
+              "value": "[0, 0, 0]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Parent",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "chosen"
+                },
+                {
+                  "text": "0",
+                  "status": "done"
+                },
+                {
+                  "text": "0",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "find(2)",
+          "narration": "2's parent is already 0, so the walk is one hop and 0 equals find(0).",
+          "state": [
+            {
+              "name": "root",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Walk",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "0",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dynamic-programming": [
+    {
+      "id": "dynamic-programming-core",
+      "title": "Bottom-up Fibonacci through F(6)",
+      "prompt": "Each cell is the sum of the two cells before it. The library keeps only the last two values. The table here shows the same numbers.",
+      "frames": [
+        {
+          "label": "Base",
+          "narration": "F(0) and F(1) are given.",
+          "state": [
+            {
+              "name": "n",
+              "value": "1"
+            },
+            {
+              "name": "value",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Table",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Through F(3)",
+          "narration": "1 + 1 = 2, and that cell is F(3).",
+          "state": [
+            {
+              "name": "n",
+              "value": "3"
+            },
+            {
+              "name": "value",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Table",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Through F(5)",
+          "narration": "2 + 3 = 5.",
+          "state": [
+            {
+              "name": "n",
+              "value": "5"
+            },
+            {
+              "name": "value",
+              "value": "5"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Table",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                },
+                {
+                  "text": "3",
+                  "status": "idle"
+                },
+                {
+                  "text": "5",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "F(6)",
+          "narration": "3 + 5 = 8.",
+          "state": [
+            {
+              "name": "n",
+              "value": "6"
+            },
+            {
+              "name": "value",
+              "value": "8"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Table",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                },
+                {
+                  "text": "1",
+                  "status": "idle"
+                },
+                {
+                  "text": "2",
+                  "status": "idle"
+                },
+                {
+                  "text": "3",
+                  "status": "idle"
+                },
+                {
+                  "text": "5",
+                  "status": "active"
+                },
+                {
+                  "text": "8",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

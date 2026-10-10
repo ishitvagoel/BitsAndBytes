@@ -50,7 +50,7 @@ export default function PythonFoundationsPage() {
       </article>
 
       <div className="bridge-actions">
-        <Link className="button button-primary" href="/lessons/binary-search">Start the learning pilot <span aria-hidden="true">→</span></Link>
+        <Link className="button button-primary" href="/lessons/input-size-and-operation-counts">Start at the first lesson <span aria-hidden="true">→</span></Link>
         <Link href="/">Browse every lesson</Link>
       </div>
     </main>

@@ -1,9 +1,12 @@
 import type { Lesson } from "@/lib/lessons";
 import { getSections, type LessonSection } from "@/lib/markdown-sections";
 
-export function getLessonSections(lesson: Pick<Lesson, "slug" | "content" | "exerciseIds">): LessonSection[] {
+export function getLessonSections(lesson: Pick<Lesson, "slug" | "content" | "exerciseIds" | "traceIds">): LessonSection[] {
   const sections = getSections(lesson.content);
   const withTrace = [...sections];
+  if (lesson.traceIds.length > 0 && lesson.slug !== "binary-search") {
+    withTrace.unshift({ id: "trace-section", title: "Interactive trace", level: 2 });
+  }
   if (lesson.slug === "binary-search") {
     const ideaIndex = sections.findIndex((section) => section.title === "The idea: keep only possible answers");
     withTrace.splice(ideaIndex < 0 ? 0 : ideaIndex, 0, {
