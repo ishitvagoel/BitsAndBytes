@@ -73,6 +73,12 @@ export function ReviewQueue({ lessons }: { lessons: LessonReviewInfo[] }) {
     }).filter((item): item is NonNullable<typeof item> => item !== null);
   }), [lessons, progress]);
 
+  const hasAttempt = lessons.some((lesson) => {
+    const record = progress.lessons[lesson.slug];
+    return record && Object.values(record.objectives).some((attempt) => attempt.attempts > 0);
+  });
+  if (!due.length && !hasAttempt) return null;
+
   return (
     <section className="review-queue" aria-labelledby="review-queue-title">
       <p className="eyebrow">SPACED REVIEW · SAVED ON THIS DEVICE</p>

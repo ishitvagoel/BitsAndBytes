@@ -5,11 +5,12 @@ import ReactMarkdown from "react-markdown";
 import { isValidElement, type ReactNode } from "react";
 
 import { CopyableCodeBlock } from "@/components/copyable-code-block";
-import { CoursePlace } from "@/components/lesson-course-nav";
 import { LessonHeaderSlot } from "@/components/lesson-header-slot";
+import type { TraceScenario } from "@/components/trace-bench";
 import { ModuleList } from "@/components/module-list";
-import { ResumeLine, ResumeTracker } from "@/components/resume-progress";
+import { ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
+import lessonTraces from "@/data/lesson-traces.json";
 import lessonSlugAliases from "@/data/lesson-slug-aliases.json";
 import {
   formatModuleNames,
@@ -24,6 +25,10 @@ import type { LessonProgressConfig } from "@/lib/learning-progress";
 const BinarySearchLab = dynamic(
   () => import("@/components/binary-search-lab").then((module) => module.BinarySearchLab),
   { loading: () => <p className="interaction-loading" role="status">The interactive trace is loading. The written explanation and source code below remain available.</p> },
+);
+const TraceBench = dynamic(
+  () => import("@/components/trace-bench").then((module) => module.TraceBench),
+  { loading: () => <p className="interaction-loading" role="status">The interactive trace is loading. The written explanation below remains available.</p> },
 );
 const LessonPractice = dynamic(
   () => import("@/components/binary-search-lab").then((module) => module.LessonPractice),
@@ -201,11 +206,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const learningSequence = lessons.filter((item) => item.editorialState !== "reference");
   const position = learningSequence.findIndex((item) => item.slug === lesson.slug) + 1;
   const sections = getLessonSections(lesson);
-  const resumeLessons = lessons.map((item) => ({
-    slug: item.slug,
-    title: item.title,
-    sections: getLessonSections(item).map(({ id, title }) => ({ id, title })),
-  }));
   const progressConfigs: Record<string, LessonProgressConfig> = Object.fromEntries(lessons.map((item) => [
     item.slug,
     {
@@ -214,12 +214,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
       objectiveIds: item.objectiveIds,
     },
   ]));
-  const courseLinks = learningSequence.map((item) => ({
-    slug: item.slug,
-    title: item.title,
-    stageTitle: item.stageTitle,
-    editorialState: item.editorialState,
-  }));
   const sourceExcerpt = lesson.slug === "binary-search"
     ? {
         ...binarySearchSource,
@@ -228,21 +222,27 @@ export default async function LessonPage({ params }: LessonPageProps) {
     : undefined;
   const excerpts: Record<string, SourceCodeExcerpt> = sourceExcerpt ? { "binary-search": sourceExcerpt } : {};
   const lessonSlugs = new Set(lessons.map((item) => item.slug));
-  const hasWorkshopBench = Boolean(sourceExcerpt);
-  const coursePlace = (
-    <CoursePlace
-      lessons={courseLinks}
-      currentSlug={lesson.slug}
-      currentTitle={lesson.title}
-      currentStage={lesson.stageTitle}
-    />
-  );
+  const genericTrace = (lessonTraces as Record<string, TraceScenario[]>)[lesson.slug];
+  const hasGenericTrace = Array.isArray(genericTrace) && genericTrace.length > 0;
+  const hasWorkshopBench = Boolean(sourceExcerpt) || hasGenericTrace;
+  const learnerBadge = lesson.editorialState === "reference" || lesson.contentReadiness === "reference"
+    ? "Reference"
+    : lesson.contentReadiness === "ready" || lesson.contentReadiness === "partial"
+      ? "Full lesson"
+      : "Overview";
   const lessonContext = (
     <>
-      <details className="lesson-outcomes lesson-page-outcomes">
-        <summary>What you will learn <span>{lesson.outcomes.length}</span></summary>
-        <ul>{lesson.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
-      </details>
+      {lesson.outcomes.length <= 4 ? (
+        <section className="lesson-outcomes lesson-page-outcomes" aria-labelledby="outcomes-title">
+          <h2 id="outcomes-title">What you will learn</h2>
+          <ul>{lesson.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
+        </section>
+      ) : (
+        <details className="lesson-outcomes lesson-page-outcomes">
+          <summary>What you will learn <span>{lesson.outcomes.length}</span></summary>
+          <ul>{lesson.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
+        </details>
+      )}
 
       {lesson.prerequisites.length > 0 && (
         <section className="prerequisite-card" aria-labelledby="prerequisite-title">
@@ -256,7 +256,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </section>
       )}
 
-      {sections.length > 0 && (
+      {sections.length >= 3 && (
         <details className="contents-panel">
           <summary>On this page <span>{sections.length} sections</span></summary>
           <nav aria-label="On this page">
@@ -277,34 +277,38 @@ export default async function LessonPage({ params }: LessonPageProps) {
     <main id="main-content" className={hasWorkshopBench ? "lesson-layout lesson-layout-bench" : "lesson-layout"} tabIndex={-1}>
       <div className="lesson-main-column">
         <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} />
-        <ResumeLine lessons={resumeLessons} />
         <LessonHeaderSlot>
-          <p className="header-lesson-position">{position > 0 ? `Lesson ${position} of ${learningSequence.length}` : "Reference"}</p>
+          <p className="header-lesson-position">
+            {lesson.stageTitle}
+            {position > 0 ? ` · ${position} of ${learningSequence.length}` : " · Reference"}
+            {lesson.next ? <> · <Link href={`/lessons/${lesson.next.slug}`}>Next</Link></> : null}
+          </p>
         </LessonHeaderSlot>
         <Link className="back-link" href="/">← Course home</Link>
-        <p className="lesson-kicker">{lesson.stageTitle.toUpperCase()} <span aria-hidden="true">/</span> {position > 0 ? `LESSON ${position} OF ${learningSequence.length}` : "REFERENCE"}</p>
+        <p className="lesson-kicker">{lesson.stageTitle} · {position > 0 ? `Lesson ${position} of ${learningSequence.length}` : "Reference"}</p>
         <h1 className="lesson-title">{lesson.title}</h1>
         <p className="lesson-subtitle">
           {lesson.summary}
         </p>
         <div className="lesson-readiness">
-          <span className={`editorial-badge editorial-${lesson.editorialState}`}>{lesson.editorialState === "pilot" ? "Interactive pilot" : lesson.editorialState === "reference" ? "Reference" : "Guide"}</span>
-          <span className={`readiness-label readiness-${lesson.contentReadiness}`}>{lesson.contentReadiness === "ready" ? "Ready" : lesson.contentReadiness === "partial" ? "Partially taught" : lesson.contentReadiness === "summary" ? "Summary only" : "Reference"}</span>
+          <span className={`readiness-label readiness-${lesson.contentReadiness}`}>{learnerBadge}</span>
           <span>About {lesson.estimatedMinutes} min</span>
         </div>
 
-        {hasWorkshopBench && sourceExcerpt && (
+        {hasWorkshopBench && (
           <div className="workshop-bench">
             <div className="workshop-trace">
-              <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />
+              {sourceExcerpt ? (
+                <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />
+              ) : (
+                <TraceBench lessonSlug={lesson.slug} scenarios={genericTrace} />
+              )}
             </div>
             <div className="workshop-check">
               <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />
             </div>
           </div>
         )}
-
-        {hasWorkshopBench && coursePlace}
 
         <div className="reading-card">
         {lessonContext}
@@ -351,7 +355,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <LessonSequence previous={lesson.previous} next={lesson.next} />
         <LessonSequence previous={lesson.previous} next={lesson.next} sticky />
         </div>
-        {!hasWorkshopBench && coursePlace}
       </div>
     </main>
   );

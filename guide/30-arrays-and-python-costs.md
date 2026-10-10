@@ -6,20 +6,28 @@ status: present
 module: bitsandbytes.library_costs
 ---
 
-## Use the operation a sequence is built for
+## The idea
 
-Python's `list` stores an indexed sequence and supports direct access by position. It is a good fit when iteration, indexing, and changes near the end dominate. A queue that repeatedly removes its first element performs a different operation pattern.
+A Python list is a dynamic array of references. Indexing list[i] is Θ(1) because the address is base + i times the reference size. append and pop() at the end are amortized Θ(1), which the next lesson counts. insert(0, x) and pop(0) move every later reference, so one call is Θ(n). A collections.deque stores blocks that can grow at either end, so append and popleft are Θ(1). Use a list when you need random access. Use a deque when both ends change and you do not need list[i] in the inner loop.
 
-**By the end of this overview, you can** choose a sequence based on its operations and distinguish an individual append from an expensive insertion near the front.
+## A worked trace
 
-## Compare work and memory
+| Step | State | What changed |
+| --- | --- | --- |
+| Before | length = 3 | b and c sit after a. |
+| Shift | copies = 2 | b moves to index 0 and c moves to index 1. |
+| After | length = 2 | The length is 2. One removal copied n - 1 references. |
 
-Inserting or deleting near index 0 of a list shifts the later references, taking O(n) time. Repeating `pop(0)` n times can therefore perform Θ(n²) total movement. `collections.deque` supports endpoint operations in approximately O(1) time, so it better matches FIFO queue behavior. It is not a replacement for fast arbitrary middle indexing.
+## Why it is correct
 
-Appending to a dynamic array may occasionally resize and copy its storage. Over a long sequence of appends, the total resizing work is spread across operations; this is amortized analysis. A single append can still be more expensive than O(1), so distinguish per-operation worst case from amortized cost.
+The shift cost follows from the layout. If item i + 1 must occupy slot i, every index from 0 through n - 2 is written once. That is n - 1 writes, which is Θ(n). Nothing in CPython's list makes the front special. The overallocation that makes append cheap sits at the end, past the current length.
 
-The implementation helpers in `bitsandbytes.library_costs` compare queue removal, sorted insertion, top-k selection, and sorting. Read their preconditions before transferring one cost claim to a different data structure.
+## What it costs
+
+n front removals on a list copy about n + (n - 1) + ... + 1 references, which is Θ(n²). The same n removals on a deque are Θ(n) total. Random access on the deque is not the list's Θ(1) index. The choice is which operations the algorithm actually performs.
+
+A worked check is n = 1000. One pop(0) moves about 999 references. Doing that once per item, to drain the list from the front, moves about half a million references. A deque draining the same list moves about 1000 nodes. The asymptotic symbols are the summary of that count. Indexing stays Θ(1) on the list either way, which is why a binary search later in the guide requires a list or another random-access sequence and not a linked chain.
 
 ## Practice and next step
 
-Choose between a list and deque for a FIFO queue and for repeated middle indexing. Explain the two different tradeoffs. Continue to [recursion and recurrences](./recursion-and-recurrences.md).
+Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

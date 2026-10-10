@@ -93,13 +93,13 @@ export function ReadinessCheck() {
           {score >= 3 ? (
             <>
               <p>You seem ready for the guide’s Python reading level. You can still use the optional bridge any time.</p>
-              <Link className="button button-primary" href="/lessons/binary-search">Start the learning pilot <span aria-hidden="true">→</span></Link>
+              <Link className="button button-primary" href="/lessons/input-size-and-operation-counts">Start at the first lesson <span aria-hidden="true">→</span></Link>
             </>
           ) : (
             <>
               <p>A short Python refresher may make the examples easier to follow. You can take it first or go straight to any lesson.</p>
               <Link className="button button-primary" href="/python-foundations">Open the optional Python bridge <span aria-hidden="true">→</span></Link>
-              <p><Link href="/lessons/binary-search">Go directly to the learning pilot</Link></p>
+              <p><Link href="/lessons/input-size-and-operation-counts">Go to the first lesson</Link></p>
             </>
           )}
         </section>

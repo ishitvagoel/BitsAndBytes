@@ -10,14 +10,14 @@ const home = fs.readFileSync(path.join(outputDir, "index.html"), "utf8");
 const pilot = fs.readFileSync(path.join(outputDir, "lessons/binary-search.html"), "utf8");
 const answerSearch = fs.readFileSync(path.join(outputDir, "lessons/binary-search-on-answer.html"), "utf8");
 
-assert.match(home, /href="\/lessons\/binary-search"[^>]*>Start the lesson/);
+assert.match(home, /href="\/lessons\/input-size-and-operation-counts"[^>]*>Start here/);
 assert.match(home, /Check whether the Python examples will feel familiar/);
 assert.match(home, /Search the glossary and compare Python tools/);
 assert.match(pilot, /id="main-content"/);
 assert.match(pilot, /href="\/"[^>]*>← Course home/);
-assert.match(pilot, /href="\/lessons\/queues-and-deque"/);
 const lessonSequence = /<nav class="lesson-nav" aria-label="Lesson sequence">([\s\S]*?)<\/nav>/.exec(pilot)?.[1] ?? "";
 assert.match(lessonSequence, /href="\/lessons\/binary-search-on-answer"/);
+assert.match(lessonSequence, /href="\/lessons\/quicksort-and-partition"/);
 assert.doesNotMatch(lessonSequence, /href="\/lessons\/queues-and-deque"/);
 assert.match(pilot, /Trace controls/);
 assert.match(pilot, /aria-label="Binary-search state"/);

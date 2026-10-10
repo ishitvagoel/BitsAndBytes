@@ -37,9 +37,9 @@ const stateLabels = {
 } as const;
 
 const readinessLabels = {
-  ready: "Ready",
-  partial: "Partially taught",
-  summary: "Summary",
+  ready: "Full lesson",
+  partial: "Full lesson",
+  summary: "Overview",
   reference: "Reference",
 } as const;
 

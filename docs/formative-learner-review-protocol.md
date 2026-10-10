@@ -66,3 +66,26 @@ After the first round, group repeated issues, revise the smallest relevant lesso
 | Anonymous ID | Session date / build | Pre-lesson evidence | Post-lesson transfer | Hints / confusion / navigation | Delayed retrieval | Revision to test |
 |---|---|---|---|---|---|---|
 | Pending participant | — | — | — | — | — | Do not mark learner-review tasks complete without participant evidence. |
+
+## Agent walkthrough, not a participant session
+
+Recruiting 3–5 learners is still the operator's action. The row below is an automated browser session against the local production server. It does not replace the protocol above, and it must not be counted as participant evidence.
+
+Build under test: working tree on `cursor/guide-learner-experience-ade6`, production server at `http://localhost:3000` after `npm run build`. Date: 2026-10-10. Lesson: Merge sort (`/lessons/merge-sort`), which is outside the binary-search pilot.
+
+What the session did:
+
+1. Home showed a Start here link to `/lessons/input-size-and-operation-counts`. Review queue and import/export controls were absent on a fresh visit.
+2. Activating Start here opened Input size and operation counts.
+3. Merge sort showed the header “Search and ordering · 19 of 52 · Next”, the badge “Full lesson”, and “About 7 min”.
+4. Next step changed the narration from “The midpoint is 2. The halves are [3, 1] and [4, 2].” to “Each half of length 2 is sorted. The runs are [1, 3] and [2, 4].”
+5. Choosing 2 and activating Check answer showed “Correct. The fronts are 3 and 2. The merge takes the smaller front, which is 2.”
+6. Show hint revealed “A merge does not look past the front of either run.”
+7. The previous-lesson title “Comparison sorts” computed to `rgb(36, 28, 20)` on a white card.
+8. `/lessons/stacks` showed the badge “Reference” and the header “Python reference · Reference”. The page text did not include “of 52”.
+9. At a 390px width, the sticky pager was visible. Its title color was `rgb(36, 28, 20)` on a cream button `rgb(255, 253, 248)`. The bar behind it was `rgb(16, 19, 24)`.
+10. A later production build, CSS gzip 7254, still passed the same clicks. The checkpoint copy no longer repeats the word Correct, and a selected practice option uses ink text on the cream fill.
+
+| Anonymous ID | Session date / build | Pre-lesson evidence | Post-lesson transfer | Hints / confusion / navigation | Delayed retrieval | Revision to test |
+|---|---|---|---|---|---|---|
+| Agent session, not a person | 2026-10-10 local production build | Not collected. An agent cannot stand in for a pre-lesson trace. | Merge-sort Next step, Check answer, and Show hint matched the expected frame and the checkpoint for runs [1, 3] and [2, 4]. | Home Start here, reference labeling for stacks, and mobile title contrast all matched the checks above. | Not collected. | Keep human recruitment open. Do not close the learner-review task on this row. |

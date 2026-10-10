@@ -45,21 +45,23 @@ export default function Home() {
     progressConfigFor(lesson),
   ]));
 
+  const start = sequence[0];
   return (
     <main id="main-content" className="home-page" tabIndex={-1}>
       <h1 id="home-title">Learn the idea. Then follow the steps.</h1>
+      <p className="home-lead">Start with how to count the work an algorithm does. Each later lesson uses that count.</p>
       <ResumeLine lessons={resumeLessons} />
-      <section className="browse-section chapter-grid" aria-labelledby="browse-title">
-        <h2 id="browse-title" className="sr-only">Course</h2>
-        <CurriculumIndex groups={groups} />
-      </section>
       <p className="home-actions">
-        <Link className="button button-primary" href="/lessons/binary-search">
-          Start the lesson <span aria-hidden="true">→</span>
+        <Link className="button button-primary" href={`/lessons/${start.slug}`}>
+          Start here <span aria-hidden="true">→</span>
         </Link>
         <Link className="readiness-link" href="/readiness">Check whether the Python examples will feel familiar <span aria-hidden="true">→</span></Link>
         <Link className="readiness-link" href="/reference">Search the glossary and compare Python tools <span aria-hidden="true">→</span></Link>
       </p>
+      <section className="browse-section chapter-grid" aria-labelledby="browse-title">
+        <h2 id="browse-title" className="sr-only">Course</h2>
+        <CurriculumIndex groups={groups} />
+      </section>
       <LocalProgressTools lessons={resumeLessons} progressConfigs={progressConfigs} />
       <ReviewQueue lessons={lessons.map((lesson) => ({
         slug: lesson.slug,
