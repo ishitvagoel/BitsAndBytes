@@ -6,10 +6,13 @@ import { isValidElement, type ReactNode } from "react";
 
 import { CopyableCodeBlock } from "@/components/copyable-code-block";
 import { CoursePlace } from "@/components/lesson-course-nav";
+import { LessonHeaderSlot } from "@/components/lesson-header-slot";
+import { ModuleList } from "@/components/module-list";
 import { ResumeLine, ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
 import lessonSlugAliases from "@/data/lesson-slug-aliases.json";
 import {
+  formatModuleNames,
   getAllLessons,
   getLessonBySlug,
 } from "@/lib/lessons";
@@ -76,8 +79,13 @@ function Markdown({
     const section = sections[nextSection++];
     return section?.id ?? headingId(headingText(children));
   };
+  const chunks = source.split(/\n(?=## )/);
   return (
-    <ReactMarkdown
+    <>
+      {chunks.map((chunk, index) => {
+        const callout = chunk.startsWith("## ");
+        const body = (
+          <ReactMarkdown
       components={{
         a: ({ href, children, ...props }) => {
           if (!href) return <a {...props}>{children}</a>;
@@ -116,9 +124,52 @@ function Markdown({
         h2: ({ children, ...props }) => <h2 {...props} id={renderedHeadingId(children)}>{children}</h2>,
         h3: ({ children, ...props }) => <h3 {...props} id={renderedHeadingId(children)}>{children}</h3>,
       }}
-    >
-      {source}
-    </ReactMarkdown>
+          >
+            {chunk}
+          </ReactMarkdown>
+        );
+        return callout
+          ? <section className="heading-callout" key={`${index}-${chunk.slice(0, 24)}`}>{body}</section>
+          : <div key={`${index}-plain`}>{body}</div>;
+      })}
+    </>
+  );
+}
+
+function LessonSequence({
+  previous,
+  next,
+  sticky = false,
+}: {
+  previous?: { slug: string; title: string };
+  next?: { slug: string; title: string };
+  sticky?: boolean;
+}) {
+  return (
+    <nav className={sticky ? "lesson-nav lesson-nav-sticky" : "lesson-nav"} aria-label={sticky ? "Pinned lesson sequence" : "Lesson sequence"}>
+      {previous ? (
+        <Link className="lesson-nav-link lesson-nav-previous" href={`/lessons/${previous.slug}`}>
+          <span className="lesson-nav-label">Previous</span>
+          <span className="lesson-nav-title">{previous.title}</span>
+        </Link>
+      ) : (
+        <span className="lesson-nav-end" aria-disabled="true">
+          <span className="lesson-nav-label">Previous</span>
+          <span className="lesson-nav-title">Start of the guide</span>
+        </span>
+      )}
+      {next ? (
+        <Link className="lesson-nav-link lesson-nav-next" href={`/lessons/${next.slug}`}>
+          <span className="lesson-nav-label">Next</span>
+          <span className="lesson-nav-title">{next.title}</span>
+        </Link>
+      ) : (
+        <span className="lesson-nav-end" aria-disabled="true">
+          <span className="lesson-nav-label">Next</span>
+          <span className="lesson-nav-title">End of the guide</span>
+        </span>
+      )}
+    </nav>
   );
 }
 
@@ -227,6 +278,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <div className="lesson-main-column">
         <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} />
         <ResumeLine lessons={resumeLessons} />
+        <LessonHeaderSlot>
+          <p className="header-lesson-position">{position > 0 ? `Lesson ${position} of ${learningSequence.length}` : "Reference"}</p>
+        </LessonHeaderSlot>
         <Link className="back-link" href="/">← Course home</Link>
         <p className="lesson-kicker">{lesson.stageTitle.toUpperCase()} <span aria-hidden="true">/</span> {position > 0 ? `LESSON ${position} OF ${learningSequence.length}` : "REFERENCE"}</p>
         <h1 className="lesson-title">{lesson.title}</h1>
@@ -255,6 +309,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <div className="reading-card">
         {lessonContext}
 
+        <ModuleList names={formatModuleNames(lesson.module)} />
         <article className="lesson-body">
           <Markdown source={lesson.content} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
           {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />}
@@ -293,20 +348,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </ul>
         </details>
 
-        <nav className="lesson-nav" aria-label="Lesson sequence">
-          {lesson.previous ? (
-            <Link className="lesson-nav-link lesson-nav-previous" href={`/lessons/${lesson.previous.slug}`}>
-              <span className="lesson-nav-label">Previous lesson</span>
-              <span className="lesson-nav-title">{lesson.previous.title}</span>
-            </Link>
-          ) : <span />}
-          {lesson.next ? (
-            <Link className="lesson-nav-link lesson-nav-next" href={`/lessons/${lesson.next.slug}`}>
-              <span className="lesson-nav-label">Next lesson</span>
-              <span className="lesson-nav-title">{lesson.next.title}</span>
-            </Link>
-          ) : <span />}
-        </nav>
+        <LessonSequence previous={lesson.previous} next={lesson.next} />
+        <LessonSequence previous={lesson.previous} next={lesson.next} sticky />
         </div>
         {!hasWorkshopBench && coursePlace}
       </div>

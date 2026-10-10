@@ -1,12 +1,15 @@
 import Link from "next/link";
 
+import { getAllLessons } from "@/lib/lessons";
+
 export default function NotFound() {
+  const lessonCount = getAllLessons().filter((lesson) => lesson.editorialState !== "reference").length;
+
   return (
     <main id="main-content" className="not-found-page" tabIndex={-1}>
-      <p className="eyebrow">PAGE NOT FOUND</p>
-      <h1>This lesson link has moved or no longer exists.</h1>
-      <p>Use the course guide to find the topic you were looking for.</p>
-      <Link className="button button-primary" href="/">Open the course guide</Link>
+      <h1>That lesson is not in the guide.</h1>
+      <p>The {lessonCount} lessons are listed on the home page.</p>
+      <Link className="button button-primary" href="/">All lessons</Link>
     </main>
   );
 }
