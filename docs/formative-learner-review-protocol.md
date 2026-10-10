@@ -83,7 +83,8 @@ What the session did:
 6. Show hint revealed “A merge does not look past the front of either run.”
 7. The previous-lesson title “Comparison sorts” computed to `rgb(36, 28, 20)` on a white card.
 8. `/lessons/stacks` showed the badge “Reference” and the header “Python reference · Reference”. The page text did not include “of 52”.
-9. At a 390px width, the sticky pager was visible. Its title color was `rgb(36, 28, 20)` on a white button. The bar behind it was `rgb(16, 19, 24)`.
+9. At a 390px width, the sticky pager was visible. Its title color was `rgb(36, 28, 20)` on a cream button `rgb(255, 253, 248)`. The bar behind it was `rgb(16, 19, 24)`.
+10. A later production build, CSS gzip 7254, still passed the same clicks. The checkpoint copy no longer repeats the word Correct, and a selected practice option uses ink text on the cream fill.
 
 | Anonymous ID | Session date / build | Pre-lesson evidence | Post-lesson transfer | Hints / confusion / navigation | Delayed retrieval | Revision to test |
 |---|---|---|---|---|---|---|

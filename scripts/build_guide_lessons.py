@@ -152,7 +152,7 @@ LESSONS: list[dict[str, object]] = [
         "prompt": "A loop scans every pair of a list of n items. Which expression counts the pair checks?",
         "options": [("linear", "n"), ("quadratic", "n(n - 1) / 2"), ("cubic", "n cubed")],
         "answer": "quadratic",
-        "correct": "Correct. Each unordered pair is one check, and the number of unordered pairs is n(n - 1) / 2.",
+        "correct": "Each unordered pair is one check, and the number of unordered pairs is n(n - 1) / 2.",
         "retry": "Count pairs, not single items. The first item pairs with n - 1 others, the next with n - 2, and that sum is n(n - 1) / 2.",
         "hints": ["The loop does not stop after one pass over the list.", "Add (n - 1) + (n - 2) + ... + 1."],
         "scenario": scenario(
@@ -176,7 +176,7 @@ LESSONS: list[dict[str, object]] = [
         "prompt": "A routine does 3n + 20 comparisons. Which statement is true?",
         "options": [("tight", "The work is Θ(n)"), ("square", "The work is Θ(n²)"), ("constant", "The work is Θ(1)")],
         "answer": "tight",
-        "correct": "Correct. 3n + 20 grows like n. The 3 and the 20 do not change the growth class.",
+        "correct": "3n + 20 grows like n. The 3 and the 20 do not change the growth class.",
         "retry": "Divide 3n + 20 by n. The ratio approaches 3, a constant, so the bound is tight at n.",
         "hints": ["Ignore the constant factor and the added constant.", "Compare n, n log n, and n² as n gets large."],
         "scenario": scenario(
@@ -199,7 +199,7 @@ LESSONS: list[dict[str, object]] = [
         "prompt": "Insertion sort's prefix is sorted before each outer step. Which check fails if an equal key is moved past an earlier equal key?",
         "options": [("stability", "Stability, because the earlier equal key must stay on the left"), ("init", "Initialization, because the empty prefix is not sorted"), ("term", "Termination, because the loop never ends")],
         "answer": "stability",
-        "correct": "Correct. The prefix can stay sorted either way. Moving an equal key past another equal key breaks stability, which is a stronger claim than sorted order.",
+        "correct": "The prefix can stay sorted either way. Moving an equal key past another equal key breaks stability, which is a stronger claim than sorted order.",
         "retry": "A sorted prefix allows equal keys in either order. The extra promise is which equal key stays first.",
         "hints": ["Initialization of a one-item prefix is fine.", "Ask what the algorithm promises about equal keys, not only about order."],
         "scenario": scenario(
@@ -222,7 +222,7 @@ LESSONS: list[dict[str, object]] = [
         "prompt": "You repeatedly remove the first item of a Python list of length n. What is the cost of one removal?",
         "options": [("front", "Θ(n), because every later item shifts left"), ("end", "Θ(1), because the list stores a tail pointer"), ("log", "Θ(log n), because the list is a tree")],
         "answer": "front",
-        "correct": "Correct. list.pop(0) slides every remaining reference one slot toward index 0.",
+        "correct": "list.pop(0) slides every remaining reference one slot toward index 0.",
         "retry": "The cheap end of a Python list is the last index. The first index is the expensive end.",
         "hints": ["A list is a contiguous array, not a linked chain.", "append and pop() with no argument touch the end."],
         "scenario": scenario(
@@ -245,7 +245,7 @@ LESSONS: list[dict[str, object]] = [
         "prompt": "A dynamic array doubles from capacity 1 and then stores 3 items. How many reference copies did the resizes perform?",
         "options": [("one", "1"), ("three", "3"), ("seven", "7")],
         "answer": "three",
-        "correct": "Correct. The resize before b copies a. The resize before c copies a and b. The total is 1 + 2 = 3.",
+        "correct": "The resize before b copies a. The resize before c copies a and b. The total is 1 + 2 = 3.",
         "retry": "Capacity goes 1, then 2, then 4. Only the two growth steps copy, and they copy 1 and then 2 items.",
         "hints": ["The first append fills the initial slot and copies nothing.", "Add the number of items moved at each doubling."],
         "scenario": scenario(
@@ -268,7 +268,7 @@ LESSONS: list[dict[str, object]] = [
         "prompt": "A function does Θ(n) work and then makes two calls on n/2. How many levels does the call tree have?",
         "options": [("log", "Θ(log n) levels"), ("linear", "Θ(n) levels"), ("one", "One level, because the work is a loop")],
         "answer": "log",
-        "correct": "Correct. The size halves each level, so the depth is Θ(log n). The total work is still Θ(n log n) because each level does Θ(n) work.",
+        "correct": "The size halves each level, so the depth is Θ(log n). The total work is still Θ(n log n) because each level does Θ(n) work.",
         "retry": "Depth and total work are different. Halving reaches 1 after Θ(log n) steps. Each of those steps, across the whole level, touches Θ(n) items.",
         "hints": ["Write n, n/2, n/4 until the size is 1.", "Count the levels, then multiply by the work on one level."],
         "scenario": scenario(
@@ -297,7 +297,7 @@ def more_lessons() -> list[dict[str, object]]:
             "prompt": "A singly linked list caches the tail and the size. Removing the tail still takes Θ(n) time. Why?",
             "options": [("pred", "The node before the tail is not stored, so the list walks from the head"), ("tail", "The cached tail makes every removal scan the array"), ("size", "The cached size is recomputed by counting nodes")],
             "answer": "pred",
-            "correct": "Correct. The tail's predecessor must become the new tail, and a singly linked node has no link to its predecessor.",
+            "correct": "The tail's predecessor must become the new tail, and a singly linked node has no link to its predecessor.",
             "retry": "The tail pointer finds the last node. It does not find the node that points at the last node.",
             "hints": ["Draw three nodes and the tail pointer.", "Ask which reference has to change when the last node goes away."],
             "scenario": scenario("linked-list-core", "Append, then look at the tail", "Head and tail both move only when the end they point at changes.", [
@@ -316,7 +316,7 @@ def more_lessons() -> list[dict[str, object]]:
             "prompt": "A stack receives push 1, push 2, push 3, pop, pop. What is the second value returned?",
             "options": [("two", "2"), ("one", "1"), ("three", "3")],
             "answer": "two",
-            "correct": "Correct. The first pop returns 3, the last item pushed. The second pop returns 2.",
+            "correct": "The first pop returns 3, the last item pushed. The second pop returns 2.",
             "retry": "The top is the most recent push. After 3 leaves, 2 is on top.",
             "hints": ["Write the items from bottom to top after each push.", "Pop removes the rightmost item in that picture."],
             "scenario": scenario("stack-basics-core", "Push 1, 2, 3 and pop twice", "The right end is the top. The library Stack used here has a fixed limit.", [
@@ -335,7 +335,7 @@ def more_lessons() -> list[dict[str, object]]:
             "prompt": "A queue receives enqueue a, enqueue b, enqueue c, dequeue, dequeue. What is the second value returned?",
             "options": [("bee", "b"), ("ay", "a"), ("see", "c")],
             "answer": "bee",
-            "correct": "Correct. The first dequeue returns a, the earliest item. The second returns b.",
+            "correct": "The first dequeue returns a, the earliest item. The second returns b.",
             "retry": "A queue removes from the front. a arrived first, so a leaves first. b is next.",
             "hints": ["Enqueue adds at the back.", "The front does not change when you enqueue."],
             "scenario": scenario("queue-core", "Enqueue a, b, c", "The left end is the front. Dequeue removes from the left.", [
@@ -354,7 +354,7 @@ def more_lessons() -> list[dict[str, object]]:
             "prompt": "Insertion sort on [3, 1, 2] has just placed 1. What is the sorted prefix?",
             "options": [("one-three", "[1, 3]"), ("three", "[3]"), ("full", "[1, 2, 3]")],
             "answer": "one-three",
-            "correct": "Correct. The key 1 has been inserted and 2 has not been inserted yet, so the prefix is [1, 3].",
+            "correct": "The key 1 has been inserted and 2 has not been inserted yet, so the prefix is [1, 3].",
             "retry": "The trace places 1 in front of 3 before it looks at 2.",
             "hints": ["The prefix grows by one item each outer step.", "2 is still waiting in the unsorted suffix."],
             "scenario": scenario("comparison-sorts-core", "Insertion sort [3, 1, 2]", "The library insertion_sort shifts the prefix with a strict < comparison, so equal keys would not pass each other. This input has no ties.", [
@@ -377,7 +377,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "Two sorted runs are [1, 3] and [2, 4]. The merge has already taken 1. Which value is taken next?",
             "options": [("two", "2"), ("three", "3"), ("four", "4")],
             "answer": "two",
-            "correct": "Correct. The fronts are 3 and 2. The merge takes the smaller front, which is 2.",
+            "correct": "The fronts are 3 and 2. The merge takes the smaller front, which is 2.",
             "retry": "Compare only the two fronts. 2 is smaller than 3, so 2 leaves its run first.",
             "hints": ["A merge does not look past the front of either run.", "1 has already been written to the output."],
             "scenario": scenario("merge-sort-core", "Merge sort [3, 1, 4, 2]", "Each half is sorted, then the two sorted runs are merged by taking the smaller front. Ties would take the left run, which is why the sort is stable. merge_sort returns [1, 2, 3, 4].", [
@@ -397,7 +397,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "The pivot is 2, already at the end of [3, 1, 4, 2]. The scan has just swapped 1 into the boundary. Where does 2 finish?",
             "options": [("index-one", "Index 1, between the values ≤ 2 and the values > 2"), ("index-zero", "Index 0, because 2 is the smallest"), ("index-three", "Index 3, because the pivot stays at the end")],
             "answer": "index-one",
-            "correct": "Correct. After the scan the boundary is 1. Swapping the pivot into index 1 yields [1, 2, 4, 3].",
+            "correct": "After the scan the boundary is 1. Swapping the pivot into index 1 yields [1, 2, 4, 3].",
             "retry": "Count how many values were ≤ the pivot. Only 1 moved. The pivot takes the next slot, index 1.",
             "hints": ["The boundary is the next slot for a value ≤ pivot.", "The final swap writes the pivot into that slot."],
             "scenario": scenario("quicksort-core", "Partition [3, 1, 4, 2] with pivot 2", "The library swaps a chosen pivot to the end, then scans. This trace starts after 2 is already at the end, which is what happens when the chosen index is the last index.", [
@@ -416,7 +416,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "Keys 0 and 4 land in the same 4-bucket chain. What does a later lookup of 0 do?",
             "options": [("scan", "It scans that bucket's chain until the key matches"), ("miss", "It reports a miss, because the bucket is shared"), ("rehash", "It rehashes the whole table before returning")],
             "answer": "scan",
-            "correct": "Correct. The bucket is a list of pairs. Lookup walks that list and compares keys.",
+            "correct": "The bucket is a list of pairs. Lookup walks that list and compares keys.",
             "retry": "A shared bucket is a collision, not a miss. The chain still holds both pairs.",
             "hints": ["The hash selects the bucket. The key comparison selects the pair.", "The second insert appended. It did not erase the first pair."],
             "scenario": scenario("hash-chaining-core", "Keys 0 and 4 share a bucket", "ChainingHashTable with 4 buckets stores (0, 1) and (4, 2) in the same chain, because hash(0) % 4 and hash(4) % 4 are both 0. Lookup of 0 walks that chain.", [
@@ -435,7 +435,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "Insert 4, then 2, then 6, then 1. Where does 1 hang?",
             "options": [("left-of-two", "As the left child of 2"), ("left-of-four", "As the left child of 4, replacing 2"), ("right-of-six", "As the right child of 6")],
             "answer": "left-of-two",
-            "correct": "Correct. 1 is less than 4 and less than 2, and 2 has no left child, so 1 becomes that child.",
+            "correct": "1 is less than 4 and less than 2, and 2 has no left child, so 1 becomes that child.",
             "retry": "From 4 the search goes left to 2. From 2 it goes left again, into an empty child.",
             "hints": ["Smaller keys go left.", "2 is already the left child of 4, so 1 has to go further."],
             "scenario": scenario("bst-core", "Insert 4, 2, 6, 1", "Each insert walks until it finds an empty child. The library inorder walk then returns [1, 2, 4, 6].", [
@@ -454,7 +454,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "heapify turns [3, 1, 4, 2] into a max-heap. Which key ends at the root before the sort extracts anything?",
             "options": [("four", "4"), ("three", "3"), ("one", "1")],
             "answer": "four",
-            "correct": "Correct. A max-heap puts the largest key at index 0. 4 is the largest key.",
+            "correct": "A max-heap puts the largest key at index 0. 4 is the largest key.",
             "retry": "The heap invariant says every parent is ≥ its children. The largest key has nowhere to go but the root.",
             "hints": ["This heap is a max-heap.", "heapify runs before any extraction."],
             "scenario": scenario("heap-core", "Heapify [3, 1, 4, 2]", "Children of index i are 2i + 1 and 2i + 2. heapify sifts from the last parent down to the root. heapsort then extracts until the array is sorted ascending.", [
@@ -473,7 +473,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "BFS starts at A. Edges are A→B, A→C, B→D. What is the visit order?",
             "options": [("abcd", "A, B, C, D"), ("abdc", "A, B, D, C"), ("acbd", "A, C, B, D")],
             "answer": "abcd",
-            "correct": "Correct. A is dequeued first and enqueues B then C. B is dequeued next and enqueues D. C follows.",
+            "correct": "A is dequeued first and enqueues B then C. B is dequeued next and enqueues D. C follows.",
             "retry": "The queue removes the oldest vertex. B was enqueued before C, and D is enqueued only when B is visited.",
             "hints": ["Enqueue neighbors in the order the edge list stores them.", "D is a neighbor of B, so it cannot pass C if C was already queued."],
             "scenario": scenario("bfs-core", "Breadth-first search from A", "The library breadth_first_order on this graph returns [A, B, C, D]. The queue's left end is the front.", [
@@ -492,7 +492,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "Naive union links 1 under 0, then links 2 under find(1). What does find(2) walk?",
             "options": [("two-links", "2 to 0, two links if compression is off and 2's parent is 0"), ("chain", "2 to 1 to 0, when 2 was linked to 1"), ("none", "Nothing. find returns 2 because 2 was never a parent")],
             "answer": "two-links",
-            "correct": "Correct for the library's naive union. find(1) returns 0 before the link, so 2's parent becomes 0. find(2) then walks 2 → 0.",
+            "correct": "For the library's naive union, find(1) returns 0 before the link, so 2's parent becomes 0. find(2) then walks 2 → 0.",
             "retry": "Look at the parent written for 2. Naive union links the root of the second item, and that root was found before the write.",
             "hints": ["find(1) does not stop at 1 if 1's parent is 0.", "The new parent of 2 is the root, not the original label 1."],
             "scenario": scenario("union-find-core", "Union 0-1 and 1-2 without heuristics", "Parent pointers start as self-links. The library DisjointSet without heuristics links the second root under the first.", [
@@ -511,7 +511,7 @@ def final_lessons() -> list[dict[str, object]]:
             "prompt": "The Fibonacci recurrence is F(n) = F(n - 1) + F(n - 2), with F(0) = 0 and F(1) = 1. What is F(6)?",
             "options": [("eight", "8"), ("thirteen", "13"), ("five", "5")],
             "answer": "eight",
-            "correct": "Correct. The table is 0, 1, 1, 2, 3, 5, 8. fibonacci_modulo(6, 1000) returns 8.",
+            "correct": "The table is 0, 1, 1, 2, 3, 5, 8. fibonacci_modulo(6, 1000) returns 8.",
             "retry": "Fill the table left to right. Each new cell is the sum of the previous two. Do not stop at F(5).",
             "hints": ["F(2) = 1, F(3) = 2, F(4) = 3, F(5) = 5.", "The library function returns F(n) modulo the given modulus. 8 mod 1000 is 8."],
             "scenario": scenario("dp-core", "Bottom-up Fibonacci through F(6)", "Each cell is the sum of the two cells before it. The library keeps only the last two values. The table here shows the same numbers.", [

@@ -219,7 +219,7 @@
       }
     ],
     "answer": "quadratic",
-    "correct": "Correct. Each unordered pair is one check, and the number of unordered pairs is n(n - 1) / 2.",
+    "correct": "Each unordered pair is one check, and the number of unordered pairs is n(n - 1) / 2.",
     "retry": "Count pairs, not single items. The first item pairs with n - 1 others, the next with n - 2, and that sum is n(n - 1) / 2.",
     "objectiveId": "input-size-choose-variable"
   },
@@ -247,7 +247,7 @@
       }
     ],
     "answer": "tight",
-    "correct": "Correct. 3n + 20 grows like n. The 3 and the 20 do not change the growth class.",
+    "correct": "3n + 20 grows like n. The 3 and the 20 do not change the growth class.",
     "retry": "Divide 3n + 20 by n. The ratio approaches 3, a constant, so the bound is tight at n.",
     "objectiveId": "asymptotic-distinguish-bounds"
   },
@@ -275,7 +275,7 @@
       }
     ],
     "answer": "stability",
-    "correct": "Correct. The prefix can stay sorted either way. Moving an equal key past another equal key breaks stability, which is a stronger claim than sorted order.",
+    "correct": "The prefix can stay sorted either way. Moving an equal key past another equal key breaks stability, which is a stronger claim than sorted order.",
     "retry": "A sorted prefix allows equal keys in either order. The extra promise is which equal key stays first.",
     "objectiveId": "invariant-check-proof-steps"
   },
@@ -303,7 +303,7 @@
       }
     ],
     "answer": "front",
-    "correct": "Correct. list.pop(0) slides every remaining reference one slot toward index 0.",
+    "correct": "list.pop(0) slides every remaining reference one slot toward index 0.",
     "retry": "The cheap end of a Python list is the last index. The first index is the expensive end.",
     "objectiveId": "python-sequence-select-structure"
   },
@@ -331,7 +331,7 @@
       }
     ],
     "answer": "three",
-    "correct": "Correct. The resize before b copies a. The resize before c copies a and b. The total is 1 + 2 = 3.",
+    "correct": "The resize before b copies a. The resize before c copies a and b. The total is 1 + 2 = 3.",
     "retry": "Capacity goes 1, then 2, then 4. Only the two growth steps copy, and they copy 1 and then 2 items.",
     "objectiveId": "dynamic-array-amortized-append"
   },
@@ -359,7 +359,7 @@
       }
     ],
     "answer": "log",
-    "correct": "Correct. The size halves each level, so the depth is \u0398(log n). The total work is still \u0398(n log n) because each level does \u0398(n) work.",
+    "correct": "The size halves each level, so the depth is \u0398(log n). The total work is still \u0398(n log n) because each level does \u0398(n) work.",
     "retry": "Depth and total work are different. Halving reaches 1 after \u0398(log n) steps. Each of those steps, across the whole level, touches \u0398(n) items.",
     "objectiveId": "recursion-count-levels-and-stack"
   },
@@ -387,7 +387,7 @@
       }
     ],
     "answer": "pred",
-    "correct": "Correct. The tail's predecessor must become the new tail, and a singly linked node has no link to its predecessor.",
+    "correct": "The tail's predecessor must become the new tail, and a singly linked node has no link to its predecessor.",
     "retry": "The tail pointer finds the last node. It does not find the node that points at the last node.",
     "objectiveId": "linked-list-operation-costs"
   },
@@ -415,7 +415,7 @@
       }
     ],
     "answer": "two",
-    "correct": "Correct. The first pop returns 3, the last item pushed. The second pop returns 2.",
+    "correct": "The first pop returns 3, the last item pushed. The second pop returns 2.",
     "retry": "The top is the most recent push. After 3 leaves, 2 is on top.",
     "objectiveId": "stack-trace-lifo"
   },
@@ -443,7 +443,7 @@
       }
     ],
     "answer": "bee",
-    "correct": "Correct. The first dequeue returns a, the earliest item. The second returns b.",
+    "correct": "The first dequeue returns a, the earliest item. The second returns b.",
     "retry": "A queue removes from the front. a arrived first, so a leaves first. b is next.",
     "objectiveId": "queue-trace-fifo"
   },
@@ -471,7 +471,7 @@
       }
     ],
     "answer": "one-three",
-    "correct": "Correct. The key 1 has been inserted and 2 has not been inserted yet, so the prefix is [1, 3].",
+    "correct": "The key 1 has been inserted and 2 has not been inserted yet, so the prefix is [1, 3].",
     "retry": "The trace places 1 in front of 3 before it looks at 2.",
     "objectiveId": "comparison-sort-track-prefix"
   },
@@ -499,7 +499,7 @@
       }
     ],
     "answer": "two",
-    "correct": "Correct. The fronts are 3 and 2. The merge takes the smaller front, which is 2.",
+    "correct": "The fronts are 3 and 2. The merge takes the smaller front, which is 2.",
     "retry": "Compare only the two fronts. 2 is smaller than 3, so 2 leaves its run first.",
     "objectiveId": "merge-sort-derive-cost"
   },
@@ -527,7 +527,7 @@
       }
     ],
     "answer": "index-one",
-    "correct": "Correct. After the scan the boundary is 1. Swapping the pivot into index 1 yields [1, 2, 4, 3].",
+    "correct": "After the scan the boundary is 1. Swapping the pivot into index 1 yields [1, 2, 4, 3].",
     "retry": "Count how many values were \u2264 the pivot. Only 1 moved. The pivot takes the next slot, index 1.",
     "objectiveId": "quicksort-state-partition"
   },
@@ -555,7 +555,7 @@
       }
     ],
     "answer": "scan",
-    "correct": "Correct. The bucket is a list of pairs. Lookup walks that list and compares keys.",
+    "correct": "The bucket is a list of pairs. Lookup walks that list and compares keys.",
     "retry": "A shared bucket is a collision, not a miss. The chain still holds both pairs.",
     "objectiveId": "hash-chaining-trace-bucket"
   },
@@ -583,7 +583,7 @@
       }
     ],
     "answer": "left-of-two",
-    "correct": "Correct. 1 is less than 4 and less than 2, and 2 has no left child, so 1 becomes that child.",
+    "correct": "1 is less than 4 and less than 2, and 2 has no left child, so 1 becomes that child.",
     "retry": "From 4 the search goes left to 2. From 2 it goes left again, into an empty child.",
     "objectiveId": "bst-operations-trace-edits"
   },
@@ -611,7 +611,7 @@
       }
     ],
     "answer": "four",
-    "correct": "Correct. A max-heap puts the largest key at index 0. 4 is the largest key.",
+    "correct": "A max-heap puts the largest key at index 0. 4 is the largest key.",
     "retry": "The heap invariant says every parent is \u2265 its children. The largest key has nowhere to go but the root.",
     "objectiveId": "heap-operations-trace-sift"
   },
@@ -639,7 +639,7 @@
       }
     ],
     "answer": "abcd",
-    "correct": "Correct. A is dequeued first and enqueues B then C. B is dequeued next and enqueues D. C follows.",
+    "correct": "A is dequeued first and enqueues B then C. B is dequeued next and enqueues D. C follows.",
     "retry": "The queue removes the oldest vertex. B was enqueued before C, and D is enqueued only when B is visited.",
     "objectiveId": "graph-traversal-trace-discovery"
   },
@@ -667,7 +667,7 @@
       }
     ],
     "answer": "two-links",
-    "correct": "Correct for the library's naive union. find(1) returns 0 before the link, so 2's parent becomes 0. find(2) then walks 2 \u2192 0.",
+    "correct": "For the library's naive union, find(1) returns 0 before the link, so 2's parent becomes 0. find(2) then walks 2 \u2192 0.",
     "retry": "Look at the parent written for 2. Naive union links the root of the second item, and that root was found before the write.",
     "objectiveId": "union-find-track-components"
   },
@@ -695,7 +695,7 @@
       }
     ],
     "answer": "eight",
-    "correct": "Correct. The table is 0, 1, 1, 2, 3, 5, 8. fibonacci_modulo(6, 1000) returns 8.",
+    "correct": "The table is 0, 1, 1, 2, 3, 5, 8. fibonacci_modulo(6, 1000) returns 8.",
     "retry": "Fill the table left to right. Each new cell is the sum of the previous two. Do not stop at F(5).",
     "objectiveId": "dp-build-recurrence"
   }

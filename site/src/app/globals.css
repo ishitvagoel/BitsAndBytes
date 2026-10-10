@@ -1890,6 +1890,7 @@ main:focus-visible {
 .practice-option:has(input:checked) {
   border-color: var(--amber);
   background: var(--surface);
+  color: var(--ink);
 }
 
 .practice-option input {
