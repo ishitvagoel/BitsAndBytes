@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 import { useLastVisitedSlug } from "@/components/resume-progress";
 import {
-  LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
   validateLearningProgress,
   type LessonProgressConfig,
@@ -53,33 +53,16 @@ const readinessLabels = {
   reference: "Reference",
 } as const;
 
-function subscribeToLearningProgress(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(LEARNING_PROGRESS_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(LEARNING_PROGRESS_EVENT, callback);
-  };
-}
-
-function getLearningProgressSnapshot() {
-  try {
-    return window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
 export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
   const [query, setQuery] = useState("");
   const [openedStages, setOpenedStages] = useState<Record<string, boolean>>({});
   const [searchIndex, setSearchIndex] = useState<SearchEntry[] | null>(null);
-  const savedProgress = useSyncExternalStore(subscribeToLearningProgress, getLearningProgressSnapshot, () => "");
+  const [savedProgress] = useLocalJsonState(LEARNING_PROGRESS_KEY, null, (value: unknown) => value);
   const knownSlugs = useMemo(() => groups.flatMap((group) => group.lessons.map((lesson) => lesson.slug)), [groups]);
   const progressConfigs = useMemo(() => Object.fromEntries(groups.flatMap((group) => group.lessons.map((lesson) => [lesson.slug, lesson.progressConfig]))), [groups]);
   const personalProgress = useMemo(() => {
     try {
-      return validateLearningProgress(JSON.parse(savedProgress || "null") as unknown, progressConfigs);
+      return validateLearningProgress(savedProgress, progressConfigs);
     } catch {
       return validateLearningProgress(null, progressConfigs);
     }

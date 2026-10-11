@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useRef, useState } from "react";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 import traceFixtures from "@/data/binary-search-traces.json";
 import exerciseFixtures from "@/data/exercises.json";
 import { practiceStorageKey } from "@/lib/practice-storage";
@@ -24,6 +25,7 @@ type StoredBundle = {
   exportedAt: string;
   resume: { version: 1; slug: string; sectionId: string | null } | null;
   trace: { scenarioId: string; frameIndex: number } | null;
+  lessonTraces?: Record<string, { scenarioId: string; frameIndex: number }>;
   practice: Record<string, { selected: string; checked: boolean; hintIndex?: number }>;
   learning: LearningProgress;
 };
@@ -42,6 +44,16 @@ function readCurrent(progressConfigs: Record<string, LessonProgressConfig>): Sto
   };
   const resume = parse(RESUME_KEY);
   const trace = parse(TRACE_KEY);
+  const lessonTraces: NonNullable<StoredBundle["lessonTraces"]> = {};
+  for (let index = 0; index < window.localStorage.length; index += 1) {
+    const key = window.localStorage.key(index);
+    if (!key?.startsWith("bitsandbytes.trace.")) continue;
+    const saved = parse(key);
+    if (!saved || typeof saved !== "object" || Array.isArray(saved)) continue;
+    const candidate = saved as { scenarioId?: unknown; frameIndex?: unknown };
+    if (typeof candidate.scenarioId !== "string" || !Number.isInteger(candidate.frameIndex)) continue;
+    lessonTraces[key] = { scenarioId: candidate.scenarioId, frameIndex: candidate.frameIndex as number };
+  }
   const practice: StoredBundle["practice"] = {};
   for (const slug of practiceSlugs) {
     const saved = parse(practiceStorageKey(slug));
@@ -54,6 +66,7 @@ function readCurrent(progressConfigs: Record<string, LessonProgressConfig>): Sto
     exportedAt: new Date().toISOString(),
     resume: resume && typeof resume === "object" ? resume as StoredBundle["resume"] : null,
     trace: trace && typeof trace === "object" ? trace as StoredBundle["trace"] : null,
+    lessonTraces,
     practice: practice && typeof practice === "object" && !Array.isArray(practice)
       ? practice as StoredBundle["practice"]
       : {},
@@ -97,7 +110,16 @@ function validateBundle(value: unknown, lessons: Lesson[], progressConfigs: Reco
   if (Object.keys(candidate.practice).some((id) => !exercises.some((exercise) => exercise.storageId === id))) return null;
   const learning = validateLearningProgressImport(candidate.learning, progressConfigs);
   if (!learning) return null;
-  return { schemaVersion: 1, exportedAt: typeof candidate.exportedAt === "string" ? candidate.exportedAt : "", resume, trace, practice, learning };
+  const lessonTraces: NonNullable<StoredBundle["lessonTraces"]> = {};
+  if (candidate.lessonTraces !== undefined) {
+    if (!candidate.lessonTraces || typeof candidate.lessonTraces !== "object" || Array.isArray(candidate.lessonTraces)) return null;
+    for (const [key, saved] of Object.entries(candidate.lessonTraces)) {
+      if (!key.startsWith("bitsandbytes.trace.")) return null;
+      if (!saved || typeof saved !== "object" || typeof saved.scenarioId !== "string" || !Number.isInteger(saved.frameIndex) || saved.frameIndex < 0) return null;
+      lessonTraces[key] = { scenarioId: saved.scenarioId, frameIndex: saved.frameIndex };
+    }
+  }
+  return { schemaVersion: 1, exportedAt: typeof candidate.exportedAt === "string" ? candidate.exportedAt : "", resume, trace, lessonTraces, practice, learning };
 }
 
 function notifyLocalState(key: string) {
@@ -149,6 +171,7 @@ export function LocalProgressTools({
         [TRACE_KEY, bundle.trace ?? defaultTrace, false],
         [LEARNING_KEY, bundle.learning, false],
         ...practiceSlugs.map((slug) => [practiceStorageKey(slug), practiceBySlug.get(slug) ?? {}, false] as [string, unknown, boolean]),
+        ...Object.entries(bundle.lessonTraces ?? {}).map(([key, value]) => [key, value, false] as [string, unknown, boolean]),
       ];
       const previous = values.map(([key]) => [key, window.localStorage.getItem(key)] as const);
       try {
@@ -183,7 +206,8 @@ export function LocalProgressTools({
 
   function resetProgress() {
     try {
-      for (const key of [RESUME_KEY, TRACE_KEY, LEARNING_KEY, ...practiceSlugs.map(practiceStorageKey)]) {
+      const traceKeys = [...Array(window.localStorage.length)].map((_, index) => window.localStorage.key(index)).filter((key): key is string => Boolean(key?.startsWith("bitsandbytes.trace.")));
+      for (const key of [RESUME_KEY, TRACE_KEY, LEARNING_KEY, ...practiceSlugs.map(practiceStorageKey), ...traceKeys]) {
         if (key === TRACE_KEY) window.localStorage.setItem(key, JSON.stringify({ scenarioId: traces[0].id, frameIndex: 0 }));
         else if (key === LEARNING_KEY) window.localStorage.setItem(key, JSON.stringify(emptyLearningProgress()));
         else if (key.startsWith("bitsandbytes.practice.")) window.localStorage.setItem(key, "{}");
@@ -198,27 +222,9 @@ export function LocalProgressTools({
     }
   }
 
-  const stored = useSyncExternalStore(
-    (callback) => {
-      window.addEventListener("storage", callback);
-      window.addEventListener("bitsandbytes:resume", callback);
-      window.addEventListener(LEARNING_PROGRESS_EVENT, callback);
-      return () => {
-        window.removeEventListener("storage", callback);
-        window.removeEventListener("bitsandbytes:resume", callback);
-        window.removeEventListener(LEARNING_PROGRESS_EVENT, callback);
-      };
-    },
-    () => {
-      try {
-        return `${window.localStorage.getItem(RESUME_KEY) ?? ""}|${window.localStorage.getItem(LEARNING_KEY) ?? ""}`;
-      } catch {
-        return "";
-      }
-    },
-    () => "",
-  );
-  const hasProgress = stored.split("|").some((part) => part && part !== "null" && part !== '{"schemaVersion":1,"lessons":{}}');
+  const [resume] = useLocalJsonState(RESUME_KEY, null, (value: unknown) => value);
+  const [learning] = useLocalJsonState(LEARNING_KEY, null, (value: unknown) => value);
+  const hasProgress = Boolean(resume) || (learning !== null && JSON.stringify(learning) !== JSON.stringify(emptyLearningProgress()));
   if (!hasProgress) return null;
 
   return (

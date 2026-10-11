@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
@@ -43,27 +44,6 @@ function readRecord(raw: string, lessons: ResumeLesson[]): { record: ResumeRecor
   } catch {
     return null;
   }
-}
-
-function subscribeToResume(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(RESUME_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(RESUME_EVENT, callback);
-  };
-}
-
-function getResumeSnapshot() {
-  try {
-    return window.localStorage.getItem(STORAGE_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
-function getResumeServerSnapshot() {
-  return "";
 }
 
 function saveRecord(slug: string, sectionId: string | null) {
@@ -145,8 +125,8 @@ export function ResumeTracker({
 }
 
 export function ResumeCard({ lessons }: { lessons: ResumeLesson[] }) {
-  const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
-  const resume = useMemo(() => readRecord(raw, lessons), [raw, lessons]);
+  const [raw] = useLocalJsonState(STORAGE_KEY, null, (value: unknown) => value);
+  const resume = useMemo(() => readRecord(JSON.stringify(raw ?? ""), lessons), [raw, lessons]);
   if (!resume) return null;
   const href = `/lessons/${resume.lesson.slug}${resume.section ? `#${encodeURIComponent(resume.section.id)}` : ""}`;
 
@@ -171,10 +151,10 @@ export function CompletionControl({
   slug: string;
   progressConfigs: Record<string, LessonProgressConfig>;
 }) {
-  const raw = useSyncExternalStore(subscribeToLearningProgress, getLearningProgressSnapshot, () => "");
+  const [raw] = useLocalJsonState(LEARNING_PROGRESS_KEY, null, (value: unknown) => value);
   const done = useMemo(() => {
     try {
-      const progress = validateLearningProgress(JSON.parse(raw || "null") as unknown, progressConfigs);
+      const progress = validateLearningProgress(raw, progressConfigs);
       return Boolean(progress.lessons[slug]?.completedAt);
     } catch {
       return false;
@@ -199,28 +179,11 @@ export function CompletionControl({
   );
 }
 
-function subscribeToLearningProgress(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(LEARNING_PROGRESS_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(LEARNING_PROGRESS_EVENT, callback);
-  };
-}
-
-function getLearningProgressSnapshot() {
-  try {
-    return window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
 export function useLastVisitedSlug(knownSlugs: string[]) {
-  const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
+  const [raw] = useLocalJsonState(STORAGE_KEY, null, (value: unknown) => value);
   return useMemo(() => {
     try {
-      const value: unknown = JSON.parse(raw);
+      const value = raw;
       if (!value || typeof value !== "object") return null;
       const candidate = value as Partial<ResumeRecord>;
       return candidate.version === 1 && typeof candidate.slug === "string" && knownSlugs.includes(candidate.slug)

@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useSyncExternalStore } from "react";
+import { useCallback } from "react";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 
 export type TraceCellStatus = "idle" | "active" | "done" | "excluded" | "chosen";
 
@@ -39,8 +40,6 @@ function storageKey(lessonSlug: string) {
 
 export function TraceBench({ lessonSlug, scenarios }: { lessonSlug: string; scenarios: TraceScenario[] }) {
   const key = storageKey(lessonSlug);
-  const eventName = `bitsandbytes:local-state:${key}`;
-  const fallback = useMemo(() => JSON.stringify({ scenarioId: scenarios[0]?.id ?? "", frameIndex: 0 }), [scenarios]);
   const validate = useCallback((value: unknown) => {
     if (value && typeof value === "object" && "scenarioId" in value && "frameIndex" in value) {
       const candidate = value as { scenarioId: unknown; frameIndex: unknown };
@@ -52,39 +51,13 @@ export function TraceBench({ lessonSlug, scenarios }: { lessonSlug: string; scen
     }
     return { scenarioId: scenarios[0].id, frameIndex: 0 };
   }, [scenarios]);
-
-  const snapshot = useSyncExternalStore(
-    (onChange) => {
-      const onStorage = () => onChange();
-      window.addEventListener("storage", onStorage);
-      window.addEventListener(eventName, onStorage);
-      return () => {
-        window.removeEventListener("storage", onStorage);
-        window.removeEventListener(eventName, onStorage);
-      };
-    },
-    () => {
-      try {
-        return JSON.stringify(validate(JSON.parse(window.localStorage.getItem(key) ?? fallback)));
-      } catch {
-        return fallback;
-      }
-    },
-    () => fallback,
-  );
-  const saved = validate(JSON.parse(snapshot) as unknown);
+  const [saved, setSaved] = useLocalJsonState(key, { scenarioId: scenarios[0]?.id ?? "", frameIndex: 0 }, validate);
   const scenario = scenarios.find((item) => item.id === saved.scenarioId) ?? scenarios[0];
   const frame = scenario.frames[saved.frameIndex];
   const labels = { ...defaultLabels, ...scenario.labels };
 
   function write(next: { scenarioId: string; frameIndex: number }) {
-    const serialized = JSON.stringify(validate(next));
-    try {
-      window.localStorage.setItem(key, serialized);
-    } catch {
-      // The trace still moves for this click when storage is blocked.
-    }
-    window.dispatchEvent(new Event(eventName));
+    setSaved(next);
   }
 
   return (

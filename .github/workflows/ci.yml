@@ -17,6 +17,7 @@ jobs:
       - run: python guide/check_lessons.py
       - run: python scripts/build_guide_lessons.py --check
       - run: python scripts/check_cost_docstrings.py
+      - run: python scripts/check_exports.py
 
   site:
     runs-on: ubuntu-latest

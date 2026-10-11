@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useSyncExternalStore } from "react";
+import { useMemo } from "react";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 import {
-  LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
   validateLearningProgress,
   type LessonProgressConfig,
@@ -17,33 +17,12 @@ type LessonReviewInfo = {
   practiceAvailable: boolean;
 };
 
-function subscribe(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(LEARNING_PROGRESS_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(LEARNING_PROGRESS_EVENT, callback);
-  };
-}
-
-function getSnapshot() {
-  try {
-    return window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
-function getServerSnapshot() {
-  return "";
-}
-
 export function ReviewQueue({ lessons }: { lessons: LessonReviewInfo[] }) {
-  const raw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [raw] = useLocalJsonState(LEARNING_PROGRESS_KEY, null, (value: unknown) => value);
   const configs = useMemo(() => Object.fromEntries(lessons.map((lesson) => [lesson.slug, lesson.config])), [lessons]);
   const progress = useMemo(() => {
     try {
-      return validateLearningProgress(JSON.parse(raw || "null") as unknown, configs);
+      return validateLearningProgress(raw, configs);
     } catch {
       return validateLearningProgress(null, configs);
     }
