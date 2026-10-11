@@ -25,6 +25,14 @@ Sift-down restores the invariant in one subtree when both children are already h
 
 heapify is Θ(n). The sift at a node is proportional to its height, and the sum of heights in a complete tree is less than 2n. Each of the n extractions then sifts a prefix of height Θ(log n), so heapsort is Θ(n log n) time. The heap reuses the input array, so extra memory is O(1). The sort is not stable. A priority queue uses the same sift for insert and extract-min, each Θ(log n), which is the right cost when you need the next extreme key and not the full sorted order.
 
+## Run it
+
+```python
+from bitsandbytes.heaps.heapsort import heapsort
+print(heapsort([3, 1, 4, 2]))
+# prints: [1, 2, 3, 4]
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

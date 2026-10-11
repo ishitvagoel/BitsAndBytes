@@ -29,6 +29,14 @@ The table is correct by induction. The base cells match the definition. If cells
 
 The table version does Θ(1) work per cell and fills n cells, so the time is Θ(n). The full table uses Θ(n) extra memory. Keeping two running values uses Θ(1) extra memory and the same Θ(n) time, which is what fibonacci_modulo does. The naive recursion without a table does Θ(φ^n) additions because it repeats work. The win is not the recurrence. The win is computing each state once. Larger problems add a second index, and the cost becomes the number of states times the cost of one transition.
 
+## Run it
+
+```python
+from bitsandbytes.dynamic_programming.classic import fibonacci_modulo
+print(fibonacci_modulo(6, 1000))
+# prints: 8
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

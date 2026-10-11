@@ -25,6 +25,15 @@ Each resize copies every item that is already stored, because the new block is a
 
 One append is O(1) amortized and O(n) in the worst single call, the call that resizes. n appends copy fewer than 2n references in total, so the aggregate time is Θ(n) and the extra memory is Θ(n) for the block. A growth factor of 1, adding one slot each time, would copy Θ(n²) references. The factor, not the mere fact of resizing, is the reason append is cheap on average.
 
+## Run it
+
+```python
+from bitsandbytes.linear.dynamic_array import DynamicArray
+array = DynamicArray()
+print(array.total_copy_cost_for_appends(3))
+# prints: 3
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

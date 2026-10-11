@@ -27,6 +27,17 @@ With n keys and b buckets the average chain is n / b, the load factor. One looku
 
 Keys 0 and 4 share a bucket because the bucket count is 4 and both hashes are multiples of 4. A third key 8 would append behind them. Lookup of 0 would then compare 0, skip 4, and skip 8 only if 0 were missing. The chain length is the cost you pay.
 
+## Run it
+
+```python
+from bitsandbytes.hash_tables.chaining import ChainingHashTable
+table = ChainingHashTable(bucket_count=4)
+table[0] = 1
+table[4] = 2
+print(table[0], table[4])
+# prints: 1 2
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

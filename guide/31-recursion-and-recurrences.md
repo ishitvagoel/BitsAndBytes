@@ -26,6 +26,14 @@ Time is the unrolled sum, Θ(n log n) for the balanced split. Stack memory is pr
 
 Merge sort is this recurrence with a balanced split. A quicksort pivot that always peels off one item is the other shape, T(n) = T(n - 1) + Θ(n). Same lesson, different tree. Ask which shape you have before you quote n log n.
 
+## Run it
+
+```python
+from bitsandbytes.sorting.merge_sort import merge_sort
+print(merge_sort([3, 1, 4, 2]))
+# prints: [1, 2, 3, 4]
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

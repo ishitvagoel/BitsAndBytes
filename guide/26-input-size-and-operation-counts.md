@@ -24,6 +24,14 @@ The count is correct because every pair of indexes i < j is visited once. Index 
 
 The pair scan does Θ(n²) comparisons. Memory besides the input is a handful of indexes, so extra memory is O(1). If the inner loop ran over the whole list instead of only the right side, the count would be n², which is the same growth with a different constant.
 
+## Run it
+
+```python
+n = 6
+print(n * (n - 1) // 2)
+# prints: 15
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

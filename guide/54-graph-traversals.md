@@ -33,6 +33,18 @@ Each vertex is enqueued once and each edge is inspected once. The time is Θ(V +
 
 The same graph searched depth-first from A can visit D before C, because D is pushed after C and a stack pops D first. If your test expected BFS order and the code used a stack, this is the mismatch. The container is the algorithm.
 
+## Run it
+
+```python
+from bitsandbytes.graphs.adjacency_list import Graph, breadth_first_order
+graph = Graph()
+graph.add_edge('A', 'B', 1)
+graph.add_edge('A', 'C', 1)
+graph.add_edge('B', 'D', 1)
+print(breadth_first_order(graph, 'A'))
+# prints: ['A', 'B', 'C', 'D']
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

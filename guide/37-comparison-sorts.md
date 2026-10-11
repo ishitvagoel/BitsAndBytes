@@ -26,6 +26,14 @@ Worst-case time for these simple sorts is Θ(n²) comparisons. Insertion sort's 
 
 On [3, 1, 2] insertion sort shifts once to place 1 and once to place 2. A reverse-sorted list of n items shifts about n² / 2 times. That is the worst case you are accepting if you call insertion sort on arbitrary input.
 
+## Run it
+
+```python
+from bitsandbytes.sorting.insertion_sort import insertion_sort
+print(insertion_sort([3, 1, 2]))
+# prints: [1, 2, 3]
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

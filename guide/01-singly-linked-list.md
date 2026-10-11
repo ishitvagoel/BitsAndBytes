@@ -24,6 +24,16 @@ The invariant is preserved by each edit that updates the cached fields together 
 
 Append and prepend are Θ(1). Index lookup and tail removal are Θ(n). len is Θ(1) because size is cached. Extra memory is one node per item plus the three list fields. A Python list is the better default when you need list[i]. The linked list earns its place when you already hold the node you want to relink.
 
+## Run it
+
+```python
+from bitsandbytes.linked_list import LinkedList
+chain = LinkedList()
+chain.append('a')
+print(list(chain))
+# prints: ['a']
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

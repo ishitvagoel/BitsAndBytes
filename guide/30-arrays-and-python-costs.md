@@ -26,6 +26,13 @@ n front removals on a list copy about n + (n - 1) + ... + 1 references, which is
 
 A worked check is n = 1000. One pop(0) moves about 999 references. Doing that once per item, to drain the list from the front, moves about half a million references. A deque draining the same list moves about 1000 nodes. The asymptotic symbols are the summary of that count. Indexing stays Θ(1) on the list either way, which is why a binary search later in the guide requires a list or another random-access sequence and not a linked chain.
 
+## Run it
+
+```python
+print(sum(range(1000)))
+# prints: 499500
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

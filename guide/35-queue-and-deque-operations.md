@@ -29,6 +29,17 @@ Linked enqueue and dequeue are Θ(1) time and one new node of memory. A circular
 
 Breadth-first search is the payoff. It is correct only when the frontier removes the oldest vertex. A list used as a stack visits a different order and the distance claim fails. The queue lesson is the reason that search works.
 
+## Run it
+
+```python
+from bitsandbytes.queues.linked_queue import LinkedQueue
+queue = LinkedQueue()
+queue.enqueue('a')
+queue.enqueue('b')
+print(queue.dequeue())
+# prints: a
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

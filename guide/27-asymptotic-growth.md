@@ -26,6 +26,13 @@ Using the notation does not change the algorithm. It changes the claim. A Θ(n) 
 
 Write the exact count first, as the previous lesson did for pairs, and only then replace it with Θ. If you start from Θ you can hide a bug such as an extra nested loop. The notation is a compression step, not a substitute for the count.
 
+## Run it
+
+```python
+print('n squared grows faster')
+# prints: n squared grows faster
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

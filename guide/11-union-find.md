@@ -25,6 +25,17 @@ find returns the same root for two items exactly when they are in the same tree.
 
 Without the heuristics, find is Θ(n) in the worst case on a chain of n items. With union by rank and path compression, the amortized cost of a find is the inverse of the Ackermann function, which is effectively constant for every practical n. Extra memory is the parent array, Θ(n), and a rank array when the heuristic is on. Kruskal's algorithm uses this to skip an edge whose ends are already connected.
 
+## Run it
+
+```python
+from bitsandbytes.union_find.disjoint_set import DisjointSet
+sets = DisjointSet(3, use_heuristics=False)
+sets.union(0, 1)
+sets.union(1, 2)
+print(sets.find(2))
+# prints: 0
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

@@ -106,9 +106,32 @@ def body(idea: str, frames: list[dict[str, object]], why: str, cost: str, slug: 
     lines.extend(["", "## Why it is correct", "", why.strip(), "", "## What it costs", "", cost.strip(), ""])
     if extra:
         lines.extend([extra, ""])
+    snippet = RUNNABLE[slug]
+    lines.extend(["## Run it", "", "```python", snippet.rstrip(), "```", ""])
     lines.extend(["## Practice and next step", "", "Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser."])
     return "\n".join(lines) + "\n"
 
+
+RUNNABLE = {
+    "input-size-and-operation-counts": "n = 6\nprint(n * (n - 1) // 2)\n# prints: 15",
+    "asymptotic-growth": "print('n squared grows faster')\n# prints: n squared grows faster",
+    "loop-invariants": "prefix = [1, 3]\nprint(prefix == sorted(prefix))\n# prints: True",
+    "arrays-and-python-costs": "print(sum(range(1000)))\n# prints: 499500",
+    "dynamic-array-growth": "from bitsandbytes.linear.dynamic_array import DynamicArray\narray = DynamicArray()\nprint(array.total_copy_cost_for_appends(3))\n# prints: 3",
+    "recursion-and-recurrences": "from bitsandbytes.sorting.merge_sort import merge_sort\nprint(merge_sort([3, 1, 4, 2]))\n# prints: [1, 2, 3, 4]",
+    "singly-linked-list": "from bitsandbytes.linked_list import LinkedList\nchain = LinkedList()\nchain.append('a')\nprint(list(chain))\n# prints: ['a']",
+    "stack-basics": "from bitsandbytes.stacks.stack import Stack\nstack = Stack(limit=4)\nstack.push(1)\nstack.push(2)\nstack.push(3)\nprint(stack.pop(), stack.pop())\n# prints: 3 2",
+    "queue-and-deque-operations": "from bitsandbytes.queues.linked_queue import LinkedQueue\nqueue = LinkedQueue()\nqueue.enqueue('a')\nqueue.enqueue('b')\nprint(queue.dequeue())\n# prints: a",
+    "comparison-sorts": "from bitsandbytes.sorting.insertion_sort import insertion_sort\nprint(insertion_sort([3, 1, 2]))\n# prints: [1, 2, 3]",
+    "merge-sort": "from bitsandbytes.sorting.merge_sort import merge_sort\nprint(merge_sort([3, 1, 4, 2]))\n# prints: [1, 2, 3, 4]",
+    "quicksort-and-partition": "import random\nfrom bitsandbytes.sorting.quick_sort import quick_sort\nprint(quick_sort([3, 1, 4, 2], rng=random.Random(0)))\n# prints: [1, 2, 3, 4]",
+    "hash-chaining": "from bitsandbytes.hash_tables.chaining import ChainingHashTable\ntable = ChainingHashTable(bucket_count=4)\ntable[0] = 1\ntable[4] = 2\nprint(table[0], table[4])\n# prints: 1 2",
+    "binary-search-tree-operations": "from bitsandbytes.trees.bst import BinarySearchTree\ntree = BinarySearchTree()\nfor value in (4, 2, 6, 1):\n    tree.insert(value)\nprint(tree.inorder())\n# prints: [1, 2, 4, 6]",
+    "heap-operations": "from bitsandbytes.heaps.heapsort import heapsort\nprint(heapsort([3, 1, 4, 2]))\n# prints: [1, 2, 3, 4]",
+    "graph-traversals": "from bitsandbytes.graphs.adjacency_list import Graph, breadth_first_order\ngraph = Graph()\ngraph.add_edge('A', 'B', 1)\ngraph.add_edge('A', 'C', 1)\ngraph.add_edge('B', 'D', 1)\nprint(breadth_first_order(graph, 'A'))\n# prints: ['A', 'B', 'C', 'D']",
+    "union-find": "from bitsandbytes.union_find.disjoint_set import DisjointSet\nsets = DisjointSet(3, use_heuristics=False)\nsets.union(0, 1)\nsets.union(1, 2)\nprint(sets.find(2))\n# prints: 0",
+    "dynamic-programming": "from bitsandbytes.dynamic_programming.classic import fibonacci_modulo\nprint(fibonacci_modulo(6, 1000))\n# prints: 8",
+}
 
 # Library checks the traces are about the same functions the lessons name.
 array = DynamicArray()

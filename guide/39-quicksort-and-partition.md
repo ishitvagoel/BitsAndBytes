@@ -26,6 +26,15 @@ The partition invariant is that every index before boundary holds a value ≤ pi
 
 One partition of k items is Θ(k) time and O(1) extra memory. If every pivot splits off one item, the recurrence is T(n) = T(n - 1) + Θ(n), which is Θ(n²), and the call stack is Θ(n) deep. Balanced pivots give T(n) = 2 T(n/2) + Θ(n), which is Θ(n log n) time and Θ(log n) stack. The sort is not stable, because the swaps move equal keys past each other. A three-way partition gathers equals in the middle so a run of duplicate keys does not fall into the n² case.
 
+## Run it
+
+```python
+import random
+from bitsandbytes.sorting.quick_sort import quick_sort
+print(quick_sort([3, 1, 4, 2], rng=random.Random(0)))
+# prints: [1, 2, 3, 4]
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

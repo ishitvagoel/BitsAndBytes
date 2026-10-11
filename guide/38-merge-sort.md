@@ -34,6 +34,14 @@ A list of length 0 or 1 is already sorted, which is the base case. If both halve
 
 The recurrence is T(n) = 2 T(n/2) + Θ(n). There are Θ(log n) levels and Θ(n) work merging on each level, so the time is Θ(n log n) for every input order. Each level allocates new lists holding n items, so extra memory is Θ(n), plus Θ(log n) for the call stack. The sort is stable and it always pays the full n log n cost, including on sorted input.
 
+## Run it
+
+```python
+from bitsandbytes.sorting.merge_sort import merge_sort
+print(merge_sort([3, 1, 4, 2]))
+# prints: [1, 2, 3, 4]
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

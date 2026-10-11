@@ -24,6 +24,14 @@ Initialization holds because a prefix of one item is sorted, and the loop starts
 
 The invariant does not by itself give the time bound. Counting the shifts does. On reverse-sorted input the step for i shifts i items, and the sum is n(n - 1) / 2, so the time is Θ(n²). On sorted input the inner loop never shifts, so the time is Θ(n). Extra memory is the hole index and the saved key, O(1).
 
+## Run it
+
+```python
+prefix = [1, 3]
+print(prefix == sorted(prefix))
+# prints: True
+```
+
 ## Practice and next step
 
 Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
