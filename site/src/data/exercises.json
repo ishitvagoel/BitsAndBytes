@@ -784,6 +784,342 @@
     "objectiveId": "comparison-sort-compare-properties"
   },
   {
+    "id": "cost-models-check",
+    "lessonSlug": "cost-models",
+    "storageId": "cost-models-check",
+    "prompt": "Binary search does a logarithmic number of comparisons. Where is the elapsed work also logarithmic?",
+    "hints": [
+      "Ask what an index costs on each structure.",
+      "The comparison count is not the elapsed work."
+    ],
+    "options": [
+      {
+        "id": "list",
+        "label": "On a Python list, because each index is constant time"
+      },
+      {
+        "id": "chain",
+        "label": "On a singly linked list, because the middle is one hop"
+      },
+      {
+        "id": "either",
+        "label": "On either structure, because only the comparison count matters"
+      }
+    ],
+    "answer": "list",
+    "correct": "Each middle index on a list is one address calculation.",
+    "retry": "A linked list walks from the head to reach the middle.",
+    "objectiveId": "cost-model-state-assumptions"
+  },
+  {
+    "id": "cost-models-transfer",
+    "lessonSlug": "cost-models",
+    "storageId": "cost-models-transfer",
+    "prompt": "list_pop_front_cost_demo(3) counts one pop(0). What does it return?",
+    "hints": [
+      "The function returns length minus 1.",
+      "Length 3 leaves 2 items to slide."
+    ],
+    "options": [
+      {
+        "id": "two",
+        "label": "2 reference moves, one per item still in the list"
+      },
+      {
+        "id": "three",
+        "label": "3 reference moves, one per original item"
+      },
+      {
+        "id": "one",
+        "label": "1 reference move, only the removed item"
+      }
+    ],
+    "answer": "two",
+    "correct": "A list of length 3 moves the 2 items that remain.",
+    "retry": "The removed item does not slide. The items behind it do.",
+    "objectiveId": "cost-model-python-operations"
+  },
+  {
+    "id": "fast-slow-pointer-patterns-check",
+    "lessonSlug": "fast-slow-pointer-patterns",
+    "storageId": "fast-slow-pointer-patterns-check",
+    "prompt": "middle_node walks 1, 2, 3, 4, 5. Where does the slow pointer stop?",
+    "hints": [
+      "Count steps, not node values.",
+      "An odd length has one middle."
+    ],
+    "options": [
+      {
+        "id": "middle",
+        "label": "On the single middle node of that five-node list"
+      },
+      {
+        "id": "tail",
+        "label": "On the last node, because the fast pointer finishes there"
+      },
+      {
+        "id": "head",
+        "label": "On the first node, because the slow pointer starts there"
+      }
+    ],
+    "answer": "middle",
+    "correct": "Fast moves two steps and slow moves one, so slow stops in the middle.",
+    "retry": "Slow does not stay on the head, and it does not chase fast all the way to the end.",
+    "objectiveId": "fast-slow-locate-middle-cycle"
+  },
+  {
+    "id": "fast-slow-pointer-patterns-transfer",
+    "lessonSlug": "fast-slow-pointer-patterns",
+    "storageId": "fast-slow-pointer-patterns-transfer",
+    "prompt": "A lead pointer starts two steps ahead of a trailer. When the lead falls off, where is the trailer?",
+    "hints": [
+      "The gap is set before the joint walk.",
+      "nth_from_end uses this gap."
+    ],
+    "options": [
+      {
+        "id": "gap",
+        "label": "Two nodes behind the end, because the gap never changes"
+      },
+      {
+        "id": "head",
+        "label": "On the head, because only the lead pointer moves"
+      },
+      {
+        "id": "tail",
+        "label": "On the tail, because the lead pointer is the position you want"
+      }
+    ],
+    "answer": "gap",
+    "correct": "Both pointers move together after the lead's head start, so the gap stays two.",
+    "retry": "The trailer moves. It just stays a fixed number of nodes behind the lead.",
+    "objectiveId": "fast-slow-preserve-gap"
+  },
+  {
+    "id": "linked-list-reversal-and-relinking-check",
+    "lessonSlug": "linked-list-reversal-and-relinking",
+    "storageId": "linked-list-reversal-and-relinking-check",
+    "prompt": "You are about to overwrite a node's next link. What must you save first?",
+    "hints": [
+      "Draw three nodes and erase the first next arrow.",
+      "Ask which name still points at the node you have not reversed."
+    ],
+    "options": [
+      {
+        "id": "suffix",
+        "label": "The untouched suffix, or that suffix becomes unreachable"
+      },
+      {
+        "id": "prefix",
+        "label": "Only the reversed prefix, because the suffix stays indexed"
+      },
+      {
+        "id": "nothing",
+        "label": "Nothing, because a tail pointer remembers every later node"
+      }
+    ],
+    "answer": "suffix",
+    "correct": "The upcoming node is the only reference to the rest of the chain.",
+    "retry": "A singly linked node does not remember its old next after you write a new one.",
+    "objectiveId": "list-reversal-preserve-suffix"
+  },
+  {
+    "id": "linked-list-reversal-and-relinking-transfer",
+    "lessonSlug": "linked-list-reversal-and-relinking",
+    "storageId": "linked-list-reversal-and-relinking-transfer",
+    "prompt": "A block reversal finishes a block. Which link is the extra boundary write?",
+    "hints": [
+      "The three-pointer loop fixes links inside the block.",
+      "The node before the block is outside that loop."
+    ],
+    "options": [
+      {
+        "id": "join",
+        "label": "The previous block must point at the new head of the block just reversed"
+      },
+      {
+        "id": "skip",
+        "label": "No extra write, because the whole list is one block"
+      },
+      {
+        "id": "tail",
+        "label": "The head of the list must point at the old tail of this block"
+      }
+    ],
+    "answer": "join",
+    "correct": "The reversed block has a new head, and the node before the block must follow it.",
+    "retry": "Reversing inside the block does not update the node that pointed at the old head.",
+    "objectiveId": "list-relink-boundary-reconnection"
+  },
+  {
+    "id": "linked-list-merge-and-sort-check",
+    "lessonSlug": "linked-list-merge-and-sort",
+    "storageId": "linked-list-merge-and-sort-check",
+    "prompt": "The current heads are 1 and 2. Which node is taken first?",
+    "hints": [
+      "Only the two fronts are compared.",
+      "The leftover chain is attached at the end."
+    ],
+    "options": [
+      {
+        "id": "smaller",
+        "label": "The smaller head, the node holding the lesser key"
+      },
+      {
+        "id": "larger",
+        "label": "The larger head, so the result is descending"
+      },
+      {
+        "id": "both",
+        "label": "Both heads in one step, then the loop stops"
+      }
+    ],
+    "answer": "smaller",
+    "correct": "A sorted merge appends the smaller remaining head.",
+    "retry": "Do not concatenate the chains, and do not prefer the larger key.",
+    "objectiveId": "list-merge-head-order"
+  },
+  {
+    "id": "linked-list-merge-and-sort-transfer",
+    "lessonSlug": "linked-list-merge-and-sort",
+    "storageId": "linked-list-merge-and-sort-transfer",
+    "prompt": "Bottom-up merge sort runs a logarithmic number of rounds, and each round visits every node. What is the total?",
+    "hints": [
+      "Widths go 1, 2, 4, and so on.",
+      "Each width still touches every node."
+    ],
+    "options": [
+      {
+        "id": "nlog",
+        "label": "n log n, because every round is linear"
+      },
+      {
+        "id": "linear",
+        "label": "Linear, because a linked list has no indexes"
+      },
+      {
+        "id": "square",
+        "label": "Quadratic, because each comparison scans a chain"
+      }
+    ],
+    "answer": "nlog",
+    "correct": "A logarithmic number of linear rounds is n log n.",
+    "retry": "The missing indexes do not remove the work of walking each run.",
+    "objectiveId": "list-merge-sort-cost"
+  },
+  {
+    "id": "linked-list-special-cases-check",
+    "lessonSlug": "linked-list-special-cases",
+    "storageId": "linked-list-special-cases-check",
+    "prompt": "A function may delete a node when it is given only that node. Which node can it not delete this way?",
+    "hints": [
+      "The function was not given the list head.",
+      "Copying a value requires a next node."
+    ],
+    "options": [
+      {
+        "id": "tail",
+        "label": "The tail, because there is no successor value to copy"
+      },
+      {
+        "id": "head",
+        "label": "The head, because the head value is always copied forward"
+      },
+      {
+        "id": "middle",
+        "label": "Any middle node, because the predecessor is required"
+      }
+    ],
+    "answer": "tail",
+    "correct": "The trick copies the successor and bypasses it. The tail has no successor.",
+    "retry": "A middle node has a successor. The tail does not.",
+    "objectiveId": "list-state-preconditions"
+  },
+  {
+    "id": "linked-list-special-cases-transfer",
+    "lessonSlug": "linked-list-special-cases",
+    "storageId": "linked-list-special-cases-transfer",
+    "prompt": "nth_from_end uses a gap of 2 on the list 1, 2, 3, 4. Which position does the trailer hold when the leader falls off?",
+    "hints": [
+      "1 means the tail.",
+      "Both pointers move after the gap is opened."
+    ],
+    "options": [
+      {
+        "id": "back",
+        "label": "Two places before the end"
+      },
+      {
+        "id": "end",
+        "label": "The tail, because the count starts at zero"
+      },
+      {
+        "id": "front",
+        "label": "The head, because the trailer never moves"
+      }
+    ],
+    "answer": "back",
+    "correct": "The leader takes two steps first, and the gap stays two.",
+    "retry": "n is 1-based. A gap of 2 is not the tail and not the head on this list.",
+    "objectiveId": "list-special-boundary-tests"
+  },
+  {
+    "id": "doubly-linked-list-operations-check",
+    "lessonSlug": "doubly-linked-list-operations",
+    "storageId": "doubly-linked-list-operations-check",
+    "prompt": "You insert a node between two existing neighbors. How many pointers must change?",
+    "hints": [
+      "Each side of a doubly linked node has a back link.",
+      "An endpoint is the case with a missing neighbor."
+    ],
+    "options": [
+      {
+        "id": "four",
+        "label": "Four pointers, both directions on both sides of the splice"
+      },
+      {
+        "id": "one",
+        "label": "One pointer, only the forward link of the left neighbor"
+      },
+      {
+        "id": "two",
+        "label": "Two pointers, only the new node's own links"
+      }
+    ],
+    "answer": "four",
+    "correct": "The new node points both ways, and each neighbor must point back at it.",
+    "retry": "Writing only the new node's links leaves the neighbors pointing at each other.",
+    "objectiveId": "doubly-linked-update-neighbors"
+  },
+  {
+    "id": "doubly-linked-list-operations-transfer",
+    "lessonSlug": "doubly-linked-list-operations",
+    "storageId": "doubly-linked-list-operations-transfer",
+    "prompt": "You already hold the node. What does remove_node cost?",
+    "hints": [
+      "The argument is the node, not the value.",
+      "A singly linked predecessor is not stored."
+    ],
+    "options": [
+      {
+        "id": "constant",
+        "label": "Constant time, because prev and next are stored on the node"
+      },
+      {
+        "id": "linear",
+        "label": "Linear time, because the list walks from the head"
+      },
+      {
+        "id": "square",
+        "label": "Quadratic time, because both directions are scanned"
+      }
+    ],
+    "answer": "constant",
+    "correct": "The neighbors are fields. Nothing searches for them.",
+    "retry": "A walk from the head is the cost of finding the node, which this call does not do.",
+    "objectiveId": "doubly-linked-known-node-unlink"
+  },
+  {
     "id": "merge-sort-check",
     "lessonSlug": "merge-sort",
     "storageId": "merge-sort-check",

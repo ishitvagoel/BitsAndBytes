@@ -131,6 +131,12 @@ RUNNABLE = {
     "graph-traversals": "from bitsandbytes.graphs.adjacency_list import Graph, breadth_first_order\ngraph = Graph()\ngraph.add_edge('A', 'B', 1)\ngraph.add_edge('A', 'C', 1)\ngraph.add_edge('B', 'D', 1)\nprint(breadth_first_order(graph, 'A'))\n# prints: ['A', 'B', 'C', 'D']",
     "union-find": "from bitsandbytes.union_find.disjoint_set import DisjointSet\nsets = DisjointSet(3, use_heuristics=False)\nsets.union(0, 1)\nsets.union(1, 2)\nprint(sets.find(2))\n# prints: 0",
     "dynamic-programming": "from bitsandbytes.dynamic_programming.classic import fibonacci_modulo\nprint(fibonacci_modulo(6, 1000))\n# prints: 8",
+    "cost-models": "from bitsandbytes.library_costs import list_pop_front_cost_demo\nprint(list_pop_front_cost_demo(3))\n# prints: 2",
+    "fast-slow-pointer-patterns": "from bitsandbytes.linked_list import LinkedList\nfrom bitsandbytes.linked_lists.middle import middle_node\nchain = LinkedList()\nfor item in (1, 2, 3, 4, 5):\n    chain.append(item)\nprint(middle_node(chain).data)\n# prints: 3",
+    "linked-list-reversal-and-relinking": "from bitsandbytes.linked_list import LinkedList\nfrom bitsandbytes.linked_lists.reverse import reverse_iterative\nchain = LinkedList()\nfor item in (1, 2, 3):\n    chain.append(item)\nreverse_iterative(chain)\nprint(list(chain))\n# prints: [3, 2, 1]",
+    "linked-list-merge-and-sort": "from bitsandbytes.linked_list import LinkedList\nfrom bitsandbytes.linked_lists.merge_sorted import merge_sorted\nleft, right = LinkedList(), LinkedList()\nleft.append(1); left.append(4); right.append(2); right.append(3)\nprint(list(merge_sorted(left, right)))\n# prints: [1, 2, 3, 4]",
+    "linked-list-special-cases": "from bitsandbytes.linked_list import LinkedList\nfrom bitsandbytes.linked_lists.nth_from_end import nth_from_end\nchain = LinkedList()\nfor item in (1, 2, 3, 4):\n    chain.append(item)\nprint(nth_from_end(chain, 2).data)\n# prints: 3",
+    "doubly-linked-list-operations": "from bitsandbytes.doubly_linked_list import DoublyLinkedList\nchain = DoublyLinkedList()\nfirst = chain.append('a')\nchain.append('b')\nprint(chain.remove_node(first))\n# prints: a",
 }
 
 # Library checks the traces are about the same functions the lessons name.
@@ -287,6 +293,67 @@ def computed_frames(slug: str) -> list[dict[str, object]]:
             previous, current = current, previous + current
             add(f"F({number})", "The next value is the sum of the two previous values.", [("current", str(current))], [previous, current], "chosen")
         assert current == 8
+    elif slug == "cost-models":
+        from bitsandbytes.library_costs import list_pop_front_cost_demo
+        copies = list_pop_front_cost_demo(3)
+        assert copies == 2
+        add("Front pop", "One pop(0) on three items moves 2 references.", [("copies", str(copies))], [copies], "chosen")
+    elif slug == "fast-slow-pointer-patterns":
+        from bitsandbytes.linked_list import LinkedList
+        from bitsandbytes.linked_lists.cycle import find_cycle_start
+        from bitsandbytes.linked_lists.middle import end_of_first_half, middle_node
+        chain = LinkedList()
+        for item in (1, 2, 3, 4, 5):
+            chain.append(item)
+        middle = middle_node(chain)
+        assert middle is not None and middle.data == 3
+        even = LinkedList([1, 2, 3, 4])
+        even_middle = middle_node(even)
+        assert even_middle is not None and even_middle.data == 3
+        assert even.head is not None and end_of_first_half(even.head).data == 2
+        cycled = LinkedList([1, 2, 3, 4, 5])
+        cycled.node_at(4).next = cycled.node_at(2)
+        found = find_cycle_start(cycled)
+        assert found is not None and found[0] == 3 and found[1].data == 3
+        add("Middle", "The slow pointer stops on the single middle.", [("middle", "3")], [1, 2, 3, 4, 5], "chosen")
+        add("Even", "The second of the two middles is kept.", [("middle", "3")], [1, 2, 3, 4], "active")
+        add("Entrance", "The cycle entrance is the node holding 3.", [("index", "3")], [1, 2, 3, 4, 5], "done")
+    elif slug == "linked-list-reversal-and-relinking":
+        from bitsandbytes.linked_list import LinkedList
+        from bitsandbytes.linked_lists.reverse import reverse_iterative
+        chain = LinkedList()
+        for item in (1, 2, 3):
+            chain.append(item)
+        reverse_iterative(chain)
+        assert list(chain) == [3, 2, 1]
+        add("Reversed", "The head is now 3.", [("head", "3")], list(chain), "done")
+    elif slug == "linked-list-merge-and-sort":
+        from bitsandbytes.linked_list import LinkedList
+        from bitsandbytes.linked_lists.merge_sorted import merge_sorted
+        left, right = LinkedList(), LinkedList()
+        for item in (1, 4):
+            left.append(item)
+        for item in (2, 3):
+            right.append(item)
+        merged = merge_sorted(left, right)
+        assert list(merged) == [1, 2, 3, 4]
+        add("Merged", "The heads were compared in order.", [("result", str(list(merged)))], list(merged), "done")
+    elif slug == "linked-list-special-cases":
+        from bitsandbytes.linked_list import LinkedList
+        from bitsandbytes.linked_lists.nth_from_end import nth_from_end
+        chain = LinkedList()
+        for item in (1, 2, 3, 4):
+            chain.append(item)
+        node = nth_from_end(chain, 2)
+        assert node.data == 3
+        add("From end", "Two steps from the end lands on 3.", [("node", "3")], [1, 2, 3, 4], "chosen")
+    elif slug == "doubly-linked-list-operations":
+        from bitsandbytes.doubly_linked_list import DoublyLinkedList
+        chain = DoublyLinkedList()
+        first = chain.append("a")
+        chain.append("b")
+        assert chain.remove_node(first) == "a"
+        add("Unlink", "Removing a known node does not walk the list.", [("removed", "a")], ["b"], "chosen")
     else:
         sample = [1, 2, 3]
         add("Example", "The lesson counts this input.", [("n", str(len(sample)))], sample, "idle")
@@ -592,8 +659,61 @@ def render(spec: dict[str, object]) -> str:
     return body(str(spec["idea"]), frames, str(spec["why"]), str(spec["cost"]), str(spec["slug"]))
 
 
+def batch_a() -> list[dict[str, object]]:
+    return [
+        {
+            "slug": "cost-models",
+            "objective": "cost-model-state-assumptions",
+            "scenario": scenario("cost-models-core", "One front pop of three items", "list_pop_front_cost_demo(3) returns 2. That is the number of references one pop(0) moves, not a count of three pops.", computed_frames("cost-models")),
+            "idea": "A complexity claim is true only inside a stated model. The word-RAM model charges one step for a comparison, a pointer write, or word-sized arithmetic. That model fits a list of machine words. It is the wrong model when one named step hides a loop. A Python list is a dynamic array of references. Reading an index is one address calculation. list.pop(0) moves every later reference one slot toward index 0. list_pop_front_cost_demo(3) returns 2. Those two writes are the items that remain after the front item leaves. A linked list has no constant-time middle. Binary search stays logarithmic only when each index is constant time. Count the container operation the code actually performs. State a key-size assumption before you call hashing constant time. Count the recursion stack apart from the loop variables. The point of this lesson is to separate algorithm steps from Python container costs.",
+            "why": "The demo returns length minus 1 for a positive length. A list of three items has two items behind the front. Each of those items slides one slot. The spare capacity of a list sits at the end, not at index 0. Binary search on a list is logarithmic because each middle index is constant time. The same comparisons on a linked list walk from the head. The elapsed work is then linear in the index, not logarithmic. bisect.insort is linear overall because the insertion dominates the logarithmic search. A deque documents approximately constant-time endpoint appends and pops. The bound and the container belong in the same sentence.",
+            "cost": "One pop(0) on n items moves n - 1 references. That is linear in n. Draining n items from the front moves about n squared over 2 references. n calls to deque.popleft are linear in total. The demo computes length minus 1 and does not build the list. Reporting a logarithmic bound without saying random-access hides the linked-list case. The assumption is part of the claim. A later lesson can turn this exact count into a tight growth bound.",
+        },
+        {
+            "slug": "fast-slow-pointer-patterns",
+            "objective": "fast-slow-locate-middle-cycle",
+            "scenario": scenario("fast-slow-core", "Middle, even length, and a cycle entrance", "middle_node on 1 through 5 returns 3. On 1 through 4 it returns 3, the second middle. A tail that points at 3 makes find_cycle_start return index 3.", computed_frames("fast-slow-pointer-patterns")),
+            "idea": "A linked list has no index, so two pointers replace a length calculation. The fast pointer moves two links for every one link the slow pointer moves. When fast falls off a linear list, slow is at a middle node. middle_node on 1, 2, 3, 4, 5 returns the node holding 3. On an even list the same function returns the second of the two middles. middle_node on 1, 2, 3, 4 returns 3. end_of_first_half stops one step sooner and returns 2, the left middle. Palindrome and reorder split there. If the links form a cycle, fast gains one node per iteration and meets slow inside the cycle. Reset one pointer to the head and walk both one step at a time. They meet at the entrance. On 1 through 5 with the tail linked to 3, find_cycle_start returns index 3. A fixed gap finds a node from the end. Move a lead pointer k links ahead, then move both pointers together. The gap stays k.",
+            "why": "The speed ratio is the whole argument. Fast takes two steps while slow takes one, so slow has seen half the nodes when fast finishes a linear list. The even-length choice is a contract. Stopping when fast cannot take two more steps keeps the later middle. Stopping when fast.next.next is missing keeps the earlier middle. Both land on the single middle when the length is odd. Inside a cycle the same ratio makes a meeting inevitable, because fast closes the gap by one node each iteration. The entrance walk works because the meeting point is a known number of steps from the entrance, matching the distance from the head. The gap method needs no subtraction. When the lead falls off, the trailer is k nodes from the end.",
+            "cost": "Each walk examines each link a constant number of times, so the time is linear in the number of nodes. The pointer walk stores a constant number of references. require_linear may hold a set of node ids while it checks for a cycle, and that set is a separate cost from the two-pointer loop. Say which one you are counting. Before you call one of these functions, state the even-length rule, what k means, and whether a cycle is allowed. Test an empty list, one node, an even length, and a cycle against that contract.",
+        },
+        {
+            "slug": "linked-list-reversal-and-relinking",
+            "objective": "list-reversal-preserve-suffix",
+            "scenario": scenario("reversal-core", "Reverse 1, 2, 3", "reverse_iterative rewrites next links. The list that started as 1, 2, 3 ends as 3, 2, 1.", computed_frames("linked-list-reversal-and-relinking")),
+            "idea": "Reversal rearranges a chain by changing next references, not by copying values. Before you overwrite a link, save the node that follows it. Otherwise the unvisited suffix becomes unreachable. reverse_iterative keeps three names. previous is the reversed prefix. current is the node being flipped. upcoming is the saved suffix. The library starts previous empty and current at the head. Each step saves current.next, points current.next at previous, then advances both moving names. When current is empty, previous is the new head. On 1, 2, 3 the result is 3, 2, 1. Pair and block reversal reuse the same invariant. They must also reconnect the previous block to the new head of the current block, and connect that block's tail to the untouched suffix. Rotation finds a new tail, makes the chain temporarily circular, then cuts it. Partition and odd-even grouping keep separate tails, then join the chains.",
+            "why": "The invariant is that previous is a reversed chain of the nodes already visited, and current still heads the original suffix. It holds at the start because the prefix is empty and current is the whole list. One step moves current onto the prefix and leaves upcoming as the rest, so the invariant holds again. No node is dropped because upcoming was saved before the write. The loop stops when current is empty, so every node is on the reversed prefix. A recursive reversal rewrites the same links and can use a linear call stack. The iterative version stores three references. For every pointer write, name which node still owns the remaining suffix.",
+            "cost": "The loop body runs once per node. Each iteration reads and writes a constant number of pointers, so the time is linear and the reversal itself uses constant extra memory. require_linear can hold a set of ids while it runs, and that peak is separate from the three pointers. A recursive version adds a linear stack. Trace an empty list, a one-node list, a two-node list, and a block size larger than the list. A linear input must stay linear, and every original node must appear once.",
+        },
+        {
+            "slug": "linked-list-merge-and-sort",
+            "objective": "list-merge-head-order",
+            "scenario": scenario("list-merge-core", "Merge 1, 4 with 2, 3", "merge_sorted relinks the existing nodes. The result is 1, 2, 3, 4, and both inputs are left empty.", computed_frames("linked-list-merge-and-sort")),
+            "idea": "When two chains are sorted, compare only their current heads. Take the smaller head, append it to the result, and advance that input. When one input is empty, attach the other suffix. It is already in order. merge_sorted of 1, 4 and 2, 3 returns 1, 2, 3, 4. Ties use a strict less-than against the second list, so an equal key from the first list stays in front. That is a stable merge. The nodes are relinked, not copied into a second array of values. Both inputs are left empty because their nodes now belong to the result. Merging a list with itself is rejected, because that would build a cycle. Bottom-up merge sort repeats this combine on adjacent runs of width 1, then 2, then 4. A linked list has no random-access middle, so this width schedule fits it better than a top-down split that indexes the midpoint.",
+            "why": "Each step appends the smaller remaining head, so nothing still in either chain is smaller than the item just written. The attached suffix is sorted by the precondition, and it sits after a head that was smaller than its own head. Stability follows from taking the first list on a tie. The inputs end empty because the same node objects moved. Intersection is a different question. After both chains are linear, equalize the distance to the ends and advance together. Compare node identity, not equal values. The guard that checks the chains has its own cost.",
+            "cost": "A merge of lengths n and m does a linear number of comparisons and link updates. The result list object is constant extra memory, because the nodes are reused. Bottom-up sort has a logarithmic number of rounds, and each round visits every node, so the time is n log n. Auxiliary node references beyond the list nodes can stay constant. Repeatedly indexing the middle of a linked list would pay a linear walk per index and would lose the array-style access assumption. Count that walk if you choose it.",
+        },
+        {
+            "slug": "linked-list-special-cases",
+            "objective": "list-state-preconditions",
+            "scenario": scenario("special-cases-core", "Two places from the end of 1, 2, 3, 4", "nth_from_end counts the tail as 1. A gap of 2 on this list lands on 3.", computed_frames("linked-list-special-cases")),
+            "idea": "Some linked-list routines are valid only under a contract that is easy to miss. Values may be sorted. Digits may be stored least-significant digit first. A circular list may have a distinguished head. The function may receive one node and not the list head. nth_from_end makes its contract explicit. n is 1-based, and 1 means the tail. On 1, 2, 3, 4, nth_from_end with n equal to 2 returns the node holding 3. The leader walks n steps first. Then the leader and the trailer walk together. When the leader falls off, the trailer is the requested node. Removing adjacent duplicates in a sorted list needs only a neighbor comparison. The sorted precondition is what makes that enough. An unsorted list needs a set of seen values, which changes the memory. Deleting a node without the list head can copy the successor and bypass it. That trick cannot remove the tail, because there is no successor to copy. Adding numbers stored least-significant digit first can walk both heads and carry one digit. Splitting a circular list must restore two cycles and handle an odd count and an even count.",
+            "why": "The gap stays n because both pointers move one step after the leader's head start. The trailer therefore sits n nodes behind the leader for the rest of the walk. No length subtraction is required. The sorted-duplicate claim fails as soon as an inversion exists, because a later duplicate is not beside its earlier copy. The headless delete fails on the tail for a structural reason, not an off-by-one. There is no next node whose value can be copied back. A circular split is wrong if either result is linear or if the two cycles share a node. Name the input shape, the output shape, and whether existing nodes are mutated.",
+            "cost": "The leader takes n steps and then both pointers take the remaining steps. The total is linear in the length. Extra memory for the gap is two references. Counting the length and then walking length minus n is the same linear bound. The gap removes the subtraction, not the scan. A set of seen values for unsorted duplicates is linear extra memory. Copying a successor is constant time only when the successor exists. Test the empty list, one node, the last node, a duplicate run, and the smallest valid cycle or digit list.",
+        },
+        {
+            "slug": "doubly-linked-list-operations",
+            "objective": "doubly-linked-update-neighbors",
+            "scenario": scenario("doubly-core", "Unlink a known node", "append a, then b. remove_node on the node for a returns a, and the list that remains is b.", computed_frames("doubly-linked-list-operations")),
+            "idea": "A doubly linked node stores prev and next. If you already hold the node, you do not walk from the head to find its neighbors. remove_node on the node for a, in a list that also holds b, returns a and leaves b. The unlink follows prev and next and rewires those neighbors to each other. insert_after splices a new node between a known node and that node's next. Both directions must be written. A missing reverse link makes a forward walk and a backward walk disagree. Finding a node by value is still linear, unless another structure stores the node. Sentinels are one way to make every real node have neighbors, including the empty list. This list keeps a head and a tail instead, and the endpoint cases update those caches.",
+            "why": "The known-node claim is that the predecessor and the successor are fields, not search results. Rewiring them restores a single chain. The forward neighbor's prev and the backward neighbor's next must both change, or one direction still points at the removed node. insert_after writes the new node's two links and the two neighboring links that should point at it. That is four pointers when both neighbors exist. An endpoint has a missing neighbor, so the list updates head or tail instead of a second node. The size cache changes by one. After the edit, a walk from the head and a walk from the tail must list the same nodes in opposite orders.",
+            "cost": "Unlinking or inserting beside a known node is a constant number of pointer writes. It is constant time. A singly linked delete of an arbitrary node is linear, because the predecessor must be found from the head. A search by value on this list is still linear. n such searches are quadratic if you repeat them. Extra memory is one node per item plus the list caches. Draw both directions after a removal. Then test an empty list and a one-node list, and check that head and tail still agree.",
+        },
+    ]
+
+
 def all_specs() -> list[dict[str, object]]:
-    return [*LESSONS, *more_lessons(), *final_lessons()]
+    return [*LESSONS, *more_lessons(), *batch_a(), *final_lessons()]
 
 
 def transfer_questions() -> dict[str, dict[str, object]]:
@@ -649,6 +769,114 @@ def transfer_questions() -> dict[str, dict[str, object]]:
                 "hints": ["The recurrence is T(n) = 2T(n/2) + Θ(n).", "Count both the depth and the work per level."],
             }],
         },
+        "cost-models": {
+            "prompt": "Binary search does a logarithmic number of comparisons. Where is the elapsed work also logarithmic?",
+            "options": [("list", "On a Python list, because each index is constant time"), ("chain", "On a singly linked list, because the middle is one hop"), ("either", "On either structure, because only the comparison count matters")],
+            "answer": "list",
+            "correct": "Each middle index on a list is one address calculation.",
+            "retry": "A linked list walks from the head to reach the middle.",
+            "hints": ["Ask what an index costs on each structure.", "The comparison count is not the elapsed work."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "cost-model-python-operations",
+                "prompt": "list_pop_front_cost_demo(3) counts one pop(0). What does it return?",
+                "options": [("two", "2 reference moves, one per item still in the list"), ("three", "3 reference moves, one per original item"), ("one", "1 reference move, only the removed item")],
+                "answer": "two",
+                "correct": "A list of length 3 moves the 2 items that remain.",
+                "retry": "The removed item does not slide. The items behind it do.",
+                "hints": ["The function returns length minus 1.", "Length 3 leaves 2 items to slide."],
+            }],
+        },
+        "fast-slow-pointer-patterns": {
+            "prompt": "middle_node walks 1, 2, 3, 4, 5. Where does the slow pointer stop?",
+            "options": [("middle", "On the single middle node of that five-node list"), ("tail", "On the last node, because the fast pointer finishes there"), ("head", "On the first node, because the slow pointer starts there")],
+            "answer": "middle",
+            "correct": "Fast moves two steps and slow moves one, so slow stops in the middle.",
+            "retry": "Slow does not stay on the head, and it does not chase fast all the way to the end.",
+            "hints": ["Count steps, not node values.", "An odd length has one middle."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "fast-slow-preserve-gap",
+                "prompt": "A lead pointer starts two steps ahead of a trailer. When the lead falls off, where is the trailer?",
+                "options": [("gap", "Two nodes behind the end, because the gap never changes"), ("head", "On the head, because only the lead pointer moves"), ("tail", "On the tail, because the lead pointer is the position you want")],
+                "answer": "gap",
+                "correct": "Both pointers move together after the lead's head start, so the gap stays two.",
+                "retry": "The trailer moves. It just stays a fixed number of nodes behind the lead.",
+                "hints": ["The gap is set before the joint walk.", "nth_from_end uses this gap."],
+            }],
+        },
+        "linked-list-reversal-and-relinking": {
+            "prompt": "You are about to overwrite a node's next link. What must you save first?",
+            "options": [("suffix", "The untouched suffix, or that suffix becomes unreachable"), ("prefix", "Only the reversed prefix, because the suffix stays indexed"), ("nothing", "Nothing, because a tail pointer remembers every later node")],
+            "answer": "suffix",
+            "correct": "The upcoming node is the only reference to the rest of the chain.",
+            "retry": "A singly linked node does not remember its old next after you write a new one.",
+            "hints": ["Draw three nodes and erase the first next arrow.", "Ask which name still points at the node you have not reversed."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "list-relink-boundary-reconnection",
+                "prompt": "A block reversal finishes a block. Which link is the extra boundary write?",
+                "options": [("join", "The previous block must point at the new head of the block just reversed"), ("skip", "No extra write, because the whole list is one block"), ("tail", "The head of the list must point at the old tail of this block")],
+                "answer": "join",
+                "correct": "The reversed block has a new head, and the node before the block must follow it.",
+                "retry": "Reversing inside the block does not update the node that pointed at the old head.",
+                "hints": ["The three-pointer loop fixes links inside the block.", "The node before the block is outside that loop."],
+            }],
+        },
+        "linked-list-merge-and-sort": {
+            "prompt": "The current heads are 1 and 2. Which node is taken first?",
+            "options": [("smaller", "The smaller head, the node holding the lesser key"), ("larger", "The larger head, so the result is descending"), ("both", "Both heads in one step, then the loop stops")],
+            "answer": "smaller",
+            "correct": "A sorted merge appends the smaller remaining head.",
+            "retry": "Do not concatenate the chains, and do not prefer the larger key.",
+            "hints": ["Only the two fronts are compared.", "The leftover chain is attached at the end."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "list-merge-sort-cost",
+                "prompt": "Bottom-up merge sort runs a logarithmic number of rounds, and each round visits every node. What is the total?",
+                "options": [("nlog", "n log n, because every round is linear"), ("linear", "Linear, because a linked list has no indexes"), ("square", "Quadratic, because each comparison scans a chain")],
+                "answer": "nlog",
+                "correct": "A logarithmic number of linear rounds is n log n.",
+                "retry": "The missing indexes do not remove the work of walking each run.",
+                "hints": ["Widths go 1, 2, 4, and so on.", "Each width still touches every node."],
+            }],
+        },
+        "linked-list-special-cases": {
+            "prompt": "A function may delete a node when it is given only that node. Which node can it not delete this way?",
+            "options": [("tail", "The tail, because there is no successor value to copy"), ("head", "The head, because the head value is always copied forward"), ("middle", "Any middle node, because the predecessor is required")],
+            "answer": "tail",
+            "correct": "The trick copies the successor and bypasses it. The tail has no successor.",
+            "retry": "A middle node has a successor. The tail does not.",
+            "hints": ["The function was not given the list head.", "Copying a value requires a next node."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "list-special-boundary-tests",
+                "prompt": "nth_from_end uses a gap of 2 on the list 1, 2, 3, 4. Which position does the trailer hold when the leader falls off?",
+                "options": [("back", "Two places before the end"), ("end", "The tail, because the count starts at zero"), ("front", "The head, because the trailer never moves")],
+                "answer": "back",
+                "correct": "The leader takes two steps first, and the gap stays two.",
+                "retry": "n is 1-based. A gap of 2 is not the tail and not the head on this list.",
+                "hints": ["1 means the tail.", "Both pointers move after the gap is opened."],
+            }],
+        },
+        "doubly-linked-list-operations": {
+            "prompt": "You insert a node between two existing neighbors. How many pointers must change?",
+            "options": [("four", "Four pointers, both directions on both sides of the splice"), ("one", "One pointer, only the forward link of the left neighbor"), ("two", "Two pointers, only the new node's own links")],
+            "answer": "four",
+            "correct": "The new node points both ways, and each neighbor must point back at it.",
+            "retry": "Writing only the new node's links leaves the neighbors pointing at each other.",
+            "hints": ["Each side of a doubly linked node has a back link.", "An endpoint is the case with a missing neighbor."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "doubly-linked-known-node-unlink",
+                "prompt": "You already hold the node. What does remove_node cost?",
+                "options": [("constant", "Constant time, because prev and next are stored on the node"), ("linear", "Linear time, because the list walks from the head"), ("square", "Quadratic time, because both directions are scanned")],
+                "answer": "constant",
+                "correct": "The neighbors are fields. Nothing searches for them.",
+                "retry": "A walk from the head is the cost of finding the node, which this call does not do.",
+                "hints": ["The argument is the node, not the value.", "A singly linked predecessor is not stored."],
+            }],
+        },
     })
 
 
@@ -694,6 +922,8 @@ def complete_transfers(partial: dict[str, dict[str, object]]) -> dict[str, dict[
     }
     assert Stack and LinkedQueue
     for slug, (objective, prompt, correct, wrong_a, wrong_b) in extras.items():
+        if slug in partial:
+            continue
         partial[slug] = _choice(slug, objective, prompt, correct, wrong_a, wrong_b)
     partial["dynamic-programming"]["more"].append({
         "suffix": "memory",

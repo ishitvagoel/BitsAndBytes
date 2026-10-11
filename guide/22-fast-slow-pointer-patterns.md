@@ -6,28 +6,38 @@ status: present
 module: bitsandbytes.linked_lists.middle, bitsandbytes.linked_lists.cycle, bitsandbytes.linked_lists.remove_cycle, bitsandbytes.linked_lists.nth_from_end, bitsandbytes.linked_lists.palindrome, bitsandbytes.linked_lists.modular_nodes
 ---
 
-## What this pattern helps you find
+## The idea
 
-Use two pointers that move at different speeds when a linked list does not offer direct indexing. The fast pointer moves two links for every one link the slow pointer moves. This turns a single traversal into a position or cycle test without storing every visited node.
+A linked list has no index, so two pointers replace a length calculation. The fast pointer moves two links for every one link the slow pointer moves. When fast falls off a linear list, slow is at a middle node. middle_node on 1, 2, 3, 4, 5 returns the node holding 3. On an even list the same function returns the second of the two middles. middle_node on 1, 2, 3, 4 returns 3. end_of_first_half stops one step sooner and returns 2, the left middle. Palindrome and reorder split there. If the links form a cycle, fast gains one node per iteration and meets slow inside the cycle. Reset one pointer to the head and walk both one step at a time. They meet at the entrance. On 1 through 5 with the tail linked to 3, find_cycle_start returns index 3. A fixed gap finds a node from the end. Move a lead pointer k links ahead, then move both pointers together. The gap stays k.
 
-**By the end of this overview, you can** describe how fast/slow movement finds a middle or detects a cycle, and explain when a fixed gap finds a node from the end.
+## A worked trace
 
-## Follow the pointer relationship
+| Step | State | What changed |
+| --- | --- | --- |
+| Middle | middle = 3 | The slow pointer stops on the single middle. |
+| Even | middle = 3 | The second of the two middles is kept. |
+| Entrance | index = 3 | The cycle entrance is the node holding 3. |
 
-On a linear list, `fast` reaches the end after roughly half as many updates as `slow`; `slow` is then at a middle position. On an even-length list, choosing `fast.next is None` versus `fast.next.next is None` determines which of the two middle nodes is returned. That boundary choice belongs in the function contract.
+## Why it is correct
 
-If links form a cycle, the fast pointer eventually catches the slow pointer because it gains one node per iteration. To locate the cycle entrance, reset one pointer to the head and advance both one step at a time; the meeting geometry makes them meet at the entrance.
+The speed ratio is the whole argument. Fast takes two steps while slow takes one, so slow has seen half the nodes when fast finishes a linear list. The even-length choice is a contract. Stopping when fast cannot take two more steps keeps the later middle. Stopping when fast.next.next is missing keeps the earlier middle. Both land on the single middle when the length is odd. Inside a cycle the same ratio makes a meeting inevitable, because fast closes the gap by one node each iteration. The entrance walk works because the meeting point is a known number of steps from the entrance, matching the distance from the head. The gap method needs no subtraction. When the lead falls off, the trailer is k nodes from the end.
 
-For a node `k` positions from the end, first move a lead pointer `k` links ahead. Then move both pointers together. The gap stays `k`, so the trailing pointer reaches the requested position when the lead pointer reaches the end.
+## What it costs
 
-## Cost and checks
+Each walk examines each link a constant number of times, so the time is linear in the number of nodes. The pointer walk stores a constant number of references. require_linear may hold a set of node ids while it checks for a cycle, and that set is a separate cost from the two-pointer loop. Say which one you are counting. Before you call one of these functions, state the even-length rule, what k means, and whether a cycle is allowed. Test an empty list, one node, an even length, and a cycle against that contract.
 
-Each method makes a constant number of passes, so its time is O(n) in the number of links examined and its auxiliary pointer storage is O(1). The recursion or output allocation of a wrapper is separate from the pointer walk and must be included if the wrapper adds it.
+## Run it
 
-Before using one of these methods, specify whether an even list returns the left or right middle, what `k` means at the boundaries, and whether input cycles are allowed. Test empty, one-node, even-length, and cyclic inputs against that contract.
+```python
+from bitsandbytes.linked_list import LinkedList
+from bitsandbytes.linked_lists.middle import middle_node
+chain = LinkedList()
+for item in (1, 2, 3, 4, 5):
+    chain.append(item)
+print(middle_node(chain).data)
+# prints: 3
+```
 
 ## Practice and next step
 
-Predict where `slow` is after three iterations on a seven-node list. Then trace what happens when the last node links back to the third node. Compare the prediction with the [repository pointer implementations and their tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_linked_list_algorithms.py).
-
-Continue to [linked-list reversal and relinking](./linked-list-reversal-and-relinking.md) to study algorithms that change the links themselves.
+Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

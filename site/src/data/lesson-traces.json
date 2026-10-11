@@ -549,6 +549,311 @@
       }
     }
   ],
+  "cost-models": [
+    {
+      "id": "cost-models-core",
+      "title": "One front pop of three items",
+      "prompt": "list_pop_front_cost_demo(3) returns 2. That is the number of references one pop(0) moves, not a count of three pops.",
+      "frames": [
+        {
+          "label": "Front pop",
+          "narration": "One pop(0) on three items moves 2 references.",
+          "state": [
+            {
+              "name": "copies",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "fast-slow-pointer-patterns": [
+    {
+      "id": "fast-slow-pointer-patterns-core",
+      "title": "Middle, even length, and a cycle entrance",
+      "prompt": "middle_node on 1 through 5 returns 3. On 1 through 4 it returns 3, the second middle. A tail that points at 3 makes find_cycle_start return index 3.",
+      "frames": [
+        {
+          "label": "Middle",
+          "narration": "The slow pointer stops on the single middle.",
+          "state": [
+            {
+              "name": "middle",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "5",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Even",
+          "narration": "The second of the two middles is kept.",
+          "state": [
+            {
+              "name": "middle",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Entrance",
+          "narration": "The cycle entrance is the node holding 3.",
+          "state": [
+            {
+              "name": "index",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "done"
+                },
+                {
+                  "text": "5",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "linked-list-reversal-and-relinking": [
+    {
+      "id": "linked-list-reversal-and-relinking-core",
+      "title": "Reverse 1, 2, 3",
+      "prompt": "reverse_iterative rewrites next links. The list that started as 1, 2, 3 ends as 3, 2, 1.",
+      "frames": [
+        {
+          "label": "Reversed",
+          "narration": "The head is now 3.",
+          "state": [
+            {
+              "name": "head",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "linked-list-merge-and-sort": [
+    {
+      "id": "linked-list-merge-and-sort-core",
+      "title": "Merge 1, 4 with 2, 3",
+      "prompt": "merge_sorted relinks the existing nodes. The result is 1, 2, 3, 4, and both inputs are left empty.",
+      "frames": [
+        {
+          "label": "Merged",
+          "narration": "The heads were compared in order.",
+          "state": [
+            {
+              "name": "result",
+              "value": "[1, 2, 3, 4]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "4",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "labels": {
+        "idle": "",
+        "active": "comparing",
+        "chosen": "taken",
+        "done": "placed",
+        "excluded": "ruled out"
+      }
+    }
+  ],
+  "linked-list-special-cases": [
+    {
+      "id": "linked-list-special-cases-core",
+      "title": "Two places from the end of 1, 2, 3, 4",
+      "prompt": "nth_from_end counts the tail as 1. A gap of 2 on this list lands on 3.",
+      "frames": [
+        {
+          "label": "From end",
+          "narration": "Two steps from the end lands on 3.",
+          "state": [
+            {
+              "name": "node",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "doubly-linked-list-operations": [
+    {
+      "id": "doubly-linked-list-operations-core",
+      "title": "Unlink a known node",
+      "prompt": "append a, then b. remove_node on the node for a returns a, and the list that remains is b.",
+      "frames": [
+        {
+          "label": "Unlink",
+          "narration": "Removing a known node does not walk the list.",
+          "state": [
+            {
+              "name": "removed",
+              "value": "a"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "b",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "merge-sort": [
     {
       "id": "merge-sort-core",
