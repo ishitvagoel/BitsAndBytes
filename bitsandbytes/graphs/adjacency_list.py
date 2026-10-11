@@ -23,6 +23,7 @@ from typing import TypeVar
 
 from bitsandbytes.queues.linked_queue import LinkedQueue
 from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+from bitsandbytes.tracing import TraceEvent, TraceSink
 
 Vertex = TypeVar("Vertex", bound=Hashable)
 
@@ -115,6 +116,8 @@ def depth_first_order(
 def breadth_first_order(
     graph: Graph,
     start: Vertex,
+    *,
+    trace_sink: TraceSink | None = None,
 ) -> list[Vertex]:
     """Return vertices reachable from ``start`` in breadth-first order.
 
@@ -128,13 +131,19 @@ def breadth_first_order(
     visited: set[Vertex] = {start}
     queue: LinkedQueue[Vertex] = LinkedQueue()
     queue.enqueue(start)
+    if trace_sink is not None:
+        trace_sink(TraceEvent("enqueue", {"vertex": start, "queue": [start]}))
     while not queue.is_empty:
         vertex = queue.dequeue()
         order.append(vertex)
+        if trace_sink is not None:
+            trace_sink(TraceEvent("dequeue", {"vertex": vertex, "order": list(order)}))
         for neighbor, _weight in graph.neighbors(vertex):
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.enqueue(neighbor)
+                if trace_sink is not None:
+                    trace_sink(TraceEvent("enqueue", {"vertex": neighbor, "from": vertex}))
     return order
 
 

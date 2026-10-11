@@ -28,6 +28,8 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
+from bitsandbytes.tracing import TraceEvent, TraceSink
+
 T = TypeVar("T")
 
 
@@ -43,7 +45,7 @@ class TreeNode(Generic[T]):
 class BinarySearchTree(Generic[T]):
     """Binary search tree ordered by ``<`` on ``data``."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, trace_sink: TraceSink | None = None) -> None:
         """Create an empty tree.
 
         Cost
@@ -52,6 +54,7 @@ class BinarySearchTree(Generic[T]):
         """
 
         self.root: TreeNode[T] | None = None
+        self._trace_sink = trace_sink
 
     def insert(self, value: T) -> None:
         """Insert ``value`` if it is not already present.
@@ -64,17 +67,23 @@ class BinarySearchTree(Generic[T]):
 
         if self.root is None:
             self.root = TreeNode(value)
+            if self._trace_sink is not None:
+                self._trace_sink(TraceEvent("child", {"value": value, "parent": None, "side": "root"}))
             return
         node = self.root
         while True:
             if value < node.data:
                 if node.left is None:
                     node.left = TreeNode(value)
+                    if self._trace_sink is not None:
+                        self._trace_sink(TraceEvent("child", {"value": value, "parent": node.data, "side": "left"}))
                     return
                 node = node.left
             elif node.data < value:
                 if node.right is None:
                     node.right = TreeNode(value)
+                    if self._trace_sink is not None:
+                        self._trace_sink(TraceEvent("child", {"value": value, "parent": node.data, "side": "right"}))
                     return
                 node = node.right
             else:

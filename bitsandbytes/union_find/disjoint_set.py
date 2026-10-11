@@ -21,11 +21,13 @@ and then unions endpoints that are still in different sets.
 
 from __future__ import annotations
 
+from bitsandbytes.tracing import TraceEvent, TraceSink
+
 
 class DisjointSet:
     """Disjoint-set forest with optional heuristics."""
 
-    def __init__(self, size: int, *, use_heuristics: bool = True) -> None:
+    def __init__(self, size: int, *, use_heuristics: bool = True, trace_sink: TraceSink | None = None) -> None:
         """Create ``size`` singleton sets labeled ``0 .. size-1``.
 
         Cost
@@ -38,6 +40,7 @@ class DisjointSet:
         self._parent = list(range(size))
         self._rank = [0] * size
         self._use_heuristics = use_heuristics
+        self._trace_sink = trace_sink
 
     def find(self, item: int) -> int:
         """Return the representative of ``item``'s set.
@@ -79,6 +82,8 @@ class DisjointSet:
             return
         if not self._use_heuristics:
             self._parent[root_second] = root_first
+            if self._trace_sink is not None:
+                self._trace_sink(TraceEvent("parent", {"child": root_second, "parent": root_first, "parents": list(self._parent)}))
             return
         if self._rank[root_first] < self._rank[root_second]:
             root_first, root_second = root_second, root_first

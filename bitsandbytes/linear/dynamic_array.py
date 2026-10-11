@@ -15,13 +15,15 @@ from __future__ import annotations
 
 from typing import Generic, Iterator, TypeVar
 
+from bitsandbytes.tracing import TraceEvent, TraceSink
+
 T = TypeVar("T")
 
 
 class DynamicArray(Generic[T]):
     """Append-mostly dynamic array with geometric growth."""
 
-    def __init__(self, *, initial_capacity: int = 1) -> None:
+    def __init__(self, *, initial_capacity: int = 1, trace_sink: TraceSink | None = None) -> None:
         """Create an empty array with at least ``initial_capacity`` slots.
 
         Cost
@@ -34,6 +36,7 @@ class DynamicArray(Generic[T]):
         self._items: list[T | None] = [None] * initial_capacity
         self._length = 0
         self._capacity = initial_capacity
+        self._trace_sink = trace_sink
 
     def __len__(self) -> int:
         """Return how many items are stored.
@@ -136,7 +139,10 @@ class DynamicArray(Generic[T]):
 
         new_capacity = self._capacity * 2
         new_items: list[T | None] = [None] * new_capacity
+        copied = self._length
         for index in range(self._length):
             new_items[index] = self._items[index]
         self._items = new_items
         self._capacity = new_capacity
+        if self._trace_sink is not None:
+            self._trace_sink(TraceEvent("resize", {"copied": copied, "capacity": self._capacity}))
