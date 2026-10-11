@@ -1,5 +1,7 @@
 # Bits and Bytes curriculum
 
+This file lists modules. `site/src/lib/curriculum.ts` is the lesson order.
+
 A curriculum roadmap for the repository’s data structures and algorithms, grounded in the textbooks and university courses listed below. The website curriculum in `site/src/lib/curriculum.ts` is the canonical learner-facing lesson order and prerequisite graph. This document tracks module coverage, target competencies and gaps; a module being Present here does not mean its website lesson is Ready.
 
 Use each order for its stated purpose:

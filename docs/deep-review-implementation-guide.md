@@ -360,7 +360,7 @@ Guardrails. Keep the four `!important` declarations in the reduced-motion block.
 
 **F-C-7. The reference pages still carry facts the sequence lacks.** The `Industry` paragraphs in `guide/04-stacks.md` (a Python `list` as a stack), `guide/05-sorting.md` (Timsort, stability, `O(n log n)`), and `guide/13-graphs.md` (sparse graphs, `deque`, `heapq`) appear nowhere in the sequence lessons. Kosaraju, Bellman-Ford, Prim, 0-1 BFS, Floyd-Warshall, and the bipartite test are named only on the graphs reference page. `min_stack`, `sort_stack`, and `largest_rectangle` costs are only on the stacks page.
 
-**F-C-8. Four documents describe the curriculum and disagree.** `docs/release-evidence.md` says 66 summary, 2 partial, 1 ready, 1 reference. `curriculum.ts` says 32, 19, 1, 18. `CURRICULUM.md` orders analysis, linear structures, trees and heaps and hashing, sorting, union-find, graphs. `curriculum.ts` puts sorting before hashing and trees and puts union-find inside Graphs. `README.md` section 7 bundles `linear/dynamic_array.py` under queues while the site teaches dynamic arrays in Foundations. `decisions.tsv` has 22 rows for module chapters and no rows for the focused lessons.
+**F-C-8. Four documents describe the curriculum and disagree.** `docs/release-evidence.md` says the old readiness mix of summary 66, partial 2, ready 1, and reference 1. `curriculum.ts` says 32, 19, 1, 18. `CURRICULUM.md` orders analysis, linear structures, trees and heaps and hashing, sorting, union-find, graphs. `curriculum.ts` puts sorting before hashing and trees and puts union-find inside Graphs. `README.md` section 7 bundles `linear/dynamic_array.py` under queues while the site teaches dynamic arrays in Foundations. `decisions.tsv` has 22 rows for module chapters and no rows for the focused lessons.
 
 **F-C-9. Prose patterns.** The generated idea and cost paragraphs contain sentences of 28 to 33 words (`guide/44-hash-chaining.md` line 24 is 33 words). All 18 generated lessons end with the same sentence. Eleven of the 18 have no extra cost paragraph and seven do.
 
@@ -533,7 +533,7 @@ Steps.
 
 Acceptance.
 - [ ] `node --experimental-strip-types scripts/generate-lesson-readiness-audit.mjs --check` exits 0, and exits 1 after you edit one lesson title inside the README markers.
-- [ ] `rg -n "66 summary" docs` returns nothing.
+- [ ] Searching `docs` for the stale release count `66` followed by a space and `summary` returns nothing.
 
 Guardrails. Do not move module bullets out of the README.
 

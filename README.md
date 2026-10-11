@@ -4,6 +4,97 @@ A module and complexity reference for the data structures in this repository. Us
 
 The website’s recommended stages are Foundations → Linear structures → Search and ordering → Lookup and priority → Graphs → Problem-solving methods → Advanced applications, followed by a separate Python reference. The website curriculum in `site/src/lib/curriculum.ts` is authoritative for lesson order and prerequisites. For the repository module inventory and longer-term curriculum gaps, see [CURRICULUM.md](CURRICULUM.md).
 
+<!-- curriculum:start -->
+Generated from `site/src/lib/curriculum.ts`. This list is the lesson order.
+
+### Foundations
+
+- [Input size and operation counts](guide/26-input-size-and-operation-counts.md)
+- [Asymptotic growth](guide/27-asymptotic-growth.md)
+- [Cost models and assumptions](guide/28-cost-models.md)
+- [Loop invariants](guide/29-loop-invariants.md)
+- [Arrays and Python sequence costs](guide/30-arrays-and-python-costs.md)
+- [Dynamic-array growth](guide/36-dynamic-array-growth.md)
+- [Recursion and recurrences](guide/31-recursion-and-recurrences.md)
+### Linear structures
+
+- [Singly linked list](guide/01-singly-linked-list.md)
+- [Fast and slow pointers](guide/22-fast-slow-pointer-patterns.md)
+- [Linked-list reversal and relinking](guide/23-linked-list-reversal-and-relinking.md)
+- [Linked-list merge and sort](guide/24-linked-list-merge-and-sort.md)
+- [Special linked-list cases](guide/25-linked-list-special-cases.md)
+- [Doubly linked-list operations](guide/51-doubly-linked-list-operations.md)
+- [Stack basics](guide/32-stack-basics.md)
+- [Monotonic stack patterns](guide/33-monotonic-stack-patterns.md)
+- [Stack parsing and expressions](guide/34-stack-parsing-and-expressions.md)
+- [Queue and deque operations](guide/35-queue-and-deque-operations.md)
+### Search and ordering
+
+- [Comparison sorts](guide/37-comparison-sorts.md)
+- [Merge sort](guide/38-merge-sort.md)
+- [Quicksort and partition](guide/39-quicksort-and-partition.md)
+- [Binary search](guide/06-binary-search.md)
+- [Binary search on a feasible answer](guide/42-binary-search-on-answer.md)
+- [Counting and radix sorts](guide/40-noncomparison-sorts.md)
+- [Order-statistic selection](guide/41-order-statistic-selection.md)
+- [Inversion counting](guide/43-inversion-counting.md)
+### Lookup and priority
+
+- [Hash tables with chaining](guide/44-hash-chaining.md)
+- [Hash tables with linear probing](guide/45-hash-linear-probing.md)
+- [LRU cache](guide/52-lru-cache.md)
+- [Binary search tree operations](guide/46-binary-search-tree-operations.md)
+- [Tree traversals](guide/47-tree-traversals.md)
+- [Balanced search trees](guide/48-balanced-search-trees.md)
+- [Heap operations](guide/49-heap-operations.md)
+- [Priority queues](guide/50-priority-queues.md)
+### Graphs
+
+- [Graph representations](guide/53-graph-representations.md)
+- [Graph traversals](guide/54-graph-traversals.md)
+- [Directed acyclic graphs and topological order](guide/55-topological-order.md)
+- [Shortest paths](guide/56-shortest-paths.md)
+- [Union-find](guide/11-union-find.md)
+- [Minimum spanning trees](guide/57-minimum-spanning-trees.md)
+### Problem-solving methods
+
+- [Two-pointer patterns](guide/58-two-pointers.md)
+- [Sliding windows](guide/59-sliding-window.md)
+- [Prefix sums](guide/60-prefix-sums.md)
+- [Backtracking search](guide/61-backtracking.md)
+- [Greedy methods](guide/62-greedy-methods.md)
+- [Dynamic programming](guide/14-dynamic-programming.md)
+- [Dynamic programming state and transitions](guide/63-dp-state-and-transition.md)
+### Advanced applications
+
+- [String search algorithms](guide/64-string-search.md)
+- [Tries and text indexes](guide/65-tries-and-text-indexes.md)
+- [Range-query structures](guide/66-range-query-structures.md)
+- [Approximate membership structures](guide/67-approximate-membership.md)
+- [Storage engines and locality](guide/68-storage-engines-and-locality.md)
+- [Approximation guarantees](guide/69-approximation-guarantees.md)
+### Python reference
+
+- [Analysis and library costs](guide/00-analysis-and-library-costs.md)
+- [List algorithms](guide/02-list-algorithms.md)
+- [Stacks](guide/04-stacks.md)
+- [Queues and deque](guide/07-queues-and-deque.md)
+- [Sorting](guide/05-sorting.md)
+- [Sorting extras](guide/12-sorting-extras.md)
+- [Heaps](guide/08-heaps.md)
+- [Hash table](guide/09-hash-table.md)
+- [Binary search tree](guide/10-binary-search-tree.md)
+- [Doubly linked list and the LRU cache](guide/03-doubly-linked-list-and-lru-cache.md)
+- [Graphs](guide/13-graphs.md)
+- [Greedy algorithms](guide/15-greedy-algorithms.md)
+- [Backtracking and array patterns](guide/16-backtracking-and-array-patterns.md)
+- [Strings](guide/17-strings.md)
+- [Range queries and approximate structures](guide/18-range-queries-and-approximate-structures.md)
+- [Storage and locality](guide/19-storage-and-locality.md)
+- [Limits and approximation](guide/20-limits-and-approximation.md)
+- [Appendix: Python tools](guide/21-appendix-python-tools.md)
+<!-- curriculum:end -->
+
 ## 0. Analysis and library costs
 
 Lesson: [guide/00-analysis-and-library-costs.md](guide/00-analysis-and-library-costs.md)

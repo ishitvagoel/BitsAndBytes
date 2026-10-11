@@ -14,7 +14,7 @@ Recorded 6 October 2026 for branch `codex/bitsandbytes-learning-redesign`. This 
 - `PYTHONPATH=../review-deps python -m pytest -q` passes all 236 tests. `python guide/check_lessons.py` passes all 70 lesson files, and `git diff --check` passes.
 - Progress tests now cover per-objective rechecks, retained historical attempts, fresh due-review responses, strict imports and stale-write fallback. Full browser quota, cross-tab and export/import round-trip checks remain open.
 - This implementation pass expanded `guide/42-binary-search-on-answer.md` into a worked Partially taught lesson with two exercises. Most of the 70 lesson routes remain below the full readiness rubric; route count and source mappings do not mean those lessons are complete.
-- `npm run report:readiness` generates [`lesson-readiness-audit.md`](./lesson-readiness-audit.md) with one row per route: 66 Summary, 2 Partially taught, 1 Ready and 1 Reference. The generated rubric actions are a triage queue, not a substitute for lesson-by-lesson editorial review.
+- `npm run report:readiness` generates [`lesson-readiness-audit.md`](./lesson-readiness-audit.md) with one row per route. The generated rubric actions are a triage queue, not a substitute for lesson-by-lesson editorial review. Read the snapshot line in that file for the current counts.
 
 ## Remaining release gates
 

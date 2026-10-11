@@ -1,4 +1,4 @@
-order	title	slug	decision
+order	title	slug	decision	This file lists modules. site/src/lib/curriculum.ts is the lesson order.
 0	Analysis and library costs	analysis-and-library-costs	One lesson for README section 0; module lists both importable bitsandbytes.complexity and bitsandbytes.library_costs.
 1	Singly linked list	singly-linked-list	Single core list module bitsandbytes.linked_list matches README section 1.
 2	List algorithms	list-algorithms	Comma-separated bitsandbytes.linked_lists.* modules for every file named in README section 2.
