@@ -8,7 +8,7 @@ import { CopyableCodeBlock } from "@/components/copyable-code-block";
 import { LessonHeaderSlot } from "@/components/lesson-header-slot";
 import type { TraceScenario } from "@/components/trace-bench";
 import { ModuleList } from "@/components/module-list";
-import { ResumeTracker } from "@/components/resume-progress";
+import { CompletionControl, ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
 import lessonTraces from "@/data/lesson-traces.json";
 import lessonSlugAliases from "@/data/lesson-slug-aliases.json";
@@ -277,7 +277,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   return (
     <main id="main-content" className={hasWorkshopBench ? "lesson-layout lesson-layout-bench" : "lesson-layout"} tabIndex={-1}>
       <div className="lesson-main-column">
-        <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} />
+        <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} completeWithoutPractice={lesson.exerciseIds.length === 0} />
         <LessonHeaderSlot>
           <p className="header-lesson-position">
             {lesson.stageTitle}
@@ -353,6 +353,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </ul>
         </details>
 
+        <CompletionControl slug={lesson.slug} progressConfigs={progressConfigs} />
         <LessonSequence previous={lesson.previous} next={lesson.next} />
         <LessonSequence previous={lesson.previous} next={lesson.next} sticky />
         </div>

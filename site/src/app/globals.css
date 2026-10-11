@@ -2459,11 +2459,26 @@ a.button-primary {
   }
 }
 
+.stage-more {
+  display: none;
+  min-height: 44px;
+  margin-top: 0.4rem;
+}
+
 @media (max-width: 719px) {
   .workshop-bench,
   .course-place-chapters,
   .chapter-grid .curriculum-stages {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .curriculum-stages:not(.is-searching) .curriculum-stage:not(.is-expanded) .lesson-index-row:nth-child(n + 5) {
+    display: none;
+  }
+
+  .stage-more {
+    display: inline-flex;
+    align-items: center;
   }
 }
 

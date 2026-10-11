@@ -15,6 +15,7 @@ export type LessonProgressRecord = {
   lastSectionId: string | null;
   visitedAt: string;
   needsRecheck: boolean;
+  completedAt?: string;
   objectives: Record<string, ObjectiveAttempt>;
 };
 
@@ -52,6 +53,7 @@ export function validateLearningProgress(value: unknown, config: Record<string, 
     const sectionId = raw.lastSectionId;
     const lastSectionId = typeof sectionId === "string" && current.sectionIds.includes(sectionId) ? sectionId : null;
     const visitedAt = isTimestamp(raw.visitedAt) ? raw.visitedAt : "";
+    const completedAt = isTimestamp(raw.completedAt) ? raw.completedAt : undefined;
     const objectives: LessonProgressRecord["objectives"] = {};
     if (isRecord(raw.objectives)) {
       for (const [objectiveId, attempt] of Object.entries(raw.objectives)) {
@@ -85,6 +87,7 @@ export function validateLearningProgress(value: unknown, config: Record<string, 
       lastSectionId,
       visitedAt,
       needsRecheck: !allCurrentObjectivesChecked && (savedVersion < current.contentVersion || raw.needsRecheck === true),
+      ...(completedAt ? { completedAt } : {}),
       objectives,
     };
   }
@@ -106,7 +109,9 @@ export function validateLearningProgressImport(
       typeof raw.visitedAt !== "string" || (raw.visitedAt !== "" && !isTimestamp(raw.visitedAt)) ||
       (raw.lastSectionId !== null && typeof raw.lastSectionId !== "string") ||
       (typeof raw.lastSectionId === "string" && !current.sectionIds.includes(raw.lastSectionId)) ||
-      typeof raw.needsRecheck !== "boolean" || !isRecord(raw.objectives)
+      typeof raw.needsRecheck !== "boolean" ||
+      (raw.completedAt !== undefined && !isTimestamp(raw.completedAt)) ||
+      !isRecord(raw.objectives)
     ) return null;
     for (const [objectiveId, attempt] of Object.entries(raw.objectives)) {
       if (!current.objectiveIds.includes(objectiveId) || !isRecord(attempt)) return null;
@@ -196,5 +201,28 @@ export function recordObjectiveAttempt(
         objectives,
       },
     },
+  };
+}
+
+export function setLessonComplete(
+  progress: LearningProgress,
+  slug: string,
+  config: LessonProgressConfig,
+  complete: boolean,
+  now = new Date(),
+): LearningProgress {
+  const existing = progress.lessons[slug] ?? {
+    contentVersion: config.contentVersion,
+    lastSectionId: null,
+    visitedAt: now.toISOString(),
+    needsRecheck: false,
+    objectives: {},
+  };
+  const lesson = { ...existing };
+  if (complete) lesson.completedAt = now.toISOString();
+  else delete lesson.completedAt;
+  return {
+    schemaVersion: 1,
+    lessons: { ...progress.lessons, [slug]: lesson },
   };
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CurriculumIndex } from "@/components/curriculum-index";
 import { LocalProgressTools } from "@/components/local-progress-tools";
 import { ReviewQueue } from "@/components/review-queue";
-import { ResumeLine } from "@/components/resume-progress";
+import { ResumeCard } from "@/components/resume-progress";
 import { getAllLessons, getCurriculumStages } from "@/lib/lessons";
 import { getLessonSections } from "@/lib/lesson-sections";
 import type { LessonProgressConfig } from "@/lib/learning-progress";
@@ -56,7 +56,7 @@ export default function Home() {
     <main id="main-content" className="home-page" tabIndex={-1}>
       <h1 id="home-title">Learn the idea. Then follow the steps.</h1>
       <p className="home-lead">Start with how to count the work an algorithm does. Each later lesson uses that count.</p>
-      <ResumeLine lessons={resumeLessons} />
+      <ResumeCard lessons={resumeLessons} />
       <p className="home-actions">
         <Link className="button button-primary" href={`/lessons/${start.slug}`}>
           Start here <span aria-hidden="true">→</span>

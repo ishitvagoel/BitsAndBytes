@@ -9,6 +9,7 @@ import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
   recordObjectiveAttempt,
+  setLessonComplete,
   validateLearningProgress,
   type LessonProgressConfig,
 } from "@/lib/learning-progress";
@@ -317,7 +318,13 @@ export function LessonPractice({
         JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
         progressConfigs,
       );
-      const updated = recordObjectiveAttempt(progress, lessonSlug, progressConfigs[lessonSlug], question.objectiveId, selected === question.answer);
+      const recorded = recordObjectiveAttempt(progress, lessonSlug, progressConfigs[lessonSlug], question.objectiveId, selected === question.answer);
+      const allCorrect = questions.every((item) => {
+        const chosen = item.storageId === questionId ? selected : answers[item.storageId]?.selected;
+        const checked = item.storageId === questionId || Boolean(answers[item.storageId]?.checked);
+        return checked && chosen === item.answer;
+      });
+      const updated = setLessonComplete(recorded, lessonSlug, progressConfigs[lessonSlug], allCorrect);
       window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
       window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
     } catch {

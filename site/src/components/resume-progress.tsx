@@ -6,6 +6,7 @@ import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
   recordLessonVisit,
+  setLessonComplete,
   validateLearningProgress,
   type LessonProgressConfig,
 } from "@/lib/learning-progress";
@@ -78,10 +79,12 @@ export function ResumeTracker({
   slug,
   sections,
   progressConfigs,
+  completeWithoutPractice = false,
 }: {
   slug: string;
   sections: Array<{ id: string; title: string }>;
   progressConfigs: Record<string, LessonProgressConfig>;
+  completeWithoutPractice?: boolean;
 }) {
   const activeSectionId = useRef<string | null>(null);
   useEffect(() => {
@@ -93,7 +96,11 @@ export function ResumeTracker({
           JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
           progressConfigs,
         );
-        const updated = recordLessonVisit(current, slug, progressConfigs[slug], sectionId);
+        const visited = recordLessonVisit(current, slug, progressConfigs[slug], sectionId);
+        const lastId = sections.at(-1)?.id;
+        const updated = completeWithoutPractice && sectionId === lastId
+          ? setLessonComplete(visited, slug, progressConfigs[slug], true)
+          : visited;
         window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
         window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
       } catch {
@@ -132,22 +139,9 @@ export function ResumeTracker({
       observer.disconnect();
       window.removeEventListener("hashchange", onHashChange);
     };
-  }, [progressConfigs, slug, sections]);
+  }, [completeWithoutPractice, progressConfigs, slug, sections]);
 
   return null;
-}
-
-export function ResumeLine({ lessons }: { lessons: ResumeLesson[] }) {
-  const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
-  const resume = useMemo(() => readRecord(raw, lessons), [raw, lessons]);
-  if (!resume) return null;
-  const sectionTitle = resume.section?.title;
-
-  return (
-    <p className="resume-line">
-      Saved on this device: {resume.lesson.title}{sectionTitle ? ` · ${sectionTitle}` : ""}
-    </p>
-  );
 }
 
 export function ResumeCard({ lessons }: { lessons: ResumeLesson[] }) {
@@ -168,6 +162,58 @@ export function ResumeCard({ lessons }: { lessons: ResumeLesson[] }) {
       </Link>
     </section>
   );
+}
+
+export function CompletionControl({
+  slug,
+  progressConfigs,
+}: {
+  slug: string;
+  progressConfigs: Record<string, LessonProgressConfig>;
+}) {
+  const raw = useSyncExternalStore(subscribeToLearningProgress, getLearningProgressSnapshot, () => "");
+  const done = useMemo(() => {
+    try {
+      const progress = validateLearningProgress(JSON.parse(raw || "null") as unknown, progressConfigs);
+      return Boolean(progress.lessons[slug]?.completedAt);
+    } catch {
+      return false;
+    }
+  }, [progressConfigs, raw, slug]);
+
+  function toggle() {
+    try {
+      const progress = validateLearningProgress(JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown, progressConfigs);
+      const updated = setLessonComplete(progress, slug, progressConfigs[slug], !done);
+      window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
+      window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
+    } catch {
+      // The lesson stays readable when storage is blocked.
+    }
+  }
+
+  return (
+    <p className="completion-row">
+      <button type="button" className="button button-secondary" onClick={toggle}>{done ? "Completed" : "Mark as done"}</button>
+    </p>
+  );
+}
+
+function subscribeToLearningProgress(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(LEARNING_PROGRESS_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(LEARNING_PROGRESS_EVENT, callback);
+  };
+}
+
+function getLearningProgressSnapshot() {
+  try {
+    return window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "";
+  } catch {
+    return "";
+  }
 }
 
 export function useLastVisitedSlug(knownSlugs: string[]) {
