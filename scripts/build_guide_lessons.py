@@ -72,11 +72,11 @@ def scenario(
     return payload
 
 
-def exercise(slug: str, objective_id: str, prompt: str, options: list[tuple[str, str]], answer: str, correct: str, retry: str, hints: list[str]) -> dict[str, object]:
+def exercise(slug: str, objective_id: str, prompt: str, options: list[tuple[str, str]], answer: str, correct: str, retry: str, hints: list[str], suffix: str = "check") -> dict[str, object]:
     return {
-        "id": f"{slug}-check",
+        "id": f"{slug}-{suffix}",
         "lessonSlug": slug,
-        "storageId": f"{slug}-check",
+        "storageId": f"{slug}-{suffix}",
         "prompt": prompt,
         "hints": hints,
         "options": [{"id": option_id, "label": label} for option_id, label in options],
@@ -552,6 +552,118 @@ def all_specs() -> list[dict[str, object]]:
     return [*LESSONS, *more_lessons(), *final_lessons()]
 
 
+def transfer_questions() -> dict[str, dict[str, object]]:
+    """Questions whose correct label is not a cell in the worked trace."""
+    assert min(5, 4) == 4
+    assert 2 * 1 + 1 == 3
+    stack = Stack(limit=4)
+    for item in (1, 2):
+        stack.push(item)
+    stack.pop()
+    stack.push(3)
+    assert stack.pop() == 3 and stack.pop() == 1
+    queue = LinkedQueue()
+    queue.enqueue("a")
+    queue.enqueue("b")
+    queue.dequeue()
+    queue.enqueue("c")
+    assert queue.dequeue() == "b"
+    return complete_transfers({
+        "input-size-and-operation-counts": {
+            "prompt": "A loop over 6 items checks every unordered pair. How many checks run?",
+            "options": [("fifteen", "15 checks, from 6 times 5 divided by 2"), ("six", "6 checks, one per item"), ("thirty-six", "36 checks, from 6 times 6")],
+            "answer": "fifteen",
+            "correct": "The pair count is 6 * 5 / 2, which is 15.",
+            "retry": "The last item has no partner left. Do not count 6 * 6.",
+            "hints": ["Use n(n - 1) / 2 with n = 6.", "6 * 5 is 30, and half of that is the pair count."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "input-size-count-loop-work",
+                "prompt": "The same pair loop runs on 4 items. How many checks is that?",
+                "options": [("six", "6 checks"), ("four", "4 checks"), ("eight", "8 checks")],
+                "answer": "six",
+                "correct": "4 * 3 / 2 is 6.",
+                "retry": "Count pairs, not the length of the list.",
+                "hints": ["n is 4.", "The formula is n(n - 1) / 2."],
+            }],
+        },
+        "merge-sort": {
+            "prompt": "Runs [2, 5] and [3, 4] have already written 2 and 3. Which value leaves next?",
+            "options": [("right-front", "The smaller remaining front, which is 4"), ("left-front", "The left front, which is 5"), ("both", "Both remaining fronts in one step")],
+            "answer": "right-front",
+            "correct": "The remaining fronts are 5 and 4. The merge takes 4.",
+            "retry": "After 2 and 3 leave, compare 5 with 4.",
+            "hints": ["2 and 3 are already in the output.", "4 is smaller than 5."],
+            "more": [{
+                "suffix": "transfer",
+                "objective": "merge-sort-merge-runs",
+                "prompt": "A merge of n items does Θ(n) work, and there are Θ(log n) levels. What is the total?",
+                "options": [("n-log", "Θ(n log n), because each level does linear work"), ("n-squared", "Θ(n²), because the levels multiply"), ("log-only", "Θ(log n), because only the depth matters")],
+                "answer": "n-log",
+                "correct": "Θ(log n) levels times Θ(n) merging is Θ(n log n).",
+                "retry": "Do not drop the linear work that happens on every level.",
+                "hints": ["The recurrence is T(n) = 2T(n/2) + Θ(n).", "Count both the depth and the work per level."],
+            }],
+        },
+    })
+
+
+def _choice(slug: str, second_objective: str, prompt: str, correct: str, wrong_a: str, wrong_b: str) -> dict[str, object]:
+    return {
+        "prompt": prompt,
+        "options": [("yes", correct), ("no", wrong_a), ("other", wrong_b)],
+        "answer": "yes",
+        "correct": correct,
+        "retry": f"Check the count again. {wrong_a} does not match this input.",
+        "hints": ["Use the same rule as the lesson, on this new input.", "Compare only the values named in the question."],
+        "more": [{
+            "suffix": "transfer",
+            "objective": second_objective,
+            "prompt": f"Apply the same rule from {slug} to one new case. Which statement holds?",
+            "options": [("holds", correct), ("fails", wrong_a), ("unrelated", wrong_b)],
+            "answer": "holds",
+            "correct": correct,
+            "retry": "The new case uses the same rule. Do not switch rules.",
+            "hints": ["The lesson's rule does not change for a new input.", "Reject the statement that contradicts the rule."],
+        }],
+    }
+
+
+def complete_transfers(partial: dict[str, dict[str, object]]) -> dict[str, dict[str, object]]:
+    extras = {
+        "asymptotic-growth": ("asymptotic-compare-growth", "For large n, which grows faster?", "n squared grows faster than n log n", "n log n grows faster than n squared", "They stay equal for every n"),
+        "loop-invariants": ("invariant-state-loop-property", "A loop has finished. What must the invariant still say?", "The invariant holds after the last iteration too", "The invariant applies only before the loop", "The invariant replaces the postcondition"),
+        "arrays-and-python-costs": ("python-sequence-analyze-amortized-cost", "You drain 1000 items with pop from the front. What dominates?", "About half a million reference moves, from repeated front pops", "About 1000 moves, one per pop", "About 1000 hash lookups"),
+        "dynamic-array-growth": ("dynamic-array-geometric-growth", "Capacity starts at 1 and doubles. After 3 appends, how many copies happened?", "3 copies, from 0 plus 1 plus 2", "1 copy, only the last resize", "7 copies, one per new slot"),
+        "recursion-and-recurrences": ("recursion-identify-shape", "A recursion splits in half and does linear work. What is the total?", "Θ(n log n) from a balanced split plus linear work per level", "Θ(n²) from a chain of n calls", "Θ(n) because the depth is logarithmic"),
+        "singly-linked-list": ("linked-list-trace-links", "You have a pointer to the tail of a singly linked list. What is expensive?", "Deleting the tail, because the predecessor is not stored", "Reading the tail, because the pointer is already there", "Appending, because the tail pointer must walk from the head"),
+        "stack-basics": ("stack-maintain-size-invariant", "Push 1, push 2, pop, push 3, pop, pop. What remains, then what was last?", "The last pop returns 1, and the stack is empty", "The last pop returns 3", "The last pop returns 2"),
+        "queue-and-deque-operations": ("queue-compare-implementations", "Enqueue a, enqueue b, dequeue, enqueue c, dequeue. What leaves second?", "b leaves second, because a already left", "c leaves second", "a leaves second"),
+        "comparison-sorts": ("comparison-sort-compare-properties", "Insertion sort uses a strict less-than. What happens to equal keys?", "Equal keys keep their order, so the sort is stable", "Equal keys always swap", "Equal keys make the sort quadratic"),
+        "quicksort-and-partition": ("quicksort-analyze-split-cost", "Every pivot lands at the end. What recurrence is that?", "T(n) = T(n - 1) + Θ(n), which is quadratic", "T(n) = 2T(n/2) + Θ(n) for every pivot", "T(n) = Θ(n) because the scan is linear"),
+        "hash-chaining": ("hash-chaining-analyze-load-factor", "n keys sit in b buckets. What is the average chain length?", "n divided by b, the load factor", "n plus b", "Always 1, because hashing avoids collisions"),
+        "binary-search-tree-operations": ("bst-operations-find-successor", "Node 2 has no right child, and its parent 4 is larger. Where is the successor of 2?", "The parent 4, the next larger ancestor", "The left child of 2", "There is no successor in a binary tree"),
+        "heap-operations": ("heap-operations-derive-heapsort-cost", "Index 1 in [3, 8, 1, 9, 4, 2] has children at 3 and 4. Which child is larger?", "Index 3, because 9 is larger than 4", "Index 4, because it is the right child", "Index 1, because the parent is always largest"),
+        "graph-traversals": ("graph-traversal-analyze-work", "A breadth-first search marks a vertex when it is enqueued. What does that prevent?", "A later edge cannot enqueue the same vertex again", "The queue can hold the vertex twice, which is required", "The search skips every edge"),
+        "union-find": ("union-find-explain-optimizations", "Naive union links 2 under find(1), and find(1) is already 0. How long is the walk from 2?", "One hop, from 2 directly to 0", "Two hops, from 2 to 1 to 0", "No hop, because 2 stays a root"),
+        "dynamic-programming": ("dp-identify-state", "Fibonacci keeps only the two previous values. What is the extra memory?", "O(1) extra memory, not a full table", "O(n) extra memory for every F(i)", "O(n²) extra memory for pairs of indexes"),
+    }
+    assert Stack and LinkedQueue
+    for slug, (objective, prompt, correct, wrong_a, wrong_b) in extras.items():
+        partial[slug] = _choice(slug, objective, prompt, correct, wrong_a, wrong_b)
+    partial["dynamic-programming"]["more"].append({
+        "suffix": "memory",
+        "objective": "dp-analyze-time-memory",
+        "prompt": "fibonacci_modulo(6, 1000) returns 8. How much extra memory did that call keep?",
+        "options": [("constant", "A constant number of integers"), ("table", "A table of 7 integers"), ("matrix", "A matrix of pairs")],
+        "answer": "constant",
+        "correct": "The library keeps two running values, and F(6) is 8.",
+        "retry": "Do not allocate a cell per index. The code updates two names.",
+        "hints": ["The result is 8.", "The implementation does not store F(0) through F(6)."],
+    })
+    return partial
+
+
 def patch_curriculum(text: str, specs: list[dict[str, object]]) -> str:
     for spec in specs:
         slug = str(spec["slug"])
@@ -574,9 +686,11 @@ def patch_curriculum(text: str, specs: list[dict[str, object]]) -> str:
             text,
             count=1,
         )
+        more = transfer_questions()[slug]["more"]
+        extra_ids = ", ".join(f'"{slug}-{item["suffix"]}"' for item in more)
         text, exercise_count = re.subn(
             rf'({key}\s*:\s*\{{[^{{}}]*?exerciseIds:\s*)\[[^\]]*\]',
-            rf'\1["{slug}-check"]',
+            rf'\1["{slug}-check", {extra_ids}]',
             text,
             count=1,
         )
@@ -590,8 +704,12 @@ def build() -> dict[str, str]:
     files: dict[str, str] = {}
     traces: dict[str, list[dict[str, object]]] = {}
     exercises = json.loads(PILOT_EXERCISES.read_text())
+    transfers = transfer_questions()
     for spec in specs:
         slug = str(spec["slug"])
+        override = transfers[slug]
+        for field in ("prompt", "options", "answer", "correct", "retry", "hints"):
+            spec[field] = override[field]
         scene = spec["scenario"]
         assert isinstance(scene, dict)
         scene["id"] = f"{slug}-core"
@@ -618,6 +736,18 @@ def build() -> dict[str, str]:
             str(spec["retry"]),
             spec["hints"],  # type: ignore[arg-type]
         ))
+        for extra in override["more"]:
+            exercises.append(exercise(
+                slug,
+                str(extra["objective"]),
+                str(extra["prompt"]),
+                extra["options"],  # type: ignore[arg-type]
+                str(extra["answer"]),
+                str(extra["correct"]),
+                str(extra["retry"]),
+                extra["hints"],  # type: ignore[arg-type]
+                str(extra["suffix"]),
+            ))
     files[str(TRACES_OUT.relative_to(ROOT))] = json.dumps(traces, indent=2) + "\n"
     files[str(EXERCISES_OUT.relative_to(ROOT))] = json.dumps(exercises, indent=2) + "\n"
     files[str(CURRICULUM.relative_to(ROOT))] = patch_curriculum(CURRICULUM.read_text(), specs)

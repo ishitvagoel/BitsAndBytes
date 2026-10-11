@@ -227,504 +227,1036 @@
     "id": "input-size-and-operation-counts-check",
     "lessonSlug": "input-size-and-operation-counts",
     "storageId": "input-size-and-operation-counts-check",
-    "prompt": "A loop scans every pair of a list of n items. Which expression counts the pair checks?",
+    "prompt": "A loop over 6 items checks every unordered pair. How many checks run?",
     "hints": [
-      "The loop does not stop after one pass over the list.",
-      "Add (n - 1) + (n - 2) + ... + 1."
+      "Use n(n - 1) / 2 with n = 6.",
+      "6 * 5 is 30, and half of that is the pair count."
     ],
     "options": [
       {
-        "id": "linear",
-        "label": "n"
+        "id": "fifteen",
+        "label": "15 checks, from 6 times 5 divided by 2"
       },
       {
-        "id": "quadratic",
-        "label": "n(n - 1) / 2"
+        "id": "six",
+        "label": "6 checks, one per item"
       },
       {
-        "id": "cubic",
-        "label": "n cubed"
+        "id": "thirty-six",
+        "label": "36 checks, from 6 times 6"
       }
     ],
-    "answer": "quadratic",
-    "correct": "Each unordered pair is one check, and the number of unordered pairs is n(n - 1) / 2.",
-    "retry": "Count pairs, not single items. The first item pairs with n - 1 others, the next with n - 2, and that sum is n(n - 1) / 2.",
+    "answer": "fifteen",
+    "correct": "The pair count is 6 * 5 / 2, which is 15.",
+    "retry": "The last item has no partner left. Do not count 6 * 6.",
     "objectiveId": "input-size-choose-variable"
+  },
+  {
+    "id": "input-size-and-operation-counts-transfer",
+    "lessonSlug": "input-size-and-operation-counts",
+    "storageId": "input-size-and-operation-counts-transfer",
+    "prompt": "The same pair loop runs on 4 items. How many checks is that?",
+    "hints": [
+      "n is 4.",
+      "The formula is n(n - 1) / 2."
+    ],
+    "options": [
+      {
+        "id": "six",
+        "label": "6 checks"
+      },
+      {
+        "id": "four",
+        "label": "4 checks"
+      },
+      {
+        "id": "eight",
+        "label": "8 checks"
+      }
+    ],
+    "answer": "six",
+    "correct": "4 * 3 / 2 is 6.",
+    "retry": "Count pairs, not the length of the list.",
+    "objectiveId": "input-size-count-loop-work"
   },
   {
     "id": "asymptotic-growth-check",
     "lessonSlug": "asymptotic-growth",
     "storageId": "asymptotic-growth-check",
-    "prompt": "A routine does 3n + 20 comparisons. Which statement is true?",
+    "prompt": "For large n, which grows faster?",
     "hints": [
-      "Ignore the constant factor and the added constant.",
-      "Compare n, n log n, and n\u00b2 as n gets large."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "tight",
-        "label": "The work is \u0398(n)"
+        "id": "yes",
+        "label": "n squared grows faster than n log n"
       },
       {
-        "id": "square",
-        "label": "The work is \u0398(n\u00b2)"
+        "id": "no",
+        "label": "n log n grows faster than n squared"
       },
       {
-        "id": "constant",
-        "label": "The work is \u0398(1)"
+        "id": "other",
+        "label": "They stay equal for every n"
       }
     ],
-    "answer": "tight",
-    "correct": "3n + 20 grows like n. The 3 and the 20 do not change the growth class.",
-    "retry": "Divide 3n + 20 by n. The ratio approaches 3, a constant, so the bound is tight at n.",
+    "answer": "yes",
+    "correct": "n squared grows faster than n log n",
+    "retry": "Check the count again. n log n grows faster than n squared does not match this input.",
     "objectiveId": "asymptotic-distinguish-bounds"
+  },
+  {
+    "id": "asymptotic-growth-transfer",
+    "lessonSlug": "asymptotic-growth",
+    "storageId": "asymptotic-growth-transfer",
+    "prompt": "Apply the same rule from asymptotic-growth to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "n squared grows faster than n log n"
+      },
+      {
+        "id": "fails",
+        "label": "n log n grows faster than n squared"
+      },
+      {
+        "id": "unrelated",
+        "label": "They stay equal for every n"
+      }
+    ],
+    "answer": "holds",
+    "correct": "n squared grows faster than n log n",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "asymptotic-compare-growth"
   },
   {
     "id": "loop-invariants-check",
     "lessonSlug": "loop-invariants",
     "storageId": "loop-invariants-check",
-    "prompt": "Insertion sort's prefix is sorted before each outer step. Which check fails if an equal key is moved past an earlier equal key?",
+    "prompt": "A loop has finished. What must the invariant still say?",
     "hints": [
-      "Initialization of a one-item prefix is fine.",
-      "Ask what the algorithm promises about equal keys, not only about order."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "stability",
-        "label": "Stability, because the earlier equal key must stay on the left"
+        "id": "yes",
+        "label": "The invariant holds after the last iteration too"
       },
       {
-        "id": "init",
-        "label": "Initialization, because the empty prefix is not sorted"
+        "id": "no",
+        "label": "The invariant applies only before the loop"
       },
       {
-        "id": "term",
-        "label": "Termination, because the loop never ends"
+        "id": "other",
+        "label": "The invariant replaces the postcondition"
       }
     ],
-    "answer": "stability",
-    "correct": "The prefix can stay sorted either way. Moving an equal key past another equal key breaks stability, which is a stronger claim than sorted order.",
-    "retry": "A sorted prefix allows equal keys in either order. The extra promise is which equal key stays first.",
+    "answer": "yes",
+    "correct": "The invariant holds after the last iteration too",
+    "retry": "Check the count again. The invariant applies only before the loop does not match this input.",
     "objectiveId": "invariant-check-proof-steps"
+  },
+  {
+    "id": "loop-invariants-transfer",
+    "lessonSlug": "loop-invariants",
+    "storageId": "loop-invariants-transfer",
+    "prompt": "Apply the same rule from loop-invariants to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "The invariant holds after the last iteration too"
+      },
+      {
+        "id": "fails",
+        "label": "The invariant applies only before the loop"
+      },
+      {
+        "id": "unrelated",
+        "label": "The invariant replaces the postcondition"
+      }
+    ],
+    "answer": "holds",
+    "correct": "The invariant holds after the last iteration too",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "invariant-state-loop-property"
   },
   {
     "id": "arrays-and-python-costs-check",
     "lessonSlug": "arrays-and-python-costs",
     "storageId": "arrays-and-python-costs-check",
-    "prompt": "You repeatedly remove the first item of a Python list of length n. What is the cost of one removal?",
+    "prompt": "You drain 1000 items with pop from the front. What dominates?",
     "hints": [
-      "A list is a contiguous array, not a linked chain.",
-      "append and pop() with no argument touch the end."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "front",
-        "label": "\u0398(n), because every later item shifts left"
+        "id": "yes",
+        "label": "About half a million reference moves, from repeated front pops"
       },
       {
-        "id": "end",
-        "label": "\u0398(1), because the list stores a tail pointer"
+        "id": "no",
+        "label": "About 1000 moves, one per pop"
       },
       {
-        "id": "log",
-        "label": "\u0398(log n), because the list is a tree"
+        "id": "other",
+        "label": "About 1000 hash lookups"
       }
     ],
-    "answer": "front",
-    "correct": "list.pop(0) slides every remaining reference one slot toward index 0.",
-    "retry": "The cheap end of a Python list is the last index. The first index is the expensive end.",
+    "answer": "yes",
+    "correct": "About half a million reference moves, from repeated front pops",
+    "retry": "Check the count again. About 1000 moves, one per pop does not match this input.",
     "objectiveId": "python-sequence-select-structure"
+  },
+  {
+    "id": "arrays-and-python-costs-transfer",
+    "lessonSlug": "arrays-and-python-costs",
+    "storageId": "arrays-and-python-costs-transfer",
+    "prompt": "Apply the same rule from arrays-and-python-costs to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "About half a million reference moves, from repeated front pops"
+      },
+      {
+        "id": "fails",
+        "label": "About 1000 moves, one per pop"
+      },
+      {
+        "id": "unrelated",
+        "label": "About 1000 hash lookups"
+      }
+    ],
+    "answer": "holds",
+    "correct": "About half a million reference moves, from repeated front pops",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "python-sequence-analyze-amortized-cost"
   },
   {
     "id": "dynamic-array-growth-check",
     "lessonSlug": "dynamic-array-growth",
     "storageId": "dynamic-array-growth-check",
-    "prompt": "A dynamic array doubles from capacity 1 and then stores 3 items. How many reference copies did the resizes perform?",
+    "prompt": "Capacity starts at 1 and doubles. After 3 appends, how many copies happened?",
     "hints": [
-      "The first append fills the initial slot and copies nothing.",
-      "Add the number of items moved at each doubling."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "one",
-        "label": "1"
+        "id": "yes",
+        "label": "3 copies, from 0 plus 1 plus 2"
       },
       {
-        "id": "three",
-        "label": "3"
+        "id": "no",
+        "label": "1 copy, only the last resize"
       },
       {
-        "id": "seven",
-        "label": "7"
+        "id": "other",
+        "label": "7 copies, one per new slot"
       }
     ],
-    "answer": "three",
-    "correct": "The resize before b copies a. The resize before c copies a and b. The total is 1 + 2 = 3.",
-    "retry": "Capacity goes 1, then 2, then 4. Only the two growth steps copy, and they copy 1 and then 2 items.",
+    "answer": "yes",
+    "correct": "3 copies, from 0 plus 1 plus 2",
+    "retry": "Check the count again. 1 copy, only the last resize does not match this input.",
     "objectiveId": "dynamic-array-amortized-append"
+  },
+  {
+    "id": "dynamic-array-growth-transfer",
+    "lessonSlug": "dynamic-array-growth",
+    "storageId": "dynamic-array-growth-transfer",
+    "prompt": "Apply the same rule from dynamic-array-growth to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "3 copies, from 0 plus 1 plus 2"
+      },
+      {
+        "id": "fails",
+        "label": "1 copy, only the last resize"
+      },
+      {
+        "id": "unrelated",
+        "label": "7 copies, one per new slot"
+      }
+    ],
+    "answer": "holds",
+    "correct": "3 copies, from 0 plus 1 plus 2",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "dynamic-array-geometric-growth"
   },
   {
     "id": "recursion-and-recurrences-check",
     "lessonSlug": "recursion-and-recurrences",
     "storageId": "recursion-and-recurrences-check",
-    "prompt": "A function does \u0398(n) work and then makes two calls on n/2. How many levels does the call tree have?",
+    "prompt": "A recursion splits in half and does linear work. What is the total?",
     "hints": [
-      "Write n, n/2, n/4 until the size is 1.",
-      "Count the levels, then multiply by the work on one level."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "log",
-        "label": "\u0398(log n) levels"
+        "id": "yes",
+        "label": "\u0398(n log n) from a balanced split plus linear work per level"
       },
       {
-        "id": "linear",
-        "label": "\u0398(n) levels"
+        "id": "no",
+        "label": "\u0398(n\u00b2) from a chain of n calls"
       },
       {
-        "id": "one",
-        "label": "One level, because the work is a loop"
+        "id": "other",
+        "label": "\u0398(n) because the depth is logarithmic"
       }
     ],
-    "answer": "log",
-    "correct": "The size halves each level, so the depth is \u0398(log n). The total work is still \u0398(n log n) because each level does \u0398(n) work.",
-    "retry": "Depth and total work are different. Halving reaches 1 after \u0398(log n) steps. Each of those steps, across the whole level, touches \u0398(n) items.",
+    "answer": "yes",
+    "correct": "\u0398(n log n) from a balanced split plus linear work per level",
+    "retry": "Check the count again. \u0398(n\u00b2) from a chain of n calls does not match this input.",
     "objectiveId": "recursion-count-levels-and-stack"
+  },
+  {
+    "id": "recursion-and-recurrences-transfer",
+    "lessonSlug": "recursion-and-recurrences",
+    "storageId": "recursion-and-recurrences-transfer",
+    "prompt": "Apply the same rule from recursion-and-recurrences to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "\u0398(n log n) from a balanced split plus linear work per level"
+      },
+      {
+        "id": "fails",
+        "label": "\u0398(n\u00b2) from a chain of n calls"
+      },
+      {
+        "id": "unrelated",
+        "label": "\u0398(n) because the depth is logarithmic"
+      }
+    ],
+    "answer": "holds",
+    "correct": "\u0398(n log n) from a balanced split plus linear work per level",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "recursion-identify-shape"
   },
   {
     "id": "singly-linked-list-check",
     "lessonSlug": "singly-linked-list",
     "storageId": "singly-linked-list-check",
-    "prompt": "A singly linked list caches the tail and the size. Removing the tail still takes \u0398(n) time. Why?",
+    "prompt": "You have a pointer to the tail of a singly linked list. What is expensive?",
     "hints": [
-      "Draw three nodes and the tail pointer.",
-      "Ask which reference has to change when the last node goes away."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "pred",
-        "label": "The node before the tail is not stored, so the list walks from the head"
+        "id": "yes",
+        "label": "Deleting the tail, because the predecessor is not stored"
       },
       {
-        "id": "tail",
-        "label": "The cached tail makes every removal scan the array"
+        "id": "no",
+        "label": "Reading the tail, because the pointer is already there"
       },
       {
-        "id": "size",
-        "label": "The cached size is recomputed by counting nodes"
+        "id": "other",
+        "label": "Appending, because the tail pointer must walk from the head"
       }
     ],
-    "answer": "pred",
-    "correct": "The tail's predecessor must become the new tail, and a singly linked node has no link to its predecessor.",
-    "retry": "The tail pointer finds the last node. It does not find the node that points at the last node.",
+    "answer": "yes",
+    "correct": "Deleting the tail, because the predecessor is not stored",
+    "retry": "Check the count again. Reading the tail, because the pointer is already there does not match this input.",
     "objectiveId": "linked-list-operation-costs"
+  },
+  {
+    "id": "singly-linked-list-transfer",
+    "lessonSlug": "singly-linked-list",
+    "storageId": "singly-linked-list-transfer",
+    "prompt": "Apply the same rule from singly-linked-list to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "Deleting the tail, because the predecessor is not stored"
+      },
+      {
+        "id": "fails",
+        "label": "Reading the tail, because the pointer is already there"
+      },
+      {
+        "id": "unrelated",
+        "label": "Appending, because the tail pointer must walk from the head"
+      }
+    ],
+    "answer": "holds",
+    "correct": "Deleting the tail, because the predecessor is not stored",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "linked-list-trace-links"
   },
   {
     "id": "stack-basics-check",
     "lessonSlug": "stack-basics",
     "storageId": "stack-basics-check",
-    "prompt": "A stack receives push 1, push 2, push 3, pop, pop. What is the second value returned?",
+    "prompt": "Push 1, push 2, pop, push 3, pop, pop. What remains, then what was last?",
     "hints": [
-      "Write the items from bottom to top after each push.",
-      "Pop removes the rightmost item in that picture."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "two",
-        "label": "2"
+        "id": "yes",
+        "label": "The last pop returns 1, and the stack is empty"
       },
       {
-        "id": "one",
-        "label": "1"
+        "id": "no",
+        "label": "The last pop returns 3"
       },
       {
-        "id": "three",
-        "label": "3"
+        "id": "other",
+        "label": "The last pop returns 2"
       }
     ],
-    "answer": "two",
-    "correct": "The first pop returns 3, the last item pushed. The second pop returns 2.",
-    "retry": "The top is the most recent push. After 3 leaves, 2 is on top.",
+    "answer": "yes",
+    "correct": "The last pop returns 1, and the stack is empty",
+    "retry": "Check the count again. The last pop returns 3 does not match this input.",
     "objectiveId": "stack-trace-lifo"
+  },
+  {
+    "id": "stack-basics-transfer",
+    "lessonSlug": "stack-basics",
+    "storageId": "stack-basics-transfer",
+    "prompt": "Apply the same rule from stack-basics to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "The last pop returns 1, and the stack is empty"
+      },
+      {
+        "id": "fails",
+        "label": "The last pop returns 3"
+      },
+      {
+        "id": "unrelated",
+        "label": "The last pop returns 2"
+      }
+    ],
+    "answer": "holds",
+    "correct": "The last pop returns 1, and the stack is empty",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "stack-maintain-size-invariant"
   },
   {
     "id": "queue-and-deque-operations-check",
     "lessonSlug": "queue-and-deque-operations",
     "storageId": "queue-and-deque-operations-check",
-    "prompt": "A queue receives enqueue a, enqueue b, enqueue c, dequeue, dequeue. What is the second value returned?",
+    "prompt": "Enqueue a, enqueue b, dequeue, enqueue c, dequeue. What leaves second?",
     "hints": [
-      "Enqueue adds at the back.",
-      "The front does not change when you enqueue."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "bee",
-        "label": "b"
+        "id": "yes",
+        "label": "b leaves second, because a already left"
       },
       {
-        "id": "ay",
-        "label": "a"
+        "id": "no",
+        "label": "c leaves second"
       },
       {
-        "id": "see",
-        "label": "c"
+        "id": "other",
+        "label": "a leaves second"
       }
     ],
-    "answer": "bee",
-    "correct": "The first dequeue returns a, the earliest item. The second returns b.",
-    "retry": "A queue removes from the front. a arrived first, so a leaves first. b is next.",
+    "answer": "yes",
+    "correct": "b leaves second, because a already left",
+    "retry": "Check the count again. c leaves second does not match this input.",
     "objectiveId": "queue-trace-fifo"
+  },
+  {
+    "id": "queue-and-deque-operations-transfer",
+    "lessonSlug": "queue-and-deque-operations",
+    "storageId": "queue-and-deque-operations-transfer",
+    "prompt": "Apply the same rule from queue-and-deque-operations to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "b leaves second, because a already left"
+      },
+      {
+        "id": "fails",
+        "label": "c leaves second"
+      },
+      {
+        "id": "unrelated",
+        "label": "a leaves second"
+      }
+    ],
+    "answer": "holds",
+    "correct": "b leaves second, because a already left",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "queue-compare-implementations"
   },
   {
     "id": "comparison-sorts-check",
     "lessonSlug": "comparison-sorts",
     "storageId": "comparison-sorts-check",
-    "prompt": "Insertion sort on [3, 1, 2] has just placed 1. What is the sorted prefix?",
+    "prompt": "Insertion sort uses a strict less-than. What happens to equal keys?",
     "hints": [
-      "The prefix grows by one item each outer step.",
-      "2 is still waiting in the unsorted suffix."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "one-three",
-        "label": "[1, 3]"
+        "id": "yes",
+        "label": "Equal keys keep their order, so the sort is stable"
       },
       {
-        "id": "three",
-        "label": "[3]"
+        "id": "no",
+        "label": "Equal keys always swap"
       },
       {
-        "id": "full",
-        "label": "[1, 2, 3]"
+        "id": "other",
+        "label": "Equal keys make the sort quadratic"
       }
     ],
-    "answer": "one-three",
-    "correct": "The key 1 has been inserted and 2 has not been inserted yet, so the prefix is [1, 3].",
-    "retry": "The trace places 1 in front of 3 before it looks at 2.",
+    "answer": "yes",
+    "correct": "Equal keys keep their order, so the sort is stable",
+    "retry": "Check the count again. Equal keys always swap does not match this input.",
     "objectiveId": "comparison-sort-track-prefix"
+  },
+  {
+    "id": "comparison-sorts-transfer",
+    "lessonSlug": "comparison-sorts",
+    "storageId": "comparison-sorts-transfer",
+    "prompt": "Apply the same rule from comparison-sorts to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "Equal keys keep their order, so the sort is stable"
+      },
+      {
+        "id": "fails",
+        "label": "Equal keys always swap"
+      },
+      {
+        "id": "unrelated",
+        "label": "Equal keys make the sort quadratic"
+      }
+    ],
+    "answer": "holds",
+    "correct": "Equal keys keep their order, so the sort is stable",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "comparison-sort-compare-properties"
   },
   {
     "id": "merge-sort-check",
     "lessonSlug": "merge-sort",
     "storageId": "merge-sort-check",
-    "prompt": "Two sorted runs are [1, 3] and [2, 4]. The merge has already taken 1. Which value is taken next?",
+    "prompt": "Runs [2, 5] and [3, 4] have already written 2 and 3. Which value leaves next?",
     "hints": [
-      "A merge does not look past the front of either run.",
-      "1 has already been written to the output."
+      "2 and 3 are already in the output.",
+      "4 is smaller than 5."
     ],
     "options": [
       {
-        "id": "two",
-        "label": "2"
+        "id": "right-front",
+        "label": "The smaller remaining front, which is 4"
       },
       {
-        "id": "three",
-        "label": "3"
+        "id": "left-front",
+        "label": "The left front, which is 5"
       },
       {
-        "id": "four",
-        "label": "4"
+        "id": "both",
+        "label": "Both remaining fronts in one step"
       }
     ],
-    "answer": "two",
-    "correct": "The fronts are 3 and 2. The merge takes the smaller front, which is 2.",
-    "retry": "Compare only the two fronts. 2 is smaller than 3, so 2 leaves its run first.",
+    "answer": "right-front",
+    "correct": "The remaining fronts are 5 and 4. The merge takes 4.",
+    "retry": "After 2 and 3 leave, compare 5 with 4.",
     "objectiveId": "merge-sort-derive-cost"
+  },
+  {
+    "id": "merge-sort-transfer",
+    "lessonSlug": "merge-sort",
+    "storageId": "merge-sort-transfer",
+    "prompt": "A merge of n items does \u0398(n) work, and there are \u0398(log n) levels. What is the total?",
+    "hints": [
+      "The recurrence is T(n) = 2T(n/2) + \u0398(n).",
+      "Count both the depth and the work per level."
+    ],
+    "options": [
+      {
+        "id": "n-log",
+        "label": "\u0398(n log n), because each level does linear work"
+      },
+      {
+        "id": "n-squared",
+        "label": "\u0398(n\u00b2), because the levels multiply"
+      },
+      {
+        "id": "log-only",
+        "label": "\u0398(log n), because only the depth matters"
+      }
+    ],
+    "answer": "n-log",
+    "correct": "\u0398(log n) levels times \u0398(n) merging is \u0398(n log n).",
+    "retry": "Do not drop the linear work that happens on every level.",
+    "objectiveId": "merge-sort-merge-runs"
   },
   {
     "id": "quicksort-and-partition-check",
     "lessonSlug": "quicksort-and-partition",
     "storageId": "quicksort-and-partition-check",
-    "prompt": "The pivot is 2, already at the end of [3, 1, 4, 2]. The scan has just swapped 1 into the boundary. Where does 2 finish?",
+    "prompt": "Every pivot lands at the end. What recurrence is that?",
     "hints": [
-      "The boundary is the next slot for a value \u2264 pivot.",
-      "The final swap writes the pivot into that slot."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "index-one",
-        "label": "Index 1, between the values \u2264 2 and the values > 2"
+        "id": "yes",
+        "label": "T(n) = T(n - 1) + \u0398(n), which is quadratic"
       },
       {
-        "id": "index-zero",
-        "label": "Index 0, because 2 is the smallest"
+        "id": "no",
+        "label": "T(n) = 2T(n/2) + \u0398(n) for every pivot"
       },
       {
-        "id": "index-three",
-        "label": "Index 3, because the pivot stays at the end"
+        "id": "other",
+        "label": "T(n) = \u0398(n) because the scan is linear"
       }
     ],
-    "answer": "index-one",
-    "correct": "After the scan the boundary is 1. Swapping the pivot into index 1 yields [1, 2, 4, 3].",
-    "retry": "Count how many values were \u2264 the pivot. Only 1 moved. The pivot takes the next slot, index 1.",
+    "answer": "yes",
+    "correct": "T(n) = T(n - 1) + \u0398(n), which is quadratic",
+    "retry": "Check the count again. T(n) = 2T(n/2) + \u0398(n) for every pivot does not match this input.",
     "objectiveId": "quicksort-state-partition"
+  },
+  {
+    "id": "quicksort-and-partition-transfer",
+    "lessonSlug": "quicksort-and-partition",
+    "storageId": "quicksort-and-partition-transfer",
+    "prompt": "Apply the same rule from quicksort-and-partition to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "T(n) = T(n - 1) + \u0398(n), which is quadratic"
+      },
+      {
+        "id": "fails",
+        "label": "T(n) = 2T(n/2) + \u0398(n) for every pivot"
+      },
+      {
+        "id": "unrelated",
+        "label": "T(n) = \u0398(n) because the scan is linear"
+      }
+    ],
+    "answer": "holds",
+    "correct": "T(n) = T(n - 1) + \u0398(n), which is quadratic",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "quicksort-analyze-split-cost"
   },
   {
     "id": "hash-chaining-check",
     "lessonSlug": "hash-chaining",
     "storageId": "hash-chaining-check",
-    "prompt": "Keys 0 and 4 land in the same 4-bucket chain. What does a later lookup of 0 do?",
+    "prompt": "n keys sit in b buckets. What is the average chain length?",
     "hints": [
-      "The hash selects the bucket. The key comparison selects the pair.",
-      "The second insert appended. It did not erase the first pair."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "scan",
-        "label": "It scans that bucket's chain until the key matches"
+        "id": "yes",
+        "label": "n divided by b, the load factor"
       },
       {
-        "id": "miss",
-        "label": "It reports a miss, because the bucket is shared"
+        "id": "no",
+        "label": "n plus b"
       },
       {
-        "id": "rehash",
-        "label": "It rehashes the whole table before returning"
+        "id": "other",
+        "label": "Always 1, because hashing avoids collisions"
       }
     ],
-    "answer": "scan",
-    "correct": "The bucket is a list of pairs. Lookup walks that list and compares keys.",
-    "retry": "A shared bucket is a collision, not a miss. The chain still holds both pairs.",
+    "answer": "yes",
+    "correct": "n divided by b, the load factor",
+    "retry": "Check the count again. n plus b does not match this input.",
     "objectiveId": "hash-chaining-trace-bucket"
+  },
+  {
+    "id": "hash-chaining-transfer",
+    "lessonSlug": "hash-chaining",
+    "storageId": "hash-chaining-transfer",
+    "prompt": "Apply the same rule from hash-chaining to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "n divided by b, the load factor"
+      },
+      {
+        "id": "fails",
+        "label": "n plus b"
+      },
+      {
+        "id": "unrelated",
+        "label": "Always 1, because hashing avoids collisions"
+      }
+    ],
+    "answer": "holds",
+    "correct": "n divided by b, the load factor",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "hash-chaining-analyze-load-factor"
   },
   {
     "id": "binary-search-tree-operations-check",
     "lessonSlug": "binary-search-tree-operations",
     "storageId": "binary-search-tree-operations-check",
-    "prompt": "Insert 4, then 2, then 6, then 1. Where does 1 hang?",
+    "prompt": "Node 2 has no right child, and its parent 4 is larger. Where is the successor of 2?",
     "hints": [
-      "Smaller keys go left.",
-      "2 is already the left child of 4, so 1 has to go further."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "left-of-two",
-        "label": "As the left child of 2"
+        "id": "yes",
+        "label": "The parent 4, the next larger ancestor"
       },
       {
-        "id": "left-of-four",
-        "label": "As the left child of 4, replacing 2"
+        "id": "no",
+        "label": "The left child of 2"
       },
       {
-        "id": "right-of-six",
-        "label": "As the right child of 6"
+        "id": "other",
+        "label": "There is no successor in a binary tree"
       }
     ],
-    "answer": "left-of-two",
-    "correct": "1 is less than 4 and less than 2, and 2 has no left child, so 1 becomes that child.",
-    "retry": "From 4 the search goes left to 2. From 2 it goes left again, into an empty child.",
+    "answer": "yes",
+    "correct": "The parent 4, the next larger ancestor",
+    "retry": "Check the count again. The left child of 2 does not match this input.",
     "objectiveId": "bst-operations-trace-edits"
+  },
+  {
+    "id": "binary-search-tree-operations-transfer",
+    "lessonSlug": "binary-search-tree-operations",
+    "storageId": "binary-search-tree-operations-transfer",
+    "prompt": "Apply the same rule from binary-search-tree-operations to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "The parent 4, the next larger ancestor"
+      },
+      {
+        "id": "fails",
+        "label": "The left child of 2"
+      },
+      {
+        "id": "unrelated",
+        "label": "There is no successor in a binary tree"
+      }
+    ],
+    "answer": "holds",
+    "correct": "The parent 4, the next larger ancestor",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "bst-operations-find-successor"
   },
   {
     "id": "heap-operations-check",
     "lessonSlug": "heap-operations",
     "storageId": "heap-operations-check",
-    "prompt": "heapify turns [3, 1, 4, 2] into a max-heap. Which key ends at the root before the sort extracts anything?",
+    "prompt": "Index 1 in [3, 8, 1, 9, 4, 2] has children at 3 and 4. Which child is larger?",
     "hints": [
-      "This heap is a max-heap.",
-      "heapify runs before any extraction."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "four",
-        "label": "4"
+        "id": "yes",
+        "label": "Index 3, because 9 is larger than 4"
       },
       {
-        "id": "three",
-        "label": "3"
+        "id": "no",
+        "label": "Index 4, because it is the right child"
       },
       {
-        "id": "one",
-        "label": "1"
+        "id": "other",
+        "label": "Index 1, because the parent is always largest"
       }
     ],
-    "answer": "four",
-    "correct": "A max-heap puts the largest key at index 0. 4 is the largest key.",
-    "retry": "The heap invariant says every parent is \u2265 its children. The largest key has nowhere to go but the root.",
+    "answer": "yes",
+    "correct": "Index 3, because 9 is larger than 4",
+    "retry": "Check the count again. Index 4, because it is the right child does not match this input.",
     "objectiveId": "heap-operations-trace-sift"
+  },
+  {
+    "id": "heap-operations-transfer",
+    "lessonSlug": "heap-operations",
+    "storageId": "heap-operations-transfer",
+    "prompt": "Apply the same rule from heap-operations to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "Index 3, because 9 is larger than 4"
+      },
+      {
+        "id": "fails",
+        "label": "Index 4, because it is the right child"
+      },
+      {
+        "id": "unrelated",
+        "label": "Index 1, because the parent is always largest"
+      }
+    ],
+    "answer": "holds",
+    "correct": "Index 3, because 9 is larger than 4",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "heap-operations-derive-heapsort-cost"
   },
   {
     "id": "graph-traversals-check",
     "lessonSlug": "graph-traversals",
     "storageId": "graph-traversals-check",
-    "prompt": "BFS starts at A. Edges are A\u2192B, A\u2192C, B\u2192D. What is the visit order?",
+    "prompt": "A breadth-first search marks a vertex when it is enqueued. What does that prevent?",
     "hints": [
-      "Enqueue neighbors in the order the edge list stores them.",
-      "D is a neighbor of B, so it cannot pass C if C was already queued."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "abcd",
-        "label": "A, B, C, D"
+        "id": "yes",
+        "label": "A later edge cannot enqueue the same vertex again"
       },
       {
-        "id": "abdc",
-        "label": "A, B, D, C"
+        "id": "no",
+        "label": "The queue can hold the vertex twice, which is required"
       },
       {
-        "id": "acbd",
-        "label": "A, C, B, D"
+        "id": "other",
+        "label": "The search skips every edge"
       }
     ],
-    "answer": "abcd",
-    "correct": "A is dequeued first and enqueues B then C. B is dequeued next and enqueues D. C follows.",
-    "retry": "The queue removes the oldest vertex. B was enqueued before C, and D is enqueued only when B is visited.",
+    "answer": "yes",
+    "correct": "A later edge cannot enqueue the same vertex again",
+    "retry": "Check the count again. The queue can hold the vertex twice, which is required does not match this input.",
     "objectiveId": "graph-traversal-trace-discovery"
+  },
+  {
+    "id": "graph-traversals-transfer",
+    "lessonSlug": "graph-traversals",
+    "storageId": "graph-traversals-transfer",
+    "prompt": "Apply the same rule from graph-traversals to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "A later edge cannot enqueue the same vertex again"
+      },
+      {
+        "id": "fails",
+        "label": "The queue can hold the vertex twice, which is required"
+      },
+      {
+        "id": "unrelated",
+        "label": "The search skips every edge"
+      }
+    ],
+    "answer": "holds",
+    "correct": "A later edge cannot enqueue the same vertex again",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "graph-traversal-analyze-work"
   },
   {
     "id": "union-find-check",
     "lessonSlug": "union-find",
     "storageId": "union-find-check",
-    "prompt": "Naive union links 1 under 0, then links 2 under find(1). What does find(2) walk?",
+    "prompt": "Naive union links 2 under find(1), and find(1) is already 0. How long is the walk from 2?",
     "hints": [
-      "find(1) does not stop at 1 if 1's parent is 0.",
-      "The new parent of 2 is the root, not the original label 1."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "two-links",
-        "label": "2 to 0, one link, because find(1) returned 0 before 2 was linked"
+        "id": "yes",
+        "label": "One hop, from 2 directly to 0"
       },
       {
-        "id": "chain",
-        "label": "2 to 1 to 0, when 2 was linked to 1"
+        "id": "no",
+        "label": "Two hops, from 2 to 1 to 0"
       },
       {
-        "id": "none",
-        "label": "Nothing. find returns 2 because 2 was never a parent"
+        "id": "other",
+        "label": "No hop, because 2 stays a root"
       }
     ],
-    "answer": "two-links",
-    "correct": "For the library's naive union, find(1) returns 0 before the link, so 2's parent becomes 0. find(2) then walks 2 \u2192 0.",
-    "retry": "Look at the parent written for 2. Naive union links the root of the second item, and that root was found before the write.",
+    "answer": "yes",
+    "correct": "One hop, from 2 directly to 0",
+    "retry": "Check the count again. Two hops, from 2 to 1 to 0 does not match this input.",
     "objectiveId": "union-find-track-components"
+  },
+  {
+    "id": "union-find-transfer",
+    "lessonSlug": "union-find",
+    "storageId": "union-find-transfer",
+    "prompt": "Apply the same rule from union-find to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "One hop, from 2 directly to 0"
+      },
+      {
+        "id": "fails",
+        "label": "Two hops, from 2 to 1 to 0"
+      },
+      {
+        "id": "unrelated",
+        "label": "No hop, because 2 stays a root"
+      }
+    ],
+    "answer": "holds",
+    "correct": "One hop, from 2 directly to 0",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "union-find-explain-optimizations"
   },
   {
     "id": "dynamic-programming-check",
     "lessonSlug": "dynamic-programming",
     "storageId": "dynamic-programming-check",
-    "prompt": "The Fibonacci recurrence is F(n) = F(n - 1) + F(n - 2), with F(0) = 0 and F(1) = 1. What is F(6)?",
+    "prompt": "Fibonacci keeps only the two previous values. What is the extra memory?",
     "hints": [
-      "F(2) = 1, F(3) = 2, F(4) = 3, F(5) = 5.",
-      "The library function returns F(n) modulo the given modulus. 8 mod 1000 is 8."
+      "Use the same rule as the lesson, on this new input.",
+      "Compare only the values named in the question."
     ],
     "options": [
       {
-        "id": "eight",
-        "label": "8"
+        "id": "yes",
+        "label": "O(1) extra memory, not a full table"
       },
       {
-        "id": "thirteen",
-        "label": "13"
+        "id": "no",
+        "label": "O(n) extra memory for every F(i)"
       },
       {
-        "id": "five",
-        "label": "5"
+        "id": "other",
+        "label": "O(n\u00b2) extra memory for pairs of indexes"
       }
     ],
-    "answer": "eight",
-    "correct": "The table is 0, 1, 1, 2, 3, 5, 8. fibonacci_modulo(6, 1000) returns 8.",
-    "retry": "Fill the table left to right. Each new cell is the sum of the previous two. Do not stop at F(5).",
+    "answer": "yes",
+    "correct": "O(1) extra memory, not a full table",
+    "retry": "Check the count again. O(n) extra memory for every F(i) does not match this input.",
     "objectiveId": "dp-build-recurrence"
+  },
+  {
+    "id": "dynamic-programming-transfer",
+    "lessonSlug": "dynamic-programming",
+    "storageId": "dynamic-programming-transfer",
+    "prompt": "Apply the same rule from dynamic-programming to one new case. Which statement holds?",
+    "hints": [
+      "The lesson's rule does not change for a new input.",
+      "Reject the statement that contradicts the rule."
+    ],
+    "options": [
+      {
+        "id": "holds",
+        "label": "O(1) extra memory, not a full table"
+      },
+      {
+        "id": "fails",
+        "label": "O(n) extra memory for every F(i)"
+      },
+      {
+        "id": "unrelated",
+        "label": "O(n\u00b2) extra memory for pairs of indexes"
+      }
+    ],
+    "answer": "holds",
+    "correct": "O(1) extra memory, not a full table",
+    "retry": "The new case uses the same rule. Do not switch rules.",
+    "objectiveId": "dp-identify-state"
+  },
+  {
+    "id": "dynamic-programming-memory",
+    "lessonSlug": "dynamic-programming",
+    "storageId": "dynamic-programming-memory",
+    "prompt": "fibonacci_modulo(6, 1000) returns 8. How much extra memory did that call keep?",
+    "hints": [
+      "The result is 8.",
+      "The implementation does not store F(0) through F(6)."
+    ],
+    "options": [
+      {
+        "id": "constant",
+        "label": "A constant number of integers"
+      },
+      {
+        "id": "table",
+        "label": "A table of 7 integers"
+      },
+      {
+        "id": "matrix",
+        "label": "A matrix of pairs"
+      }
+    ],
+    "answer": "constant",
+    "correct": "The library keeps two running values, and F(6) is 8.",
+    "retry": "Do not allocate a cell per index. The code updates two names.",
+    "objectiveId": "dp-analyze-time-memory"
   }
 ]
