@@ -6,16 +6,32 @@ status: present
 module: bitsandbytes.storage.engines
 ---
 
-## Organize work around the storage medium
+## The idea
 
-B-trees keep sorted keys in high-fanout nodes to reduce page reads. Log-structured merge designs buffer writes and merge sorted runs later; Bloom filters can avoid reads for keys absent from a run. Each design shifts cost among reads, writes, memory and compaction.
+Storage engines place reads and writes in different structures. A B-tree keeps keys ordered in nodes with many children, so a lookup walks a short path. BTree.insert of 2 and then 1 leaves search(1) true and search(9) false. The branching factor is the knob that trades taller trees for fatter nodes. A log-structured merge tree takes the other side of the trade. Writes append to a memory table and a write-ahead log, then flush sorted runs. Reads may check several runs. Compaction merges those runs. The library's sequential_scan_sum of 1, 2, 3 returns 6. That scan touches neighboring items, which is the access pattern real disks and caches reward. A random jump to each key pays the same arithmetic and a worse memory pattern. Locality is why the sum of a tight array is the baseline you compare against.
 
-## Measure locality, not only operation counts
+## A worked trace
 
-Two O(log n) structures can have different cache and disk behavior. Sequential scans and contiguous storage use locality; pointer-heavy access can trigger more cache misses or page reads. Treat the repository's engines as teaching models rather than production databases.
+| Step | State | What changed |
+| --- | --- | --- |
+| Scan | sum = 6 | A sequential sum touches 1, 2, and 3 in order. |
 
-## Practice
+## Why it is correct
 
-Compare a B-tree lookup with an LSM lookup that checks several runs. Identify the conditions where a Bloom filter saves I/O and where compaction costs appear.
+B-tree search is correct because each node stores its keys in order and the child between two keys holds only the keys that belong between them. A missing key falls out of a leaf. Insert splits a full node so the branching invariant survives. A write-ahead log is correct when a replay reproduces the same committed writes. A sequential scan is correct because addition is applied once per item and the items are exactly the input. The locality claim is not a change in the arithmetic result. It is a claim about how many cache lines or pages that arithmetic touches.
 
-Source: [`engines.py`](../bitsandbytes/storage/engines.py).
+## What it costs
+
+A B-tree search is logarithmic in the number of keys, with a large base when nodes are wide. Extra memory is the nodes. A sequential scan is linear time and constant extra memory, and it is the practical winner when you need every item anyway. A point lookup in a structure built for scans can be slower than the same lookup in a tree. Say which operation is common before you pick the engine. The toy sum is the locality baseline, not a database.
+
+## Run it
+
+```python
+from bitsandbytes.storage.engines import sequential_scan_sum
+print(sequential_scan_sum([1, 2, 3]))
+# prints: 6
+```
+
+## Practice and next step
+
+Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

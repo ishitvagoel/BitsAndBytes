@@ -854,6 +854,1200 @@
       ]
     }
   ],
+  "monotonic-stack-patterns": [
+    {
+      "id": "monotonic-stack-patterns-core",
+      "title": "Next greater values and a histogram",
+      "prompt": "next_greater on 2, 1, 2, 4, 3 returns 4, 2, 4, None, None. The histogram area is 10.",
+      "frames": [
+        {
+          "label": "Answers",
+          "narration": "next_greater writes the first strictly larger value on the right.",
+          "state": [
+            {
+              "name": "first",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "None",
+                  "status": "chosen"
+                },
+                {
+                  "text": "None",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Area",
+          "narration": "The largest rectangle in this histogram has area 10.",
+          "state": [
+            {
+              "name": "area",
+              "value": "10"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "5",
+                  "status": "active"
+                },
+                {
+                  "text": "6",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stack-parsing-and-expressions": [
+    {
+      "id": "stack-parsing-and-expressions-core",
+      "title": "Balanced brackets and operator precedence",
+      "prompt": "([]) is balanced and ([)] is not. 2+3*4 becomes 2 3 4 * + and evaluates to 14.",
+      "frames": [
+        {
+          "label": "Brackets",
+          "narration": "([]) is balanced. ([)] crosses pairs and is not.",
+          "state": [
+            {
+              "name": "balanced",
+              "value": "yes"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "(",
+                  "status": "done"
+                },
+                {
+                  "text": "[",
+                  "status": "done"
+                },
+                {
+                  "text": "]",
+                  "status": "done"
+                },
+                {
+                  "text": ")",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Postfix",
+          "narration": "Multiplication leaves the operator stack before addition.",
+          "state": [
+            {
+              "name": "value",
+              "value": "14"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "*",
+                  "status": "chosen"
+                },
+                {
+                  "text": "+",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "noncomparison-sorts": [
+    {
+      "id": "noncomparison-sorts-core",
+      "title": "Counting sort and digit passes",
+      "prompt": "counting_sort of 3, 1, 2, 1 with maximum 3 returns 1, 1, 2, 3. A radix pass keeps equal digits in their old order.",
+      "frames": [
+        {
+          "label": "Counts",
+          "narration": "counting_sort places keys by value, not by comparing neighbors.",
+          "state": [
+            {
+              "name": "maximum",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Digits",
+          "narration": "Least-significant digit passes keep equal-digit order.",
+          "state": [
+            {
+              "name": "base",
+              "value": "10"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "24",
+                  "status": "active"
+                },
+                {
+                  "text": "45",
+                  "status": "active"
+                },
+                {
+                  "text": "66",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "order-statistic-selection": [
+    {
+      "id": "order-statistic-selection-core",
+      "title": "Quickselect on a small array",
+      "prompt": "quickselect uses the rightmost value as the pivot. k = 0 returns 1 and k = 2 returns 3 on 3, 1, 4, 2.",
+      "frames": [
+        {
+          "label": "Smallest",
+          "narration": "quickselect with k = 0 returns the minimum.",
+          "state": [
+            {
+              "name": "k",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Third",
+          "narration": "k = 2 is the third smallest key, which is 3.",
+          "state": [
+            {
+              "name": "k",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inversion-counting": [
+    {
+      "id": "inversion-counting-core",
+      "title": "Count pairs that are out of order",
+      "prompt": "inversion_count on 3, 1, 4, 2 returns 3. The pairs are (3, 1), (3, 2), and (4, 2).",
+      "frames": [
+        {
+          "label": "Pairs",
+          "narration": "Three pairs are out of order in 3, 1, 4, 2.",
+          "state": [
+            {
+              "name": "count",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hash-linear-probing": [
+    {
+      "id": "hash-linear-probing-core",
+      "title": "A collision, then a tombstone",
+      "prompt": "With capacity 4, keys 0 and 4 share a start slot. Deleting 0 leaves a tombstone and lookup of 4 still returns 2.",
+      "frames": [
+        {
+          "label": "Probe",
+          "narration": "Key 4 finds slot 0 full and takes the next slot.",
+          "state": [
+            {
+              "name": "capacity",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Tombstone",
+          "narration": "Deleting 0 leaves a marker so the probe can still reach 4.",
+          "state": [
+            {
+              "name": "found",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "lru-cache": [
+    {
+      "id": "lru-cache-core",
+      "title": "Evict the least recently used key",
+      "prompt": "A cache of capacity 2 stores a, then b, uses a, then stores c. b is the key that disappears.",
+      "frames": [
+        {
+          "label": "Evict",
+          "narration": "b was the least recent key, so c replaces it.",
+          "state": [
+            {
+              "name": "miss",
+              "value": "b"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                },
+                {
+                  "text": "c",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tree-traversals": [
+    {
+      "id": "tree-traversals-core",
+      "title": "Preorder and level order of one tree",
+      "prompt": "Insert 4, 2, 6, 1. Preorder is 4, 2, 1, 6. Level order is 4, 2, 6, 1.",
+      "frames": [
+        {
+          "label": "Preorder",
+          "narration": "Visit the node before either child.",
+          "state": [
+            {
+              "name": "root",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "6",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Levels",
+          "narration": "A queue visits each depth before the next.",
+          "state": [
+            {
+              "name": "root",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "6",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "balanced-search-trees": [
+    {
+      "id": "balanced-search-trees-core",
+      "title": "Sorted inserts stay balanced",
+      "prompt": "Inserting 1, then 2, then 3 into a left-leaning red-black tree leaves 2 at the root. Inorder is still 1, 2, 3.",
+      "frames": [
+        {
+          "label": "Root",
+          "narration": "Sorted inserts still leave 2 at the root.",
+          "state": [
+            {
+              "name": "root",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "priority-queues": [
+    {
+      "id": "priority-queues-core",
+      "title": "Pop the smallest priority",
+      "prompt": "push 5, then 3, then 4. The first pop returns priority 3 and item b.",
+      "frames": [
+        {
+          "label": "Pop",
+          "narration": "The smallest priority leaves first.",
+          "state": [
+            {
+              "name": "item",
+              "value": "b"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "5",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graph-representations": [
+    {
+      "id": "graph-representations-core",
+      "title": "Count the pairs an adjacency list stores",
+      "prompt": "A directed graph with vertices A, B, C, D and three edges stores three neighbor pairs. A matrix would store 16 cells.",
+      "frames": [
+        {
+          "label": "Edges",
+          "narration": "Three adjacency-list pairs store this graph.",
+          "state": [
+            {
+              "name": "vertices",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "idle"
+                },
+                {
+                  "text": "B",
+                  "status": "idle"
+                },
+                {
+                  "text": "C",
+                  "status": "idle"
+                },
+                {
+                  "text": "D",
+                  "status": "idle"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "topological-order": [
+    {
+      "id": "topological-order-core",
+      "title": "Kahn's algorithm on a small dag",
+      "prompt": "Edges A to B, A to C, B to D, and C to D produce the order A, B, C, D. A cycle makes topological_order raise ValueError.",
+      "frames": [
+        {
+          "label": "Order",
+          "narration": "Kahn's algorithm emits every vertex once.",
+          "state": [
+            {
+              "name": "start",
+              "value": "A"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "done"
+                },
+                {
+                  "text": "B",
+                  "status": "done"
+                },
+                {
+                  "text": "C",
+                  "status": "done"
+                },
+                {
+                  "text": "D",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "shortest-paths": [
+    {
+      "id": "shortest-paths-core",
+      "title": "A longer edge loses to a two-edge path",
+      "prompt": "Dijkstra from A reports distance 3 at C, not the direct weight 4. Bellman-Ford allows the negative edge and reports -1.",
+      "frames": [
+        {
+          "label": "Relax",
+          "narration": "The path through B beats the direct edge into C.",
+          "state": [
+            {
+              "name": "distance",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "chosen"
+                },
+                {
+                  "text": "B",
+                  "status": "chosen"
+                },
+                {
+                  "text": "C",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "minimum-spanning-trees": [
+    {
+      "id": "minimum-spanning-trees-core",
+      "title": "Skip the edge that closes a cycle",
+      "prompt": "Undirected edges of weight 1, 2, and 4. Prim and Kruskal both return total weight 3. The weight-4 edge is the one that closes a cycle.",
+      "frames": [
+        {
+          "label": "Skip",
+          "narration": "The weight-4 edge closes a cycle and is rejected.",
+          "state": [
+            {
+              "name": "weight",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "two-pointers": [
+    {
+      "id": "two-pointers-core",
+      "title": "Two indexes on a sorted array",
+      "prompt": "two_sum_sorted on 1, 2, 4, 7 with target 6 returns indexes 1 and 2.",
+      "frames": [
+        {
+          "label": "Pair",
+          "narration": "Indexes 1 and 2 hold 2 and 4, which sum to 6.",
+          "state": [
+            {
+              "name": "target",
+              "value": "6"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "7",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sliding-window": [
+    {
+      "id": "sliding-window-core",
+      "title": "Window maximum and a unique substring",
+      "prompt": "sliding_window_maximum on 1, 3, 2, 5 with window 2 returns 3, 3, 5. The longest unique substring of abcabcbb has length 3.",
+      "frames": [
+        {
+          "label": "Windows",
+          "narration": "Each window of length 2 reports its maximum.",
+          "state": [
+            {
+              "name": "window",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "5",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "prefix-sums": [
+    {
+      "id": "prefix-sums-core",
+      "title": "A half-open range sum",
+      "prompt": "PrefixSum on 1, 2, 3, 4 answers range_sum(1, 3) with 5, the sum of values[1:3].",
+      "frames": [
+        {
+          "label": "Range",
+          "narration": "The half-open slice from 1 to 3 sums to 5.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "5"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "backtracking": [
+    {
+      "id": "backtracking-core",
+      "title": "Count the permutations of three items",
+      "prompt": "permutations of 1, 2, 3 returns six lists. Each call chooses, recurses, and undoes.",
+      "frames": [
+        {
+          "label": "Leaves",
+          "narration": "Three distinct items have six permutations.",
+          "state": [
+            {
+              "name": "count",
+              "value": "6"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "greedy-methods": [
+    {
+      "id": "greedy-methods-core",
+      "title": "Take the interval that finishes first",
+      "prompt": "Intervals (1, 3), (2, 4), and (3, 5) yield two compatible intervals. The frequent symbol gets the short Huffman code.",
+      "frames": [
+        {
+          "label": "Schedule",
+          "narration": "Sorting by finish time keeps two compatible intervals.",
+          "state": [
+            {
+              "name": "count",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                },
+                {
+                  "text": "c",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dp-state-and-transition": [
+    {
+      "id": "dp-state-and-transition-core",
+      "title": "Coin change as a table of amounts",
+      "prompt": "min_coin_change of coins 1, 3, 4 and amount 6 returns 2. The 0-1 knapsack on weights 1, 3 and values 2, 4 with capacity 4 returns 6.",
+      "frames": [
+        {
+          "label": "Coins",
+          "narration": "Amount 6 needs two coins from 1, 3, and 4.",
+          "state": [
+            {
+              "name": "coins",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "string-search": [
+    {
+      "id": "string-search-core",
+      "title": "The first match is not at index 0",
+      "prompt": "kmp_search and rabin_karp_search both find ababa inside ababcababa at index 5.",
+      "frames": [
+        {
+          "label": "Match",
+          "narration": "The first full match of ababa starts at index 5.",
+          "state": [
+            {
+              "name": "index",
+              "value": "5"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                },
+                {
+                  "text": "b",
+                  "status": "chosen"
+                },
+                {
+                  "text": "a",
+                  "status": "chosen"
+                },
+                {
+                  "text": "b",
+                  "status": "chosen"
+                },
+                {
+                  "text": "a",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tries-and-text-indexes": [
+    {
+      "id": "tries-and-text-indexes-core",
+      "title": "A trie stores keys, a suffix array stores positions",
+      "prompt": "After inserting cat and car, contains(car) is true and contains(ca) is false. The suffix array of banana starts 5, 3, 1, 0, 4, 2.",
+      "frames": [
+        {
+          "label": "Keys",
+          "narration": "car is a stored key. ca is only a prefix.",
+          "state": [
+            {
+              "name": "hit",
+              "value": "car"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "c",
+                  "status": "active"
+                },
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "r",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "range-query-structures": [
+    {
+      "id": "range-query-structures-core",
+      "title": "Prefix sums that survive a point update",
+      "prompt": "A Fenwick tree that adds 1, 2, and 3 reports prefix 6. A segment tree adds 5 across a span. A sparse table answers a static minimum.",
+      "frames": [
+        {
+          "label": "Prefix",
+          "narration": "The Fenwick prefix through index 2 is 6.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "6"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "approximate-membership": [
+    {
+      "id": "approximate-membership-core",
+      "title": "A definite miss and a possible hit",
+      "prompt": "A Bloom filter with 64 bits and 3 hashes inserts cat. maybe_contains(cat) is true. A miss would mean the item was never added.",
+      "frames": [
+        {
+          "label": "Membership",
+          "narration": "cat was inserted, so every bit it hashes to is set.",
+          "state": [
+            {
+              "name": "cat",
+              "value": "maybe"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "cat",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "storage-engines-and-locality": [
+    {
+      "id": "storage-engines-and-locality-core",
+      "title": "A B-tree lookup and a sequential scan",
+      "prompt": "BTree.search finds 1 after it was inserted and rejects 9. sequential_scan_sum of 1, 2, 3 returns 6.",
+      "frames": [
+        {
+          "label": "Scan",
+          "narration": "A sequential sum touches 1, 2, and 3 in order.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "6"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "approximation-guarantees": [
+    {
+      "id": "approximation-guarantees-core",
+      "title": "A vertex cover at most twice the optimum",
+      "prompt": "Two disjoint edges produce a cover of all four endpoints. The optimum picks one endpoint from each edge. The constructed cover is twice that size.",
+      "frames": [
+        {
+          "label": "Cover",
+          "narration": "Each uncovered edge contributes both endpoints.",
+          "state": [
+            {
+              "name": "edges",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "chosen"
+                },
+                {
+                  "text": "B",
+                  "status": "chosen"
+                },
+                {
+                  "text": "C",
+                  "status": "chosen"
+                },
+                {
+                  "text": "D",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "merge-sort": [
     {
       "id": "merge-sort-core",

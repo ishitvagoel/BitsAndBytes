@@ -6,16 +6,35 @@ status: present
 module: bitsandbytes.trees.llrb
 ---
 
-## Keep height logarithmic as keys change
+## The idea
 
-Balancing rules prevent a search tree from becoming a long chain. A left-leaning red-black tree encodes a balanced multiway tree using link colors and local rotations.
+A plain binary search tree becomes a chain when keys arrive in sorted order. Every operation then walks n nodes. A balanced tree keeps the height logarithmic by local rotations. The library's left-leaning red-black tree encodes a 2-3 tree. A red link to a left child means two keys share a node. Right-leaning red links are rotated away. Insert 1, then 2, then 3. The inorder walk is 1, 2, 3, so the search-tree order survives. The root key is 2, not 3, so the tree did not become a chain. select(1) returns 2, the second smallest key. rank(2) returns 1, the number of keys strictly smaller than 2. Those order statistics come from subtree sizes stored on the nodes.
 
-**By the end of this overview, you can** explain why the balancing invariant protects logarithmic search, insert and delete operations.
+## A worked trace
 
-Red links represent connections within a 3-node. The implementation keeps red links leaning left, avoids consecutive red links, and balances black height from root to leaves. Rotations and color flips repair these properties after updates. With height O(log n), operations that follow one root-to-leaf path take O(log n).
+| Step | State | What changed |
+| --- | --- | --- |
+| Root | root = 2 | Sorted inserts still leave 2 at the root. |
 
-The balancing invariant is more important than memorizing rotation code: after a local repair, the subtree must still contain the same ordered keys and satisfy the color/height rules. Rank and select use subtree sizes to find positions in logarithmic time.
+## Why it is correct
+
+A rotation changes which node is the parent and which is the child. It does not change inorder. The keys that were left of a node stay left, and the keys that were right stay right. Only the shape moves. The red-black rules limit how many black links appear on a path from the root to a leaf, and a red link cannot simply stack on another red link. That bound is why the height stays logarithmic after the sorted inserts. select walks by subtree size. If the left subtree holds more than k keys, the answer is in the left subtree. Otherwise it is the node itself or a key in the right subtree.
+
+## What it costs
+
+Insert, delete, rank, and select are logarithmic because the height is logarithmic. A rotation is a constant number of pointer writes. Extra memory is one node per key, plus the color and the size. The plain search tree uses the same memory and loses the height bound. Use the balanced tree when the input order is not under your control and later lookups must stay fast.
+
+## Run it
+
+```python
+from bitsandbytes.trees.llrb import LeftLeaningRedBlackTree
+tree = LeftLeaningRedBlackTree()
+for value in (1, 2, 3):
+    tree.insert(value)
+print(tree.inorder())
+# prints: [1, 2, 3]
+```
 
 ## Practice and next step
 
-Insert keys 1 through 5 in order into an ordinary BST and compare its height with a balanced tree. Then name which invariant a left rotation repairs. See [the repository balanced-tree tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_trees_extended.py).
+Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

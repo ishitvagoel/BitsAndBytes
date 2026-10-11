@@ -1120,6 +1120,1462 @@
     "objectiveId": "doubly-linked-known-node-unlink"
   },
   {
+    "id": "monotonic-stack-patterns-check",
+    "lessonSlug": "monotonic-stack-patterns",
+    "storageId": "monotonic-stack-patterns-check",
+    "prompt": "A later value resolves waiting indexes. What does next_greater write for the first 2 in 2, 1, 2, 4, 3?",
+    "hints": [
+      "The stack stores indexes that are still waiting.",
+      "None means no greater value exists."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The first strictly greater value on its right"
+      },
+      {
+        "id": "no",
+        "label": "The nearest smaller value on its left"
+      },
+      {
+        "id": "other",
+        "label": "The last value in the list, even when it is smaller"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The stack pops an index when a greater value arrives.",
+    "retry": "A smaller neighbor does not answer a next-greater question.",
+    "objectiveId": "monotonic-stack-resolve-candidates"
+  },
+  {
+    "id": "monotonic-stack-patterns-transfer",
+    "lessonSlug": "monotonic-stack-patterns",
+    "storageId": "monotonic-stack-patterns-transfer",
+    "prompt": "Each index is pushed once and popped at most once. What is the total work?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Linear in the number of indexes"
+      },
+      {
+        "id": "no",
+        "label": "Quadratic, because a nested loop always restarts"
+      },
+      {
+        "id": "other",
+        "label": "Constant, because only the top index matters"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The pops are charged across the whole scan, not to one iteration.",
+    "retry": "Do not multiply the inner loop by n a second time.",
+    "objectiveId": "monotonic-stack-count-total-work"
+  },
+  {
+    "id": "stack-parsing-and-expressions-check",
+    "lessonSlug": "stack-parsing-and-expressions",
+    "storageId": "stack-parsing-and-expressions-check",
+    "prompt": "Which bracket string is balanced?",
+    "hints": [
+      "Ignore characters that are not brackets.",
+      "The stack should be empty at the end."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "([]) because each closer matches the current opener"
+      },
+      {
+        "id": "no",
+        "label": "([)] because every bracket has a partner somewhere"
+      },
+      {
+        "id": "other",
+        "label": "(() because a leftover opener is optional"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The closer must match the opener on top of the stack.",
+    "retry": "A partner later in the string is not a match if another opener is in between.",
+    "objectiveId": "stack-match-nested-delimiters"
+  },
+  {
+    "id": "stack-parsing-and-expressions-transfer",
+    "lessonSlug": "stack-parsing-and-expressions",
+    "storageId": "stack-parsing-and-expressions-transfer",
+    "prompt": "evaluate_infix of 2+3*4 applies which operator first?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Multiplication, because it leaves the operator stack before addition"
+      },
+      {
+        "id": "no",
+        "label": "Addition, because it appears further left"
+      },
+      {
+        "id": "other",
+        "label": "Neither, because postfix ignores precedence"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The postfix form is 2 3 4 * +, so the product happens first.",
+    "retry": "Left-to-right position is not the precedence rule.",
+    "objectiveId": "stack-trace-operator-precedence"
+  },
+  {
+    "id": "noncomparison-sorts-check",
+    "lessonSlug": "noncomparison-sorts",
+    "storageId": "noncomparison-sorts-check",
+    "prompt": "counting_sort is told the maximum key. What does that bound pay for?",
+    "hints": [
+      "Equal keys stay in input order when the write is stable.",
+      "A huge maximum dominates a short list."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "A count slot for every key value from zero through the maximum"
+      },
+      {
+        "id": "no",
+        "label": "A comparison between every pair of keys"
+      },
+      {
+        "id": "other",
+        "label": "A binary search on the output"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The range of keys becomes an array, not a comparison tree.",
+    "retry": "The sort still has to place every input key.",
+    "objectiveId": "noncomparison-use-key-range"
+  },
+  {
+    "id": "noncomparison-sorts-transfer",
+    "lessonSlug": "noncomparison-sorts",
+    "storageId": "noncomparison-sorts-transfer",
+    "prompt": "A radix sort repeats a stable digit pass once per digit. What is the cost when the digit count is constant?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Linear in the number of keys"
+      },
+      {
+        "id": "no",
+        "label": "n log n from comparisons"
+      },
+      {
+        "id": "other",
+        "label": "Quadratic from restarting each pass"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A constant number of linear passes is still linear.",
+    "retry": "Do not add a comparison-sort bound on top of the digit passes.",
+    "objectiveId": "noncomparison-derive-radix-cost"
+  },
+  {
+    "id": "order-statistic-selection-check",
+    "lessonSlug": "order-statistic-selection",
+    "storageId": "order-statistic-selection-check",
+    "prompt": "quickselect keeps searching after a partition. Which side remains?",
+    "hints": [
+      "k is zero-based.",
+      "The rightmost value is the pivot in this library."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The side that still contains index k"
+      },
+      {
+        "id": "no",
+        "label": "Both sides, because the answer might be anywhere"
+      },
+      {
+        "id": "other",
+        "label": "Neither side, because the pivot is always the answer"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The pivot is already in its sorted index.",
+    "retry": "The discarded side cannot contain the k-th smallest key.",
+    "objectiveId": "selection-trace-quickselect"
+  },
+  {
+    "id": "order-statistic-selection-transfer",
+    "lessonSlug": "order-statistic-selection",
+    "storageId": "order-statistic-selection-transfer",
+    "prompt": "This quickselect always pivots on the rightmost value. What can the worst case cost?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Quadratic time when every pivot is extreme"
+      },
+      {
+        "id": "no",
+        "label": "Linear time on every input, because a pivot always halves the range"
+      },
+      {
+        "id": "other",
+        "label": "n log n time, because it finishes the sort"
+      }
+    ],
+    "answer": "yes",
+    "correct": "An extreme pivot shrinks the range by one item.",
+    "retry": "The expected linear bound needs balanced pivots, which this code does not force.",
+    "objectiveId": "selection-compare-cost-risks"
+  },
+  {
+    "id": "inversion-counting-check",
+    "lessonSlug": "inversion-counting",
+    "storageId": "inversion-counting-check",
+    "prompt": "Which pair in 3, 1, 4, 2 is an inversion?",
+    "hints": [
+      "i must be less than j.",
+      "The total on this list is three pairs."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "3 before 1, because the earlier key is larger"
+      },
+      {
+        "id": "no",
+        "label": "1 before 4, because they are neighbors"
+      },
+      {
+        "id": "other",
+        "label": "4 before nothing, because 4 is the largest key"
+      }
+    ],
+    "answer": "yes",
+    "correct": "An inversion is an earlier larger key and a later smaller key.",
+    "retry": "A sorted pair is not an inversion.",
+    "objectiveId": "inversion-define-pair"
+  },
+  {
+    "id": "inversion-counting-transfer",
+    "lessonSlug": "inversion-counting",
+    "storageId": "inversion-counting-transfer",
+    "prompt": "During a merge, the right front is smaller and two keys remain on the left. How many inversions does that one take add?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Two, one for each key still on the left"
+      },
+      {
+        "id": "no",
+        "label": "One, only against the left front"
+      },
+      {
+        "id": "other",
+        "label": "Zero, because both runs are already sorted"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The right front is smaller than every remaining left key.",
+    "retry": "Sorted runs still hide cross inversions.",
+    "objectiveId": "inversion-count-cross-run"
+  },
+  {
+    "id": "hash-linear-probing-check",
+    "lessonSlug": "hash-linear-probing",
+    "storageId": "hash-linear-probing-check",
+    "prompt": "Key 0 is deleted after key 4 probed past it. What must the slot hold?",
+    "hints": [
+      "The start slot of 0 and 4 matches when the capacity is 4.",
+      "Live keys and tombstones are different."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "A tombstone, so lookup of 4 keeps probing"
+      },
+      {
+        "id": "no",
+        "label": "An empty slot, so lookup of 4 stops and misses"
+      },
+      {
+        "id": "other",
+        "label": "Key 4, because deletion moves later keys backward"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A tombstone is occupied for the purpose of continuing a probe.",
+    "retry": "An empty slot would hide every key that stepped over this one.",
+    "objectiveId": "hash-probing-trace-tombstones"
+  },
+  {
+    "id": "hash-linear-probing-transfer",
+    "lessonSlug": "hash-linear-probing",
+    "storageId": "hash-linear-probing-transfer",
+    "prompt": "What is the load factor of a probing table?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Live keys divided by the number of slots"
+      },
+      {
+        "id": "no",
+        "label": "The length of the longest probe, always"
+      },
+      {
+        "id": "other",
+        "label": "One, because hashing avoids collisions"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Load factor is size over capacity.",
+    "retry": "Clustering gets worse as that ratio grows.",
+    "objectiveId": "hash-probing-explain-clustering"
+  },
+  {
+    "id": "lru-cache-check",
+    "lessonSlug": "lru-cache",
+    "storageId": "lru-cache-check",
+    "prompt": "Capacity is 2. You put a, put b, get a, then put c. Which key is evicted?",
+    "hints": [
+      "The dictionary finds the node.",
+      "The list stores the recency order."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "b, because a was used more recently than b"
+      },
+      {
+        "id": "no",
+        "label": "a, because the first key always leaves"
+      },
+      {
+        "id": "other",
+        "label": "c, because the newest key is the first to leave"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The tail is the least recently used key.",
+    "retry": "A get counts as a use and moves that key off the tail.",
+    "objectiveId": "lru-trace-recency-and-eviction"
+  },
+  {
+    "id": "lru-cache-transfer",
+    "lessonSlug": "lru-cache",
+    "storageId": "lru-cache-transfer",
+    "prompt": "Why is eviction constant time rather than a scan of the capacity?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The tail node and the dictionary entry are both known"
+      },
+      {
+        "id": "no",
+        "label": "The cache sorts every key by age on each put"
+      },
+      {
+        "id": "other",
+        "label": "The singly linked tail pointer walks from the head"
+      }
+    ],
+    "answer": "yes",
+    "correct": "move and unlink use the stored neighbors.",
+    "retry": "A search by age would be linear in the capacity.",
+    "objectiveId": "lru-analyze-combined-operations"
+  },
+  {
+    "id": "tree-traversals-check",
+    "lessonSlug": "tree-traversals",
+    "storageId": "tree-traversals-check",
+    "prompt": "Insert 4, 2, 6, 1. Which sequence is preorder?",
+    "hints": [
+      "Left child before right child.",
+      "1 hangs under 2."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "4, then 2, then 1, then 6"
+      },
+      {
+        "id": "no",
+        "label": "1, then 2, then 4, then 6"
+      },
+      {
+        "id": "other",
+        "label": "4, then 2, then 6, then 1"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Preorder visits the node before its children.",
+    "retry": "Inorder is the sorted sequence. Level order uses a queue.",
+    "objectiveId": "tree-traversal-predict-depth-first"
+  },
+  {
+    "id": "tree-traversals-transfer",
+    "lessonSlug": "tree-traversals",
+    "storageId": "tree-traversals-transfer",
+    "prompt": "The same tree is visited with a queue. Which sequence is level order?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "4, then 2, then 6, then 1"
+      },
+      {
+        "id": "no",
+        "label": "4, then 1, then 2, then 6"
+      },
+      {
+        "id": "other",
+        "label": "1, then 6, then 2, then 4"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Children are enqueued when their parent is dequeued.",
+    "retry": "1 is a child of 2, so it waits behind 6.",
+    "objectiveId": "tree-traversal-trace-level-order"
+  },
+  {
+    "id": "balanced-search-trees-check",
+    "lessonSlug": "balanced-search-trees",
+    "storageId": "balanced-search-trees-check",
+    "prompt": "Keys 1, 2, 3 arrive in order. Where does a left-leaning red-black tree put the root?",
+    "hints": [
+      "Inorder is still sorted.",
+      "select and rank use subtree sizes."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "At 2, so the tree is not a chain"
+      },
+      {
+        "id": "no",
+        "label": "At 3, because the last insert becomes the root"
+      },
+      {
+        "id": "other",
+        "label": "At 1, because the first insert stays the root"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Rotations keep a logarithmic height on this insert order.",
+    "retry": "A plain search tree would chain these keys.",
+    "objectiveId": "balanced-tree-explain-height"
+  },
+  {
+    "id": "balanced-search-trees-transfer",
+    "lessonSlug": "balanced-search-trees",
+    "storageId": "balanced-search-trees-transfer",
+    "prompt": "A rotation changes the parent of a node. What stays true?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Inorder still lists the keys from small to large"
+      },
+      {
+        "id": "no",
+        "label": "Inorder reverses"
+      },
+      {
+        "id": "other",
+        "label": "The root key is always the first key inserted"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Left keys stay left and right keys stay right.",
+    "retry": "Only the shape is edited.",
+    "objectiveId": "balanced-tree-preserve-order-with-rotations"
+  },
+  {
+    "id": "priority-queues-check",
+    "lessonSlug": "priority-queues",
+    "storageId": "priority-queues-check",
+    "prompt": "Priorities 5, 3, and 4 are pushed. Which item leaves first?",
+    "hints": [
+      "The token is not the priority.",
+      "Later pops return 4 and then 5."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The item whose priority is 3"
+      },
+      {
+        "id": "no",
+        "label": "The item pushed first, whose priority is 5"
+      },
+      {
+        "id": "other",
+        "label": "The item pushed last, whose priority is 4"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A min-heap root is the smallest priority.",
+    "retry": "Push order is not the pop order.",
+    "objectiveId": "priority-queue-map-operations"
+  },
+  {
+    "id": "priority-queues-transfer",
+    "lessonSlug": "priority-queues",
+    "storageId": "priority-queues-transfer",
+    "prompt": "You will insert more items between extractions. Which structure matches that workload?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "A priority queue, because each push and pop is logarithmic"
+      },
+      {
+        "id": "no",
+        "label": "A full sort before every extraction"
+      },
+      {
+        "id": "other",
+        "label": "An unordered list scan that you call constant"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The set of candidates changes between pops.",
+    "retry": "Sorting a fixed array is the other workload.",
+    "objectiveId": "priority-queue-choose-extraction-or-sort"
+  },
+  {
+    "id": "graph-representations-check",
+    "lessonSlug": "graph-representations",
+    "storageId": "graph-representations-check",
+    "prompt": "A graph has 4 vertices and 3 directed edges. What does the adjacency list store?",
+    "hints": [
+      "Sparse means edges are far fewer than vertices squared.",
+      "A queue walks the lists during breadth-first search."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Three neighbor pairs, plus the vertex records"
+      },
+      {
+        "id": "no",
+        "label": "Sixteen filled matrix cells"
+      },
+      {
+        "id": "other",
+        "label": "One pair per vertex, whether or not an edge exists"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The list stores edges you added, not the empty pairs.",
+    "retry": "A matrix is the structure with a cell per ordered pair.",
+    "objectiveId": "graph-representation-compare-space"
+  },
+  {
+    "id": "graph-representations-transfer",
+    "lessonSlug": "graph-representations",
+    "storageId": "graph-representations-transfer",
+    "prompt": "You repeat 'list every neighbor' on a sparse graph. Which store fits?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "An adjacency list, because each neighbor scan reads one list"
+      },
+      {
+        "id": "no",
+        "label": "A matrix, because every row scan is proportional to the edges"
+      },
+      {
+        "id": "other",
+        "label": "Either store, because both are proportional to vertices plus edges"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A matrix row scan is proportional to the vertex count.",
+    "retry": "The list length is the degree.",
+    "objectiveId": "graph-representation-choose-operations"
+  },
+  {
+    "id": "topological-order-check",
+    "lessonSlug": "topological-order",
+    "storageId": "topological-order-check",
+    "prompt": "Kahn's algorithm starts with which vertices?",
+    "hints": [
+      "Emitting a vertex reduces its neighbors' indegrees.",
+      "A short output means a cycle."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The vertices whose indegree is zero"
+      },
+      {
+        "id": "no",
+        "label": "The vertices whose outdegree is zero"
+      },
+      {
+        "id": "other",
+        "label": "Any vertex on a cycle"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A source has no incoming edge left.",
+    "retry": "A cycle has no vertex that can start the order.",
+    "objectiveId": "topological-order-trace-kahn"
+  },
+  {
+    "id": "topological-order-transfer",
+    "lessonSlug": "topological-order",
+    "storageId": "topological-order-transfer",
+    "prompt": "topological_order is called on a directed cycle. What happens?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "It raises, because some vertex never reaches indegree zero"
+      },
+      {
+        "id": "no",
+        "label": "It returns the cycle vertices twice"
+      },
+      {
+        "id": "other",
+        "label": "It returns an empty list for every graph"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The queue empties before every vertex is emitted.",
+    "retry": "A dag of the same size would return every vertex.",
+    "objectiveId": "topological-order-detect-cycle"
+  },
+  {
+    "id": "shortest-paths-check",
+    "lessonSlug": "shortest-paths",
+    "storageId": "shortest-paths-check",
+    "prompt": "Edges include A to C with weight 4 and A to B to C with weights 1 and 2. What does Dijkstra report for C?",
+    "hints": [
+      "Weights here are non-negative.",
+      "Bellman-Ford is the algorithm that allows a negative edge."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Distance 3, after relaxing the edge from B"
+      },
+      {
+        "id": "no",
+        "label": "Distance 4, because the direct edge is examined first"
+      },
+      {
+        "id": "other",
+        "label": "Distance 1, because B is the first neighbor"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Relaxation replaces a tentative distance when a better path appears.",
+    "retry": "The first edge you see is not frozen unless the algorithm says so.",
+    "objectiveId": "shortest-path-choose-algorithm"
+  },
+  {
+    "id": "shortest-paths-transfer",
+    "lessonSlug": "shortest-paths",
+    "storageId": "shortest-paths-transfer",
+    "prompt": "A negative edge is on the path. Which algorithm still applies?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Bellman-Ford, which repeats relaxation enough times for a simple path"
+      },
+      {
+        "id": "no",
+        "label": "Dijkstra, because the heap ignores the sign"
+      },
+      {
+        "id": "other",
+        "label": "Breadth-first search, because every edge still counts as one hop"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Dijkstra's proof needs non-negative weights.",
+    "retry": "A negative cycle makes distances undefined.",
+    "objectiveId": "shortest-path-trace-relaxation"
+  },
+  {
+    "id": "minimum-spanning-trees-check",
+    "lessonSlug": "minimum-spanning-trees",
+    "storageId": "minimum-spanning-trees-check",
+    "prompt": "Kruskal considers the weight-4 edge after the weights 1 and 2 are already chosen. What does the cycle check do?",
+    "hints": [
+      "Prim grows from one vertex instead of sorting.",
+      "Both algorithms total 3 on this triangle."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "It rejects the edge, because its ends are already connected"
+      },
+      {
+        "id": "no",
+        "label": "It adds the edge, because heavier edges are preferred"
+      },
+      {
+        "id": "other",
+        "label": "It deletes the weight-1 edge to make room"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Union-find reports one component, so the edge would close a cycle.",
+    "retry": "The spanning tree wants n - 1 edges, not every edge.",
+    "objectiveId": "mst-trace-kruskal"
+  },
+  {
+    "id": "minimum-spanning-trees-transfer",
+    "lessonSlug": "minimum-spanning-trees",
+    "storageId": "minimum-spanning-trees-transfer",
+    "prompt": "Why is the rejected edge unsafe to add?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Its ends are already in the same component, so the edge is not needed"
+      },
+      {
+        "id": "no",
+        "label": "Its ends are in different components, so the tree stays disconnected"
+      },
+      {
+        "id": "other",
+        "label": "Spanning trees are required to contain a cycle"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A tree on n vertices has no cycle and has n - 1 edges.",
+    "retry": "The cut property is what justifies the edge you do add.",
+    "objectiveId": "mst-explain-cycle-check"
+  },
+  {
+    "id": "two-pointers-check",
+    "lessonSlug": "two-pointers",
+    "storageId": "two-pointers-check",
+    "prompt": "The sorted values are 1, 2, 4, 7 and the target is 6. The current sum is too small. Which index moves?",
+    "hints": [
+      "The successful indexes are 1 and 2.",
+      "Each index moves in only one direction."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The left index moves right, toward a larger value"
+      },
+      {
+        "id": "no",
+        "label": "The right index moves left, toward a smaller value"
+      },
+      {
+        "id": "other",
+        "label": "Both indexes jump to the middle"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A larger left value is the only way to increase the sum.",
+    "retry": "Sorted order is what makes the move safe.",
+    "objectiveId": "two-pointers-justify-movement"
+  },
+  {
+    "id": "two-pointers-transfer",
+    "lessonSlug": "two-pointers",
+    "storageId": "two-pointers-transfer",
+    "prompt": "Both indexes move only forward across n items. What is the total number of moves?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "At most n, so the scan is linear"
+      },
+      {
+        "id": "no",
+        "label": "n squared, because each left index retries every right index"
+      },
+      {
+        "id": "other",
+        "label": "log n, because the array is binary-searched"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A one-direction walk cannot revisit an item.",
+    "retry": "Sorting first would be an extra n log n if the array started unsorted.",
+    "objectiveId": "two-pointers-count-total-moves"
+  },
+  {
+    "id": "sliding-window-check",
+    "lessonSlug": "sliding-window",
+    "storageId": "sliding-window-check",
+    "prompt": "A window maximum deque sees a new value larger than the candidates at the back. What happens to those candidates?",
+    "hints": [
+      "Indexes that slide out of the window also leave.",
+      "The unique-substring window moves its ends forward too."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "They are popped, because they cannot be a later maximum"
+      },
+      {
+        "id": "no",
+        "label": "They stay, because an older small value might win"
+      },
+      {
+        "id": "other",
+        "label": "The window restarts from index zero"
+      }
+    ],
+    "answer": "yes",
+    "correct": "A newer larger value dominates older smaller ones inside this window and the next.",
+    "retry": "The front of the deque is the current maximum.",
+    "objectiveId": "sliding-window-maintain-valid-range"
+  },
+  {
+    "id": "sliding-window-transfer",
+    "lessonSlug": "sliding-window",
+    "storageId": "sliding-window-transfer",
+    "prompt": "The unique-substring window sees a repeated character. Which end moves?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The left end advances past the earlier copy"
+      },
+      {
+        "id": "no",
+        "label": "The right end moves backward"
+      },
+      {
+        "id": "other",
+        "label": "Neither end, because repeats are kept"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The invariant is one copy of each character inside the window.",
+    "retry": "Both ends still move only forward across the whole scan.",
+    "objectiveId": "sliding-window-test-monotonicity"
+  },
+  {
+    "id": "prefix-sums-check",
+    "lessonSlug": "prefix-sums",
+    "storageId": "prefix-sums-check",
+    "prompt": "Prefix totals exist for 1, 2, 3, 4. range_sum(1, 3) uses which formula?",
+    "hints": [
+      "total of an empty prefix is zero.",
+      "A point update is why a later structure exists."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The total through the exclusive end, minus the total before the start"
+      },
+      {
+        "id": "no",
+        "label": "The value at index 1 multiplied by the value at index 3"
+      },
+      {
+        "id": "other",
+        "label": "A fresh loop from index 1 through index 3 inclusive"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The library slice is half-open, so index 3 is excluded.",
+    "retry": "The answer on this input is 2 + 3.",
+    "objectiveId": "prefix-sums-derive-range-query"
+  },
+  {
+    "id": "prefix-sums-transfer",
+    "lessonSlug": "prefix-sums",
+    "storageId": "prefix-sums-transfer",
+    "prompt": "You know how many earlier prefixes equal the current prefix minus the target. What does that frequency count?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The subarrays that end here and sum to the target"
+      },
+      {
+        "id": "no",
+        "label": "The single longest subarray in the whole array"
+      },
+      {
+        "id": "other",
+        "label": "Only the empty subarray"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Each matching earlier prefix is one start index.",
+    "retry": "The walk stores prefix frequencies as it goes.",
+    "objectiveId": "prefix-sums-count-target-subarrays"
+  },
+  {
+    "id": "backtracking-check",
+    "lessonSlug": "backtracking",
+    "storageId": "backtracking-check",
+    "prompt": "A permutation search places an item and then tries the next sibling. What must happen between those siblings?",
+    "hints": [
+      "A prune must reject every leaf under that branch.",
+      "The output size belongs in the cost."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The placement is undone so the pool is restored"
+      },
+      {
+        "id": "no",
+        "label": "The placement stays, so later siblings see a shorter pool"
+      },
+      {
+        "id": "other",
+        "label": "The search returns without visiting siblings"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Choose, recurse, and undo is the shape.",
+    "retry": "The six permutations of three items all share the same pool.",
+    "objectiveId": "backtracking-trace-reversible-state"
+  },
+  {
+    "id": "backtracking-transfer",
+    "lessonSlug": "backtracking",
+    "storageId": "backtracking-transfer",
+    "prompt": "How many leaves does the permutation tree of n distinct items have?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "n factorial"
+      },
+      {
+        "id": "no",
+        "label": "n squared"
+      },
+      {
+        "id": "other",
+        "label": "n log n"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The first position has n choices and each next position has one fewer.",
+    "retry": "Building each list also copies n items.",
+    "objectiveId": "backtracking-analyze-search-tree"
+  },
+  {
+    "id": "greedy-methods-check",
+    "lessonSlug": "greedy-methods",
+    "storageId": "greedy-methods-check",
+    "prompt": "Interval scheduling sorts by finish time and takes the next compatible interval. What justifies that first choice?",
+    "hints": [
+      "Huffman gives the frequent symbol the short code.",
+      "A different sort key needs its own argument."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Some optimal schedule can be exchanged into the same first interval"
+      },
+      {
+        "id": "no",
+        "label": "The example with three intervals is already a proof"
+      },
+      {
+        "id": "other",
+        "label": "The longest interval is always optimal"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Swapping in the earliest finish does not reduce the count.",
+    "retry": "An example shows the rule. The exchange shows why it is safe.",
+    "objectiveId": "greedy-methods-state-choice"
+  },
+  {
+    "id": "greedy-methods-transfer",
+    "lessonSlug": "greedy-methods",
+    "storageId": "greedy-methods-transfer",
+    "prompt": "Two lightest symbols become siblings in a Huffman tree. Why is that safe?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Some optimal tree has those two symbols as siblings"
+      },
+      {
+        "id": "no",
+        "label": "The heaviest symbol must be deepest"
+      },
+      {
+        "id": "other",
+        "label": "Any pairing of symbols has the same cost"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The exchange replaces a worse sibling pair with the two lightest.",
+    "retry": "The heap then repeats the choice.",
+    "objectiveId": "greedy-methods-justify-optimality"
+  },
+  {
+    "id": "dp-state-and-transition-check",
+    "lessonSlug": "dp-state-and-transition",
+    "storageId": "dp-state-and-transition-check",
+    "prompt": "Coin change stores one number per amount. What is the state?",
+    "hints": [
+      "Fill smaller amounts first.",
+      "The knapsack adds an item index to the state."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The fewest coins that sum to that amount"
+      },
+      {
+        "id": "no",
+        "label": "The list of every combination that sums to that amount"
+      },
+      {
+        "id": "other",
+        "label": "The largest coin that is at most that amount"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The transition tries each coin and reads a smaller amount.",
+    "retry": "Amount zero costs zero coins.",
+    "objectiveId": "dp-state-define-recurrence"
+  },
+  {
+    "id": "dp-state-and-transition-transfer",
+    "lessonSlug": "dp-state-and-transition",
+    "storageId": "dp-state-and-transition-transfer",
+    "prompt": "0-1 knapsack has an item index and a capacity. What dominates the time?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The number of item-capacity pairs, times the work of one transition"
+      },
+      {
+        "id": "no",
+        "label": "The capacity alone, because items are free"
+      },
+      {
+        "id": "other",
+        "label": "The factorial of the item count"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Each cell makes a constant number of choices.",
+    "retry": "A rolling row can shrink the memory without changing the time.",
+    "objectiveId": "dp-state-analyze-work-memory"
+  },
+  {
+    "id": "string-search-check",
+    "lessonSlug": "string-search",
+    "storageId": "string-search-check",
+    "prompt": "KMP has matched a proper prefix and then the next character fails. What does the failure link do?",
+    "hints": [
+      "ababa in ababcababa matches at index 5.",
+      "A hash hit still needs a character check."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "It resumes at the longest prefix that is also a suffix of the matched text"
+      },
+      {
+        "id": "no",
+        "label": "It restarts the text index at zero"
+      },
+      {
+        "id": "other",
+        "label": "It skips the rest of the text"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The text index does not move backward.",
+    "retry": "The link is a fact about the pattern, computed before the search.",
+    "objectiveId": "string-search-trace-kmp-fallback"
+  },
+  {
+    "id": "string-search-transfer",
+    "lessonSlug": "string-search",
+    "storageId": "string-search-transfer",
+    "prompt": "Rabin-Karp reports equal hashes for a window and the pattern. What else is required?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "A character-by-character check of that window"
+      },
+      {
+        "id": "no",
+        "label": "Nothing, because equal hashes are equal strings"
+      },
+      {
+        "id": "other",
+        "label": "A second modulus only, with no character check"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Different strings can share a hash.",
+    "retry": "Unequal hashes are enough to reject a window.",
+    "objectiveId": "string-search-verify-hash-candidates"
+  },
+  {
+    "id": "tries-and-text-indexes-check",
+    "lessonSlug": "tries-and-text-indexes",
+    "storageId": "tries-and-text-indexes-check",
+    "prompt": "cat and car are inserted. What does contains report for ca?",
+    "hints": [
+      "The suffix array of banana starts at 5, 3, 1, 0, 4, 2.",
+      "Build cost is separate from one query."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "A miss, because a prefix was not inserted as its own key"
+      },
+      {
+        "id": "no",
+        "label": "A hit, because both keys start with ca"
+      },
+      {
+        "id": "other",
+        "label": "A hit only when every key has that prefix"
+      }
+    ],
+    "answer": "yes",
+    "correct": "This trie treats stored keys and proper prefixes differently.",
+    "retry": "contains walks the whole key.",
+    "objectiveId": "text-index-match-query"
+  },
+  {
+    "id": "tries-and-text-indexes-transfer",
+    "lessonSlug": "tries-and-text-indexes",
+    "storageId": "tries-and-text-indexes-transfer",
+    "prompt": "You compare a suffix-array query with a scan of the raw text. What must the comparison include?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The cost of building the array, not only the later binary search"
+      },
+      {
+        "id": "no",
+        "label": "Only the binary search"
+      },
+      {
+        "id": "other",
+        "label": "Only the length of the pattern"
+      }
+    ],
+    "answer": "yes",
+    "correct": "An index is not free to construct.",
+    "retry": "The array itself is linear in the text.",
+    "objectiveId": "text-index-include-build-cost"
+  },
+  {
+    "id": "range-query-structures-check",
+    "lessonSlug": "range-query-structures",
+    "storageId": "range-query-structures-check",
+    "prompt": "A Fenwick tree receives point adds and then a prefix query. What do you gain over a flat prefix array?",
+    "hints": [
+      "The segment tree can tag a whole span.",
+      "Say whether the workload updates."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "A point update stays logarithmic instead of rebuilding the array"
+      },
+      {
+        "id": "no",
+        "label": "A range query becomes linear"
+      },
+      {
+        "id": "other",
+        "label": "Updates become constant and queries become linear"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The flat prefix array is the static special case.",
+    "retry": "The sparse table answers minima and does not take updates.",
+    "objectiveId": "range-query-compare-operations"
+  },
+  {
+    "id": "range-query-structures-transfer",
+    "lessonSlug": "range-query-structures",
+    "storageId": "range-query-structures-transfer",
+    "prompt": "The array never changes and you need range minima. Which structure fits?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "A sparse table, with a longer build and a constant query"
+      },
+      {
+        "id": "no",
+        "label": "A Fenwick tree, because it stores minima the same way"
+      },
+      {
+        "id": "other",
+        "label": "A fresh scan of the range on every query, called constant"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Minimum of overlapping blocks still covers the union.",
+    "retry": "A changing array would push you back to a tree.",
+    "objectiveId": "range-query-select-for-workload"
+  },
+  {
+    "id": "approximate-membership-check",
+    "lessonSlug": "approximate-membership",
+    "storageId": "approximate-membership-check",
+    "prompt": "A Bloom filter says an item is absent. What may you conclude?",
+    "hints": [
+      "This filter does not support delete.",
+      "A clear bit is the definite answer."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The item was definitely not added"
+      },
+      {
+        "id": "no",
+        "label": "The item was probably added"
+      },
+      {
+        "id": "other",
+        "label": "The item was added and then deleted"
+      }
+    ],
+    "answer": "yes",
+    "correct": "add only sets bits, so a clear bit means this item was not inserted.",
+    "retry": "A hit can be a false positive.",
+    "objectiveId": "bloom-filter-state-guarantees"
+  },
+  {
+    "id": "approximate-membership-transfer",
+    "lessonSlug": "approximate-membership",
+    "storageId": "approximate-membership-transfer",
+    "prompt": "A Bloom filter says an item is present. What may you conclude?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "The item might be present, or other items may have set those bits"
+      },
+      {
+        "id": "no",
+        "label": "The item is definitely present"
+      },
+      {
+        "id": "other",
+        "label": "The item is definitely absent"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Every checked bit is set, and more than one item can set a bit.",
+    "retry": "A definite answer is the miss, not the hit.",
+    "objectiveId": "bloom-filter-explain-false-positive"
+  },
+  {
+    "id": "storage-engines-and-locality-check",
+    "lessonSlug": "storage-engines-and-locality",
+    "storageId": "storage-engines-and-locality-check",
+    "prompt": "A B-tree and a sequential scan solve different workloads. Which claim matches the scan?",
+    "hints": [
+      "Inserted keys are found. Missing keys are not.",
+      "Writes in an LSM land in a log before they land in a tree."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Touching neighboring items is the baseline when you need every value"
+      },
+      {
+        "id": "no",
+        "label": "A scan is the fastest way to test one missing key"
+      },
+      {
+        "id": "other",
+        "label": "A B-tree lookup is linear in the number of keys on every input"
+      }
+    ],
+    "answer": "yes",
+    "correct": "search walks a short path. The scan adds every item.",
+    "retry": "Locality changes the practical cost, not the arithmetic identity.",
+    "objectiveId": "storage-compare-write-read-tradeoffs"
+  },
+  {
+    "id": "storage-engines-and-locality-transfer",
+    "lessonSlug": "storage-engines-and-locality",
+    "storageId": "storage-engines-and-locality-transfer",
+    "prompt": "Why can two linear scans with the same arithmetic still differ in practice?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "One touches neighboring memory and the other jumps around"
+      },
+      {
+        "id": "no",
+        "label": "The jumping scan always does fewer additions"
+      },
+      {
+        "id": "other",
+        "label": "Locality changes the returned sum"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Cache lines and pages reward the tight walk.",
+    "retry": "The toy sum is the baseline, not a different formula.",
+    "objectiveId": "storage-engines-explain-locality"
+  },
+  {
+    "id": "approximation-guarantees-check",
+    "lessonSlug": "approximation-guarantees",
+    "storageId": "approximation-guarantees-check",
+    "prompt": "The vertex-cover scan adds both ends of an uncovered edge. Why is the result a cover?",
+    "hints": [
+      "The selected edges do not share vertices.",
+      "The ratio is at most two on every graph."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Every edge is either chosen or already touches a chosen vertex"
+      },
+      {
+        "id": "no",
+        "label": "The scan adds one vertex from the whole graph"
+      },
+      {
+        "id": "other",
+        "label": "The scan returns a matching and stops"
+      }
+    ],
+    "answer": "yes",
+    "correct": "Feasibility is separate from the ratio.",
+    "retry": "The example cover contains all four endpoints.",
+    "objectiveId": "approximation-prove-feasibility"
+  },
+  {
+    "id": "approximation-guarantees-transfer",
+    "lessonSlug": "approximation-guarantees",
+    "storageId": "approximation-guarantees-transfer",
+    "prompt": "The algorithm adds two vertices per selected edge, and those edges are disjoint. How does that bound the ratio?",
+    "hints": [
+      "Use the same rule on this new question.",
+      "Reject the choice that changes the rule."
+    ],
+    "options": [
+      {
+        "id": "yes",
+        "label": "Any cover needs at least one vertex per selected edge, so two is at most twice the optimum"
+      },
+      {
+        "id": "no",
+        "label": "The cover is always the optimum"
+      },
+      {
+        "id": "other",
+        "label": "The cover can be arbitrarily larger than the optimum"
+      }
+    ],
+    "answer": "yes",
+    "correct": "The disjoint edges are a lower bound on the optimum.",
+    "retry": "A single lucky example is not the proof.",
+    "objectiveId": "approximation-derive-ratio"
+  },
+  {
     "id": "merge-sort-check",
     "lessonSlug": "merge-sort",
     "storageId": "merge-sort-check",

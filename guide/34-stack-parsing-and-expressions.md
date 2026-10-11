@@ -6,18 +6,33 @@ status: present
 module: bitsandbytes.stacks.symbol_balance, bitsandbytes.stacks.min_stack, bitsandbytes.stacks.infix_postfix, bitsandbytes.stacks.sort_stack
 ---
 
-## Match nested structure with a stack
+## The idea
 
-When a later symbol must match the most recent unmatched opener, last-in, first-out order fits naturally. Push open brackets; when a closer arrives, compare it with the top and remove the match. A mismatch or leftover opener means the expression is unbalanced.
+A bracket stack stores unmatched opening marks. symbols_are_balanced pushes each opener and pops when a closer arrives. The closer must match the current top. Other characters are ignored, so a formula and a bare bracket string share one checker. ([]) is balanced. ([)] is not, because the closer for the square bracket arrives while the parenthesis is still on top. An empty string is balanced. A leftover opener is not. Operator precedence uses a second stack. infix_to_postfix turns 2+3*4 into the tokens 2, 3, 4, *, +. Multiplication leaves the operator stack before addition because it binds more tightly. evaluate_infix of that expression returns 14. The value stack applies an operator only when both of its operands are already values. That is why postfix does not need parentheses.
 
-**By the end of this overview, you can** connect nested parsing to stack order and trace how a precedence-aware conversion delays operators.
+## A worked trace
 
-## A small expression trace
+| Step | State | What changed |
+| --- | --- | --- |
+| Brackets | balanced = yes | ([]) is balanced. ([)] crosses pairs and is not. |
+| Postfix | value = 14 | Multiplication leaves the operator stack before addition. |
 
-For `2 + 3 × 4`, multiplication has higher precedence, so a conversion to postfix emits `2 3 4 × +`. The operator stack temporarily holds `+` while reading the multiplication, then emits `×` before `+`. Parentheses act as explicit boundaries for when operators leave the stack.
+## Why it is correct
 
-A one-pass parser takes O(n) time in the input length and can store O(n) openers or operators. A minimum-stack variant keeps a second stack of candidate minima so each minimum query is O(1), at the cost of additional O(n) storage in the worst case. Always define behavior for empty input, unmatched delimiters and unsupported tokens.
+The bracket invariant is that the stack, from bottom to top, is the unmatched openers in the order they appeared. A matching closer restores the invariant by removing the top. A crossing closer breaks it, and the function returns false immediately. Termination with an empty stack means every opener found its closer. The operator invariant is that the operator stack is ordered by precedence, tightest at the top. Seeing a looser operator pops the tighter ones into the output first. The final pops drain the remaining operators. 3 * 4 happens before the addition with 2, so the value is 14.
+
+## What it costs
+
+Each character is pushed or popped at most once, so both scans are linear in the length of the expression. Extra memory is the unmatched openers or the pending operators, which is linear in the worst case and small when the expression stays nested cleanly. A wrong match is a constant-time rejection. Do not scan backward for the opener. The stack already has it.
+
+## Run it
+
+```python
+from bitsandbytes.stacks.infix_postfix import evaluate_infix
+print(evaluate_infix('2+3*4'))
+# prints: 14
+```
 
 ## Practice and next step
 
-Trace the opener stack for `([{}])` and for `([)]`. Then write the operator stack at each symbol in `2 + 3 × 4`. Compare with [the repository stack tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_stacks.py).
+Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

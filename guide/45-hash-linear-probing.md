@@ -6,16 +6,37 @@ status: present
 module: bitsandbytes.hash_tables.linear_probing
 ---
 
-## Resolve collisions by probing nearby slots
+## The idea
 
-Open addressing stores entries inside the table array. With linear probing, a collision checks the next slot, wrapping around, until it finds the key or an empty position.
+Linear probing stores one key in each slot of an array. The hash picks a start slot. If that slot is occupied by a different key, the insert tries the next slot, then the next, wrapping at the end of the array. A LinearProbingHashTable with capacity 4 stores key 0 in slot 0. Key 4 has the same start slot, finds it full, and takes slot 1. Lookup of 4 repeats that probe and returns 2. Deleting 0 does not write an empty slot. It writes a tombstone. Lookup of 4 must skip the tombstone and continue, otherwise it would stop and miss a key that sits further along the same probe. An empty slot still means the key is absent. The table rehashes when the number of live keys would reach half the capacity, which keeps clusters shorter.
 
-**By the end of this overview, you can** trace a probe sequence and explain why a deleted slot needs a tombstone.
+## A worked trace
 
-Search stops at a never-used empty slot, but a tombstone cannot end search: a key farther along the same probe chain may still be present. Insertion can reuse a tombstone after confirming that the key does not already occur later in the chain. As the table fills, long clusters make operations slower, so resizing and load-factor policy matter.
+| Step | State | What changed |
+| --- | --- | --- |
+| Probe | capacity = 4 | Key 4 finds slot 0 full and takes the next slot. |
+| Tombstone | found = 2 | Deleting 0 leaves a marker so the probe can still reach 4. |
 
-Expected O(1) behavior depends on a distribution of hashes and a controlled load factor. A degenerate hash can force O(n) probes. Track the slot state carefully: empty, occupied and deleted mean different things.
+## Why it is correct
+
+The probe is a deterministic walk, so insert and lookup that start from the same hash follow the same slots. A tombstone is a slot that used to hold a key. It is not empty, because a later key may have stepped over it. Stopping at a tombstone would hide that later key. Stopping at an empty slot is safe, because an insert would have taken the first empty slot it saw. Rehashing copies every live key into a larger array and drops tombstones. The load factor is the number of live keys divided by the capacity.
+
+## What it costs
+
+One probe is constant time when clusters stay short, and linear in the worst case when keys pile into one run. Primary clustering is that pile. A collision does not stay in one slot. It makes the next inserts more likely to collide too. Extra memory is the slot arrays, one per capacity, plus the tombstones that still occupy slots until a rehash. Keep the load factor bounded if you want the expected constant probe.
+
+## Run it
+
+```python
+from bitsandbytes.hash_tables.linear_probing import LinearProbingHashTable
+table = LinearProbingHashTable(capacity=4)
+table[0] = 1
+table[4] = 2
+del table[0]
+print(table[4])
+# prints: 2
+```
 
 ## Practice and next step
 
-Insert three keys whose initial slot is 2 into a table of size 5. Delete the middle key, then search for the last. Explain why stopping at its tombstone would be wrong. See [the repository hash-table tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_hash_tables.py).
+Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.

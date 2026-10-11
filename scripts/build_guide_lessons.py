@@ -139,6 +139,13 @@ RUNNABLE = {
     "doubly-linked-list-operations": "from bitsandbytes.doubly_linked_list import DoublyLinkedList\nchain = DoublyLinkedList()\nfirst = chain.append('a')\nchain.append('b')\nprint(chain.remove_node(first))\n# prints: a",
 }
 
+SCRIPTS = Path(__file__).resolve().parent
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
+from guide_lesson_batches import EXTRA_QUESTIONS, EXTRA_RUNNABLE, batch_specs  # noqa: E402
+
+RUNNABLE.update(EXTRA_RUNNABLE)
+
 # Library checks the traces are about the same functions the lessons name.
 array = DynamicArray()
 for item in ("a", "b", "c"):
@@ -713,7 +720,7 @@ def batch_a() -> list[dict[str, object]]:
 
 
 def all_specs() -> list[dict[str, object]]:
-    return [*LESSONS, *more_lessons(), *batch_a(), *final_lessons()]
+    return [*LESSONS, *more_lessons(), *batch_a(), *batch_specs(), *final_lessons()]
 
 
 def transfer_questions() -> dict[str, dict[str, object]]:
@@ -733,6 +740,7 @@ def transfer_questions() -> dict[str, dict[str, object]]:
     queue.enqueue("c")
     assert queue.dequeue() == "b"
     return complete_transfers({
+        **EXTRA_QUESTIONS,
         "input-size-and-operation-counts": {
             "prompt": "A loop over 6 items checks every unordered pair. How many checks run?",
             "options": [("fifteen", "15 checks, from 6 times 5 divided by 2"), ("six", "6 checks, one per item"), ("thirty-six", "36 checks, from 6 times 6")],
@@ -991,7 +999,11 @@ def build() -> dict[str, str]:
         words = len(rendered.split())
         if words < 280:
             raise SystemExit(f"{slug} is too short ({words} words)")
-        matches = list(GUIDE.glob(f"*-{slug}.md"))
+        matches = [
+            path
+            for path in GUIDE.glob("*.md")
+            if path.stem.partition("-")[0].isdigit() and path.stem.partition("-")[2] == slug
+        ]
         if len(matches) != 1:
             raise SystemExit(f"expected one guide file for {slug}, found {matches}")
         original = matches[0].read_text()

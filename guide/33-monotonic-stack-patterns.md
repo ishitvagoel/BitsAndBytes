@@ -6,18 +6,33 @@ status: present
 module: bitsandbytes.stacks.next_greater, bitsandbytes.stacks.stock_span, bitsandbytes.stacks.largest_rectangle
 ---
 
-## Keep unresolved candidates in order
+## The idea
 
-A monotonic stack stores candidates in increasing or decreasing order. When a new value makes earlier candidates impossible, pop those candidates and resolve their answers. Each item is pushed once and popped at most once.
+A monotonic stack stores indexes that are still waiting for an answer. next_greater on 2, 1, 2, 4, 3 returns 4, 2, 4, None, and None. The stack holds indexes. When a larger value arrives, every index it beats is popped and that value is written as the answer. Indexes that remain at the end have no strictly greater value on their right. stock_spans uses the same waiting stack. On prices 100, 80, 60, 70, 60, 75, 85 the span at the 75 is 4, because the walk stops at a strictly higher price. largest_rectangle asks for the nearest shorter bar on each side. The area is height times the gap between those bars. On 2, 1, 5, 6, 2, 3 the largest area is 10. min_stack keeps the current minimum beside the values. After pushing 3, then 1, then 2, the minimum is 1, and it is still 1 after 2 is popped. sort_stack uses a second stack so each moved value lands in order. The shared rule is that a value leaves the stack only when a later value resolves it.
 
-**By the end of this overview, you can** explain why a next-greater scan is linear even though an iteration may pop several items.
+## A worked trace
 
-## Work an example
+| Step | State | What changed |
+| --- | --- | --- |
+| Answers | first = 4 | next_greater writes the first strictly larger value on the right. |
+| Area | area = 10 | The largest rectangle in this histogram has area 10. |
 
-For values `[2, 1, 3]`, the `3` is the next greater value for both `2` and `1`. Before processing `3`, both indexes may be unresolved on a decreasing stack. Processing `3` pops them and records the answer. No popped index is examined again.
+## Why it is correct
 
-Across `n` inputs, there are at most `n` pushes and `n` pops, so total stack work is O(n), not O(n²). The stack may hold O(n) indexes. The same pattern supports stock span and histogram rectangle problems, but the comparison condition and sentinel handling must match each problem's definition.
+The stack stays ordered by the values at the stored indexes. A new value pops while the top is strictly smaller, so the top is the nearest unresolved candidate. Each pop writes an answer that will not change, because a later value is even farther to the right. The final leftovers are the positions with no greater neighbor, which is why their answers stay empty. The histogram uses two boundaries. A bar's width runs from the previous shorter bar to the next shorter bar, excluding those bars. Multiplying by the bar's height counts the rectangle that bar can support. The total work stays linear because each index is pushed once and popped at most once. The inner loop does not restart from the left.
+
+## What it costs
+
+n indexes produce at most n pushes and n pops, so the time is linear and the stack uses linear extra memory. A fresh scan from each index would be quadratic. largest_rectangle is the same bound. One pass finds the next smaller bar and one pass finds the previous smaller bar. min_stack push, pop, and minimum are constant time because the minimum is stored, not searched. Use this pattern when every item waits for a later item and then never waits again.
+
+## Run it
+
+```python
+from bitsandbytes.stacks.next_greater import next_greater
+print(next_greater([2, 1, 2, 4, 3]))
+# prints: [4, 2, 4, None, None]
+```
 
 ## Practice and next step
 
-Trace `[2, 1, 3]`, listing the stack after every input and the index resolved at each pop. Then change the final value to `0` and explain which indexes remain unresolved. Compare with [the repository monotonic-stack tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_stack_algorithms.py).
+Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
