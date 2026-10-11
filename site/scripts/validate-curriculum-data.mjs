@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { curriculumDetails, curriculumObjectiveIds } from "../src/lib/curriculum.ts";
 
 const siteDir = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(siteDir, "../..");
@@ -10,8 +11,6 @@ const traces = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/binary
 const source = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/binary-search-source.json"), "utf8"));
 const exercises = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/exercises.json"), "utf8"));
 const lessonTraces = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-traces.json"), "utf8"));
-const slugAliases = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-slug-aliases.json"), "utf8"));
-const curriculumSource = fs.readFileSync(path.join(siteDir, "../src/lib/curriculum.ts"), "utf8");
 
 function frontmatter(markdown) {
   const parts = markdown.split("---", 3);
@@ -71,26 +70,11 @@ try {
   }
 
   assert(Object.keys(references).length === slugs.size, "Generated crosswalk has unknown or missing lesson slugs");
-  const objectiveBlock = /export const curriculumObjectiveIds:\s*Record<string, string\[]>\s*=\s*\{([\s\S]*?)\n\};/.exec(curriculumSource);
-  assert(objectiveBlock, "Missing curriculum objective IDs");
-  const objectiveBySlug = new Map();
-  for (const line of objectiveBlock[1].split(/\r?\n/)) {
-    const entry = /^\s*(?:"([^"]+)"|([a-z0-9-]+)):\s*\[([^\]]*)\],?\s*$/.exec(line);
-    if (!entry) continue;
-    const lessonSlug = entry[1] ?? entry[2];
-    const ids = [...entry[3].matchAll(/"([^"]+)"/g)].map((match) => match[1]);
-    assert(!objectiveBySlug.has(lessonSlug), `Duplicate objective entry for ${lessonSlug}`);
-    assert(ids.length > 0, `${lessonSlug}: missing objective IDs`);
-    objectiveBySlug.set(lessonSlug, ids);
-  }
+  const objectiveBySlug = new Map(Object.entries(curriculumObjectiveIds));
   assert(objectiveBySlug.size === slugs.size && [...slugs].every((slug) => objectiveBySlug.has(slug)), "Objective IDs and lesson slugs differ");
   const objectiveIds = [...objectiveBySlug.values()].flat();
   assert(objectiveIds.every((id) => /^[a-z0-9]+(?:-[a-z0-9]+)+$/.test(id)), "Objective IDs must use stable lowercase hyphenated identifiers");
   assert(new Set(objectiveIds).size === objectiveIds.length, "Duplicate objective IDs across lessons");
-  for (const [oldSlug, canonicalSlug] of Object.entries(slugAliases)) {
-    assert(typeof oldSlug === "string" && slugs.has(canonicalSlug), `Slug alias ${oldSlug} points to an unknown lesson`);
-  }
-  assert([...slugs].every((slug) => slugAliases[slug] === slug), "Every current lesson URL must have an explicit stable slug mapping");
 
   const pilotPath = path.join(guideDir, "06-binary-search.md");
   const pilot = fs.readFileSync(pilotPath, "utf8");
@@ -165,15 +149,13 @@ try {
     }
   }
   for (const slug of slugs) {
-    const key = `(?:"${slug}"|${slug})`;
-    const details = new RegExp(`${key}\\s*:\\s*\\{[^\\n]*exerciseIds:\\s*\\[([^\\]]*)\\]`).exec(curriculumSource);
-    assert(details, `${slug}: missing exercise IDs in the curriculum manifest`);
-    const manifestIds = [...details[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+    const detail = curriculumDetails[slug];
+    assert(detail, `${slug}: missing exercise IDs in the curriculum manifest`);
+    const manifestIds = detail.exerciseIds;
     const dataIds = (exercisesByLesson.get(slug) ?? []).map((exercise) => exercise.id);
     assert(JSON.stringify(dataIds) === JSON.stringify(manifestIds), `${slug}: exercise data and curriculum manifest IDs differ`);
-    const objectiveEntry = new RegExp(`${key}\\s*:\\s*\\[([^\\]]*)\\]`).exec(curriculumSource);
-    assert(objectiveEntry, `${slug}: missing stable objective IDs`);
-    const manifestObjectiveIds = new Set([...objectiveEntry[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]));
+    const manifestObjectiveIds = new Set(curriculumObjectiveIds[slug] ?? []);
+    assert(manifestObjectiveIds.size > 0, `${slug}: missing stable objective IDs`);
     assert((exercisesByLesson.get(slug) ?? []).every((exercise) => manifestObjectiveIds.has(exercise.objectiveId)), `${slug}: an exercise references an unknown learning objective`);
   }
 
@@ -181,8 +163,8 @@ try {
     ...traces.map((trace) => trace.id),
     ...Object.values(lessonTraces).flatMap((items) => items.map((trace) => trace.id)),
   ]);
-  for (const match of curriculumSource.matchAll(/traceIds:\s*\[([^\]]*)\]/g)) {
-    for (const id of [...match[1].matchAll(/"([^"]+)"/g)].map((item) => item[1])) {
+  for (const detail of Object.values(curriculumDetails)) {
+    for (const id of detail.traceIds) {
       assert(knownTraceIds.has(id), `unknown trace id ${id}`);
     }
   }

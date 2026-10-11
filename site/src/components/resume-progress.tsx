@@ -6,6 +6,7 @@ import { useLocalJsonState } from "@/lib/use-local-json-state";
 import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
+  applyLessonUpdate,
   recordLessonVisit,
   setLessonComplete,
   validateLearningProgress,
@@ -58,12 +59,12 @@ function saveRecord(slug: string, sectionId: string | null) {
 export function ResumeTracker({
   slug,
   sections,
-  progressConfigs,
+  progressConfig,
   completeWithoutPractice = false,
 }: {
   slug: string;
   sections: Array<{ id: string; title: string }>;
-  progressConfigs: Record<string, LessonProgressConfig>;
+  progressConfig: LessonProgressConfig;
   completeWithoutPractice?: boolean;
 }) {
   const activeSectionId = useRef<string | null>(null);
@@ -72,15 +73,18 @@ export function ResumeTracker({
       activeSectionId.current = sectionId;
       saveRecord(slug, sectionId);
       try {
-        const current = validateLearningProgress(
+        const updated = applyLessonUpdate(
           JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
-          progressConfigs,
+          slug,
+          progressConfig,
+          (current) => {
+            const visited = recordLessonVisit(current, slug, progressConfig, sectionId);
+            const lastId = sections.at(-1)?.id;
+            return completeWithoutPractice && sectionId === lastId
+              ? setLessonComplete(visited, slug, progressConfig, true)
+              : visited;
+          },
         );
-        const visited = recordLessonVisit(current, slug, progressConfigs[slug], sectionId);
-        const lastId = sections.at(-1)?.id;
-        const updated = completeWithoutPractice && sectionId === lastId
-          ? setLessonComplete(visited, slug, progressConfigs[slug], true)
-          : visited;
         window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
         window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
       } catch {
@@ -119,7 +123,7 @@ export function ResumeTracker({
       observer.disconnect();
       window.removeEventListener("hashchange", onHashChange);
     };
-  }, [completeWithoutPractice, progressConfigs, slug, sections]);
+  }, [completeWithoutPractice, progressConfig, slug, sections]);
 
   return null;
 }
@@ -146,25 +150,29 @@ export function ResumeCard({ lessons }: { lessons: ResumeLesson[] }) {
 
 export function CompletionControl({
   slug,
-  progressConfigs,
+  progressConfig,
 }: {
   slug: string;
-  progressConfigs: Record<string, LessonProgressConfig>;
+  progressConfig: LessonProgressConfig;
 }) {
   const [raw] = useLocalJsonState(LEARNING_PROGRESS_KEY, null, (value: unknown) => value);
   const done = useMemo(() => {
     try {
-      const progress = validateLearningProgress(raw, progressConfigs);
+      const progress = validateLearningProgress(raw, { [slug]: progressConfig });
       return Boolean(progress.lessons[slug]?.completedAt);
     } catch {
       return false;
     }
-  }, [progressConfigs, raw, slug]);
+  }, [progressConfig, raw, slug]);
 
   function toggle() {
     try {
-      const progress = validateLearningProgress(JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown, progressConfigs);
-      const updated = setLessonComplete(progress, slug, progressConfigs[slug], !done);
+      const updated = applyLessonUpdate(
+        JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
+        slug,
+        progressConfig,
+        (progress) => setLessonComplete(progress, slug, progressConfig, !done),
+      );
       window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
       window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
     } catch {

@@ -2,7 +2,6 @@
   --background: #101318;
   --foreground: #f4f0e6;
   --muted: #b7b1a6;
-  --accent: #e6b15a;
   --border: #2c313a;
   --code-bg: #efe8dc;
   --surface: #fffdf8;
@@ -13,7 +12,6 @@
   --warning-soft: #fde8e1;
   --ink: #241c14;
   --ink-muted: #5c5348;
-  --paper: #f7f4ee;
   --amber: #e6b15a;
   --amber-ink: #1a1408;
   --panel: #181c23;
@@ -45,7 +43,7 @@ body {
 }
 
 a {
-  color: var(--accent);
+  color: var(--amber);
   text-decoration: underline;
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.16em;
@@ -191,16 +189,6 @@ main:focus-visible {
   transform: translateY(0);
 }
 
-.page {
-  max-width: 42rem;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
-}
-
-.lede {
-  color: var(--muted);
-}
-
 .lesson-index {
   margin: 1.5rem 0 0;
   padding: 0;
@@ -254,7 +242,7 @@ main:focus-visible {
 }
 
 .lesson-nav-link:hover {
-  border-color: var(--accent);
+  border-color: var(--amber);
   text-decoration: none;
 }
 
@@ -1117,7 +1105,7 @@ main:focus-visible {
 .readiness-reference {
   border-color: var(--line);
   color: var(--ink-muted);
-  background: var(--paper);
+  background: var(--surface-soft);
 }
 
 .personal-state-label {
@@ -1207,7 +1195,7 @@ main:focus-visible {
 .editorial-reference {
   border-color: var(--line);
   color: var(--ink-muted);
-  background: var(--paper);
+  background: var(--surface-soft);
 }
 
 .lesson-index-main a {
@@ -1217,7 +1205,7 @@ main:focus-visible {
 }
 
 .lesson-index-main a:hover {
-  color: var(--accent);
+  color: var(--amber);
   text-decoration: underline;
 }
 
@@ -1296,7 +1284,6 @@ main:focus-visible {
     align-items: start;
   }
 
-  .course-place-chapters,
   .chapter-grid .curriculum-stages {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -1475,7 +1462,7 @@ main:focus-visible {
   border: 1px solid var(--line);
   border-radius: 1rem;
   color: var(--ink);
-  background: var(--paper);
+  background: var(--surface-soft);
 }
 
 .interaction-loading {
@@ -2129,9 +2116,12 @@ main:focus-visible {
 }
 
 .lesson-outcomes summary,
-.progress-tools > summary,
-.course-rail li a {
+.progress-tools > summary {
   min-height: 2.75rem;
+}
+
+.text-button {
+  min-height: 44px;
 }
 
 .code-copy-button,
@@ -2467,7 +2457,6 @@ a.button-primary {
 
 @media (max-width: 719px) {
   .workshop-bench,
-  .course-place-chapters,
   .chapter-grid .curriculum-stages {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -2545,7 +2534,7 @@ a.button-primary {
   padding: 0.8rem 1rem;
   border: 1px solid var(--border);
   border-radius: 0.75rem;
-  background: var(--paper);
+  background: var(--surface-soft);
   color: var(--ink);
 }
 

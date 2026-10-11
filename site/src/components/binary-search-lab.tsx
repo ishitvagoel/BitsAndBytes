@@ -9,9 +9,9 @@ import { useLocalJsonState } from "@/lib/use-local-json-state";
 import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
+  applyLessonUpdate,
   recordObjectiveAttempt,
   setLessonComplete,
-  validateLearningProgress,
   type LessonProgressConfig,
 } from "@/lib/learning-progress";
 
@@ -222,8 +222,8 @@ export function BinarySearchLab({
 
 export function LessonPractice({
   lessonSlug,
-  progressConfigs,
-}: { lessonSlug: string; progressConfigs: Record<string, LessonProgressConfig> }) {
+  progressConfig,
+}: { lessonSlug: string; progressConfig: LessonProgressConfig }) {
   const [answers, setAnswers] = useLocalJsonState(practiceStorageKey(lessonSlug), {}, validatePracticeState);
   const questions = useMemo(() => allQuestions.filter((question) => question.lessonSlug === lessonSlug), [lessonSlug]);
 
@@ -271,17 +271,18 @@ export function LessonPractice({
     }));
     if (!selected) return;
     try {
-      const progress = validateLearningProgress(
+      const recorded = applyLessonUpdate(
         JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
-        progressConfigs,
+        lessonSlug,
+        progressConfig,
+        (progress) => recordObjectiveAttempt(progress, lessonSlug, progressConfig, question.objectiveId, selected === question.answer),
       );
-      const recorded = recordObjectiveAttempt(progress, lessonSlug, progressConfigs[lessonSlug], question.objectiveId, selected === question.answer);
       const allCorrect = questions.every((item) => {
         const chosen = item.storageId === questionId ? selected : answers[item.storageId]?.selected;
         const checked = item.storageId === questionId || Boolean(answers[item.storageId]?.checked);
         return checked && chosen === item.answer;
       });
-      const updated = setLessonComplete(recorded, lessonSlug, progressConfigs[lessonSlug], allCorrect);
+      const updated = setLessonComplete(recorded, lessonSlug, progressConfig, allCorrect);
       window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
       window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
     } catch {

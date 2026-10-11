@@ -42,6 +42,26 @@ function isTimestamp(value: unknown): value is string {
   return typeof value === "string" && Number.isFinite(Date.parse(value));
 }
 
+/** Keep every stored lesson, and validate only the lesson this page is allowed to see. */
+export function applyLessonUpdate(
+  raw: unknown,
+  slug: string,
+  config: LessonProgressConfig,
+  update: (progress: LearningProgress) => LearningProgress,
+): LearningProgress {
+  const storedLessons = isRecord(raw) && raw.schemaVersion === 1 && isRecord(raw.lessons)
+    ? raw.lessons as LearningProgress["lessons"]
+    : {};
+  const current = validateLearningProgress(
+    { schemaVersion: 1, lessons: storedLessons[slug] ? { [slug]: storedLessons[slug] } : {} },
+    { [slug]: config },
+  );
+  return update({
+    schemaVersion: 1,
+    lessons: { ...storedLessons, ...current.lessons },
+  });
+}
+
 export function validateLearningProgress(value: unknown, config: Record<string, LessonProgressConfig>): LearningProgress {
   if (!isRecord(value) || value.schemaVersion !== 1 || !isRecord(value.lessons)) return emptyLearningProgress();
   const lessons: LearningProgress["lessons"] = {};

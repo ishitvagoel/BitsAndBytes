@@ -91,7 +91,7 @@ for (const match of css.matchAll(rulePattern)) {
 
 const tokenPairs = [
   ["--ink", "--surface"],
-  ["--ink-muted", "--paper"],
+  ["--ink-muted", "--surface-soft"],
   ["--link", "--surface"],
   ["--success", "--success-soft"],
   ["--amber-ink", "--amber-soft"],
@@ -117,4 +117,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`contrast: paper text passes 4.5:1 against ${paper} (${paperSubjects.size} selectors, ${tokenPairs.length} token pairs)`);
+console.log(`contrast: paper text passes 4.5:1 against ${paper} (${paperSubjects.size} selectors, ${paperContainers.length} container rules)`);

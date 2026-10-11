@@ -1,6 +1,6 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { isValidElement, type ReactNode } from "react";
 
@@ -11,7 +11,6 @@ import { ModuleList } from "@/components/module-list";
 import { CompletionControl, ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
 import lessonTraces from "@/data/lesson-traces.json";
-import lessonSlugAliases from "@/data/lesson-slug-aliases.json";
 import {
   formatModuleNames,
   getAllLessons,
@@ -179,13 +178,12 @@ function LessonSequence({
 }
 
 export function generateStaticParams() {
-  return Object.keys(lessonSlugAliases).map((slug) => ({ slug }));
+  return getAllLessons().map((lesson) => ({ slug: lesson.slug }));
 }
 
 export async function generateMetadata({ params }: LessonPageProps) {
   const { slug } = await params;
-  const canonicalSlug = lessonSlugAliases[slug as keyof typeof lessonSlugAliases] ?? slug;
-  const lesson = getLessonBySlug(canonicalSlug);
+  const lesson = getLessonBySlug(slug);
   if (!lesson) {
     return { title: "Lesson not found" };
   }
@@ -198,10 +196,8 @@ export async function generateMetadata({ params }: LessonPageProps) {
 
 export default async function LessonPage({ params }: LessonPageProps) {
   const { slug } = await params;
-  const canonicalSlug = lessonSlugAliases[slug as keyof typeof lessonSlugAliases] ?? slug;
-  if (canonicalSlug !== slug) redirect(`/lessons/${canonicalSlug}`);
   const lessons = getAllLessons();
-  const lesson = getLessonBySlug(canonicalSlug);
+  const lesson = getLessonBySlug(slug);
   if (!lesson) {
     notFound();
   }
@@ -210,14 +206,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const learningSequence = lessons.filter((item) => item.editorialState !== "reference");
   const position = learningSequence.findIndex((item) => item.slug === lesson.slug) + 1;
   const sections = getLessonSections(lesson);
-  const progressConfigs: Record<string, LessonProgressConfig> = Object.fromEntries(lessons.map((item) => [
-    item.slug,
-    {
-      contentVersion: item.contentVersion,
-      sectionIds: getLessonSections(item).map((section) => section.id),
-      objectiveIds: item.objectiveIds,
-    },
-  ]));
+  const progressConfig: LessonProgressConfig = {
+    contentVersion: lesson.contentVersion,
+    sectionIds: sections.map((section) => section.id),
+    objectiveIds: lesson.objectiveIds,
+  };
   const sourceExcerpt = lesson.slug === "binary-search"
     ? {
         ...binarySearchSource,
@@ -277,7 +270,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   return (
     <main id="main-content" className={hasWorkshopBench ? "lesson-layout lesson-layout-bench" : "lesson-layout"} tabIndex={-1}>
       <div className="lesson-main-column">
-        <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} completeWithoutPractice={lesson.exerciseIds.length === 0} />
+        <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfig={progressConfig} completeWithoutPractice={lesson.exerciseIds.length === 0} />
         <LessonHeaderSlot>
           <p className="header-lesson-position">
             {lesson.stageTitle}
@@ -306,7 +299,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
               )}
             </div>
             <div className="workshop-check">
-              <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />
+              <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />
             </div>
           </div>
         )}
@@ -316,7 +309,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         <article className="lesson-body">
           <Markdown source={lesson.content} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
-          {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />}
+          {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />}
         </article>
 
         <details className="source-disclosure">
@@ -353,7 +346,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </ul>
         </details>
 
-        <CompletionControl slug={lesson.slug} progressConfigs={progressConfigs} />
+        <CompletionControl slug={lesson.slug} progressConfig={progressConfig} />
         <LessonSequence previous={lesson.previous} next={lesson.next} />
         <LessonSequence previous={lesson.previous} next={lesson.next} sticky />
         </div>

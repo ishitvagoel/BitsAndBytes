@@ -5,7 +5,12 @@ import { fileURLToPath } from "node:url";
 
 const siteDir = path.dirname(fileURLToPath(import.meta.url));
 const outputDir = path.join(siteDir, "../.next/server/app");
-const aliases = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-slug-aliases.json"), "utf8"));
+const guideDir = path.resolve(siteDir, "../../guide");
+const lessonSlugs = fs.readdirSync(guideDir).flatMap((name) => {
+  if (!name.endsWith(".md")) return [];
+  const slug = /^slug:\s*(.+)$/m.exec(fs.readFileSync(path.join(guideDir, name), "utf8"))?.[1]?.trim();
+  return slug ? [slug] : [];
+});
 const home = fs.readFileSync(path.join(outputDir, "index.html"), "utf8");
 const pilot = fs.readFileSync(path.join(outputDir, "lessons/binary-search.html"), "utf8");
 const answerSearch = fs.readFileSync(path.join(outputDir, "lessons/binary-search-on-answer.html"), "utf8");
@@ -25,7 +30,7 @@ assert.match(pilot, /id="trace-section"/);
 assert.match(pilot, /practice-section/);
 assert.match(pilot, /Implementation and tests/);
 
-for (const canonicalSlug of Object.values(aliases)) {
+for (const canonicalSlug of lessonSlugs) {
   assert.ok(fs.existsSync(path.join(outputDir, "lessons", `${canonicalSlug}.html`)), `Missing static lesson route ${canonicalSlug}`);
 }
 
@@ -36,4 +41,4 @@ assert.match(graphLesson, /href="https:\/\/github\.com\/ishitvagoel\/BitsAndByte
 assert.match(answerSearch, /largest pile size is a feasible upper bound/);
 assert.match(answerSearch, /O\(p log M\)/);
 assert.match(answerSearch, /id="practice-section"/);
-console.log(`critical learning journey: home → pilot → next lesson (${Object.keys(aliases).length} lesson routes) ok`);
+console.log(`critical learning journey: home → pilot → next lesson (${lessonSlugs.length} lesson routes) ok`);
