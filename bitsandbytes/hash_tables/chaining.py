@@ -27,7 +27,7 @@ this lesson.
 from __future__ import annotations
 
 from collections.abc import Iterator, MutableMapping
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 from bitsandbytes.tracing import TraceEvent, TraceSink
 

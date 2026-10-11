@@ -13,7 +13,8 @@ Worked trace (three appends starting from capacity 1):
 
 from __future__ import annotations
 
-from typing import Generic, Iterator, TypeVar
+from collections.abc import Iterator
+from typing import Generic, TypeVar
 
 from bitsandbytes.tracing import TraceEvent, TraceSink
 

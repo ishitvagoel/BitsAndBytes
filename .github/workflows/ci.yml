@@ -12,7 +12,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install pytest
+      - run: python -m pip install -e ".[dev]" ruff mypy
+      - run: ruff check .
+      - run: mypy
       - run: python -m pytest -q
       - run: python guide/check_lessons.py
       - run: python scripts/build_guide_lessons.py --check

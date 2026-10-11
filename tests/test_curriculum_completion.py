@@ -13,13 +13,26 @@ from bitsandbytes.dynamic_programming.classic import (
     word_break_possible,
 )
 from bitsandbytes.graphs.adjacency_list import Graph
-from bitsandbytes.graphs.algorithms import has_directed_cycle, kosaraju_strongly_connected_components
-from bitsandbytes.greedy.classic import fractional_knapsack_value, huffman_codes, interval_scheduling_max_count
+from bitsandbytes.graphs.algorithms import (
+    has_directed_cycle,
+    kosaraju_strongly_connected_components,
+)
+from bitsandbytes.greedy.classic import (
+    fractional_knapsack_value,
+    huffman_codes,
+    interval_scheduling_max_count,
+)
 from bitsandbytes.limits.approximation import vertex_cover_two_approximation
 from bitsandbytes.patterns.arrays import PrefixSum, longest_unique_substring_length, two_sum_sorted
 from bitsandbytes.range_queries.structures import FenwickTree, SegmentTree, SparseTable
 from bitsandbytes.storage.engines import BTree, ToyLSM, nearest_neighbor_linear
-from bitsandbytes.strings.algorithms import InvertedIndex, Trie, kmp_search, rabin_karp_search, run_length_encode
+from bitsandbytes.strings.algorithms import (
+    InvertedIndex,
+    Trie,
+    kmp_search,
+    rabin_karp_search,
+    run_length_encode,
+)
 from bitsandbytes.trees.llrb import LeftLeaningRedBlackTree
 
 

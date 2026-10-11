@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 from bitsandbytes.queues.linked_queue import LinkedQueue
 from bitsandbytes.stacks.algorithm_stack import AlgorithmStack

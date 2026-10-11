@@ -16,7 +16,7 @@ once.
 
 from __future__ import annotations
 
-from collections.abc import Hashable, Mapping, Sequence
+from collections.abc import Hashable, Sequence
 
 from bitsandbytes.graphs.adjacency_list import Graph
 

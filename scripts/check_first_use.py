@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import re
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -59,13 +58,7 @@ def main() -> int:
     failed = False
     for slug, prerequisites in rows:
         body = guide_body(slug)
-        code_spans = []
-
-        def hide(match: re.Match[str]) -> str:
-            code_spans.append(match.group(0))
-            return " " * len(match.group(0))
-
-        visible = re.sub(r"```.*?```", hide, body, flags=re.S)
+        visible = re.sub(r"```.*?```", lambda match: " " * len(match.group(0)), body, flags=re.S)
         for label, defining, pattern in TERMS:
             if slug == defining:
                 continue

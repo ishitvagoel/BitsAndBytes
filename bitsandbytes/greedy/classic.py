@@ -60,7 +60,7 @@ def fractional_knapsack_value(
     )
     remaining = capacity
     total = 0.0
-    for ratio, weight, value in ratios:
+    for ratio, weight, _value in ratios:
         if remaining <= 0:
             break
         take = min(weight, remaining)

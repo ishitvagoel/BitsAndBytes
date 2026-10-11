@@ -7,7 +7,11 @@ from bitsandbytes.dynamic_programming.classic import (
     unbounded_knapsack_max_value,
 )
 from bitsandbytes.graphs.adjacency_list import Graph
-from bitsandbytes.graphs.algorithms import UndirectedGraph, connected_components, prim_minimum_spanning_weight
+from bitsandbytes.graphs.algorithms import (
+    UndirectedGraph,
+    connected_components,
+    prim_minimum_spanning_weight,
+)
 from bitsandbytes.patterns.arrays import sliding_window_maximum
 from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
 from bitsandbytes.storage.engines import WriteAheadLog, locality_scan_benchmark, sequential_scan_sum

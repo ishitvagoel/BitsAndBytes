@@ -10,6 +10,7 @@ from bitsandbytes.backtracking.search import permutations
 from bitsandbytes.dynamic_programming.classic import knapsack_01, min_coin_change
 from bitsandbytes.graphs.adjacency_list import Graph
 from bitsandbytes.graphs.algorithms import (
+    UndirectedGraph,
     bellman_ford_distances,
     dijkstra_distances_heap,
     floyd_warshall,
@@ -21,15 +22,24 @@ from bitsandbytes.graphs.algorithms import (
     topological_order,
     zero_one_bfs_distances,
 )
-from bitsandbytes.graphs.algorithms import UndirectedGraph
 from bitsandbytes.greedy.classic import huffman_codes, interval_scheduling_max_count
 from bitsandbytes.hash_tables.linear_probing import LinearProbingHashTable
 from bitsandbytes.heaps.priority_queue import PriorityQueue
 from bitsandbytes.limits.approximation import vertex_cover_two_approximation
 from bitsandbytes.linked_lists.lru_cache import LRUCache
-from bitsandbytes.patterns.arrays import PrefixSum, longest_unique_substring_length, sliding_window_maximum, two_sum_sorted
+from bitsandbytes.patterns.arrays import (
+    PrefixSum,
+    longest_unique_substring_length,
+    sliding_window_maximum,
+    two_sum_sorted,
+)
 from bitsandbytes.range_queries.structures import FenwickTree, SegmentTree, SparseTable
-from bitsandbytes.sorting.selection_and_radix import counting_sort, inversion_count, lsd_radix_sort, quickselect
+from bitsandbytes.sorting.selection_and_radix import (
+    counting_sort,
+    inversion_count,
+    lsd_radix_sort,
+    quickselect,
+)
 from bitsandbytes.stacks.infix_postfix import evaluate_infix, infix_to_postfix
 from bitsandbytes.stacks.largest_rectangle import largest_rectangle
 from bitsandbytes.stacks.min_stack import MinStack
@@ -37,7 +47,12 @@ from bitsandbytes.stacks.next_greater import next_greater
 from bitsandbytes.stacks.stock_span import stock_spans
 from bitsandbytes.stacks.symbol_balance import symbols_are_balanced
 from bitsandbytes.storage.engines import BTree, sequential_scan_sum
-from bitsandbytes.strings.algorithms import Trie, kmp_search, rabin_karp_search, suffix_array_with_lcp
+from bitsandbytes.strings.algorithms import (
+    Trie,
+    kmp_search,
+    rabin_karp_search,
+    suffix_array_with_lcp,
+)
 from bitsandbytes.trees.bst import BinarySearchTree
 from bitsandbytes.trees.llrb import LeftLeaningRedBlackTree
 from bitsandbytes.trees.traversals import level_order, postorder, preorder
