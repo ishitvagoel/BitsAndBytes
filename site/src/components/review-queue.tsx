@@ -13,6 +13,7 @@ type LessonReviewInfo = {
   slug: string;
   title: string;
   outcomes: string[];
+  prompts: Record<string, string>;
   config: LessonProgressConfig;
   practiceAvailable: boolean;
 };
@@ -46,6 +47,7 @@ export function ReviewQueue({ lessons }: { lessons: LessonReviewInfo[] }) {
         slug: lesson.slug,
         title: lesson.title,
         outcome: lesson.outcomes[objectiveIndex],
+        prompt: lesson.prompts[objectiveId] || lesson.outcomes[objectiveIndex],
         recheck: record.needsRecheck && record.objectives[objectiveId]?.contentVersion !== lesson.config.contentVersion,
         attempted: Boolean(record.objectives[objectiveId]),
       };
@@ -66,7 +68,7 @@ export function ReviewQueue({ lessons }: { lessons: LessonReviewInfo[] }) {
         <ul>
           {due.map((item) => (
             <li key={item.key}>
-              <div><strong>{item.title}</strong><span>{item.outcome}</span></div>
+              <div><strong>{item.title}</strong><span>{item.prompt}</span></div>
               <Link className="button button-secondary" href={`/lessons/${item.slug}?reviewObjective=${encodeURIComponent(item.key.slice(item.slug.length + 1))}#practice-section`}>
                 {item.recheck ? "Recheck updated lesson" : item.attempted ? "Review objective" : "Revisit objective"}
               </Link>

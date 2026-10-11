@@ -153,6 +153,16 @@ try {
     assert(optionIds.has(exercise.answer), `${exercise.id}: answer is not one of its options`);
     assert(typeof exercise.correct === "string" && exercise.correct.trim(), `${exercise.id}: missing correct feedback`);
     assert(typeof exercise.retry === "string" && exercise.retry.trim(), `${exercise.id}: missing retry feedback`);
+    assert(["choice", "predict-output", "fill-cell"].includes(exercise.kind), `${exercise.id}: unknown kind ${exercise.kind}`);
+    if (exercise.kind === "predict-output") {
+      assert(typeof exercise.code === "string" && exercise.code.includes("print"), `${exercise.id}: predict-output needs code`);
+    }
+    if (exercise.kind === "fill-cell") {
+      const scenes = lessonTraces[exercise.lessonSlug] ?? [];
+      const frame = scenes.flatMap((scene) => scene.frames).find((item) => item.label === exercise.frameLabel);
+      const row = frame?.rows.find((item) => item.label === exercise.rowLabel);
+      assert(frame && row && Number.isInteger(exercise.cellIndex) && row.cells[exercise.cellIndex], `${exercise.id}: fill-cell does not match a trace cell`);
+    }
   }
   for (const slug of slugs) {
     const key = `(?:"${slug}"|${slug})`;

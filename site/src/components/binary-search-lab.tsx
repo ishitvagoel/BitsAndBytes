@@ -37,10 +37,13 @@ type TraceFrame = {
 const scenarios = traceFixtures as Scenario[];
 
 const TRACE_STORAGE_KEY = "bitsandbytes.binary-search-trace.v1";
+type PracticeKind = "choice" | "predict-output" | "fill-cell";
+
 type PracticeQuestion = {
   id: string;
   lessonSlug: string;
   storageId: string;
+  kind?: PracticeKind;
   objectiveId: string;
   prompt: string;
   hints: string[];
@@ -48,6 +51,10 @@ type PracticeQuestion = {
   answer: string;
   correct: string;
   retry: string;
+  code?: string;
+  frameLabel?: string;
+  rowLabel?: string;
+  cellIndex?: number;
 };
 
 const allQuestions = exerciseFixtures as PracticeQuestion[];
@@ -291,9 +298,25 @@ export function LessonPractice({
         {questions.map((question, index) => {
           const saved = answers[question.storageId] ?? { selected: "", checked: false, hintIndex: 0 };
           const correct = saved.selected === question.answer;
+          const kind = question.kind ?? "choice";
+          const stem = (() => {
+            switch (kind) {
+              case "choice":
+                return null;
+              case "predict-output":
+                return <pre className="practice-code"><code>{question.code}</code></pre>;
+              case "fill-cell":
+                return <p className="practice-code">Fill {question.frameLabel}, row {question.rowLabel}, cell {question.cellIndex}.</p>;
+              default: {
+                const unsupported: never = kind;
+                return unsupported;
+              }
+            }
+          })();
           return (
             <fieldset className="practice-card" key={question.id}>
               <legend><span className="practice-number">{index + 1}</span>{question.prompt}</legend>
+              {stem}
               <div className="practice-options">
                 {question.options.map((option) => (
                   <label className="practice-option" key={option.id}>

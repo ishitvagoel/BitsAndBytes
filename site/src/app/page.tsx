@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { CurriculumIndex } from "@/components/curriculum-index";
 import { LocalProgressTools } from "@/components/local-progress-tools";
+import exerciseFixtures from "@/data/exercises.json";
 import { ReviewQueue } from "@/components/review-queue";
 import { ResumeCard } from "@/components/resume-progress";
 import { getAllLessons, getCurriculumStages } from "@/lib/lessons";
@@ -73,6 +74,10 @@ export default function Home() {
         slug: lesson.slug,
         title: lesson.title,
         outcomes: lesson.outcomes,
+        prompts: Object.fromEntries(lesson.objectiveIds.map((objectiveId) => [
+          objectiveId,
+          exerciseFixtures.find((exercise) => exercise.lessonSlug === lesson.slug && exercise.objectiveId === objectiveId)?.prompt ?? "",
+        ])),
         config: progressConfigs[lesson.slug],
         practiceAvailable: lesson.exerciseIds.length > 0,
       }))} />

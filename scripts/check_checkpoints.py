@@ -34,6 +34,8 @@ for slug, scenes in traces.items():
             print(f"{slug}: objective {objective_id} has no exercise")
             failed = True
     for item in lesson_exercises:
+        if item.get("kind") in {"fill-cell", "predict-output"}:
+            continue
         label = next(option["label"] for option in item["options"] if option["id"] == item["answer"])
         if label in cells:
             print(f"{slug}: answer {label!r} is copied from the trace")

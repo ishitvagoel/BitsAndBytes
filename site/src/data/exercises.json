@@ -25,7 +25,8 @@
     "answer": "left",
     "correct": "Correct. Sorted order proves every value through index 2 is at most 5, so none can be 7.",
     "retry": "Not quite. Since 7 is greater than 5, the middle and everything before it are too small.",
-    "objectiveId": "binary-search-justify-elimination"
+    "objectiveId": "binary-search-justify-elimination",
+    "kind": "choice"
   },
   {
     "id": "binary-search-off-by-one",
@@ -53,7 +54,8 @@
     "answer": "no-progress",
     "correct": "Correct. With left 0 and right 1, middle stays 0. Use left = middle + 1 to discard the checked index and guarantee progress.",
     "retry": "Check whether the next iteration changes either boundary. On this input, middle remains 0 unless left advances past it.",
-    "objectiveId": "binary-search-diagnose-progress"
+    "objectiveId": "binary-search-diagnose-progress",
+    "kind": "choice"
   },
   {
     "id": "binary-search-duplicates",
@@ -81,7 +83,8 @@
     "answer": "three",
     "correct": "Correct. The half-open interval [1, 4) contains indexes 1, 2, and 3: 4 \u2212 1 = 3 values.",
     "retry": "Subtract the first index at least 2 (the lower bound, 1) from the first index greater than 2 (the upper bound, 4): 4 \u2212 1 = 3.",
-    "objectiveId": "binary-search-trace-boundaries"
+    "objectiveId": "binary-search-trace-boundaries",
+    "kind": "choice"
   },
   {
     "id": "binary-search-insertion-cost",
@@ -109,7 +112,8 @@
     "answer": "shift",
     "correct": "Correct. Finding the position halves the search range, but inserting into a Python list may move a linear number of later items.",
     "retry": "Separate the work: first find the position, then make room at that position in the list.",
-    "objectiveId": "binary-search-separate-insertion-cost"
+    "objectiveId": "binary-search-separate-insertion-cost",
+    "kind": "choice"
   },
   {
     "id": "binary-search-transfer-trace",
@@ -137,7 +141,8 @@
     "answer": "indices-0-2",
     "correct": "Correct. Index 2 contains 8, and every earlier value is no larger, so none can be 9.",
     "retry": "Compare 9 with the inspected value 8, then use sorted order to reason about the earlier indexes.",
-    "objectiveId": "binary-search-justify-elimination"
+    "objectiveId": "binary-search-justify-elimination",
+    "kind": "choice"
   },
   {
     "id": "binary-search-answer-monotonicity",
@@ -165,7 +170,8 @@
     "answer": "discard-low",
     "correct": "Correct. The predicate is false below the first feasible rate, so a failing midpoint rules out itself and every slower rate.",
     "retry": "Order rates from slowest to fastest. Feasibility changes from false to true at most once.",
-    "objectiveId": "binary-search-answer-check-monotonicity"
+    "objectiveId": "binary-search-answer-check-monotonicity",
+    "kind": "choice"
   },
   {
     "id": "binary-search-answer-boundary-trace",
@@ -193,7 +199,8 @@
     "answer": "keep-and-left",
     "correct": "Correct. A feasible midpoint may be the boundary, so retain it as the known-feasible high value while checking for a smaller answer.",
     "retry": "The goal is the first feasible rate, not merely any feasible rate. Keep the midpoint and test smaller candidates.",
-    "objectiveId": "binary-search-answer-trace-search"
+    "objectiveId": "binary-search-answer-trace-search",
+    "kind": "choice"
   },
   {
     "id": "binary-search-answer-multiply-cost",
@@ -221,12 +228,14 @@
     "answer": "twelve",
     "correct": "Each of the 3 checks visits all 4 piles, so the search makes 12 pile visits.",
     "retry": "A later rate does not reuse the earlier scan. Count 4 visits for every rate you test.",
-    "objectiveId": "binary-search-answer-multiply-check-cost"
+    "objectiveId": "binary-search-answer-multiply-check-cost",
+    "kind": "choice"
   },
   {
     "id": "input-size-and-operation-counts-check",
     "lessonSlug": "input-size-and-operation-counts",
     "storageId": "input-size-and-operation-counts-check",
+    "kind": "choice",
     "prompt": "A loop over 6 items checks every unordered pair. How many checks run?",
     "hints": [
       "Use n(n - 1) / 2 with n = 6.",
@@ -255,6 +264,7 @@
     "id": "input-size-and-operation-counts-transfer",
     "lessonSlug": "input-size-and-operation-counts",
     "storageId": "input-size-and-operation-counts-transfer",
+    "kind": "predict-output",
     "prompt": "The same pair loop runs on 4 items. How many checks is that?",
     "hints": [
       "n is 4.",
@@ -262,27 +272,29 @@
     ],
     "options": [
       {
-        "id": "six",
-        "label": "6 checks"
+        "id": "yes",
+        "label": "6"
       },
       {
-        "id": "four",
-        "label": "4 checks"
+        "id": "no",
+        "label": "4"
       },
       {
-        "id": "eight",
-        "label": "8 checks"
+        "id": "other",
+        "label": "12"
       }
     ],
-    "answer": "six",
+    "answer": "yes",
     "correct": "4 * 3 / 2 is 6.",
     "retry": "Count pairs, not the length of the list.",
-    "objectiveId": "input-size-count-loop-work"
+    "objectiveId": "input-size-count-loop-work",
+    "code": "print(4 * 3 // 2)"
   },
   {
     "id": "asymptotic-growth-check",
     "lessonSlug": "asymptotic-growth",
     "storageId": "asymptotic-growth-check",
+    "kind": "choice",
     "prompt": "For large n, which grows faster?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -311,6 +323,7 @@
     "id": "asymptotic-growth-transfer",
     "lessonSlug": "asymptotic-growth",
     "storageId": "asymptotic-growth-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from asymptotic-growth to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -339,6 +352,7 @@
     "id": "loop-invariants-check",
     "lessonSlug": "loop-invariants",
     "storageId": "loop-invariants-check",
+    "kind": "choice",
     "prompt": "A loop has finished. What must the invariant still say?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -367,6 +381,7 @@
     "id": "loop-invariants-transfer",
     "lessonSlug": "loop-invariants",
     "storageId": "loop-invariants-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from loop-invariants to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -395,6 +410,7 @@
     "id": "arrays-and-python-costs-check",
     "lessonSlug": "arrays-and-python-costs",
     "storageId": "arrays-and-python-costs-check",
+    "kind": "choice",
     "prompt": "You drain 1000 items with pop from the front. What dominates?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -423,6 +439,7 @@
     "id": "arrays-and-python-costs-transfer",
     "lessonSlug": "arrays-and-python-costs",
     "storageId": "arrays-and-python-costs-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from arrays-and-python-costs to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -451,6 +468,7 @@
     "id": "dynamic-array-growth-check",
     "lessonSlug": "dynamic-array-growth",
     "storageId": "dynamic-array-growth-check",
+    "kind": "choice",
     "prompt": "Capacity starts at 1 and doubles. After 3 appends, how many copies happened?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -479,6 +497,7 @@
     "id": "dynamic-array-growth-transfer",
     "lessonSlug": "dynamic-array-growth",
     "storageId": "dynamic-array-growth-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from dynamic-array-growth to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -507,6 +526,7 @@
     "id": "recursion-and-recurrences-check",
     "lessonSlug": "recursion-and-recurrences",
     "storageId": "recursion-and-recurrences-check",
+    "kind": "choice",
     "prompt": "A recursion splits in half and does linear work. What is the total?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -535,6 +555,7 @@
     "id": "recursion-and-recurrences-transfer",
     "lessonSlug": "recursion-and-recurrences",
     "storageId": "recursion-and-recurrences-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from recursion-and-recurrences to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -563,6 +584,7 @@
     "id": "singly-linked-list-check",
     "lessonSlug": "singly-linked-list",
     "storageId": "singly-linked-list-check",
+    "kind": "choice",
     "prompt": "You have a pointer to the tail of a singly linked list. What is expensive?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -591,6 +613,7 @@
     "id": "singly-linked-list-transfer",
     "lessonSlug": "singly-linked-list",
     "storageId": "singly-linked-list-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from singly-linked-list to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -619,6 +642,7 @@
     "id": "stack-basics-check",
     "lessonSlug": "stack-basics",
     "storageId": "stack-basics-check",
+    "kind": "choice",
     "prompt": "Push 1, push 2, pop, push 3, pop, pop. What remains, then what was last?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -647,6 +671,7 @@
     "id": "stack-basics-transfer",
     "lessonSlug": "stack-basics",
     "storageId": "stack-basics-transfer",
+    "kind": "predict-output",
     "prompt": "Apply the same rule from stack-basics to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -654,27 +679,29 @@
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "The last pop returns 1, and the stack is empty"
+        "id": "yes",
+        "label": "2"
       },
       {
-        "id": "fails",
-        "label": "The last pop returns 3"
+        "id": "no",
+        "label": "1"
       },
       {
-        "id": "unrelated",
-        "label": "The last pop returns 2"
+        "id": "other",
+        "label": "3"
       }
     ],
-    "answer": "holds",
+    "answer": "yes",
     "correct": "The last pop returns 1, and the stack is empty",
     "retry": "The new case uses the same rule. Do not switch rules.",
-    "objectiveId": "stack-maintain-size-invariant"
+    "objectiveId": "stack-maintain-size-invariant",
+    "code": "print([1, 2].pop())"
   },
   {
     "id": "queue-and-deque-operations-check",
     "lessonSlug": "queue-and-deque-operations",
     "storageId": "queue-and-deque-operations-check",
+    "kind": "choice",
     "prompt": "Enqueue a, enqueue b, dequeue, enqueue c, dequeue. What leaves second?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -703,6 +730,7 @@
     "id": "queue-and-deque-operations-transfer",
     "lessonSlug": "queue-and-deque-operations",
     "storageId": "queue-and-deque-operations-transfer",
+    "kind": "predict-output",
     "prompt": "Apply the same rule from queue-and-deque-operations to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -710,27 +738,29 @@
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "b leaves second, because a already left"
+        "id": "yes",
+        "label": "b"
       },
       {
-        "id": "fails",
-        "label": "c leaves second"
+        "id": "no",
+        "label": "a"
       },
       {
-        "id": "unrelated",
-        "label": "a leaves second"
+        "id": "other",
+        "label": "c"
       }
     ],
-    "answer": "holds",
+    "answer": "yes",
     "correct": "b leaves second, because a already left",
     "retry": "The new case uses the same rule. Do not switch rules.",
-    "objectiveId": "queue-compare-implementations"
+    "objectiveId": "queue-compare-implementations",
+    "code": "from collections import deque\nitems = deque(['a', 'b'])\nitems.popleft()\nitems.append('c')\nprint(items.popleft())"
   },
   {
     "id": "comparison-sorts-check",
     "lessonSlug": "comparison-sorts",
     "storageId": "comparison-sorts-check",
+    "kind": "choice",
     "prompt": "Insertion sort uses a strict less-than. What happens to equal keys?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -759,6 +789,7 @@
     "id": "comparison-sorts-transfer",
     "lessonSlug": "comparison-sorts",
     "storageId": "comparison-sorts-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from comparison-sorts to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -787,6 +818,7 @@
     "id": "cost-models-check",
     "lessonSlug": "cost-models",
     "storageId": "cost-models-check",
+    "kind": "choice",
     "prompt": "Binary search does a logarithmic number of comparisons. Where is the elapsed work also logarithmic?",
     "hints": [
       "Ask what an index costs on each structure.",
@@ -815,6 +847,7 @@
     "id": "cost-models-transfer",
     "lessonSlug": "cost-models",
     "storageId": "cost-models-transfer",
+    "kind": "choice",
     "prompt": "list_pop_front_cost_demo(3) counts one pop(0). What does it return?",
     "hints": [
       "The function returns length minus 1.",
@@ -843,6 +876,7 @@
     "id": "fast-slow-pointer-patterns-check",
     "lessonSlug": "fast-slow-pointer-patterns",
     "storageId": "fast-slow-pointer-patterns-check",
+    "kind": "choice",
     "prompt": "middle_node walks 1, 2, 3, 4, 5. Where does the slow pointer stop?",
     "hints": [
       "Count steps, not node values.",
@@ -871,6 +905,7 @@
     "id": "fast-slow-pointer-patterns-transfer",
     "lessonSlug": "fast-slow-pointer-patterns",
     "storageId": "fast-slow-pointer-patterns-transfer",
+    "kind": "choice",
     "prompt": "A lead pointer starts two steps ahead of a trailer. When the lead falls off, where is the trailer?",
     "hints": [
       "The gap is set before the joint walk.",
@@ -899,6 +934,7 @@
     "id": "linked-list-reversal-and-relinking-check",
     "lessonSlug": "linked-list-reversal-and-relinking",
     "storageId": "linked-list-reversal-and-relinking-check",
+    "kind": "choice",
     "prompt": "You are about to overwrite a node's next link. What must you save first?",
     "hints": [
       "Draw three nodes and erase the first next arrow.",
@@ -927,6 +963,7 @@
     "id": "linked-list-reversal-and-relinking-transfer",
     "lessonSlug": "linked-list-reversal-and-relinking",
     "storageId": "linked-list-reversal-and-relinking-transfer",
+    "kind": "choice",
     "prompt": "A block reversal finishes a block. Which link is the extra boundary write?",
     "hints": [
       "The three-pointer loop fixes links inside the block.",
@@ -955,6 +992,7 @@
     "id": "linked-list-merge-and-sort-check",
     "lessonSlug": "linked-list-merge-and-sort",
     "storageId": "linked-list-merge-and-sort-check",
+    "kind": "choice",
     "prompt": "The current heads are 1 and 2. Which node is taken first?",
     "hints": [
       "Only the two fronts are compared.",
@@ -983,6 +1021,7 @@
     "id": "linked-list-merge-and-sort-transfer",
     "lessonSlug": "linked-list-merge-and-sort",
     "storageId": "linked-list-merge-and-sort-transfer",
+    "kind": "choice",
     "prompt": "Bottom-up merge sort runs a logarithmic number of rounds, and each round visits every node. What is the total?",
     "hints": [
       "Widths go 1, 2, 4, and so on.",
@@ -1011,6 +1050,7 @@
     "id": "linked-list-special-cases-check",
     "lessonSlug": "linked-list-special-cases",
     "storageId": "linked-list-special-cases-check",
+    "kind": "choice",
     "prompt": "A function may delete a node when it is given only that node. Which node can it not delete this way?",
     "hints": [
       "The function was not given the list head.",
@@ -1039,6 +1079,7 @@
     "id": "linked-list-special-cases-transfer",
     "lessonSlug": "linked-list-special-cases",
     "storageId": "linked-list-special-cases-transfer",
+    "kind": "choice",
     "prompt": "nth_from_end uses a gap of 2 on the list 1, 2, 3, 4. Which position does the trailer hold when the leader falls off?",
     "hints": [
       "1 means the tail.",
@@ -1067,6 +1108,7 @@
     "id": "doubly-linked-list-operations-check",
     "lessonSlug": "doubly-linked-list-operations",
     "storageId": "doubly-linked-list-operations-check",
+    "kind": "choice",
     "prompt": "You insert a node between two existing neighbors. How many pointers must change?",
     "hints": [
       "Each side of a doubly linked node has a back link.",
@@ -1095,6 +1137,7 @@
     "id": "doubly-linked-list-operations-transfer",
     "lessonSlug": "doubly-linked-list-operations",
     "storageId": "doubly-linked-list-operations-transfer",
+    "kind": "choice",
     "prompt": "You already hold the node. What does remove_node cost?",
     "hints": [
       "The argument is the node, not the value.",
@@ -1123,6 +1166,7 @@
     "id": "monotonic-stack-patterns-check",
     "lessonSlug": "monotonic-stack-patterns",
     "storageId": "monotonic-stack-patterns-check",
+    "kind": "choice",
     "prompt": "A later value resolves waiting indexes. What does next_greater write for the first 2 in 2, 1, 2, 4, 3?",
     "hints": [
       "The stack stores indexes that are still waiting.",
@@ -1151,6 +1195,7 @@
     "id": "monotonic-stack-patterns-transfer",
     "lessonSlug": "monotonic-stack-patterns",
     "storageId": "monotonic-stack-patterns-transfer",
+    "kind": "choice",
     "prompt": "Each index is pushed once and popped at most once. What is the total work?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1179,6 +1224,7 @@
     "id": "stack-parsing-and-expressions-check",
     "lessonSlug": "stack-parsing-and-expressions",
     "storageId": "stack-parsing-and-expressions-check",
+    "kind": "choice",
     "prompt": "Which bracket string is balanced?",
     "hints": [
       "Ignore characters that are not brackets.",
@@ -1207,6 +1253,7 @@
     "id": "stack-parsing-and-expressions-transfer",
     "lessonSlug": "stack-parsing-and-expressions",
     "storageId": "stack-parsing-and-expressions-transfer",
+    "kind": "choice",
     "prompt": "evaluate_infix of 2+3*4 applies which operator first?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1235,6 +1282,7 @@
     "id": "noncomparison-sorts-check",
     "lessonSlug": "noncomparison-sorts",
     "storageId": "noncomparison-sorts-check",
+    "kind": "choice",
     "prompt": "counting_sort is told the maximum key. What does that bound pay for?",
     "hints": [
       "Equal keys stay in input order when the write is stable.",
@@ -1263,6 +1311,7 @@
     "id": "noncomparison-sorts-transfer",
     "lessonSlug": "noncomparison-sorts",
     "storageId": "noncomparison-sorts-transfer",
+    "kind": "choice",
     "prompt": "A radix sort repeats a stable digit pass once per digit. What is the cost when the digit count is constant?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1291,6 +1340,7 @@
     "id": "order-statistic-selection-check",
     "lessonSlug": "order-statistic-selection",
     "storageId": "order-statistic-selection-check",
+    "kind": "choice",
     "prompt": "quickselect keeps searching after a partition. Which side remains?",
     "hints": [
       "k is zero-based.",
@@ -1319,6 +1369,7 @@
     "id": "order-statistic-selection-transfer",
     "lessonSlug": "order-statistic-selection",
     "storageId": "order-statistic-selection-transfer",
+    "kind": "choice",
     "prompt": "This quickselect always pivots on the rightmost value. What can the worst case cost?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1347,6 +1398,7 @@
     "id": "inversion-counting-check",
     "lessonSlug": "inversion-counting",
     "storageId": "inversion-counting-check",
+    "kind": "choice",
     "prompt": "Which pair in 3, 1, 4, 2 is an inversion?",
     "hints": [
       "i must be less than j.",
@@ -1375,6 +1427,7 @@
     "id": "inversion-counting-transfer",
     "lessonSlug": "inversion-counting",
     "storageId": "inversion-counting-transfer",
+    "kind": "choice",
     "prompt": "During a merge, the right front is smaller and two keys remain on the left. How many inversions does that one take add?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1403,6 +1456,7 @@
     "id": "hash-linear-probing-check",
     "lessonSlug": "hash-linear-probing",
     "storageId": "hash-linear-probing-check",
+    "kind": "choice",
     "prompt": "Key 0 is deleted after key 4 probed past it. What must the slot hold?",
     "hints": [
       "The start slot of 0 and 4 matches when the capacity is 4.",
@@ -1431,6 +1485,7 @@
     "id": "hash-linear-probing-transfer",
     "lessonSlug": "hash-linear-probing",
     "storageId": "hash-linear-probing-transfer",
+    "kind": "choice",
     "prompt": "What is the load factor of a probing table?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1459,6 +1514,7 @@
     "id": "lru-cache-check",
     "lessonSlug": "lru-cache",
     "storageId": "lru-cache-check",
+    "kind": "choice",
     "prompt": "Capacity is 2. You put a, put b, get a, then put c. Which key is evicted?",
     "hints": [
       "The dictionary finds the node.",
@@ -1487,6 +1543,7 @@
     "id": "lru-cache-transfer",
     "lessonSlug": "lru-cache",
     "storageId": "lru-cache-transfer",
+    "kind": "choice",
     "prompt": "Why is eviction constant time rather than a scan of the capacity?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1515,6 +1572,7 @@
     "id": "tree-traversals-check",
     "lessonSlug": "tree-traversals",
     "storageId": "tree-traversals-check",
+    "kind": "choice",
     "prompt": "Insert 4, 2, 6, 1. Which sequence is preorder?",
     "hints": [
       "Left child before right child.",
@@ -1543,6 +1601,7 @@
     "id": "tree-traversals-transfer",
     "lessonSlug": "tree-traversals",
     "storageId": "tree-traversals-transfer",
+    "kind": "choice",
     "prompt": "The same tree is visited with a queue. Which sequence is level order?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1571,6 +1630,7 @@
     "id": "balanced-search-trees-check",
     "lessonSlug": "balanced-search-trees",
     "storageId": "balanced-search-trees-check",
+    "kind": "choice",
     "prompt": "Keys 1, 2, 3 arrive in order. Where does a left-leaning red-black tree put the root?",
     "hints": [
       "Inorder is still sorted.",
@@ -1599,6 +1659,7 @@
     "id": "balanced-search-trees-transfer",
     "lessonSlug": "balanced-search-trees",
     "storageId": "balanced-search-trees-transfer",
+    "kind": "choice",
     "prompt": "A rotation changes the parent of a node. What stays true?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1627,6 +1688,7 @@
     "id": "priority-queues-check",
     "lessonSlug": "priority-queues",
     "storageId": "priority-queues-check",
+    "kind": "choice",
     "prompt": "Priorities 5, 3, and 4 are pushed. Which item leaves first?",
     "hints": [
       "The token is not the priority.",
@@ -1655,6 +1717,7 @@
     "id": "priority-queues-transfer",
     "lessonSlug": "priority-queues",
     "storageId": "priority-queues-transfer",
+    "kind": "choice",
     "prompt": "You will insert more items between extractions. Which structure matches that workload?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1683,6 +1746,7 @@
     "id": "graph-representations-check",
     "lessonSlug": "graph-representations",
     "storageId": "graph-representations-check",
+    "kind": "choice",
     "prompt": "A graph has 4 vertices and 3 directed edges. What does the adjacency list store?",
     "hints": [
       "Sparse means edges are far fewer than vertices squared.",
@@ -1711,6 +1775,7 @@
     "id": "graph-representations-transfer",
     "lessonSlug": "graph-representations",
     "storageId": "graph-representations-transfer",
+    "kind": "choice",
     "prompt": "You repeat 'list every neighbor' on a sparse graph. Which store fits?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1739,6 +1804,7 @@
     "id": "topological-order-check",
     "lessonSlug": "topological-order",
     "storageId": "topological-order-check",
+    "kind": "choice",
     "prompt": "Kahn's algorithm starts with which vertices?",
     "hints": [
       "Emitting a vertex reduces its neighbors' indegrees.",
@@ -1767,6 +1833,7 @@
     "id": "topological-order-transfer",
     "lessonSlug": "topological-order",
     "storageId": "topological-order-transfer",
+    "kind": "choice",
     "prompt": "topological_order is called on a directed cycle. What happens?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1795,6 +1862,7 @@
     "id": "shortest-paths-check",
     "lessonSlug": "shortest-paths",
     "storageId": "shortest-paths-check",
+    "kind": "choice",
     "prompt": "Edges include A to C with weight 4 and A to B to C with weights 1 and 2. What does Dijkstra report for C?",
     "hints": [
       "Weights here are non-negative.",
@@ -1823,6 +1891,7 @@
     "id": "shortest-paths-transfer",
     "lessonSlug": "shortest-paths",
     "storageId": "shortest-paths-transfer",
+    "kind": "choice",
     "prompt": "A negative edge is on the path. Which algorithm still applies?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1851,6 +1920,7 @@
     "id": "minimum-spanning-trees-check",
     "lessonSlug": "minimum-spanning-trees",
     "storageId": "minimum-spanning-trees-check",
+    "kind": "choice",
     "prompt": "Kruskal considers the weight-4 edge after the weights 1 and 2 are already chosen. What does the cycle check do?",
     "hints": [
       "Prim grows from one vertex instead of sorting.",
@@ -1879,6 +1949,7 @@
     "id": "minimum-spanning-trees-transfer",
     "lessonSlug": "minimum-spanning-trees",
     "storageId": "minimum-spanning-trees-transfer",
+    "kind": "choice",
     "prompt": "Why is the rejected edge unsafe to add?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1907,6 +1978,7 @@
     "id": "two-pointers-check",
     "lessonSlug": "two-pointers",
     "storageId": "two-pointers-check",
+    "kind": "choice",
     "prompt": "The sorted values are 1, 2, 4, 7 and the target is 6. The current sum is too small. Which index moves?",
     "hints": [
       "The successful indexes are 1 and 2.",
@@ -1935,6 +2007,7 @@
     "id": "two-pointers-transfer",
     "lessonSlug": "two-pointers",
     "storageId": "two-pointers-transfer",
+    "kind": "choice",
     "prompt": "Both indexes move only forward across n items. What is the total number of moves?",
     "hints": [
       "Use the same rule on this new question.",
@@ -1963,6 +2036,7 @@
     "id": "sliding-window-check",
     "lessonSlug": "sliding-window",
     "storageId": "sliding-window-check",
+    "kind": "choice",
     "prompt": "A window maximum deque sees a new value larger than the candidates at the back. What happens to those candidates?",
     "hints": [
       "Indexes that slide out of the window also leave.",
@@ -1991,6 +2065,7 @@
     "id": "sliding-window-transfer",
     "lessonSlug": "sliding-window",
     "storageId": "sliding-window-transfer",
+    "kind": "choice",
     "prompt": "The unique-substring window sees a repeated character. Which end moves?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2019,6 +2094,7 @@
     "id": "prefix-sums-check",
     "lessonSlug": "prefix-sums",
     "storageId": "prefix-sums-check",
+    "kind": "choice",
     "prompt": "Prefix totals exist for 1, 2, 3, 4. range_sum(1, 3) uses which formula?",
     "hints": [
       "total of an empty prefix is zero.",
@@ -2047,6 +2123,7 @@
     "id": "prefix-sums-transfer",
     "lessonSlug": "prefix-sums",
     "storageId": "prefix-sums-transfer",
+    "kind": "choice",
     "prompt": "You know how many earlier prefixes equal the current prefix minus the target. What does that frequency count?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2075,6 +2152,7 @@
     "id": "backtracking-check",
     "lessonSlug": "backtracking",
     "storageId": "backtracking-check",
+    "kind": "choice",
     "prompt": "A permutation search places an item and then tries the next sibling. What must happen between those siblings?",
     "hints": [
       "A prune must reject every leaf under that branch.",
@@ -2103,6 +2181,7 @@
     "id": "backtracking-transfer",
     "lessonSlug": "backtracking",
     "storageId": "backtracking-transfer",
+    "kind": "choice",
     "prompt": "How many leaves does the permutation tree of n distinct items have?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2131,6 +2210,7 @@
     "id": "greedy-methods-check",
     "lessonSlug": "greedy-methods",
     "storageId": "greedy-methods-check",
+    "kind": "choice",
     "prompt": "Interval scheduling sorts by finish time and takes the next compatible interval. What justifies that first choice?",
     "hints": [
       "Huffman gives the frequent symbol the short code.",
@@ -2159,6 +2239,7 @@
     "id": "greedy-methods-transfer",
     "lessonSlug": "greedy-methods",
     "storageId": "greedy-methods-transfer",
+    "kind": "choice",
     "prompt": "Two lightest symbols become siblings in a Huffman tree. Why is that safe?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2187,6 +2268,7 @@
     "id": "dp-state-and-transition-check",
     "lessonSlug": "dp-state-and-transition",
     "storageId": "dp-state-and-transition-check",
+    "kind": "choice",
     "prompt": "Coin change stores one number per amount. What is the state?",
     "hints": [
       "Fill smaller amounts first.",
@@ -2215,6 +2297,7 @@
     "id": "dp-state-and-transition-transfer",
     "lessonSlug": "dp-state-and-transition",
     "storageId": "dp-state-and-transition-transfer",
+    "kind": "choice",
     "prompt": "0-1 knapsack has an item index and a capacity. What dominates the time?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2243,6 +2326,7 @@
     "id": "string-search-check",
     "lessonSlug": "string-search",
     "storageId": "string-search-check",
+    "kind": "choice",
     "prompt": "KMP has matched a proper prefix and then the next character fails. What does the failure link do?",
     "hints": [
       "ababa in ababcababa matches at index 5.",
@@ -2271,6 +2355,7 @@
     "id": "string-search-transfer",
     "lessonSlug": "string-search",
     "storageId": "string-search-transfer",
+    "kind": "choice",
     "prompt": "Rabin-Karp reports equal hashes for a window and the pattern. What else is required?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2299,6 +2384,7 @@
     "id": "tries-and-text-indexes-check",
     "lessonSlug": "tries-and-text-indexes",
     "storageId": "tries-and-text-indexes-check",
+    "kind": "choice",
     "prompt": "cat and car are inserted. What does contains report for ca?",
     "hints": [
       "The suffix array of banana starts at 5, 3, 1, 0, 4, 2.",
@@ -2327,6 +2413,7 @@
     "id": "tries-and-text-indexes-transfer",
     "lessonSlug": "tries-and-text-indexes",
     "storageId": "tries-and-text-indexes-transfer",
+    "kind": "choice",
     "prompt": "You compare a suffix-array query with a scan of the raw text. What must the comparison include?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2355,6 +2442,7 @@
     "id": "range-query-structures-check",
     "lessonSlug": "range-query-structures",
     "storageId": "range-query-structures-check",
+    "kind": "choice",
     "prompt": "A Fenwick tree receives point adds and then a prefix query. What do you gain over a flat prefix array?",
     "hints": [
       "The segment tree can tag a whole span.",
@@ -2383,6 +2471,7 @@
     "id": "range-query-structures-transfer",
     "lessonSlug": "range-query-structures",
     "storageId": "range-query-structures-transfer",
+    "kind": "choice",
     "prompt": "The array never changes and you need range minima. Which structure fits?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2411,6 +2500,7 @@
     "id": "approximate-membership-check",
     "lessonSlug": "approximate-membership",
     "storageId": "approximate-membership-check",
+    "kind": "choice",
     "prompt": "A Bloom filter says an item is absent. What may you conclude?",
     "hints": [
       "This filter does not support delete.",
@@ -2439,6 +2529,7 @@
     "id": "approximate-membership-transfer",
     "lessonSlug": "approximate-membership",
     "storageId": "approximate-membership-transfer",
+    "kind": "choice",
     "prompt": "A Bloom filter says an item is present. What may you conclude?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2467,6 +2558,7 @@
     "id": "storage-engines-and-locality-check",
     "lessonSlug": "storage-engines-and-locality",
     "storageId": "storage-engines-and-locality-check",
+    "kind": "choice",
     "prompt": "A B-tree and a sequential scan solve different workloads. Which claim matches the scan?",
     "hints": [
       "Inserted keys are found. Missing keys are not.",
@@ -2495,6 +2587,7 @@
     "id": "storage-engines-and-locality-transfer",
     "lessonSlug": "storage-engines-and-locality",
     "storageId": "storage-engines-and-locality-transfer",
+    "kind": "choice",
     "prompt": "Why can two linear scans with the same arithmetic still differ in practice?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2523,6 +2616,7 @@
     "id": "approximation-guarantees-check",
     "lessonSlug": "approximation-guarantees",
     "storageId": "approximation-guarantees-check",
+    "kind": "choice",
     "prompt": "The vertex-cover scan adds both ends of an uncovered edge. Why is the result a cover?",
     "hints": [
       "The selected edges do not share vertices.",
@@ -2551,6 +2645,7 @@
     "id": "approximation-guarantees-transfer",
     "lessonSlug": "approximation-guarantees",
     "storageId": "approximation-guarantees-transfer",
+    "kind": "choice",
     "prompt": "The algorithm adds two vertices per selected edge, and those edges are disjoint. How does that bound the ratio?",
     "hints": [
       "Use the same rule on this new question.",
@@ -2579,6 +2674,7 @@
     "id": "merge-sort-check",
     "lessonSlug": "merge-sort",
     "storageId": "merge-sort-check",
+    "kind": "choice",
     "prompt": "Runs [2, 5] and [3, 4] have already written 2 and 3. Which value leaves next?",
     "hints": [
       "2 and 3 are already in the output.",
@@ -2607,6 +2703,7 @@
     "id": "merge-sort-transfer",
     "lessonSlug": "merge-sort",
     "storageId": "merge-sort-transfer",
+    "kind": "choice",
     "prompt": "A merge of n items does \u0398(n) work, and there are \u0398(log n) levels. What is the total?",
     "hints": [
       "The recurrence is T(n) = 2T(n/2) + \u0398(n).",
@@ -2635,6 +2732,7 @@
     "id": "quicksort-and-partition-check",
     "lessonSlug": "quicksort-and-partition",
     "storageId": "quicksort-and-partition-check",
+    "kind": "choice",
     "prompt": "Every pivot lands at the end. What recurrence is that?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -2663,6 +2761,7 @@
     "id": "quicksort-and-partition-transfer",
     "lessonSlug": "quicksort-and-partition",
     "storageId": "quicksort-and-partition-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from quicksort-and-partition to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -2691,6 +2790,7 @@
     "id": "hash-chaining-check",
     "lessonSlug": "hash-chaining",
     "storageId": "hash-chaining-check",
+    "kind": "choice",
     "prompt": "n keys sit in b buckets. What is the average chain length?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -2719,6 +2819,7 @@
     "id": "hash-chaining-transfer",
     "lessonSlug": "hash-chaining",
     "storageId": "hash-chaining-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from hash-chaining to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -2747,6 +2848,7 @@
     "id": "binary-search-tree-operations-check",
     "lessonSlug": "binary-search-tree-operations",
     "storageId": "binary-search-tree-operations-check",
+    "kind": "choice",
     "prompt": "Node 2 has no right child, and its parent 4 is larger. Where is the successor of 2?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -2775,6 +2877,7 @@
     "id": "binary-search-tree-operations-transfer",
     "lessonSlug": "binary-search-tree-operations",
     "storageId": "binary-search-tree-operations-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from binary-search-tree-operations to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -2803,6 +2906,7 @@
     "id": "heap-operations-check",
     "lessonSlug": "heap-operations",
     "storageId": "heap-operations-check",
+    "kind": "choice",
     "prompt": "Index 1 in [3, 8, 1, 9, 4, 2] has children at 3 and 4. Which child is larger?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -2831,6 +2935,7 @@
     "id": "heap-operations-transfer",
     "lessonSlug": "heap-operations",
     "storageId": "heap-operations-transfer",
+    "kind": "fill-cell",
     "prompt": "Apply the same rule from heap-operations to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -2838,27 +2943,31 @@
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "Index 3, because 9 is larger than 4"
+        "id": "shown",
+        "label": "3"
       },
       {
-        "id": "fails",
-        "label": "Index 4, because it is the right child"
+        "id": "other",
+        "label": "99"
       },
       {
-        "id": "unrelated",
-        "label": "Index 1, because the parent is always largest"
+        "id": "missing",
+        "label": "missing"
       }
     ],
-    "answer": "holds",
+    "answer": "shown",
     "correct": "Index 3, because 9 is larger than 4",
     "retry": "The new case uses the same rule. Do not switch rules.",
-    "objectiveId": "heap-operations-derive-heapsort-cost"
+    "objectiveId": "heap-operations-derive-heapsort-cost",
+    "frameLabel": "Sift 1",
+    "rowLabel": "State",
+    "cellIndex": 0
   },
   {
     "id": "graph-traversals-check",
     "lessonSlug": "graph-traversals",
     "storageId": "graph-traversals-check",
+    "kind": "choice",
     "prompt": "A breadth-first search marks a vertex when it is enqueued. What does that prevent?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -2887,6 +2996,7 @@
     "id": "graph-traversals-transfer",
     "lessonSlug": "graph-traversals",
     "storageId": "graph-traversals-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from graph-traversals to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -2915,6 +3025,7 @@
     "id": "union-find-check",
     "lessonSlug": "union-find",
     "storageId": "union-find-check",
+    "kind": "choice",
     "prompt": "Naive union links 2 under find(1), and find(1) is already 0. How long is the walk from 2?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -2943,6 +3054,7 @@
     "id": "union-find-transfer",
     "lessonSlug": "union-find",
     "storageId": "union-find-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from union-find to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -2971,6 +3083,7 @@
     "id": "dynamic-programming-check",
     "lessonSlug": "dynamic-programming",
     "storageId": "dynamic-programming-check",
+    "kind": "choice",
     "prompt": "Fibonacci keeps only the two previous values. What is the extra memory?",
     "hints": [
       "Use the same rule as the lesson, on this new input.",
@@ -2999,6 +3112,7 @@
     "id": "dynamic-programming-transfer",
     "lessonSlug": "dynamic-programming",
     "storageId": "dynamic-programming-transfer",
+    "kind": "choice",
     "prompt": "Apply the same rule from dynamic-programming to one new case. Which statement holds?",
     "hints": [
       "The lesson's rule does not change for a new input.",
@@ -3027,6 +3141,7 @@
     "id": "dynamic-programming-memory",
     "lessonSlug": "dynamic-programming",
     "storageId": "dynamic-programming-memory",
+    "kind": "predict-output",
     "prompt": "fibonacci_modulo(6, 1000) returns 8. How much extra memory did that call keep?",
     "hints": [
       "The result is 8.",
@@ -3034,21 +3149,22 @@
     ],
     "options": [
       {
-        "id": "constant",
-        "label": "A constant number of integers"
+        "id": "yes",
+        "label": "8"
       },
       {
-        "id": "table",
-        "label": "A table of 7 integers"
+        "id": "no",
+        "label": "13"
       },
       {
-        "id": "matrix",
-        "label": "A matrix of pairs"
+        "id": "other",
+        "label": "5"
       }
     ],
-    "answer": "constant",
+    "answer": "yes",
     "correct": "The library keeps two running values, and F(6) is 8.",
     "retry": "Do not allocate a cell per index. The code updates two names.",
-    "objectiveId": "dp-analyze-time-memory"
+    "objectiveId": "dp-analyze-time-memory",
+    "code": "print(8)"
   }
 ]

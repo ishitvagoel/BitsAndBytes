@@ -77,6 +77,7 @@ def exercise(slug: str, objective_id: str, prompt: str, options: list[tuple[str,
         "id": f"{slug}-{suffix}",
         "lessonSlug": slug,
         "storageId": f"{slug}-{suffix}",
+        "kind": "choice",
         "prompt": prompt,
         "hints": hints,
         "options": [{"id": option_id, "label": label} for option_id, label in options],
@@ -1093,6 +1094,41 @@ def build() -> dict[str, str]:
                 extra["hints"],  # type: ignore[arg-type]
                 str(extra["suffix"]),
             ))
+    for item in exercises:
+        if "kind" not in item:
+            item["kind"] = "choice"
+    predict = {
+        "input-size-and-operation-counts-transfer": ("print(4 * 3 // 2)", "6", "4", "12"),
+        "stack-basics-transfer": ("print([1, 2].pop())", "2", "1", "3"),
+        "queue-and-deque-operations-transfer": ("from collections import deque\nitems = deque(['a', 'b'])\nitems.popleft()\nitems.append('c')\nprint(items.popleft())", "b", "a", "c"),
+        "dynamic-programming-memory": ("print(8)", "8", "13", "5"),
+    }
+    for item in exercises:
+        coded = predict.get(str(item["id"]))
+        if not coded:
+            continue
+        code, right, wrong_a, wrong_b = coded
+        item["kind"] = "predict-output"
+        item["code"] = code
+        item["options"] = [
+            {"id": "yes", "label": right},
+            {"id": "no", "label": wrong_a},
+            {"id": "other", "label": wrong_b},
+        ]
+        item["answer"] = "yes"
+    heap = next(item for item in exercises if item["id"] == "heap-operations-transfer")
+    heap_frame = traces["heap-operations"][0]["frames"][0]
+    heap["kind"] = "fill-cell"
+    heap["frameLabel"] = heap_frame["label"]
+    heap["rowLabel"] = heap_frame["rows"][0]["label"]
+    heap["cellIndex"] = 0
+    cell_text = str(heap_frame["rows"][0]["cells"][0]["text"])
+    heap["options"] = [
+        {"id": "shown", "label": cell_text},
+        {"id": "other", "label": "99"},
+        {"id": "missing", "label": "missing"},
+    ]
+    heap["answer"] = "shown"
     files[str(TRACES_OUT.relative_to(ROOT))] = json.dumps(traces, indent=2) + "\n"
     files[str(EXERCISES_OUT.relative_to(ROOT))] = json.dumps(exercises, indent=2) + "\n"
     files[str(CURRICULUM.relative_to(ROOT))] = patch_curriculum(CURRICULUM.read_text(), specs)
