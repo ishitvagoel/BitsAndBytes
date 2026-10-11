@@ -39,7 +39,28 @@ const paperSubjects = new Set([
   ".module-list",
   ".module-list h2",
   ".reading-card",
+  ".support-lede",
+  ".readiness-intro",
+  ".reference-intro",
+  ".reference-source",
+  ".trace-state-table dt",
+  ".prerequisite-card p",
+  ".not-found-page > p:not(.eyebrow)",
 ]);
+
+const paperContainers = [
+  ".reading-card",
+  ".support-page",
+  ".reference-page",
+  ".not-found-page",
+  ".learning-lab",
+  ".trace-bench",
+  ".prerequisite-card",
+  ".lesson-page-outcomes",
+  ".contents-panel",
+  ".module-list",
+  ".trace-state-table",
+];
 
 function subject(selector) {
   return selector.split(",").map((part) => part.trim().split(/\s+/).at(-1));
@@ -54,7 +75,12 @@ for (const match of css.matchAll(rulePattern)) {
   const resolved = declared.startsWith("var(")
     ? tokens[declared.slice(4, -1).trim()]
     : /^#[0-9a-fA-F]{6}$/.test(declared) ? declared.toLowerCase() : null;
-  for (const selector of subject(match[1])) {
+  const selectorText = match[1];
+  const onPaper = paperContainers.some((container) => selectorText.includes(container));
+  if (onPaper && (declared === "var(--muted)" || declared === "var(--foreground)")) {
+    failures.push(`${selectorText.trim()} uses ${declared} inside a cream surface`);
+  }
+  for (const selector of subject(selectorText)) {
     if (!paperSubjects.has(selector) || !resolved) continue;
     const ratio = contrast(resolved, paper);
     if (ratio < 4.5) {

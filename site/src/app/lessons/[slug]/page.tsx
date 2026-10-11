@@ -234,9 +234,12 @@ export default async function LessonPage({ params }: LessonPageProps) {
     : lesson.contentReadiness === "ready" || lesson.contentReadiness === "partial"
       ? "Full lesson"
       : "Overview";
+  const markdownSections = sections.filter((section) => section.id !== "trace-section" && section.id !== "practice-section");
   const lessonContext = (
     <>
-      {lesson.outcomes.length <= 4 ? (
+      {lesson.outcomes.length <= 2 ? (
+        <p className="lesson-outcomes-line">You will learn to {lesson.outcomes.map((outcome) => outcome.charAt(0).toLowerCase() + outcome.slice(1)).join(" and ")}.</p>
+      ) : lesson.outcomes.length <= 4 ? (
         <section className="lesson-outcomes lesson-page-outcomes" aria-labelledby="outcomes-title">
           <h2 id="outcomes-title">What you will learn</h2>
           <ul>{lesson.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
@@ -249,23 +252,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
       )}
 
       {lesson.prerequisites.length > 0 && (
-        <section className="prerequisite-card" aria-labelledby="prerequisite-title">
-          <h2 id="prerequisite-title">Recommended first</h2>
-          <p>These topics introduce ideas used here. They are recommendations; you can continue directly.</p>
-          <ul>
-            {lesson.prerequisites.map((prerequisite) => (
-              <li key={prerequisite.slug}><Link href={`/lessons/${prerequisite.slug}`}>{prerequisite.title}</Link></li>
-            ))}
-          </ul>
-        </section>
+        <p className="prerequisite-line">Recommended first: {lesson.prerequisites.map((prerequisite, index) => (
+          <span key={prerequisite.slug}>{index > 0 ? ", " : ""}<Link href={`/lessons/${prerequisite.slug}`}>{prerequisite.title}</Link></span>
+        ))}.</p>
       )}
 
-      {sections.length >= 3 && (
+      {markdownSections.length >= 5 && (
         <details className="contents-panel">
-          <summary>On this page <span>{sections.length} sections</span></summary>
+          <summary>On this page <span>{markdownSections.length} sections</span></summary>
           <nav aria-label="On this page">
             <ol>
-              {sections.map((section) => (
+              {markdownSections.map((section) => (
                 <li className={section.level === 3 ? "contents-subsection" : undefined} key={`${section.id}-${section.title}`}>
                   <a href={`#${section.id}`}>{section.title}</a>
                 </li>
@@ -289,7 +286,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </p>
         </LessonHeaderSlot>
         <Link className="back-link" href="/">← Course home</Link>
-        <p className="lesson-kicker">{lesson.stageTitle} · {position > 0 ? `Lesson ${position} of ${learningSequence.length}` : "Reference"}</p>
+        <p className="sr-only">{lesson.stageTitle} · {position > 0 ? `Lesson ${position} of ${learningSequence.length}` : "Reference"}</p>
         <h1 className="lesson-title">{lesson.title}</h1>
         <p className="lesson-subtitle">
           {lesson.summary}
@@ -317,7 +314,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <div className="reading-card">
         {lessonContext}
 
-        <ModuleList names={formatModuleNames(lesson.module)} />
         <article className="lesson-body">
           <Markdown source={lesson.content} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
           {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />}
@@ -325,6 +321,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         <details className="source-disclosure">
           <summary>Implementation and tests <span>Optional reference</span></summary>
+          <ModuleList names={formatModuleNames(lesson.module)} />
           <p>Use these references to compare the explanation with repository code and tests. A test link means it imports a lesson symbol; it does not by itself claim complete behavior coverage.</p>
           <ul>
             {lesson.sourceReferences.map((reference) => {

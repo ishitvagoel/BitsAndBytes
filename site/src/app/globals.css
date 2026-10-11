@@ -91,7 +91,8 @@ main:focus-visible {
 }
 
 .lessons-menu-button {
-  display: none;
+  display: inline-flex;
+  align-items: center;
   margin-left: auto;
   min-height: 44px;
   border: 1px solid var(--border);
@@ -135,10 +136,16 @@ main:focus-visible {
   text-decoration: none;
 }
 
-.lessons-panel a span:last-child {
-  grid-column: 2;
+.lessons-panel h3 {
+  margin: 1rem 0 0.25rem;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lessons-panel a[aria-current="page"] {
+  color: var(--amber);
 }
 
 .site-header a {
@@ -164,7 +171,7 @@ main:focus-visible {
 
 .not-found-page > p:not(.eyebrow) {
   margin: 0 0 1.5rem;
-  color: var(--muted);
+  color: var(--ink-muted);
 }
 
 .skip-link {
@@ -410,7 +417,7 @@ main:focus-visible {
 }
 
 .code-line-number {
-  color: #8491aa;
+  color: #d0d7e4;
   text-align: right;
   user-select: none;
 }
@@ -490,7 +497,7 @@ main:focus-visible {
 .reference-intro {
   max-width: 54rem;
   margin: 1rem 0 2rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 1.08rem;
 }
 
@@ -553,7 +560,7 @@ main:focus-visible {
 .reference-source {
   display: block;
   margin-top: 0.25rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.72rem;
   font-weight: 450;
 }
@@ -608,13 +615,13 @@ main:focus-visible {
 .support-lede {
   max-width: 42rem;
   margin: 1rem 0 2rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 1.05rem;
   line-height: 1.7;
 }
 
 .readiness-intro {
-  color: var(--muted);
+  color: var(--ink-muted);
   line-height: 1.6;
 }
 
@@ -636,7 +643,7 @@ main:focus-visible {
 }
 
 .readiness-question legend span {
-  color: var(--accent);
+  color: var(--link);
 }
 
 .readiness-question pre,
@@ -984,7 +991,7 @@ main:focus-visible {
 .curriculum-result-count {
   min-height: 1.35rem;
   margin: 0.4rem 0 0;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.78rem;
 }
 
@@ -1310,19 +1317,6 @@ main:focus-visible {
   font-size: 0.9rem;
 }
 
-.lesson-kicker {
-  margin: 0 0 0.5rem;
-  color: var(--ink);
-  font-size: 0.7rem;
-  font-weight: 750;
-  letter-spacing: 0.1em;
-}
-
-.lesson-kicker span {
-  margin: 0 0.35rem;
-  color: var(--ink);
-}
-
 .lesson-title {
   margin: 0;
   color: var(--ink);
@@ -1365,7 +1359,7 @@ main:focus-visible {
 
 .prerequisite-card p {
   margin: 0.35rem 0;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.85rem;
   line-height: 1.5;
 }
@@ -1556,7 +1550,7 @@ main:focus-visible {
 }
 
 .trace-state-table dt {
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.75rem;
 }
 
@@ -2321,7 +2315,6 @@ main:focus-visible {
   color: var(--muted);
 }
 
-.lesson-kicker,
 .lesson-subtitle,
 .back-link {
   color: var(--muted);
@@ -2545,21 +2538,17 @@ a.button-primary {
   display: none;
 }
 
-@media (max-width: 959px) {
-  .lessons-menu-button {
-    display: inline-flex;
-    align-items: center;
-  }
-}
-
 @media (min-width: 960px) {
-  .lessons-menu-button,
-  .lessons-scrim {
-    display: none;
+  .lessons-panel {
+    top: 3.5rem;
+    height: auto;
+    max-height: calc(100vh - 4rem);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
   }
 }
 
-@media (max-width: 719px) {
+@media (max-width: 959px) {
   .lesson-nav:not(.lesson-nav-sticky) {
     display: none;
   }
