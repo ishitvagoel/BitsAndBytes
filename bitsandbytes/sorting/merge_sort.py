@@ -15,10 +15,12 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import TypeVar
 
+from bitsandbytes.tracing import TraceEvent, TraceSink
+
 T = TypeVar("T")
 
 
-def merge_sort(values: Sequence[T]) -> list[T]:
+def merge_sort(values: Sequence[T], *, trace_sink: TraceSink | None = None) -> list[T]:
     """Return a new list containing ``values`` in ascending order.
 
     Cost
@@ -37,12 +39,14 @@ def merge_sort(values: Sequence[T]) -> list[T]:
 
     # Floor division is required: a float midpoint is not a valid slice index.
     midpoint = len(values) // 2
-    left = merge_sort(values[:midpoint])
-    right = merge_sort(values[midpoint:])
-    return _merge(left, right)
+    if trace_sink is not None:
+        trace_sink(TraceEvent("split", {"left": list(values[:midpoint]), "right": list(values[midpoint:])}))
+    left = merge_sort(values[:midpoint], trace_sink=trace_sink)
+    right = merge_sort(values[midpoint:], trace_sink=trace_sink)
+    return _merge(left, right, trace_sink)
 
 
-def _merge(left: list[T], right: list[T]) -> list[T]:
+def _merge(left: list[T], right: list[T], trace_sink: TraceSink | None = None) -> list[T]:
     """Merge two ascending lists into one new ascending list.
 
     Cost
@@ -62,12 +66,21 @@ def _merge(left: list[T], right: list[T]) -> list[T]:
         # Take from the right only when it is strictly smaller. An equal key
         # stays with the left half, which is what makes the sort stable.
         if right[right_index] < left[left_index]:
-            merged.append(right[right_index])
+            taken = right[right_index]
             right_index += 1
         else:
-            merged.append(left[left_index])
+            taken = left[left_index]
             left_index += 1
+        merged.append(taken)
+        if trace_sink is not None:
+            trace_sink(TraceEvent("take", {"value": taken, "merged": list(merged)}))
 
-    merged.extend(left[left_index:])
-    merged.extend(right[right_index:])
+    for taken in left[left_index:]:
+        merged.append(taken)
+        if trace_sink is not None:
+            trace_sink(TraceEvent("take", {"value": taken, "merged": list(merged)}))
+    for taken in right[right_index:]:
+        merged.append(taken)
+        if trace_sink is not None:
+            trace_sink(TraceEvent("take", {"value": taken, "merged": list(merged)}))
     return merged

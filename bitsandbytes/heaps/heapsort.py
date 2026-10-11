@@ -28,10 +28,12 @@ from __future__ import annotations
 
 from typing import TypeVar
 
+from bitsandbytes.tracing import TraceEvent, TraceSink
+
 T = TypeVar("T")
 
 
-def heapify(values: list[T]) -> None:
+def heapify(values: list[T], *, trace_sink: TraceSink | None = None) -> None:
     """Turn ``values`` into a max-heap in place.
 
     Cost
@@ -45,9 +47,11 @@ def heapify(values: list[T]) -> None:
     last_parent = (len(values) // 2) - 1
     for index in range(last_parent, -1, -1):
         _sift_down(values, index, len(values))
+        if trace_sink is not None:
+            trace_sink(TraceEvent("sift", {"index": index, "values": list(values)}))
 
 
-def heapsort(values: list[T]) -> list[T]:
+def heapsort(values: list[T], *, trace_sink: TraceSink | None = None) -> list[T]:
     """Sort ``values`` in ascending order in place with a max-heap.
 
     Cost
@@ -58,7 +62,7 @@ def heapsort(values: list[T]) -> list[T]:
     extra memory besides the array being sorted. Not stable.
     """
 
-    heapify(values)
+    heapify(values, trace_sink=trace_sink)
     end = len(values) - 1
     while end > 0:
         values[0], values[end] = values[end], values[0]
