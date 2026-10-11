@@ -12,7 +12,7 @@ Sometimes the answer is not an item in a sorted list. Instead, you can test a ca
 
 **By the end of this lesson, you can** state the monotonicity condition, trace a smallest-feasible search, and multiply the number of feasibility checks by the cost of one check.
 
-**Before you start:** You should be able to follow the `left`, `right` and midpoint updates in [binary search](./06-binary-search.md). Allow about 15 minutes to work through the trace and checks.
+**Before you start:** You should be able to follow the `left`, `right` and midpoint updates in [binary search](./06-binary-search.md). Work through the trace and the checks.
 
 ## Make the decision monotone
 
