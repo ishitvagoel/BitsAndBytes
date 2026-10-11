@@ -75,12 +75,14 @@
         "testsBySymbol": {
           "Node": [],
           "LinkedList": [
+            "test_container_protocol.py",
             "test_linked_list.py",
             "test_linked_list_algorithms.py",
             "test_linked_list_concepts.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_linked_list.py",
           "test_linked_list_algorithms.py",
           "test_linked_list_concepts.py"
@@ -424,10 +426,12 @@
         "testsBySymbol": {
           "Reviewer": [],
           "ReviewersList": [
+            "test_container_protocol.py",
             "test_linked_list_algorithms.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_linked_list_algorithms.py"
         ]
       }
@@ -445,10 +449,12 @@
         "testsBySymbol": {
           "DoublyNode": [],
           "DoublyLinkedList": [
+            "test_container_protocol.py",
             "test_linked_list_concepts.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_linked_list_concepts.py"
         ]
       },
@@ -511,27 +517,20 @@
             "test_stacks.py"
           ],
           "Stack": [
+            "test_container_protocol.py",
             "test_stack_aggregate.py",
             "test_stack_algorithms.py",
-            "test_stacks.py"
+            "test_stacks.py",
+            "test_untested_public.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_stack_aggregate.py",
           "test_stack_algorithms.py",
-          "test_stacks.py"
+          "test_stacks.py",
+          "test_untested_public.py"
         ]
-      },
-      {
-        "module": "bitsandbytes.stacks.algorithm_stack",
-        "sourcePath": "bitsandbytes/stacks/algorithm_stack.py",
-        "symbols": [
-          "AlgorithmStack"
-        ],
-        "testsBySymbol": {
-          "AlgorithmStack": []
-        },
-        "testPaths": []
       },
       {
         "module": "bitsandbytes.stacks.symbol_balance",
@@ -556,10 +555,12 @@
         ],
         "testsBySymbol": {
           "MinStack": [
+            "test_container_protocol.py",
             "test_stack_algorithms.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_stack_algorithms.py"
         ]
       },
@@ -707,11 +708,13 @@
         ],
         "testsBySymbol": {
           "merge_sort": [
-            "test_sorting.py"
+            "test_sorting.py",
+            "test_trace_events.py"
           ]
         },
         "testPaths": [
-          "test_sorting.py"
+          "test_sorting.py",
+          "test_trace_events.py"
         ]
       },
       {
@@ -725,7 +728,8 @@
           "quick_sort": [
             "test_quicksort_expectation.py",
             "test_search_and_sort_extras.py",
-            "test_sorting.py"
+            "test_sorting.py",
+            "test_trace_events.py"
           ],
           "quick_sort_three_way": [
             "test_search_and_sort_extras.py"
@@ -734,7 +738,8 @@
         "testPaths": [
           "test_quicksort_expectation.py",
           "test_search_and_sort_extras.py",
-          "test_sorting.py"
+          "test_sorting.py",
+          "test_trace_events.py"
         ]
       }
     ]
@@ -782,10 +787,12 @@
         ],
         "testsBySymbol": {
           "LinkedQueue": [
+            "test_container_protocol.py",
             "test_queues.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_queues.py"
         ]
       },
@@ -797,10 +804,12 @@
         ],
         "testsBySymbol": {
           "CircularQueue": [
+            "test_container_protocol.py",
             "test_queues.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_queues.py"
         ]
       },
@@ -812,11 +821,15 @@
         ],
         "testsBySymbol": {
           "DynamicArray": [
-            "test_linear_structures.py"
+            "test_container_protocol.py",
+            "test_linear_structures.py",
+            "test_trace_events.py"
           ]
         },
         "testPaths": [
-          "test_linear_structures.py"
+          "test_container_protocol.py",
+          "test_linear_structures.py",
+          "test_trace_events.py"
         ]
       },
       {
@@ -827,10 +840,12 @@
         ],
         "testsBySymbol": {
           "LinkedDeque": [
+            "test_container_protocol.py",
             "test_linear_structures.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_linear_structures.py"
         ]
       }
@@ -847,14 +862,16 @@
         ],
         "testsBySymbol": {
           "heapify": [
-            "test_heaps.py"
+            "test_heaps.py",
+            "test_trace_events.py"
           ],
           "heapsort": [
             "test_heaps.py"
           ]
         },
         "testPaths": [
-          "test_heaps.py"
+          "test_heaps.py",
+          "test_trace_events.py"
         ]
       },
       {
@@ -865,10 +882,12 @@
         ],
         "testsBySymbol": {
           "PriorityQueue": [
+            "test_container_protocol.py",
             "test_priority_queue.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_priority_queue.py"
         ]
       }
@@ -884,11 +903,13 @@
         ],
         "testsBySymbol": {
           "ChainingHashTable": [
-            "test_hash_tables.py"
+            "test_hash_tables.py",
+            "test_trace_events.py"
           ]
         },
         "testPaths": [
-          "test_hash_tables.py"
+          "test_hash_tables.py",
+          "test_trace_events.py"
         ]
       },
       {
@@ -923,16 +944,20 @@
         ],
         "testsBySymbol": {
           "TreeNode": [
-            "test_trees_extended.py"
+            "test_trees_extended.py",
+            "test_untested_public.py"
           ],
           "BinarySearchTree": [
+            "test_trace_events.py",
             "test_trees.py",
             "test_trees_extended.py"
           ]
         },
         "testPaths": [
+          "test_trace_events.py",
           "test_trees.py",
-          "test_trees_extended.py"
+          "test_trees_extended.py",
+          "test_untested_public.py"
         ]
       },
       {
@@ -955,11 +980,14 @@
           "level_order": [
             "test_trees_extended.py"
           ],
-          "map_inorder": [],
+          "map_inorder": [
+            "test_untested_public.py"
+          ],
           "inorder_iter": []
         },
         "testPaths": [
-          "test_trees_extended.py"
+          "test_trees_extended.py",
+          "test_untested_public.py"
         ]
       },
       {
@@ -972,11 +1000,15 @@
         "testsBySymbol": {
           "LLRBNode": [],
           "LeftLeaningRedBlackTree": [
-            "test_curriculum_completion.py"
+            "test_container_protocol.py",
+            "test_curriculum_completion.py",
+            "test_untested_public.py"
           ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_container_protocol.py",
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -991,10 +1023,12 @@
         ],
         "testsBySymbol": {
           "DisjointSet": [
+            "test_trace_events.py",
             "test_union_find.py"
           ]
         },
         "testPaths": [
+          "test_trace_events.py",
           "test_union_find.py"
         ]
       },
@@ -1074,13 +1108,16 @@
             "test_curriculum_completion.py",
             "test_graph_algorithms.py",
             "test_graphs.py",
+            "test_trace_events.py",
+            "test_untested_public.py",
             "test_vertex_cover_approximation.py"
           ],
           "depth_first_order": [
             "test_graphs.py"
           ],
           "breadth_first_order": [
-            "test_graphs.py"
+            "test_graphs.py",
+            "test_trace_events.py"
           ],
           "dijkstra_distances": [
             "test_graphs.py"
@@ -1090,6 +1127,8 @@
           "test_curriculum_completion.py",
           "test_graph_algorithms.py",
           "test_graphs.py",
+          "test_trace_events.py",
+          "test_untested_public.py",
           "test_vertex_cover_approximation.py"
         ]
       },
@@ -1114,7 +1153,8 @@
         ],
         "testsBySymbol": {
           "UndirectedGraph": [
-            "test_graph_algorithms.py"
+            "test_graph_algorithms.py",
+            "test_untested_public.py"
           ],
           "bfs_distances_and_parents": [
             "test_graph_algorithms.py"
@@ -1122,7 +1162,9 @@
           "topological_order": [
             "test_graph_algorithms.py"
           ],
-          "connected_components": [],
+          "connected_components": [
+            "test_untested_public.py"
+          ],
           "bellman_ford_distances": [
             "test_graph_algorithms.py"
           ],
@@ -1135,7 +1177,9 @@
           "kruskal_minimum_spanning_weight": [
             "test_graph_algorithms.py"
           ],
-          "prim_minimum_spanning_weight": [],
+          "prim_minimum_spanning_weight": [
+            "test_untested_public.py"
+          ],
           "is_bipartite": [
             "test_graph_algorithms.py"
           ],
@@ -1154,7 +1198,8 @@
         },
         "testPaths": [
           "test_curriculum_completion.py",
-          "test_graph_algorithms.py"
+          "test_graph_algorithms.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -1187,23 +1232,34 @@
           "knapsack_01": [
             "test_curriculum_completion.py"
           ],
-          "longest_common_subsequence": [],
+          "longest_common_subsequence": [
+            "test_untested_public.py"
+          ],
           "edit_distance": [
             "test_curriculum_completion.py"
           ],
-          "lis_length_quadratic": [],
+          "lis_length_quadratic": [
+            "test_untested_public.py"
+          ],
           "lis_length_patience": [
             "test_curriculum_completion.py"
           ],
-          "max_non_adjacent_sum": [],
+          "max_non_adjacent_sum": [
+            "test_untested_public.py"
+          ],
           "word_break_possible": [
             "test_curriculum_completion.py"
           ],
-          "dag_dp_longest_path": [],
-          "unbounded_knapsack_max_value": []
+          "dag_dp_longest_path": [
+            "test_untested_public.py"
+          ],
+          "unbounded_knapsack_max_value": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -1260,10 +1316,13 @@
           "n_queens_count": [
             "test_curriculum_completion.py"
           ],
-          "backtrack_find": []
+          "backtrack_find": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       },
       {
@@ -1285,10 +1344,13 @@
           "PrefixSum": [
             "test_curriculum_completion.py"
           ],
-          "sliding_window_maximum": []
+          "sliding_window_maximum": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -1322,10 +1384,13 @@
           "run_length_encode": [
             "test_curriculum_completion.py"
           ],
-          "suffix_array_with_lcp": []
+          "suffix_array_with_lcp": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -1399,18 +1464,25 @@
           "BTree": [
             "test_curriculum_completion.py"
           ],
-          "WriteAheadLog": [],
+          "WriteAheadLog": [
+            "test_untested_public.py"
+          ],
           "ToyLSM": [
             "test_curriculum_completion.py"
           ],
-          "sequential_scan_sum": [],
-          "locality_scan_benchmark": [],
+          "sequential_scan_sum": [
+            "test_untested_public.py"
+          ],
+          "locality_scan_benchmark": [
+            "test_untested_public.py"
+          ],
           "nearest_neighbor_linear": [
             "test_curriculum_completion.py"
           ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -1855,10 +1927,12 @@
         "testsBySymbol": {
           "Reviewer": [],
           "ReviewersList": [
+            "test_container_protocol.py",
             "test_linked_list_algorithms.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_linked_list_algorithms.py"
         ]
       }
@@ -2114,27 +2188,20 @@
             "test_stacks.py"
           ],
           "Stack": [
+            "test_container_protocol.py",
             "test_stack_aggregate.py",
             "test_stack_algorithms.py",
-            "test_stacks.py"
+            "test_stacks.py",
+            "test_untested_public.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_stack_aggregate.py",
           "test_stack_algorithms.py",
-          "test_stacks.py"
+          "test_stacks.py",
+          "test_untested_public.py"
         ]
-      },
-      {
-        "module": "bitsandbytes.stacks.algorithm_stack",
-        "sourcePath": "bitsandbytes/stacks/algorithm_stack.py",
-        "symbols": [
-          "AlgorithmStack"
-        ],
-        "testsBySymbol": {
-          "AlgorithmStack": []
-        },
-        "testPaths": []
       }
     ]
   },
@@ -2212,10 +2279,12 @@
         ],
         "testsBySymbol": {
           "MinStack": [
+            "test_container_protocol.py",
             "test_stack_algorithms.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_stack_algorithms.py"
         ]
       },
@@ -2269,10 +2338,12 @@
         ],
         "testsBySymbol": {
           "LinkedQueue": [
+            "test_container_protocol.py",
             "test_queues.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_queues.py"
         ]
       },
@@ -2284,10 +2355,12 @@
         ],
         "testsBySymbol": {
           "CircularQueue": [
+            "test_container_protocol.py",
             "test_queues.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_queues.py"
         ]
       },
@@ -2299,10 +2372,12 @@
         ],
         "testsBySymbol": {
           "LinkedDeque": [
+            "test_container_protocol.py",
             "test_linear_structures.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_linear_structures.py"
         ]
       }
@@ -2318,11 +2393,15 @@
         ],
         "testsBySymbol": {
           "DynamicArray": [
-            "test_linear_structures.py"
+            "test_container_protocol.py",
+            "test_linear_structures.py",
+            "test_trace_events.py"
           ]
         },
         "testPaths": [
-          "test_linear_structures.py"
+          "test_container_protocol.py",
+          "test_linear_structures.py",
+          "test_trace_events.py"
         ]
       }
     ]
@@ -2390,11 +2469,13 @@
         ],
         "testsBySymbol": {
           "merge_sort": [
-            "test_sorting.py"
+            "test_sorting.py",
+            "test_trace_events.py"
           ]
         },
         "testPaths": [
-          "test_sorting.py"
+          "test_sorting.py",
+          "test_trace_events.py"
         ]
       }
     ]
@@ -2412,7 +2493,8 @@
           "quick_sort": [
             "test_quicksort_expectation.py",
             "test_search_and_sort_extras.py",
-            "test_sorting.py"
+            "test_sorting.py",
+            "test_trace_events.py"
           ],
           "quick_sort_three_way": [
             "test_search_and_sort_extras.py"
@@ -2421,7 +2503,8 @@
         "testPaths": [
           "test_quicksort_expectation.py",
           "test_search_and_sort_extras.py",
-          "test_sorting.py"
+          "test_sorting.py",
+          "test_trace_events.py"
         ]
       }
     ]
@@ -2608,11 +2691,13 @@
         ],
         "testsBySymbol": {
           "ChainingHashTable": [
-            "test_hash_tables.py"
+            "test_hash_tables.py",
+            "test_trace_events.py"
           ]
         },
         "testPaths": [
-          "test_hash_tables.py"
+          "test_hash_tables.py",
+          "test_trace_events.py"
         ]
       }
     ]
@@ -2651,16 +2736,20 @@
         ],
         "testsBySymbol": {
           "TreeNode": [
-            "test_trees_extended.py"
+            "test_trees_extended.py",
+            "test_untested_public.py"
           ],
           "BinarySearchTree": [
+            "test_trace_events.py",
             "test_trees.py",
             "test_trees_extended.py"
           ]
         },
         "testPaths": [
+          "test_trace_events.py",
           "test_trees.py",
-          "test_trees_extended.py"
+          "test_trees_extended.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -2687,11 +2776,14 @@
           "level_order": [
             "test_trees_extended.py"
           ],
-          "map_inorder": [],
+          "map_inorder": [
+            "test_untested_public.py"
+          ],
           "inorder_iter": []
         },
         "testPaths": [
-          "test_trees_extended.py"
+          "test_trees_extended.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -2708,11 +2800,15 @@
         "testsBySymbol": {
           "LLRBNode": [],
           "LeftLeaningRedBlackTree": [
-            "test_curriculum_completion.py"
+            "test_container_protocol.py",
+            "test_curriculum_completion.py",
+            "test_untested_public.py"
           ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_container_protocol.py",
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -2728,14 +2824,16 @@
         ],
         "testsBySymbol": {
           "heapify": [
-            "test_heaps.py"
+            "test_heaps.py",
+            "test_trace_events.py"
           ],
           "heapsort": [
             "test_heaps.py"
           ]
         },
         "testPaths": [
-          "test_heaps.py"
+          "test_heaps.py",
+          "test_trace_events.py"
         ]
       }
     ]
@@ -2750,10 +2848,12 @@
         ],
         "testsBySymbol": {
           "PriorityQueue": [
+            "test_container_protocol.py",
             "test_priority_queue.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_priority_queue.py"
         ]
       }
@@ -2771,10 +2871,12 @@
         "testsBySymbol": {
           "DoublyNode": [],
           "DoublyLinkedList": [
+            "test_container_protocol.py",
             "test_linked_list_concepts.py"
           ]
         },
         "testPaths": [
+          "test_container_protocol.py",
           "test_linked_list_concepts.py"
         ]
       }
@@ -2815,13 +2917,16 @@
             "test_curriculum_completion.py",
             "test_graph_algorithms.py",
             "test_graphs.py",
+            "test_trace_events.py",
+            "test_untested_public.py",
             "test_vertex_cover_approximation.py"
           ],
           "depth_first_order": [
             "test_graphs.py"
           ],
           "breadth_first_order": [
-            "test_graphs.py"
+            "test_graphs.py",
+            "test_trace_events.py"
           ],
           "dijkstra_distances": [
             "test_graphs.py"
@@ -2831,6 +2936,8 @@
           "test_curriculum_completion.py",
           "test_graph_algorithms.py",
           "test_graphs.py",
+          "test_trace_events.py",
+          "test_untested_public.py",
           "test_vertex_cover_approximation.py"
         ]
       }
@@ -2859,7 +2966,8 @@
         ],
         "testsBySymbol": {
           "UndirectedGraph": [
-            "test_graph_algorithms.py"
+            "test_graph_algorithms.py",
+            "test_untested_public.py"
           ],
           "bfs_distances_and_parents": [
             "test_graph_algorithms.py"
@@ -2867,7 +2975,9 @@
           "topological_order": [
             "test_graph_algorithms.py"
           ],
-          "connected_components": [],
+          "connected_components": [
+            "test_untested_public.py"
+          ],
           "bellman_ford_distances": [
             "test_graph_algorithms.py"
           ],
@@ -2880,7 +2990,9 @@
           "kruskal_minimum_spanning_weight": [
             "test_graph_algorithms.py"
           ],
-          "prim_minimum_spanning_weight": [],
+          "prim_minimum_spanning_weight": [
+            "test_untested_public.py"
+          ],
           "is_bipartite": [
             "test_graph_algorithms.py"
           ],
@@ -2899,7 +3011,8 @@
         },
         "testPaths": [
           "test_curriculum_completion.py",
-          "test_graph_algorithms.py"
+          "test_graph_algorithms.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -2927,7 +3040,8 @@
         ],
         "testsBySymbol": {
           "UndirectedGraph": [
-            "test_graph_algorithms.py"
+            "test_graph_algorithms.py",
+            "test_untested_public.py"
           ],
           "bfs_distances_and_parents": [
             "test_graph_algorithms.py"
@@ -2935,7 +3049,9 @@
           "topological_order": [
             "test_graph_algorithms.py"
           ],
-          "connected_components": [],
+          "connected_components": [
+            "test_untested_public.py"
+          ],
           "bellman_ford_distances": [
             "test_graph_algorithms.py"
           ],
@@ -2948,7 +3064,9 @@
           "kruskal_minimum_spanning_weight": [
             "test_graph_algorithms.py"
           ],
-          "prim_minimum_spanning_weight": [],
+          "prim_minimum_spanning_weight": [
+            "test_untested_public.py"
+          ],
           "is_bipartite": [
             "test_graph_algorithms.py"
           ],
@@ -2967,7 +3085,8 @@
         },
         "testPaths": [
           "test_curriculum_completion.py",
-          "test_graph_algorithms.py"
+          "test_graph_algorithms.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -2995,7 +3114,8 @@
         ],
         "testsBySymbol": {
           "UndirectedGraph": [
-            "test_graph_algorithms.py"
+            "test_graph_algorithms.py",
+            "test_untested_public.py"
           ],
           "bfs_distances_and_parents": [
             "test_graph_algorithms.py"
@@ -3003,7 +3123,9 @@
           "topological_order": [
             "test_graph_algorithms.py"
           ],
-          "connected_components": [],
+          "connected_components": [
+            "test_untested_public.py"
+          ],
           "bellman_ford_distances": [
             "test_graph_algorithms.py"
           ],
@@ -3016,7 +3138,9 @@
           "kruskal_minimum_spanning_weight": [
             "test_graph_algorithms.py"
           ],
-          "prim_minimum_spanning_weight": [],
+          "prim_minimum_spanning_weight": [
+            "test_untested_public.py"
+          ],
           "is_bipartite": [
             "test_graph_algorithms.py"
           ],
@@ -3035,7 +3159,8 @@
         },
         "testPaths": [
           "test_curriculum_completion.py",
-          "test_graph_algorithms.py"
+          "test_graph_algorithms.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3063,7 +3188,8 @@
         ],
         "testsBySymbol": {
           "UndirectedGraph": [
-            "test_graph_algorithms.py"
+            "test_graph_algorithms.py",
+            "test_untested_public.py"
           ],
           "bfs_distances_and_parents": [
             "test_graph_algorithms.py"
@@ -3071,7 +3197,9 @@
           "topological_order": [
             "test_graph_algorithms.py"
           ],
-          "connected_components": [],
+          "connected_components": [
+            "test_untested_public.py"
+          ],
           "bellman_ford_distances": [
             "test_graph_algorithms.py"
           ],
@@ -3084,7 +3212,9 @@
           "kruskal_minimum_spanning_weight": [
             "test_graph_algorithms.py"
           ],
-          "prim_minimum_spanning_weight": [],
+          "prim_minimum_spanning_weight": [
+            "test_untested_public.py"
+          ],
           "is_bipartite": [
             "test_graph_algorithms.py"
           ],
@@ -3103,7 +3233,8 @@
         },
         "testPaths": [
           "test_curriculum_completion.py",
-          "test_graph_algorithms.py"
+          "test_graph_algorithms.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3129,10 +3260,13 @@
           "PrefixSum": [
             "test_curriculum_completion.py"
           ],
-          "sliding_window_maximum": []
+          "sliding_window_maximum": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3158,10 +3292,13 @@
           "PrefixSum": [
             "test_curriculum_completion.py"
           ],
-          "sliding_window_maximum": []
+          "sliding_window_maximum": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3187,10 +3324,13 @@
           "PrefixSum": [
             "test_curriculum_completion.py"
           ],
-          "sliding_window_maximum": []
+          "sliding_window_maximum": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3220,10 +3360,13 @@
           "n_queens_count": [
             "test_curriculum_completion.py"
           ],
-          "backtrack_find": []
+          "backtrack_find": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3283,23 +3426,34 @@
           "knapsack_01": [
             "test_curriculum_completion.py"
           ],
-          "longest_common_subsequence": [],
+          "longest_common_subsequence": [
+            "test_untested_public.py"
+          ],
           "edit_distance": [
             "test_curriculum_completion.py"
           ],
-          "lis_length_quadratic": [],
+          "lis_length_quadratic": [
+            "test_untested_public.py"
+          ],
           "lis_length_patience": [
             "test_curriculum_completion.py"
           ],
-          "max_non_adjacent_sum": [],
+          "max_non_adjacent_sum": [
+            "test_untested_public.py"
+          ],
           "word_break_possible": [
             "test_curriculum_completion.py"
           ],
-          "dag_dp_longest_path": [],
-          "unbounded_knapsack_max_value": []
+          "dag_dp_longest_path": [
+            "test_untested_public.py"
+          ],
+          "unbounded_knapsack_max_value": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3333,10 +3487,13 @@
           "run_length_encode": [
             "test_curriculum_completion.py"
           ],
-          "suffix_array_with_lcp": []
+          "suffix_array_with_lcp": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3370,10 +3527,13 @@
           "run_length_encode": [
             "test_curriculum_completion.py"
           ],
-          "suffix_array_with_lcp": []
+          "suffix_array_with_lcp": [
+            "test_untested_public.py"
+          ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]
@@ -3451,18 +3611,25 @@
           "BTree": [
             "test_curriculum_completion.py"
           ],
-          "WriteAheadLog": [],
+          "WriteAheadLog": [
+            "test_untested_public.py"
+          ],
           "ToyLSM": [
             "test_curriculum_completion.py"
           ],
-          "sequential_scan_sum": [],
-          "locality_scan_benchmark": [],
+          "sequential_scan_sum": [
+            "test_untested_public.py"
+          ],
+          "locality_scan_benchmark": [
+            "test_untested_public.py"
+          ],
           "nearest_neighbor_linear": [
             "test_curriculum_completion.py"
           ]
         },
         "testPaths": [
-          "test_curriculum_completion.py"
+          "test_curriculum_completion.py",
+          "test_untested_public.py"
         ]
       }
     ]

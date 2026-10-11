@@ -27,7 +27,7 @@ line-length = 100
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
 # Docstrings already exceed 100 characters. Wrapping them would rewrite teaching text.
-# TypeVar stays until the comparison protocol lands. PEP 695 is not an import-order fix.
+# TypeVar stays. PEP 695 syntax is not an import-order fix.
 # Scripts insert the repository root on sys.path before the first bitsandbytes import.
 ignore = ["E501", "UP046", "UP047", "E402"]
 
@@ -36,7 +36,7 @@ python_version = "3.12"
 strict = true
 files = ["bitsandbytes"]
 
-# 30 modules. Later packages remove entries from this list and never add to it.
+# 21 modules. Later packages remove entries from this list and never add to it.
 [[tool.mypy.overrides]]
 module = [
   "bitsandbytes.approximate.structures",
@@ -46,7 +46,6 @@ module = [
   "bitsandbytes.graphs.adjacency_list",
   "bitsandbytes.graphs.algorithms",
   "bitsandbytes.hash_tables.linear_probing",
-  "bitsandbytes.heaps.heapsort",
   "bitsandbytes.library_costs",
   "bitsandbytes.limits.approximation",
   "bitsandbytes.linked_list",
@@ -57,17 +56,9 @@ module = [
   "bitsandbytes.linked_lists.random_pointer",
   "bitsandbytes.linked_lists.reverse_in_pairs",
   "bitsandbytes.linked_lists.sort_list",
-  "bitsandbytes.search.binary_search",
-  "bitsandbytes.sorting.bubble_sort",
-  "bitsandbytes.sorting.insertion_sort",
-  "bitsandbytes.sorting.merge_sort",
-  "bitsandbytes.sorting.quick_sort",
-  "bitsandbytes.sorting.selection_sort",
   "bitsandbytes.stacks.min_stack",
   "bitsandbytes.stacks.stack",
   "bitsandbytes.storage.engines",
   "bitsandbytes.strings.algorithms",
-  "bitsandbytes.trees.bst",
-  "bitsandbytes.trees.llrb",
 ]
 ignore_errors = true

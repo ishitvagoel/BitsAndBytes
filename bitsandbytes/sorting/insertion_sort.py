@@ -13,7 +13,9 @@ from __future__ import annotations
 
 from typing import TypeVar
 
-T = TypeVar("T")
+from bitsandbytes.typing import SupportsLessThan
+
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 def insertion_sort(values: list[T]) -> list[T]:

@@ -16,17 +16,16 @@ from __future__ import annotations
 
 from typing import TypeVar
 
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
 from bitsandbytes.stacks.stack import Stack
+from bitsandbytes.typing import SupportsLessThan
 
-T = TypeVar("T")
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 def sort_stack(stack: Stack[T]) -> Stack[T]:
     """Sort ``stack`` so the smallest item is on top. Returns the same stack.
 
-    Uses an :class:`~bitsandbytes.stacks.algorithm_stack.AlgorithmStack` as
-    the extra stack so the lesson is not tied to a capacity limit. The input
+    Uses ``Stack(limit=None)`` as the extra stack so the lesson is not tied to a capacity limit. The input
     ``stack`` must still have room for items moved back during insertion.
     Ties keep the item that was already on the extra stack above the new
     one only when it is strictly larger; equal items are not moved again.
@@ -47,12 +46,12 @@ def sort_stack(stack: Stack[T]) -> Stack[T]:
     another n pops and n pushes, O(n), which does not change the bound.
     """
 
-    ordered: AlgorithmStack[T] = AlgorithmStack()
+    ordered: Stack[T] = Stack(limit=None)
     while not stack.is_empty:
         current = stack.pop()
         # Move strictly larger sorted values back. They belong above
         # ``current`` once ``current`` has been pushed.
-        while not ordered.is_empty and ordered.peek() > current:
+        while not ordered.is_empty and current < ordered.peek():
             stack.push(ordered.pop())
         ordered.push(current)
     while not ordered.is_empty:

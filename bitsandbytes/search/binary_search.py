@@ -27,7 +27,9 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import TypeVar
 
-T = TypeVar("T")
+from bitsandbytes.typing import SupportsLessThan
+
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 # BEGIN LEARNING EXCERPT: binary-search

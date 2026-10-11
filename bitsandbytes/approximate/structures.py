@@ -137,8 +137,6 @@ class PersistentStackFrame(Generic[T]):
         O(1).
         """
 
-        if self.top is None:
+        if self.top is None or self.previous is None:
             raise IndexError("pop from empty persistent stack")
-        assert self.previous is not None or True
-        previous = self.previous if self.previous is not None else PersistentStackFrame(None, None)
-        return self.top, previous
+        return self.top, self.previous

@@ -16,8 +16,9 @@ from collections.abc import Sequence
 from typing import TypeVar
 
 from bitsandbytes.tracing import TraceEvent, TraceSink
+from bitsandbytes.typing import SupportsLessThan
 
-T = TypeVar("T")
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 def merge_sort(values: Sequence[T], *, trace_sink: TraceSink | None = None) -> list[T]:

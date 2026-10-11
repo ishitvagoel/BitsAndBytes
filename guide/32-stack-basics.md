@@ -3,7 +3,7 @@ title: Stack basics
 slug: stack-basics
 order: 32
 status: present
-module: bitsandbytes.stacks.stack, bitsandbytes.stacks.algorithm_stack
+module: bitsandbytes.stacks.stack
 ---
 
 ## The idea

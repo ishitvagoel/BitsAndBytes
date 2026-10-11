@@ -1,4 +1,4 @@
-"""Circular list that hands reviews out in turn.
+"""Circular list with its own node type. The special-cases lesson uses it.
 
 A newly added reviewer is linked in immediately after the current one, so
 they are assigned next. The cursor stays put until ``next_reviewer`` moves it.

@@ -1,8 +1,7 @@
 """Stack whose minimum is readable in constant time.
 
 A plain stack can report its minimum only by scanning every item, which is
-O(n). A second :class:`~bitsandbytes.stacks.algorithm_stack.AlgorithmStack`
-stores the minima. It receives a value only when that value is less than or
+O(n). A second unbounded ``Stack`` stores the minima. It receives a value only when that value is less than or
 equal to the current minimum, so its top is always the minimum of the main
 stack. ``push``, ``pop``, and ``minimum`` each touch a constant number of
 stack tops.
@@ -13,8 +12,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 from typing import Generic, TypeVar
 
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
-from bitsandbytes.stacks.stack import StackEmptyError
+from bitsandbytes.stacks.stack import Stack, StackEmptyError
 
 T = TypeVar("T")
 
@@ -35,8 +33,8 @@ class MinStack(Generic[T]):
         Two empty stacks are allocated: O(1) time and O(1) extra memory.
         """
 
-        self._items: AlgorithmStack[T] = AlgorithmStack()
-        self._minima: AlgorithmStack[T] = AlgorithmStack()
+        self._items: Stack[T] = Stack(limit=None)
+        self._minima: Stack[T] = Stack(limit=None)
 
     def __len__(self) -> int:
         """Return how many items are stored.
@@ -83,7 +81,7 @@ class MinStack(Generic[T]):
 
         Cost
         ----
-        One ``AlgorithmStack.push`` on the main stack is amortized O(1). The
+        One ``Stack.push`` on the main stack is amortized O(1). The
         minima stack receives at most one push when ``value`` is less than or
         equal to the current minimum: also amortized O(1). Extra memory grows
         by one slot per push on the main stack and, for a non-increasing

@@ -13,7 +13,7 @@ from bitsandbytes.graphs.algorithms import (
     prim_minimum_spanning_weight,
 )
 from bitsandbytes.patterns.arrays import sliding_window_maximum
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+from bitsandbytes.stacks.stack import Stack
 from bitsandbytes.storage.engines import WriteAheadLog, locality_scan_benchmark, sequential_scan_sum
 from bitsandbytes.strings.algorithms import suffix_array_with_lcp
 from bitsandbytes.trees.bst import TreeNode
@@ -82,8 +82,8 @@ def test_map_inorder_visits_bst_values_in_order():
     assert seen == [1, 2, 3]
 
 
-def test_algorithm_stack_pops_the_last_push():
-    stack = AlgorithmStack()
+def test_unbounded_stack_pops_the_last_push():
+    stack = Stack(limit=None)
     stack.push(1)
     stack.push(2)
     assert stack.pop() == 2

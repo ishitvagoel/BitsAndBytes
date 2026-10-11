@@ -130,10 +130,8 @@ class PriorityQueue(Generic[T]):
 
         index = self._index[token]
         old_priority, _, item = self._heap[index]
-        if new_priority > old_priority:
+        if new_priority >= old_priority:
             raise ValueError("decrease_key requires a strictly smaller priority")
-        if new_priority == old_priority:
-            return
         self._heap[index] = (new_priority, token, item)
         self._sift_up(index)
 

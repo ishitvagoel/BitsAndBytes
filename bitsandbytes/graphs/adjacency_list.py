@@ -22,7 +22,7 @@ from collections.abc import Hashable
 from typing import TypeVar
 
 from bitsandbytes.queues.linked_queue import LinkedQueue
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+from bitsandbytes.stacks.stack import Stack
 from bitsandbytes.tracing import TraceEvent, TraceSink
 
 Vertex = TypeVar("Vertex", bound=Hashable)
@@ -99,7 +99,7 @@ def depth_first_order(
 
     order: list[Vertex] = []
     visited: set[Vertex] = set()
-    stack: AlgorithmStack[Vertex] = AlgorithmStack()
+    stack: Stack[Vertex] = Stack(limit=None)
     stack.push(start)
     while not stack.is_empty:
         vertex = stack.pop()

@@ -29,8 +29,9 @@ from dataclasses import dataclass
 from typing import Generic, TypeVar
 
 from bitsandbytes.tracing import TraceEvent, TraceSink
+from bitsandbytes.typing import SupportsLessThan
 
-T = TypeVar("T")
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 @dataclass(eq=False, slots=True)

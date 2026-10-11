@@ -27,8 +27,9 @@ from collections.abc import Callable
 from typing import TypeVar
 
 from bitsandbytes.tracing import TraceEvent, TraceSink
+from bitsandbytes.typing import SupportsLessThan
 
-T = TypeVar("T")
+T = TypeVar("T", bound=SupportsLessThan)
 
 Chooser = Callable[[int, int], int]
 
@@ -103,7 +104,7 @@ def _partition(values: list[T], start: int, end: int, choose: Chooser, trace_sin
     # ``boundary`` is the next slot that should receive a value <= pivot.
     boundary = start
     for index in range(start, end):
-        if values[index] <= pivot:
+        if not (pivot < values[index]):
             values[boundary], values[index] = values[index], values[boundary]
             if trace_sink is not None:
                 trace_sink(TraceEvent("swap", {"index": index, "boundary": boundary, "values": list(values)}))

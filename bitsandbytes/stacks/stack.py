@@ -21,6 +21,8 @@ from collections.abc import Callable, Iterator
 from functools import wraps
 from typing import Generic, TypeVar
 
+R = TypeVar("R")
+
 T = TypeVar("T")
 
 
@@ -32,7 +34,7 @@ class StackEmptyError(IndexError):
     """Raised when ``pop`` or ``peek`` is called on an empty stack."""
 
 
-def _reject_if_full(method: Callable) -> Callable:
+def _reject_if_full(method: Callable[..., R]) -> Callable[..., R]:
     """Refuse the call when the stack cannot take another item.
 
     Cost
@@ -44,7 +46,7 @@ def _reject_if_full(method: Callable) -> Callable:
     """
 
     @wraps(method)
-    def wrapper(self: Stack, *args, **kwargs):
+    def wrapper(self: Stack[object], *args: object, **kwargs: object) -> R:
         """Reject a full stack, otherwise call the wrapped method.
 
         Cost
@@ -53,14 +55,14 @@ def _reject_if_full(method: Callable) -> Callable:
         method then runs at its own cost.
         """
 
-        if len(self._items) >= self.limit:
+        if self.limit is not None and len(self._items) >= self.limit:
             raise StackFullError(f"Stack is full (limit {self.limit}).")
         return method(self, *args, **kwargs)
 
     return wrapper
 
 
-def _reject_if_empty(method: Callable) -> Callable:
+def _reject_if_empty(method: Callable[..., R]) -> Callable[..., R]:
     """Refuse the call when there is no top item to read.
 
     Cost
@@ -70,7 +72,7 @@ def _reject_if_empty(method: Callable) -> Callable:
     """
 
     @wraps(method)
-    def wrapper(self: Stack, *args, **kwargs):
+    def wrapper(self: Stack[object], *args: object, **kwargs: object) -> R:
         """Reject an empty stack, otherwise call the wrapped method.
 
         Cost
@@ -87,10 +89,12 @@ def _reject_if_empty(method: Callable) -> Callable:
 
 
 class Stack(Generic[T]):
-    """LIFO stack with a fixed capacity. The default limit is 10."""
+    """LIFO stack. The default limit is 10. ``limit=None`` means unbounded."""
 
-    def __init__(self, limit: int = 10) -> None:
+    def __init__(self, limit: int | None = 10) -> None:
         """Create an empty stack that holds at most ``limit`` items.
+
+        ``limit=None`` skips the capacity check.
 
         Cost
         ----
@@ -98,7 +102,7 @@ class Stack(Generic[T]):
         extra memory. No items are copied.
         """
 
-        if limit < 0:
+        if limit is not None and limit < 0:
             raise ValueError("limit cannot be negative.")
         self.limit = limit
         self._items: list[T] = []
@@ -165,7 +169,7 @@ class Stack(Generic[T]):
         Compare the stored length with ``limit``. O(1) time.
         """
 
-        return len(self._items) >= self.limit
+        return self.limit is not None and len(self._items) >= self.limit
 
     @_reject_if_full
     def push(self, item: T) -> T:

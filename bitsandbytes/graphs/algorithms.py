@@ -174,6 +174,8 @@ def dijkstra_distances_heap(
 ) -> dict[Vertex, int]:
     """Return shortest-path distances using a binary heap.
 
+    The bound is O((V + E) log V), the same figure as the Cost block.
+
     Cost
     ----
     O((V + E) log V) time. O(V) extra memory for the heap and the distance map.

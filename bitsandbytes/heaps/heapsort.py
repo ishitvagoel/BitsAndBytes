@@ -29,8 +29,9 @@ from __future__ import annotations
 from typing import TypeVar
 
 from bitsandbytes.tracing import TraceEvent, TraceSink
+from bitsandbytes.typing import SupportsLessThan
 
-T = TypeVar("T")
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 def heapify(values: list[T], *, trace_sink: TraceSink | None = None) -> None:

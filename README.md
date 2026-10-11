@@ -156,14 +156,14 @@ Lesson: [guide/03-doubly-linked-list-and-lru-cache.md](guide/03-doubly-linked-li
 Lesson: [guide/04-stacks.md](guide/04-stacks.md)
 
 * `stacks/stack.py` — bounded stack: capacity, decorator guards, amortized O(1) `push`, O(1) `pop` and `peek`.
-* `stacks/algorithm_stack.py` — unbounded LIFO for algorithm lessons. Same amortized costs without a limit check.
+* `stacks/stack.py` — `Stack(limit=None)` is the unbounded stack. The default limit stays 10.
 * `stacks/symbol_balance.py` — one pass. O(n) time, O(n) worst extra memory for openers.
 * `stacks/min_stack.py` — second stack of minima. `push`, `pop`, and `minimum` are O(1).
 * `stacks/next_greater.py` — monotonic stack. O(n) time, O(n) extra memory.
 * `stacks/stock_span.py` — same monotonic pattern. O(n) time.
 * `stacks/largest_rectangle.py` — histogram rectangle. O(n) time.
 * `stacks/infix_postfix.py` — shunting yard plus postfix evaluation. O(n) time.
-* `stacks/sort_stack.py` — one extra `AlgorithmStack`. Worst case O(n²) time, O(n) extra memory.
+* `stacks/sort_stack.py` — one extra unbounded stack. Worst case O(n²) time, O(n) extra memory.
 
 ## 5. Sorting
 
