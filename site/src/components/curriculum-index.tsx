@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useLastVisitedSlug } from "@/components/resume-progress";
 import {
   LEARNING_PROGRESS_EVENT,
@@ -21,6 +21,16 @@ type CurriculumEntry = {
   prerequisites: Array<{ slug: string; title: string }>;
   progressConfig: LessonProgressConfig;
   position: number | null;
+  matchedHeading?: string;
+};
+
+type SearchEntry = {
+  slug: string;
+  title: string;
+  headings: string[];
+  code: string[];
+  body: string;
+  reference: boolean;
 };
 
 type CurriculumGroup = {
@@ -63,6 +73,7 @@ function getLearningProgressSnapshot() {
 export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
   const [query, setQuery] = useState("");
   const [openedStages, setOpenedStages] = useState<Record<string, boolean>>({});
+  const [searchIndex, setSearchIndex] = useState<SearchEntry[] | null>(null);
   const savedProgress = useSyncExternalStore(subscribeToLearningProgress, getLearningProgressSnapshot, () => "");
   const knownSlugs = useMemo(() => groups.flatMap((group) => group.lessons.map((lesson) => lesson.slug)), [groups]);
   const progressConfigs = useMemo(() => Object.fromEntries(groups.flatMap((group) => group.lessons.map((lesson) => [lesson.slug, lesson.progressConfig]))), [groups]);
@@ -75,7 +86,34 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
   }, [progressConfigs, savedProgress]);
   const lastVisitedSlug = useLastVisitedSlug(knownSlugs);
   const normalizedQuery = query.trim().toLocaleLowerCase("en");
-  const filteredGroups = useMemo(() => groups.map((group) => ({
+  useEffect(() => {
+    if (normalizedQuery.length < 2 || searchIndex) return;
+    let cancelled = false;
+    fetch("/search-index.json")
+      .then((response) => response.json())
+      .then((value: SearchEntry[]) => { if (!cancelled) setSearchIndex(value); })
+      .catch(() => { if (!cancelled) setSearchIndex([]); });
+    return () => { cancelled = true; };
+  }, [normalizedQuery, searchIndex]);
+  const indexed = useMemo(() => new Map((searchIndex ?? []).map((entry) => [entry.slug, entry])), [searchIndex]);
+  const filteredGroups = useMemo(() => {
+    if (normalizedQuery.length >= 2 && searchIndex) {
+      const ranked = groups.flatMap((group) => group.lessons.flatMap((lesson) => {
+        const entry = indexed.get(lesson.slug);
+        const titleHit = entry ? entry.title.includes(normalizedQuery) : lesson.title.toLocaleLowerCase("en").includes(normalizedQuery);
+        const heading = entry?.headings.find((item) => item.includes(normalizedQuery));
+        const bodyHit = entry ? entry.body.includes(normalizedQuery) || entry.code.some((item) => item.includes(normalizedQuery)) : false;
+        const score = titleHit ? 3 : heading ? 2 : bodyHit ? 1 : 0;
+        return score === 0 ? [] : [{ lesson, score: score - (entry?.reference ? 0.5 : 0), heading }];
+      })).sort((left, right) => right.score - left.score || left.lesson.title.localeCompare(right.lesson.title));
+      return ranked.length === 0 ? [] : [{
+        id: "search",
+        title: "Matches",
+        description: "",
+        lessons: ranked.map((item) => ({ ...item.lesson, matchedHeading: item.heading })),
+      }];
+    }
+    return groups.map((group) => ({
     ...group,
     lessons: group.lessons.filter((lesson) => {
       if (!normalizedQuery) return true;
@@ -88,7 +126,8 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
       ].join(" ").toLocaleLowerCase("en");
       return searchable.includes(normalizedQuery);
     }),
-  })).filter((group) => group.lessons.length > 0), [groups, normalizedQuery]);
+  })).filter((group) => group.lessons.length > 0);
+  }, [groups, indexed, normalizedQuery, searchIndex]);
   const resultCount = filteredGroups.reduce((count, group) => count + group.lessons.length, 0);
   const sequence = groups.flatMap((group) => group.lessons.filter((lesson) => lesson.editorialState !== "reference"));
   const completed = sequence
@@ -148,6 +187,7 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
                     <div className="lesson-index-main">
                       <div className="lesson-index-title-line">
                         <Link href={`/lessons/${lesson.slug}`}>{lesson.title}</Link>
+                        {lesson.matchedHeading && <span className="search-hit">{lesson.matchedHeading}</span>}
                         <span className={`editorial-badge editorial-${lesson.editorialState}`}>{stateLabels[lesson.editorialState]}</span>
                       </div>
                       <p>{lesson.summary}</p>
