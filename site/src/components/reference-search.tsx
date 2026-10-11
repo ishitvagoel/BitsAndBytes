@@ -20,7 +20,24 @@ export type GlossaryTerm = {
   lessonTitle: string;
 };
 
-export function ReferenceSearch({ comparisons, terms }: { comparisons: ReferenceRow[]; terms: GlossaryTerm[] }) {
+export type CostRow = {
+  module: string;
+  name: string;
+  time: string;
+  memory: string;
+  lessonSlug: string;
+  lessonTitle: string;
+};
+
+export function ReferenceSearch({
+  comparisons,
+  terms,
+  costs,
+}: {
+  comparisons: ReferenceRow[];
+  terms: GlossaryTerm[];
+  costs: CostRow[];
+}) {
   const [query, setQuery] = useState("");
   const normalized = query.trim().toLocaleLowerCase("en");
   const filteredComparisons = useMemo(() => comparisons.filter((item) =>
@@ -29,6 +46,9 @@ export function ReferenceSearch({ comparisons, terms }: { comparisons: Reference
   const filteredTerms = useMemo(() => terms.filter((item) =>
     `${item.term} ${item.definition} ${item.lessonTitle}`.toLocaleLowerCase("en").includes(normalized)
   ), [normalized, terms]);
+  const filteredCosts = useMemo(() => costs.filter((item) =>
+    `${item.module} ${item.name} ${item.time} ${item.memory} ${item.lessonTitle}`.toLocaleLowerCase("en").includes(normalized)
+  ), [costs, normalized]);
 
   return (
     <>
@@ -39,7 +59,7 @@ export function ReferenceSearch({ comparisons, terms }: { comparisons: Reference
           {query && <button type="button" className="curriculum-clear" onClick={() => setQuery("")}>Clear</button>}
         </div>
         <p className="curriculum-result-count" role="status" aria-live="polite">
-          {filteredComparisons.length + filteredTerms.length} reference entries
+          {filteredComparisons.length + filteredTerms.length + filteredCosts.length} reference entries
         </p>
       </div>
 
@@ -76,7 +96,38 @@ export function ReferenceSearch({ comparisons, terms }: { comparisons: Reference
         </section>
       )}
 
-      {filteredComparisons.length === 0 && filteredTerms.length === 0 && (
+      <section className="reference-section" aria-labelledby="cost-title">
+        <h2 id="cost-title">Library costs</h2>
+        <p id="cost-row-count">{costs.length} cost rows</p>
+        {filteredCosts.length > 0 ? (
+          <div className="reference-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Function</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Memory</th>
+                  <th scope="col">Lesson</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredCosts.map((item) => (
+                  <tr key={`${item.module}.${item.name}`}>
+                    <th scope="row"><code>{item.name}</code></th>
+                    <td>{item.time}</td>
+                    <td>{item.memory}</td>
+                    <td><Link href={`/lessons/${item.lessonSlug}`}>{item.lessonTitle}</Link></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : filteredComparisons.length + filteredTerms.length > 0 ? (
+          <p className="curriculum-empty">No cost rows match this search.</p>
+        ) : null}
+      </section>
+
+      {filteredComparisons.length === 0 && filteredTerms.length === 0 && filteredCosts.length === 0 && (
         <p className="curriculum-empty">No reference entries match “{query.trim()}”. Try another term or clear the search.</p>
       )}
     </>

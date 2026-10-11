@@ -1,0 +1,2581 @@
+{
+  "count": 322,
+  "rows": [
+    {
+      "module": "bitsandbytes.approximate.structures",
+      "name": "BloomFilter.add",
+      "time": "O(k)",
+      "memory": "not stated",
+      "lessonSlug": "approximate-membership",
+      "lessonTitle": "Approximate membership structures"
+    },
+    {
+      "module": "bitsandbytes.approximate.structures",
+      "name": "BloomFilter.maybe_contains",
+      "time": "O(k)",
+      "memory": "not stated",
+      "lessonSlug": "approximate-membership",
+      "lessonTitle": "Approximate membership structures"
+    },
+    {
+      "module": "bitsandbytes.approximate.structures",
+      "name": "PersistentStackFrame.pop",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "approximate-membership",
+      "lessonTitle": "Approximate membership structures"
+    },
+    {
+      "module": "bitsandbytes.approximate.structures",
+      "name": "PersistentStackFrame.push",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "approximate-membership",
+      "lessonTitle": "Approximate membership structures"
+    },
+    {
+      "module": "bitsandbytes.approximate.structures",
+      "name": "SkipList.contains",
+      "time": "O(log n)",
+      "memory": "O(1) extra memory.",
+      "lessonSlug": "approximate-membership",
+      "lessonTitle": "Approximate membership structures"
+    },
+    {
+      "module": "bitsandbytes.approximate.structures",
+      "name": "SkipList.insert",
+      "time": "O(log n)",
+      "memory": "O(1) extra memory besides the new node.",
+      "lessonSlug": "approximate-membership",
+      "lessonTitle": "Approximate membership structures"
+    },
+    {
+      "module": "bitsandbytes.backtracking.search",
+      "name": "backtrack_find",
+      "time": "Depends on ``combine``; worst case explores the full subset tree",
+      "memory": "not stated",
+      "lessonSlug": "backtracking",
+      "lessonTitle": "Backtracking search"
+    },
+    {
+      "module": "bitsandbytes.backtracking.search",
+      "name": "combinations",
+      "time": "C(n",
+      "memory": "not stated",
+      "lessonSlug": "backtracking",
+      "lessonTitle": "Backtracking search"
+    },
+    {
+      "module": "bitsandbytes.backtracking.search",
+      "name": "n_queens_count",
+      "time": "Exponential in ``board_size`` in the worst case; pruning does not change the worst-case tree size in theory",
+      "memory": "not stated",
+      "lessonSlug": "backtracking",
+      "lessonTitle": "Backtracking search"
+    },
+    {
+      "module": "bitsandbytes.backtracking.search",
+      "name": "permutations",
+      "time": "O(n \u00b7 n!)",
+      "memory": "not stated",
+      "lessonSlug": "backtracking",
+      "lessonTitle": "Backtracking search"
+    },
+    {
+      "module": "bitsandbytes.backtracking.search",
+      "name": "subsets",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "backtracking",
+      "lessonTitle": "Backtracking search"
+    },
+    {
+      "module": "bitsandbytes.complexity",
+      "name": "bound_vocabulary",
+      "time": "O(1)",
+      "memory": "The dictionary is fixed size: O(1) time and O(1) extra memory.",
+      "lessonSlug": "input-size-and-operation-counts",
+      "lessonTitle": "Input size and operation counts"
+    },
+    {
+      "module": "bitsandbytes.complexity",
+      "name": "classify_recurrence",
+      "time": "O(1)",
+      "memory": "A constant-size table lookup: O(1) time and O(1) extra memory.",
+      "lessonSlug": "input-size-and-operation-counts",
+      "lessonTitle": "Input size and operation counts"
+    },
+    {
+      "module": "bitsandbytes.complexity",
+      "name": "recursion_limit",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "input-size-and-operation-counts",
+      "lessonTitle": "Input size and operation counts"
+    },
+    {
+      "module": "bitsandbytes.decorators.access_control",
+      "name": "UserContext.__init__",
+      "time": "O(1)",
+      "memory": "Time and extra memory are both O(1).",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.access_control",
+      "name": "UserContext.require",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.access_control",
+      "name": "main",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.access_control",
+      "name": "manage_users",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.access_control",
+      "name": "modify_database",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.access_control",
+      "name": "read_database",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.access_control",
+      "name": "run_action",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.permission",
+      "name": "main",
+      "time": "O(k)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.permission",
+      "name": "require_confirmation",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.decorators.permission",
+      "name": "show_arguments",
+      "time": "O(k)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.__init__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n items is O(n) time and O(n) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.append_left",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.append_right",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.insert_at",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.pop_left",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.deques.linked_deque",
+      "name": "LinkedDeque.pop_right",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.__init__",
+      "time": "O(k)",
+      "memory": "not stated",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.__iter__",
+      "time": "O(n)",
+      "memory": "Only the current node is kept: O(1) extra memory.",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.__repr__",
+      "time": "O(n)",
+      "memory": "Time and extra memory are both O(n).",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.append",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.head",
+      "time": "O(1)",
+      "memory": "The head is stored directly: O(1) time, no extra memory.",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.insert_after",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.move_to_front",
+      "time": "O(1)",
+      "memory": "Total O(1) time and O(1) extra memory.",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.pop_tail",
+      "time": "O(1)",
+      "memory": "Extra memory is O(1).",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.prepend",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.remove_node",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.reverse",
+      "time": "O(1)",
+      "memory": "Only ``current`` is stored: O(1) extra memory.",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyLinkedList.tail",
+      "time": "O(1)",
+      "memory": "The tail is stored directly: O(1) time, no extra memory.",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.doubly_linked_list",
+      "name": "DoublyNode.__repr__",
+      "time": "O(1)",
+      "memory": "Neither neighbour is visited, so the cost does not grow with n: O(1) time and O(1) extra memory.",
+      "lessonSlug": "doubly-linked-list-operations",
+      "lessonTitle": "Doubly linked-list operations"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "dag_dp_longest_path",
+      "time": "O(V + E)",
+      "memory": "not stated",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "edit_distance",
+      "time": "O(nm)",
+      "memory": "O(nm) time, O(min(n, m)) memory.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "fibonacci_modulo",
+      "time": "O(n)",
+      "memory": "O(1) extra memory for the two running values.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "knapsack_01",
+      "time": "O(nW)",
+      "memory": "O(nW) time and O(W) memory with one rolling row where n = len(weights).",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "lis_length_patience",
+      "time": "O(n log n)",
+      "memory": "O(n log n) time from binary search on pile tops, O(n) memory.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "lis_length_quadratic",
+      "time": "O(n\u00b2)",
+      "memory": "O(n\u00b2) time, O(n) memory.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "longest_common_subsequence",
+      "time": "O(nm)",
+      "memory": "O(nm) time and O(min(n, m)) memory with one row.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "max_non_adjacent_sum",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) memory (two rolling totals).",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "min_coin_change",
+      "time": "O(amount \u00d7 len(coins))",
+      "memory": "O(amount \u00d7 len(coins)) time, O(amount) memory.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "unbounded_knapsack_max_value",
+      "time": "O(nW)",
+      "memory": "O(nW) time, O(W) memory \u2014 same table shape as bounded coin change.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.dynamic_programming.classic",
+      "name": "word_break_possible",
+      "time": "O(D)",
+      "memory": "Building the prefix trie takes O(D) expected time and O(D) memory.",
+      "lessonSlug": "dynamic-programming",
+      "lessonTitle": "Dynamic programming"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "Graph.__init__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "Graph.add_edge",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "Graph.add_vertex",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "Graph.neighbors",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "Graph.vertices",
+      "time": "O(V)",
+      "memory": "not stated",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "breadth_first_order",
+      "time": "O(V + E)",
+      "memory": "The queue holds at most V labels: O(V) extra memory.",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "depth_first_order",
+      "time": "O(V + E)",
+      "memory": "The stack and visited set hold at most V entries: O(V) extra memory.",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.adjacency_list",
+      "name": "dijkstra_distances",
+      "time": "O(V^2 + E)",
+      "memory": "The ``best`` map stores one integer per reachable vertex: O(V) extra memory.",
+      "lessonSlug": "graph-representations",
+      "lessonTitle": "Graph representations"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "UndirectedGraph.add_edge",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "bellman_ford_distances",
+      "time": "O(VE)",
+      "memory": "O(V) extra memory.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "bfs_distances_and_parents",
+      "time": "O(V + E)",
+      "memory": "O(V + E) time, O(V) extra memory for maps and the queue.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "connected_components",
+      "time": "O(V + E)",
+      "memory": "O(V + E) time, O(V) extra memory.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "dag_shortest_paths",
+      "time": "O(V + E)",
+      "memory": "not stated",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "dijkstra_distances_heap",
+      "time": "O((V + E) log V)",
+      "memory": "O(V) extra memory for the heap and the distance map.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "floyd_warshall",
+      "time": "O(V\u00b3)",
+      "memory": "O(V\u00b3) time, O(V\u00b2) memory.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "has_directed_cycle",
+      "time": "O(V + E)",
+      "memory": "not stated",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "is_bipartite",
+      "time": "O(V + E)",
+      "memory": "not stated",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "kosaraju_strongly_connected_components",
+      "time": "O(V + E)",
+      "memory": "O(V + E) time, O(V) extra memory.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "kruskal_minimum_spanning_weight",
+      "time": "O(E log E)",
+      "memory": "not stated",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "prim_minimum_spanning_weight",
+      "time": "O((V + E) log V)",
+      "memory": "not stated",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "topological_order",
+      "time": "O(V + E)",
+      "memory": "O(V + E) time and O(V) memory for indegrees and the queue.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.graphs.algorithms",
+      "name": "zero_one_bfs_distances",
+      "time": "O(V + E)",
+      "memory": "O(V + E) time, O(V) memory.",
+      "lessonSlug": "graph-traversals",
+      "lessonTitle": "Graph traversals"
+    },
+    {
+      "module": "bitsandbytes.greedy.classic",
+      "name": "fractional_knapsack_value",
+      "time": "O(n log n)",
+      "memory": "not stated",
+      "lessonSlug": "greedy-methods",
+      "lessonTitle": "Greedy methods"
+    },
+    {
+      "module": "bitsandbytes.greedy.classic",
+      "name": "huffman_codes",
+      "time": "O(n log n)",
+      "memory": "not stated",
+      "lessonSlug": "greedy-methods",
+      "lessonTitle": "Greedy methods"
+    },
+    {
+      "module": "bitsandbytes.greedy.classic",
+      "name": "interval_scheduling_max_count",
+      "time": "O(n log n)",
+      "memory": "O(n log n) sort, O(n) scan, O(1) extra memory besides output count.",
+      "lessonSlug": "greedy-methods",
+      "lessonTitle": "Greedy methods"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.chaining",
+      "name": "ChainingHashTable.__delitem__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-chaining",
+      "lessonTitle": "Hash tables with chaining"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.chaining",
+      "name": "ChainingHashTable.__getitem__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-chaining",
+      "lessonTitle": "Hash tables with chaining"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.chaining",
+      "name": "ChainingHashTable.__init__",
+      "time": "O(bucket_count)",
+      "memory": "Allocate ``bucket_count`` empty lists: O(bucket_count) time and memory.",
+      "lessonSlug": "hash-chaining",
+      "lessonTitle": "Hash tables with chaining"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.chaining",
+      "name": "ChainingHashTable.__iter__",
+      "time": "O(n + b)",
+      "memory": "Extra memory is O(1) besides the iterator.",
+      "lessonSlug": "hash-chaining",
+      "lessonTitle": "Hash tables with chaining"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.chaining",
+      "name": "ChainingHashTable.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-chaining",
+      "lessonTitle": "Hash tables with chaining"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.chaining",
+      "name": "ChainingHashTable.__repr__",
+      "time": "O(n)",
+      "memory": "Copying n pairs is O(n) time and O(n) extra memory.",
+      "lessonSlug": "hash-chaining",
+      "lessonTitle": "Hash tables with chaining"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.chaining",
+      "name": "ChainingHashTable.__setitem__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-chaining",
+      "lessonTitle": "Hash tables with chaining"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.__delitem__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.__getitem__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.__init__",
+      "time": "O(capacity)",
+      "memory": "O(capacity) time and memory for the slot arrays.",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.__iter__",
+      "time": "O(capacity)",
+      "memory": "not stated",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.__repr__",
+      "time": "O(n)",
+      "memory": "Copying n pairs is O(n) time and O(n) extra memory.",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.__setitem__",
+      "time": "Same probing cost as lookup",
+      "memory": "not stated",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "LinearProbingHashTable.load_factor",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.hash_tables.linear_probing",
+      "name": "degenerate_chain_length",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "hash-linear-probing",
+      "lessonTitle": "Hash tables with linear probing"
+    },
+    {
+      "module": "bitsandbytes.heaps.heapsort",
+      "name": "heapify",
+      "time": "O(n)",
+      "memory": "No extra list is allocated: O(1) extra memory.",
+      "lessonSlug": "heap-operations",
+      "lessonTitle": "Heap operations"
+    },
+    {
+      "module": "bitsandbytes.heaps.heapsort",
+      "name": "heapsort",
+      "time": "O(n)",
+      "memory": "The heap reuses the input list: O(1) extra memory besides the array being sorted.",
+      "lessonSlug": "heap-operations",
+      "lessonTitle": "Heap operations"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.__init__",
+      "time": "O(1)",
+      "memory": "O(1) time and memory.",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n items is O(n) time and O(n) extra memory.",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.decrease_key",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.peek",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.pop",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.heaps.priority_queue",
+      "name": "PriorityQueue.push",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "priority-queues",
+      "lessonTitle": "Priority queues"
+    },
+    {
+      "module": "bitsandbytes.library_costs",
+      "name": "bfs_layer_sizes",
+      "time": "O(V + E)",
+      "memory": "The deque holds at most V labels: O(V) extra memory.",
+      "lessonSlug": "cost-models",
+      "lessonTitle": "Cost models and assumptions"
+    },
+    {
+      "module": "bitsandbytes.library_costs",
+      "name": "insert_into_sorted",
+      "time": "O(n)",
+      "memory": "O(1) extra memory.",
+      "lessonSlug": "cost-models",
+      "lessonTitle": "Cost models and assumptions"
+    },
+    {
+      "module": "bitsandbytes.library_costs",
+      "name": "list_pop_front_cost_demo",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "cost-models",
+      "lessonTitle": "Cost models and assumptions"
+    },
+    {
+      "module": "bitsandbytes.library_costs",
+      "name": "timsort_sorted",
+      "time": "O(n log n)",
+      "memory": "The copy uses O(n) extra memory.",
+      "lessonSlug": "cost-models",
+      "lessonTitle": "Cost models and assumptions"
+    },
+    {
+      "module": "bitsandbytes.library_costs",
+      "name": "top_k_smallest",
+      "time": "O(n log k)",
+      "memory": "Building the heap is O(n log k) time and O(k) extra memory.",
+      "lessonSlug": "cost-models",
+      "lessonTitle": "Cost models and assumptions"
+    },
+    {
+      "module": "bitsandbytes.limits.approximation",
+      "name": "vertex_cover_two_approximation",
+      "time": "O(V + E)",
+      "memory": "The returned cover is O(V); ``vertices`` also creates an O(V) temporary list, so peak extra memory is O(V).",
+      "lessonSlug": "approximation-guarantees",
+      "lessonTitle": "Approximation guarantees"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.__getitem__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.__init__",
+      "time": "O(initial_capacity)",
+      "memory": "Allocate one list: O(initial_capacity) time and memory.",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.__iter__",
+      "time": "O(n)",
+      "memory": "n yields: O(n) time, O(1) extra memory.",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n items is O(n) time and O(n) extra memory.",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.append",
+      "time": "O(1)",
+      "memory": "Extra memory is O(n) for n stored items.",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.pop",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linear.dynamic_array",
+      "name": "DynamicArray.total_copy_cost_for_appends",
+      "time": "O(append_count)",
+      "memory": "O(append_count) arithmetic steps, one per append: O(1) extra memory.",
+      "lessonSlug": "dynamic-array-growth",
+      "lessonTitle": "Dynamic-array growth"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.__eq__",
+      "time": "O(n + m)",
+      "memory": "Building the two temporary lists uses O(n + m) extra memory.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.__init__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.__iter__",
+      "time": "O(n)",
+      "memory": "The iterator holds one node reference: O(1) extra memory, plus the set inside ``iter_nodes``.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.__repr__",
+      "time": "O(n)",
+      "memory": "Time and extra memory are both O(n).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.__str__",
+      "time": "O(n)",
+      "memory": "That is one pass: O(n) time and O(n) extra memory for the result.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.append",
+      "time": "O(1)",
+      "memory": "No walk: O(1) time and O(1) extra memory for the new node, which is part of the list afterwards.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.display",
+      "time": "O(n)",
+      "memory": "Total time O(n), extra memory O(n) for the string.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.extend",
+      "time": "O(k)",
+      "memory": "Extra memory is the k new nodes, which become part of the list.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.insert",
+      "time": "O(n)",
+      "memory": "Extra memory is the new node: O(1).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.insert_sorted",
+      "time": "O(n)",
+      "memory": "Extra memory is the new node: O(1).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.iter_nodes",
+      "time": "O(n)",
+      "memory": "The ``seen`` set stores n ids, so extra memory is O(n).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.make_circular",
+      "time": "O(1)",
+      "memory": "The tail is cached, so pointing it at the head is one assignment: O(1) time and O(1) extra memory.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.node_at",
+      "time": "O(i)",
+      "memory": "Extra memory is the one ``node`` reference: O(1).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.pop",
+      "time": "O(1)",
+      "memory": "Extra memory is O(1).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.prepend",
+      "time": "O(1)",
+      "memory": "That is a constant number of writes, independent of n: O(1) time and O(1) extra memory.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.refresh",
+      "time": "O(n)",
+      "memory": "The ``seen`` set holds n ids: O(n) extra memory.",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.remove",
+      "time": "O(n)",
+      "memory": "Extra memory is the ``previous`` reference: O(1).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.require_linear",
+      "time": "O(n)",
+      "memory": "``refresh`` is O(n) time and builds a ``seen`` set of n node ids while it runs, so peak extra memory is O(n).",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "LinkedList.tail",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_list",
+      "name": "Node.__repr__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "singly-linked-list",
+      "lessonTitle": "Singly linked list"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.add_numbers",
+      "name": "add_numbers",
+      "time": "O(n + m)",
+      "memory": "A few references and the carry are O(1) scratch memory.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.cycle",
+      "name": "find_cycle_start",
+      "time": "O(n)",
+      "memory": "Only a few references are stored: O(1) extra memory.",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.delete_node",
+      "name": "delete_without_predecessor",
+      "time": "O(1)",
+      "memory": "Copying its value and skipping it is a constant number of assignments: O(1) time, O(1) extra memory.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.duplicates",
+      "name": "remove_sorted_duplicates",
+      "time": "O(n)",
+      "memory": "No auxiliary collection: O(1) extra memory.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.duplicates",
+      "name": "remove_unsorted_duplicates",
+      "time": "O(n)",
+      "memory": "The set stores one entry per distinct value, at most n, so extra memory is O(n).",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.intersection",
+      "name": "find_intersection",
+      "time": "O(m)",
+      "memory": "``require_linear`` on each list is O(n) + O(m) time with peak O(max(n, m)) extra memory for the guards.",
+      "lessonSlug": "linked-list-merge-and-sort",
+      "lessonTitle": "Linked-list merge and sort"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.lru_cache",
+      "name": "LRUCache.__init__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "lru-cache",
+      "lessonTitle": "LRU cache"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.lru_cache",
+      "name": "LRUCache.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "lru-cache",
+      "lessonTitle": "LRU cache"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.lru_cache",
+      "name": "LRUCache.get",
+      "time": "O(1)",
+      "memory": "Total O(1) expected time, O(1) extra memory.",
+      "lessonSlug": "lru-cache",
+      "lessonTitle": "LRU cache"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.lru_cache",
+      "name": "LRUCache.put",
+      "time": "O(1)",
+      "memory": "Extra memory is O(1) per call.",
+      "lessonSlug": "lru-cache",
+      "lessonTitle": "LRU cache"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.merge_sorted",
+      "name": "merge_sorted",
+      "time": "O(n + m)",
+      "memory": "The result list object is O(1) extra memory.",
+      "lessonSlug": "linked-list-merge-and-sort",
+      "lessonTitle": "Linked-list merge and sort"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.merge_sorted",
+      "name": "merge_sorted_into",
+      "time": "O(n + m)",
+      "memory": "Extra memory is a few references: O(1).",
+      "lessonSlug": "linked-list-merge-and-sort",
+      "lessonTitle": "Linked-list merge and sort"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.middle",
+      "name": "end_of_first_half",
+      "time": "O(n)",
+      "memory": "Time O(n), extra memory O(1).",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.middle",
+      "name": "middle_node",
+      "time": "O(n)",
+      "memory": "Three references are stored: O(1) extra memory for the walk.",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.modular_nodes",
+      "name": "modular_node_from_end",
+      "time": "O(n)",
+      "memory": "``require_linear`` is O(n) time with peak O(n) extra memory for its ``seen`` set.",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.modular_nodes",
+      "name": "modular_node_from_start",
+      "time": "O(n)",
+      "memory": "One tuple is kept: O(1) extra memory beyond the iterator's ``seen`` set, which is O(n).",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.nth_from_end",
+      "name": "nth_from_end",
+      "time": "O(L)",
+      "memory": "Extra memory is the two references: O(1).",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.nth_from_end",
+      "name": "remove_nth_from_end",
+      "time": "O(L)",
+      "memory": "The anchor is one extra node: O(1) extra memory for the walk.",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.odd_even",
+      "name": "group_by_position_parity",
+      "time": "O(n)",
+      "memory": "Only ``odd``, ``even``, and ``even_head`` are stored: O(1) extra memory.",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.palindrome",
+      "name": "is_palindrome",
+      "time": "O(n)",
+      "memory": "The comparison stores a few node references: O(1) extra memory.",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.partition",
+      "name": "partition",
+      "time": "O(1)",
+      "memory": "The four head/tail references are O(1) extra memory.",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.random_pointer",
+      "name": "RandomNode.__repr__",
+      "time": "O(1)",
+      "memory": "Time O(1), extra memory O(1).",
+      "lessonSlug": "doubly-linked-list-and-lru-cache",
+      "lessonTitle": "Doubly linked list and the LRU cache"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.random_pointer",
+      "name": "clone_interleaved",
+      "time": "O(n)",
+      "memory": "Scratch memory is a few references: O(1), besides the n cloned nodes that form the result.",
+      "lessonSlug": "doubly-linked-list-and-lru-cache",
+      "lessonTitle": "Doubly linked list and the LRU cache"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.random_pointer",
+      "name": "clone_with_map",
+      "time": "O(n)",
+      "memory": "The dictionary stores n entries: O(n) extra memory, on top of the n cloned nodes which are the output.",
+      "lessonSlug": "doubly-linked-list-and-lru-cache",
+      "lessonTitle": "Doubly linked list and the LRU cache"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.remove_cycle",
+      "name": "remove_cycle",
+      "time": "O(n)",
+      "memory": "Extra memory is O(1) on top of whatever ``find_cycle_start`` uses, which is also O(1).",
+      "lessonSlug": "fast-slow-pointer-patterns",
+      "lessonTitle": "Fast and slow pointers"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reorder",
+      "name": "reorder",
+      "time": "O(n)",
+      "memory": "Extra memory is a handful of references: O(1).",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reverse",
+      "name": "reverse_iterative",
+      "time": "O(1)",
+      "memory": "Three references are stored: O(1) extra memory for the reversal loop.",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reverse",
+      "name": "reverse_recursive",
+      "time": "O(n)",
+      "memory": "The calls are nested n deep before any of them returns, so the call stack is O(n) extra memory.",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reverse_in_blocks",
+      "name": "reverse_in_blocks",
+      "time": "O(n)",
+      "memory": "The anchor and a few references are O(1) extra memory.",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reverse_in_pairs",
+      "name": "reverse_in_pairs",
+      "time": "O(n)",
+      "memory": "The anchor is one extra node: O(1) extra memory.",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "Reviewer.__repr__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.__init__",
+      "time": "O(1)",
+      "memory": "Three empty references: O(1) time and O(1) extra memory.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.__iter__",
+      "time": "O(n)",
+      "memory": "n reviewers take n steps: O(n) time, O(1) extra memory.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n names is O(n) time and O(n) extra memory.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.add_reviewer",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.current",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.current_name",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.reviewers",
+      "name": "ReviewersList.next_reviewer",
+      "time": "O(1)",
+      "memory": "O(1) time, O(1) extra memory, regardless of how many reviewers are in the circle.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.rotate",
+      "name": "rotate_right",
+      "time": "O(n)",
+      "memory": "No new node is allocated for the values: O(1) extra memory.",
+      "lessonSlug": "linked-list-reversal-and-relinking",
+      "lessonTitle": "Linked-list reversal and relinking"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.sort_list",
+      "name": "sort_list",
+      "time": "O(n)",
+      "memory": "The anchor and a few references are O(1) extra memory for the merge itself.",
+      "lessonSlug": "linked-list-merge-and-sort",
+      "lessonTitle": "Linked-list merge and sort"
+    },
+    {
+      "module": "bitsandbytes.linked_lists.split_circular",
+      "name": "split_circular",
+      "time": "O(n)",
+      "memory": "The second list object is O(1) extra memory; its nodes are the original ones.",
+      "lessonSlug": "linked-list-special-cases",
+      "lessonTitle": "Special linked-list cases"
+    },
+    {
+      "module": "bitsandbytes.patterns.arrays",
+      "name": "PrefixSum.__init__",
+      "time": "O(n)",
+      "memory": "O(n) time and memory.",
+      "lessonSlug": "two-pointers",
+      "lessonTitle": "Two-pointer patterns"
+    },
+    {
+      "module": "bitsandbytes.patterns.arrays",
+      "name": "PrefixSum.range_sum",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "two-pointers",
+      "lessonTitle": "Two-pointer patterns"
+    },
+    {
+      "module": "bitsandbytes.patterns.arrays",
+      "name": "longest_unique_substring_length",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "two-pointers",
+      "lessonTitle": "Two-pointer patterns"
+    },
+    {
+      "module": "bitsandbytes.patterns.arrays",
+      "name": "sliding_window_maximum",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "two-pointers",
+      "lessonTitle": "Two-pointer patterns"
+    },
+    {
+      "module": "bitsandbytes.patterns.arrays",
+      "name": "two_sum_sorted",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) memory.",
+      "lessonSlug": "two-pointers",
+      "lessonTitle": "Two-pointer patterns"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.__init__",
+      "time": "O(capacity)",
+      "memory": "Allocate a list of ``capacity`` slots: O(capacity) time and memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n items is O(n) time and O(n) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.dequeue",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.enqueue",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.is_empty",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.circular_queue",
+      "name": "CircularQueue.is_full",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.__init__",
+      "time": "O(1)",
+      "memory": "One empty doubly linked list: O(1) time and O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n items is O(n) time and O(n) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.dequeue",
+      "time": "O(1)",
+      "memory": "``remove_node`` on the head unlinks through ``head.next`` and ``head.prev``: O(1) time, O(1) extra memory.",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.enqueue",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.is_empty",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.queues.linked_queue",
+      "name": "LinkedQueue.peek",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "queue-and-deque-operations",
+      "lessonTitle": "Queue and deque operations"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "FenwickTree.__init__",
+      "time": "O(size)",
+      "memory": "O(size) memory.",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "FenwickTree.add",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "FenwickTree.prefix_sum",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "SegmentTree.__init__",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "SegmentTree.point_query",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "SegmentTree.range_add",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "SparseTable.__init__",
+      "time": "O(n log n)",
+      "memory": "O(n log n) time and memory.",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.range_queries.structures",
+      "name": "SparseTable.range_min",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "range-query-structures",
+      "lessonTitle": "Range-query structures"
+    },
+    {
+      "module": "bitsandbytes.search.binary_search",
+      "name": "binary_search",
+      "time": "O(log n)",
+      "memory": "A few integer indexes are stored: O(1) extra memory.",
+      "lessonSlug": "binary-search",
+      "lessonTitle": "Binary search"
+    },
+    {
+      "module": "bitsandbytes.search.binary_search",
+      "name": "binary_search_trace",
+      "time": "O(log n)",
+      "memory": "O(log n) extra memory for the frame list.",
+      "lessonSlug": "binary-search",
+      "lessonTitle": "Binary search"
+    },
+    {
+      "module": "bitsandbytes.search.binary_search",
+      "name": "lower_bound",
+      "time": "O(log n)",
+      "memory": "Same halving argument as ``binary_search``: O(log n) time, O(1) extra memory.",
+      "lessonSlug": "binary-search",
+      "lessonTitle": "Binary search"
+    },
+    {
+      "module": "bitsandbytes.search.binary_search",
+      "name": "upper_bound",
+      "time": "O(log n)",
+      "memory": "Still O(log n) time and O(1) extra memory.",
+      "lessonSlug": "binary-search",
+      "lessonTitle": "Binary search"
+    },
+    {
+      "module": "bitsandbytes.sorting.bubble_sort",
+      "name": "bubble_sort",
+      "time": "O(n\u00b2)",
+      "memory": "A few index variables are the only extra memory: O(1).",
+      "lessonSlug": "comparison-sorts",
+      "lessonTitle": "Comparison sorts"
+    },
+    {
+      "module": "bitsandbytes.sorting.insertion_sort",
+      "name": "insertion_sort",
+      "time": "O(n\u00b2)",
+      "memory": "The hole index and the key are O(1) extra memory.",
+      "lessonSlug": "comparison-sorts",
+      "lessonTitle": "Comparison sorts"
+    },
+    {
+      "module": "bitsandbytes.sorting.merge_sort",
+      "name": "merge_sort",
+      "time": "O(n log n)",
+      "memory": "Extra memory is O(n) for the halves, plus O(log n) for the call stack.",
+      "lessonSlug": "merge-sort",
+      "lessonTitle": "Merge sort"
+    },
+    {
+      "module": "bitsandbytes.sorting.quick_sort",
+      "name": "quick_sort",
+      "time": "O(n log n)",
+      "memory": "Extra memory is the recursion stack: expected O(log n), worst case O(n).",
+      "lessonSlug": "quicksort-and-partition",
+      "lessonTitle": "Quicksort and partition"
+    },
+    {
+      "module": "bitsandbytes.sorting.quick_sort",
+      "name": "quick_sort_three_way",
+      "time": "O(n)",
+      "memory": "Extra memory is the recursion stack: expected O(log n), worst O(n).",
+      "lessonSlug": "quicksort-and-partition",
+      "lessonTitle": "Quicksort and partition"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_and_radix",
+      "name": "binary_search_on_answer",
+      "time": "O(log(high - low))",
+      "memory": "not stated",
+      "lessonSlug": "binary-search-on-answer",
+      "lessonTitle": "Binary search on a feasible answer"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_and_radix",
+      "name": "comparison_sort_lower_bound",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "binary-search-on-answer",
+      "lessonTitle": "Binary search on a feasible answer"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_and_radix",
+      "name": "counting_sort",
+      "time": "O(n + maximum)",
+      "memory": "Count array length ``maximum + 1``: O(maximum) extra memory.",
+      "lessonSlug": "binary-search-on-answer",
+      "lessonTitle": "Binary search on a feasible answer"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_and_radix",
+      "name": "inversion_count",
+      "time": "O(n log n)",
+      "memory": "O(n log n) time, O(n) extra memory for the merge buffer.",
+      "lessonSlug": "binary-search-on-answer",
+      "lessonTitle": "Binary search on a feasible answer"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_and_radix",
+      "name": "lsd_radix_sort",
+      "time": "O(d \u00b7 (n + base))",
+      "memory": "Total O(d \u00b7 (n + base)) time and O(n + base) extra memory per pass.",
+      "lessonSlug": "binary-search-on-answer",
+      "lessonTitle": "Binary search on a feasible answer"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_and_radix",
+      "name": "lsd_radix_sort_strings",
+      "time": "O(d \u00b7 (n + 256))",
+      "memory": "not stated",
+      "lessonSlug": "binary-search-on-answer",
+      "lessonTitle": "Binary search on a feasible answer"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_and_radix",
+      "name": "quickselect",
+      "time": "O(n)",
+      "memory": "O(1) extra memory besides the input list indices.",
+      "lessonSlug": "binary-search-on-answer",
+      "lessonTitle": "Binary search on a feasible answer"
+    },
+    {
+      "module": "bitsandbytes.sorting.selection_sort",
+      "name": "selection_sort",
+      "time": "O(n\u00b2)",
+      "memory": "A handful of indexes is O(1) extra memory.",
+      "lessonSlug": "comparison-sorts",
+      "lessonTitle": "Comparison sorts"
+    },
+    {
+      "module": "bitsandbytes.stacks.infix_postfix",
+      "name": "evaluate_infix",
+      "time": "O(n)",
+      "memory": "The postfix list and the value stack are O(n) extra memory.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.infix_postfix",
+      "name": "evaluate_postfix",
+      "time": "O(t)",
+      "memory": "The value stack holds at most t integers: O(t) extra memory.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.infix_postfix",
+      "name": "infix_to_postfix",
+      "time": "O(n)",
+      "memory": "The operator stack and the output hold at most t tokens: O(n) extra memory.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.largest_rectangle",
+      "name": "largest_rectangle",
+      "time": "O(n)",
+      "memory": "The stack holds at most n indexes plus the sentinel: O(n) extra memory.",
+      "lessonSlug": "monotonic-stack-patterns",
+      "lessonTitle": "Monotonic stack patterns"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.__init__",
+      "time": "O(1)",
+      "memory": "Two empty stacks are allocated: O(1) time and O(1) extra memory.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n items is O(n) time and O(n) extra memory.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.minimum",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.peek",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.pop",
+      "time": "O(1)",
+      "memory": "Extra memory is O(1).",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.min_stack",
+      "name": "MinStack.push",
+      "time": "O(1)",
+      "memory": "Extra memory grows by one slot per push on the main stack and, for a non-increasing sequence, one slot per push on the minima stack as well.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.next_greater",
+      "name": "next_greater",
+      "time": "O(n)",
+      "memory": "The The stack holds at most n indexes: O(n) extra memory.",
+      "lessonSlug": "monotonic-stack-patterns",
+      "lessonTitle": "Monotonic stack patterns"
+    },
+    {
+      "module": "bitsandbytes.stacks.sort_stack",
+      "name": "sort_stack",
+      "time": "O(n\u00b2)",
+      "memory": "The extra stack holds every item by the end of the first loop, so extra memory is O(n).",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.__init__",
+      "time": "O(1)",
+      "memory": "Allocating an empty list and storing ``limit`` is O(1) time and O(1) extra memory.",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.__repr__",
+      "time": "O(n)",
+      "memory": "Time and extra memory are O(n).",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.is_empty",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.is_full",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.peek",
+      "time": "O(1)",
+      "memory": "O(1) time, O(1) extra memory.",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.pop",
+      "time": "O(1)",
+      "memory": "Extra memory is O(1).",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stack",
+      "name": "Stack.push",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "stack-basics",
+      "lessonTitle": "Stack basics"
+    },
+    {
+      "module": "bitsandbytes.stacks.stock_span",
+      "name": "stock_spans",
+      "time": "O(n)",
+      "memory": "The stack holds at most n indexes: O(n) extra memory besides the result list.",
+      "lessonSlug": "monotonic-stack-patterns",
+      "lessonTitle": "Monotonic stack patterns"
+    },
+    {
+      "module": "bitsandbytes.stacks.symbol_balance",
+      "name": "symbols_are_balanced",
+      "time": "O(1)",
+      "memory": "The stack holds only unmatched openers, at most n of them, so extra memory is O(n) in the worst case (a string of only openers) and O(1) when brackets stay matched along the way.",
+      "lessonSlug": "stack-parsing-and-expressions",
+      "lessonTitle": "Stack parsing and expressions"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "BTree.insert",
+      "time": "O(log n)",
+      "memory": "O(1) extra memory besides the new node.",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "BTree.search",
+      "time": "O(log n)",
+      "memory": "O(1) extra memory besides the call stack, which is O(log n).",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "ToyLSM.maybe_contains",
+      "time": "O(log m + r)",
+      "memory": "O(1) extra memory.",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "ToyLSM.put",
+      "time": "O(log m)",
+      "memory": "not stated",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "WriteAheadLog.append",
+      "time": "O(1)",
+      "memory": "O(1) extra memory for the new entry.",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "WriteAheadLog.replay",
+      "time": "O(n log m)",
+      "memory": "O(1) extra memory besides the tree.",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "locality_scan_benchmark",
+      "time": "O(repeats \u00b7 n)",
+      "memory": "not stated",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "nearest_neighbor_linear",
+      "time": "O(nd)",
+      "memory": "not stated",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.storage.engines",
+      "name": "sequential_scan_sum",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "storage-engines-and-locality",
+      "lessonTitle": "Storage engines and locality"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "InvertedIndex.add_document",
+      "time": "O(total tokens)",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "InvertedIndex.query",
+      "time": "O(length of posting list)",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "Trie.__init__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "Trie.contains",
+      "time": "O(len(key))",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "Trie.insert",
+      "time": "O(len(key))",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "kmp_search",
+      "time": "O(n + m)",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "rabin_karp_search",
+      "time": "O(n + m)",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "run_length_encode",
+      "time": "O(n)",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.strings.algorithms",
+      "name": "suffix_array_with_lcp",
+      "time": "O(n log\u00b2 n)",
+      "memory": "not stated",
+      "lessonSlug": "string-search",
+      "lessonTitle": "String search algorithms"
+    },
+    {
+      "module": "bitsandbytes.tools.print_directory",
+      "name": "format_tree",
+      "time": "O(e)",
+      "memory": "The returned string is the output, so extra memory is O(e).",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.tools.print_directory",
+      "name": "main",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "appendix-python-tools",
+      "lessonTitle": "Appendix: Python tools"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory besides the walk.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.__init__",
+      "time": "O(1)",
+      "memory": "O(1) time and O(1) extra memory.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(h) extra memory.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.__len__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(h) extra memory.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n keys is O(n) time and O(n) extra memory.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.contains",
+      "time": "O(h)",
+      "memory": "Same walk as ``insert`` without creating nodes: O(h) time, O(1) extra memory iteratively.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.delete",
+      "time": "O(h)",
+      "memory": "Total O(h) time, O(1) extra memory iteratively.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.inorder",
+      "time": "O(n)",
+      "memory": "Each node is pushed and popped once on the stack: O(n) time, O(h) extra memory for the stack where h is the height.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.inorder_iter",
+      "time": "O(n)",
+      "memory": "The stack holds at most h nodes: O(h) extra memory.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.bst",
+      "name": "BinarySearchTree.insert",
+      "time": "O(h)",
+      "memory": "h levels take h steps: O(h) time and O(1) extra memory.",
+      "lessonSlug": "binary-search-tree-operations",
+      "lessonTitle": "Binary search tree operations"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.__contains__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(1) extra memory.",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.__init__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.__iter__",
+      "time": "O(n)",
+      "memory": "O(n) time, O(n) extra memory for the list.",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.__len__",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.__repr__",
+      "time": "O(n)",
+      "memory": "Formatting n keys is O(n) time and O(n) extra memory.",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.contains",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.delete",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.inorder",
+      "time": "O(n)",
+      "memory": "O(n) time, O(n) output memory.",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.insert",
+      "time": "O(log n)",
+      "memory": "Total O(log n) time, O(log n) call-stack memory recursively (O(1) if rewritten iteratively).",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.rank",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.llrb",
+      "name": "LeftLeaningRedBlackTree.select",
+      "time": "O(log n)",
+      "memory": "not stated",
+      "lessonSlug": "balanced-search-trees",
+      "lessonTitle": "Balanced search trees"
+    },
+    {
+      "module": "bitsandbytes.trees.traversals",
+      "name": "inorder_iter",
+      "time": "O(n)",
+      "memory": "O(n) time, O(h) extra memory.",
+      "lessonSlug": "tree-traversals",
+      "lessonTitle": "Tree traversals"
+    },
+    {
+      "module": "bitsandbytes.trees.traversals",
+      "name": "level_order",
+      "time": "O(n)",
+      "memory": "The queue holds at most one frontier: O(n) extra memory in the worst case (complete last level).",
+      "lessonSlug": "tree-traversals",
+      "lessonTitle": "Tree traversals"
+    },
+    {
+      "module": "bitsandbytes.trees.traversals",
+      "name": "map_inorder",
+      "time": "O(n)",
+      "memory": "Same as ``BinarySearchTree.inorder_iter``: O(n) time, O(h) stack memory.",
+      "lessonSlug": "tree-traversals",
+      "lessonTitle": "Tree traversals"
+    },
+    {
+      "module": "bitsandbytes.trees.traversals",
+      "name": "postorder",
+      "time": "O(n)",
+      "memory": "Two passes with a stack, still O(n) time and O(h) extra memory.",
+      "lessonSlug": "tree-traversals",
+      "lessonTitle": "Tree traversals"
+    },
+    {
+      "module": "bitsandbytes.trees.traversals",
+      "name": "preorder",
+      "time": "O(n)",
+      "memory": "Each node is pushed and popped once on the stack: O(n) time, O(h) extra memory for height h (O(n) if the tree is a chain).",
+      "lessonSlug": "tree-traversals",
+      "lessonTitle": "Tree traversals"
+    },
+    {
+      "module": "bitsandbytes.union_find.disjoint_set",
+      "name": "DisjointSet.__init__",
+      "time": "O(size)",
+      "memory": "O(size) time and memory to fill parent (and rank) arrays.",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.disjoint_set",
+      "name": "DisjointSet.connected",
+      "time": "Two ``find`` calls",
+      "memory": "not stated",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.disjoint_set",
+      "name": "DisjointSet.find",
+      "time": "O(n)",
+      "memory": "Extra memory O(1) besides the arrays.",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.disjoint_set",
+      "name": "DisjointSet.union",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.percolation",
+      "name": "Percolation.__init__",
+      "time": "O(size\u00b2)",
+      "memory": "O(size\u00b2) sites plus one virtual node: O(size\u00b2) memory.",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.percolation",
+      "name": "Percolation.is_open",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.percolation",
+      "name": "Percolation.open",
+      "time": "O(\u03b1(n\u00b2))",
+      "memory": "O(1) extra memory per call.",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.percolation",
+      "name": "Percolation.open_site_count",
+      "time": "O(1)",
+      "memory": "not stated",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    },
+    {
+      "module": "bitsandbytes.union_find.percolation",
+      "name": "Percolation.percolates",
+      "time": "O(size \u00b7 \u03b1(size\u00b2))",
+      "memory": "not stated",
+      "lessonSlug": "union-find",
+      "lessonTitle": "Union-find"
+    }
+  ]
+}
