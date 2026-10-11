@@ -2465,6 +2465,35 @@ a.button-primary {
     display: none;
   }
 
+  .curriculum-stages:not(.is-searching) .lesson-index-main > p,
+  .curriculum-stages:not(.is-searching) .lesson-outcomes,
+  .curriculum-stages:not(.is-searching) .prerequisite-line,
+  .curriculum-stages:not(.is-searching) .lesson-index-metadata,
+  .chapter-grid .curriculum-stage-heading p {
+    display: none;
+  }
+
+  .chapter-grid .lesson-index-title-line a {
+    min-height: 44px;
+  }
+
+  .browse-section {
+    margin-top: 0.75rem;
+  }
+
+  .home-page {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .stage-more {
+    margin-top: 0.15rem;
+  }
+
+  .chapter-grid .curriculum-stage {
+    padding-bottom: 0.25rem;
+  }
+
   .stage-more {
     display: inline-flex;
     align-items: center;

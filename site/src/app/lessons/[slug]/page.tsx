@@ -289,21 +289,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <span>About {lesson.estimatedMinutes} min</span>
         </div>
 
-        {hasWorkshopBench && (
-          <div className="workshop-bench">
-            <div className="workshop-trace">
-              {sourceExcerpt ? (
-                <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />
-              ) : (
-                <TraceBench lessonSlug={lesson.slug} scenarios={genericTrace} />
-              )}
-            </div>
-            <div className="workshop-check">
-              <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />
-            </div>
-          </div>
-        )}
-
         <div className="reading-card">
         {lessonContext}
 
@@ -350,6 +335,21 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <LessonSequence previous={lesson.previous} next={lesson.next} />
         <LessonSequence previous={lesson.previous} next={lesson.next} sticky />
         </div>
+
+        {hasWorkshopBench && (
+          <div className="workshop-bench">
+            <div className="workshop-trace">
+              {sourceExcerpt ? (
+                <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />
+              ) : (
+                <TraceBench lessonSlug={lesson.slug} scenarios={genericTrace} />
+              )}
+            </div>
+            <div className="workshop-check">
+              <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
