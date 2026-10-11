@@ -14,10 +14,8 @@ A disjoint-set forest tracks which items are in the same set. Each item stores a
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Singletons | parent = [0, 1, 2] | Each item is its own parent. |
-| Union 0 and 1 | parent = [0, 0, 2] | find(1) is 1. Its parent becomes 0. |
-| Union 1 and 2 | parent = [0, 0, 0] | find(1) walks to 0. 2's parent becomes 0. |
-| find(2) | root = 0 | 2's parent is already 0, so the walk is one hop and 0 equals find(0). |
+| Link | parents = [0, 0, 2] | 1 now points at 0. |
+| Link | parents = [0, 0, 0] | 2 now points at 0. |
 
 ## Why it is correct
 

@@ -14,10 +14,14 @@ Breadth-first search uses a queue. Depth-first search uses a stack, or the call 
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Start | queue = [A], order = [] | A is queued and marked visited before the loop. |
-| Visit A | queue = [B, C], order = [A] | Dequeue A. Enqueue B and C. |
-| Visit B | queue = [C, D], order = [A, B] | Dequeue B. Enqueue D. |
-| Visit C and D | order = [A, B, C, D] | C has no new neighbor. D is last. |
+| enqueue | vertex = A | enqueue A. |
+| dequeue | vertex = A | dequeue A. |
+| enqueue | vertex = B | enqueue B. |
+| enqueue | vertex = C | enqueue C. |
+| dequeue | vertex = B | dequeue B. |
+| enqueue | vertex = D | enqueue D. |
+| dequeue | vertex = C | dequeue C. |
+| dequeue | vertex = D | dequeue D. |
 
 ## Why it is correct
 

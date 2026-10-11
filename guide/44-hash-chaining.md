@@ -14,10 +14,8 @@ Separate chaining stores a list of key-value pairs in each bucket. The hash of t
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Empty | size = 0 | Four buckets, no pairs. |
-| Insert 0 | size = 1 | The pair (0, 1) is the only item in bucket 0. |
-| Insert 4 | size = 2 | 4 hashes to bucket 0 and is appended. |
-| Lookup 0 | found = 1 | The scan sees 0 first and returns 1. |
+| Bucket | index = 0 | Key 0 joined bucket 0. |
+| Bucket | index = 0 | Key 4 joined bucket 0. |
 
 ## Why it is correct
 

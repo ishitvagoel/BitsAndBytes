@@ -14,10 +14,7 @@ Name the input size before you count work. For one list, n is the number of item
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Start | checks = 0, n = 4 | Nothing has been compared. n is 4. |
-| Outer 0 | checks = 3, outer = 0 | Index 0 pairs with the three items to its right. |
-| Outer 1 | checks = 5, outer = 1 | Index 1 pairs with two items to its right. The total is 5. |
-| Outer 2 | checks = 6, outer = 2 | Index 2 pairs with one item. The total is 6, which is 4 * 3 / 2. |
+| Example | n = 3 | The lesson counts this input. |
 
 ## Why it is correct
 

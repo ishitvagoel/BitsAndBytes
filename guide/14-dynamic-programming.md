@@ -14,10 +14,12 @@ Dynamic programming applies when a problem repeats smaller versions of itself an
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Base | n = 1, value = 1 | F(0) and F(1) are given. |
-| Through F(3) | n = 3, value = 2 | 1 + 1 = 2, and that cell is F(3). |
-| Through F(5) | n = 5, value = 5 | 2 + 3 = 5. |
-| F(6) | n = 6, value = 8 | 3 + 5 = 8. |
+| Start | previous = 0, current = 1 | F(0) and F(1) are the two running values. |
+| F(2) | current = 1 | The next value is the sum of the two previous values. |
+| F(3) | current = 2 | The next value is the sum of the two previous values. |
+| F(4) | current = 3 | The next value is the sum of the two previous values. |
+| F(5) | current = 5 | The next value is the sum of the two previous values. |
+| F(6) | current = 8 | The next value is the sum of the two previous values. |
 
 ## Why it is correct
 

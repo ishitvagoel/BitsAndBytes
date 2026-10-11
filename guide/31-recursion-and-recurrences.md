@@ -14,10 +14,7 @@ A recurrence describes a function that calls itself. The one you will meet in me
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Level 0 | size = 8, level = 0 | The root call holds all 8 items. |
-| Level 1 | size = 4, level = 1 | One child holds 4 items. The other child is the same size. |
-| Level 2 | size = 2, level = 2 | The next call holds 2 items. |
-| Level 3 | size = 1, level = 3 | The leaf holds 1 item. log2(8) is 3. |
+| Example | n = 3 | The lesson counts this input. |
 
 ## Why it is correct
 

@@ -14,9 +14,7 @@ A comparison sort decides order only by asking whether one key is less than anot
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Start | prefix = [3] | The prefix of length 1 is [3]. |
-| Insert 1 | prefix = [1, 3] | 1 moves in front of 3. The prefix is [1, 3]. |
-| Insert 2 | prefix = [1, 2, 3] | 2 sits between 1 and 3. The list is sorted. |
+| Sorted | result = [1, 2, 3] | insertion_sort returns the sorted list. |
 
 ## Why it is correct
 

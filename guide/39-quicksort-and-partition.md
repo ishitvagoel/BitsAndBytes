@@ -14,10 +14,9 @@ Quicksort picks a pivot, partitions the range so every value before the pivot is
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Pivot at end | pivot = 2, boundary = 0 | 2 is the pivot. The boundary starts at 0. |
-| See 3 | boundary = 0 | 3 > 2, so the boundary stays 0. |
-| See 1 | boundary = 1 | 1 ≤ 2. Swap it with the boundary and advance. |
-| Place pivot | pivot index = 1 | 4 > 2, so it stays. Swap the pivot into index 1. |
+| pivot | array = [3, 1, 4, 2] | The pivot step recorded 2. |
+| swap | array = [1, 3, 4, 2] | The pivot step recorded 1. |
+| pivot | array = [1, 2, 4, 3] | The pivot step recorded 3. |
 
 ## Why it is correct
 

@@ -14,10 +14,10 @@ A stack is a last-in, first-out sequence. push adds an item at the top. pop remo
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Push 1 | size = 1, top = 1 | The stack holds one item. Size is 1. |
-| Push 2 | size = 2, top = 2 | 2 is the new top. 1 stays underneath. |
-| Push 3 | size = 3, top = 3 | 3 is the top. The push order was 1, 2, 3. |
-| Pop, pop | size = 1, returned = 2 | The first pop returns 3. The second pop returns 2. 1 remains. |
+| Push | top = 1 | Pushed 1. |
+| Push | top = 2 | Pushed 2. |
+| Push | top = 3 | Pushed 3. |
+| Pop | top = 2 | The first pop returns 3. |
 
 ## Why it is correct
 

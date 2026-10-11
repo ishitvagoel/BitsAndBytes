@@ -14,9 +14,7 @@ A loop invariant is a statement that is true before the loop and after every ite
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Before insert | prefix = [3], key = 1 | The prefix [3] is sorted. 1 is the next key. |
-| Shift | hole = 0, key = 1 | 3 moves right because it is greater than 1. The hole is at index 0. |
-| Place | prefix = [1, 3], i = 1 | 1 drops into the hole. The prefix of length 2 is sorted. |
+| Example | n = 3 | The lesson counts this input. |
 
 ## Why it is correct
 

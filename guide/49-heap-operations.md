@@ -14,10 +14,8 @@ A binary heap stores a complete tree in an array. For a max-heap, every parent i
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Before | root = 3 | The array is not a heap. Index 1 holds 1, and its child at index 3 holds 2. |
-| Sift index 1 | array = [3, 2, 4, 1] | 1 is smaller than its child 2, so those values swap. |
-| Sift index 0 | root = 4 | 3 is smaller than its child 4, so 4 becomes the root and the array is [4, 2, 3, 1]. |
-| After heapsort | order = ascending | Repeated extraction leaves the array sorted. The library returns [1, 2, 3, 4]. |
+| Sift 1 | heap = [3, 2, 4, 1] | Sift-down restored the parent. |
+| Sift 0 | heap = [4, 2, 3, 1] | Sift-down restored the parent. |
 
 ## Why it is correct
 

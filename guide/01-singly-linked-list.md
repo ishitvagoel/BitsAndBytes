@@ -14,10 +14,7 @@ A singly linked list stores each value in a node whose next reference points at 
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Empty | size = 0 | Head and tail are empty. Size is 0. |
-| Append a | size = 1, tail = a | The only node is both head and tail. |
-| Append b | size = 2, tail = b | The old tail's next becomes b, and the tail pointer moves. Head stays a. |
-| Find index 1 | steps = 1 | The search starts at the head and follows one link. |
+| Example | n = 3 | The lesson counts this input. |
 
 ## Why it is correct
 

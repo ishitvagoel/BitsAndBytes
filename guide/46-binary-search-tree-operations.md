@@ -14,10 +14,10 @@ A binary search tree node holds a key, a left child, and a right child. Every ke
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Insert 4 | root = 4 | The tree was empty. 4 becomes the root. |
-| Insert 2 | parent = 4, side = left | 2 < 4, and the left child is empty. |
-| Insert 6 | parent = 4, side = right | 6 > 4, and the right child is empty. |
-| Insert 1 | parent = 2, side = left | 1 < 4 and 1 < 2. It becomes the left child of 2. |
+| root | parent = None | 4 becomes the root child. |
+| left | parent = 4 | 2 becomes the left child. |
+| right | parent = 4 | 6 becomes the right child. |
+| left | parent = 2 | 1 becomes the left child. |
 
 ## Why it is correct
 

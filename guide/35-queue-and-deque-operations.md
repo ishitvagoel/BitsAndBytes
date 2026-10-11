@@ -14,10 +14,10 @@ A queue is first-in, first-out. enqueue adds at the back and dequeue removes fro
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Enqueue a | front = a, size = 1 | a is both front and back. |
-| Enqueue b | front = a, size = 2 | b joins the back. a stays at the front. |
-| Enqueue c | front = a, size = 3 | c joins the back. |
-| Dequeue twice | returned = b, front = c | The first dequeue returns a. The second returns b. c remains. |
+| Enqueue | front = a | Enqueued a. |
+| Enqueue | front = a | Enqueued b. |
+| Enqueue | front = a | Enqueued c. |
+| Dequeue | front = b | The first dequeue returns a. |
 
 ## Why it is correct
 

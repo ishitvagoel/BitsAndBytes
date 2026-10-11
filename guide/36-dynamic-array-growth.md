@@ -14,9 +14,8 @@ A dynamic array stores items in a contiguous block and remembers a length and a 
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Append a | length = 1, capacity = 1, copies = 0 | Length 1, capacity 1. No copy. |
-| Append b | length = 2, capacity = 2, copies = 1 | The array is full, so it doubles to 2 and copies a, then writes b. |
-| Append c | length = 3, capacity = 4, copies = 3 | The array is full again. It doubles to 4 and copies a and b, then writes c. |
+| Resize | capacity = 2 | The grow copied 1 references. |
+| Resize | capacity = 4 | The grow copied 2 references. |
 
 ## Why it is correct
 

@@ -14,9 +14,7 @@ A Python list is a dynamic array of references. Indexing list[i] is Θ(1) becaus
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Before | length = 3 | b and c sit after a. |
-| Shift | copies = 2 | b moves to index 0 and c moves to index 1. |
-| After | length = 2 | The length is 2. One removal copied n - 1 references. |
+| Example | n = 3 | The lesson counts this input. |
 
 ## Why it is correct
 

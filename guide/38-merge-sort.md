@@ -14,11 +14,17 @@ Merge sort splits the list in half, sorts each half, and merges the two sorted r
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Split | left = [3, 1], right = [4, 2] | The midpoint is 2. The halves are [3, 1] and [4, 2]. |
-| Sort halves | left = [1, 3], right = [2, 4] | Each half of length 2 is sorted. The runs are [1, 3] and [2, 4]. |
-| Take 1 | output = [1] | Fronts are 1 and 2. Take 1. |
-| Take 2 | output = [1, 2] | Fronts are 3 and 2. Take 2. |
-| Take 3 and 4 | output = [1, 2, 3, 4] | 3 leaves, then 4. The merged list is sorted. |
+| Split | left = [3, 1], right = [4, 2] | The midpoint splits this run. |
+| Split | left = [3], right = [1] | The midpoint splits this run. |
+| Take 1 | output = [1] | The merge takes the smaller front. |
+| Take 3 | output = [1, 3] | The merge takes the smaller front. |
+| Split | left = [4], right = [2] | The midpoint splits this run. |
+| Take 2 | output = [2] | The merge takes the smaller front. |
+| Take 4 | output = [2, 4] | The merge takes the smaller front. |
+| Take 1 | output = [1] | The merge takes the smaller front. |
+| Take 2 | output = [1, 2] | The merge takes the smaller front. |
+| Take 3 | output = [1, 2, 3] | The merge takes the smaller front. |
+| Take 4 | output = [1, 2, 3, 4] | The merge takes the smaller front. |
 
 ## Why it is correct
 
