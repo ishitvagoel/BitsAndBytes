@@ -18,7 +18,7 @@ Backtracking searches a tree of choices. You choose, recurse, and undo so the ne
 
 ## Why it is correct
 
-The state invariant is that the pool, or the board, matches the choices on the path from the root to the current call, and nothing else. Choose extends that path. Recurse searches below it. Undo returns to the parent path. A leaf is a complete choice, and it is recorded before the undo. Every permutation appears once because each item is chosen into each position from the items not yet used. The search tree is exhaustive unless a prune deletes a branch. A prune is correct only when every leaf under that branch would fail the same test.
+The state invariant is that the pool, or the board. Matches the choices on the path from the root to the current call, and nothing else. Choose extends that path. Recurse searches below it. Undo returns to the parent path. A leaf is a complete choice, and it is recorded before the undo. Every permutation appears once because each item is chosen into each position from the items not yet used. The search tree is exhaustive unless a prune deletes a branch. A prune is correct only when every leaf under that branch would fail the same test.
 
 ## What it costs
 
@@ -34,4 +34,4 @@ print(len(permutations([1, 2, 3])))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Greedy methods. The checkpoint stays in this browser.

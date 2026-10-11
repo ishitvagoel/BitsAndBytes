@@ -35,4 +35,4 @@ print(evaluate_infix('2+3*4'))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Queue and deque operations. The checkpoint stays in this browser.

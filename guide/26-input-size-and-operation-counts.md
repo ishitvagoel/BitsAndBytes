@@ -22,7 +22,7 @@ The count is correct because every pair of indexes i < j is visited once. Index 
 
 ## What it costs
 
-The pair scan does n(n - 1) / 2 comparisons, which grows like n squared. Memory besides the input is a handful of indexes, a constant amount of extra memory. If the inner loop ran over the whole list instead of only the right side, the count would be n times n, which is the same growth with a different constant.
+The pair scan does n(n - 1) / 2 comparisons, which grows like n squared. Memory besides the input is a handful of indexes, a constant amount of extra memory. If the inner loop ran over the whole list instead of only the right side. The count would be n times n, which is the same growth with a different constant.
 
 ## Run it
 
@@ -34,4 +34,4 @@ print(n * (n - 1) // 2)
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Asymptotic growth. The checkpoint stays in this browser.

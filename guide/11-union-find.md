@@ -23,7 +23,7 @@ find returns the same root for two items exactly when they are in the same tree.
 
 ## What it costs
 
-Without the heuristics, find is Θ(n) in the worst case on a chain of n items. With union by rank and path compression, the amortized cost of a find is the inverse of the Ackermann function, which is effectively constant for every practical n. Extra memory is the parent array, Θ(n), and a rank array when the heuristic is on. Kruskal's algorithm uses this to skip an edge whose ends are already connected.
+Without the heuristics, find is Θ(n) in the worst case on a chain of n items. With union by rank and path compression. The amortized cost of a find is the inverse of the Ackermann function, which is effectively constant for every practical n. Extra memory is the parent array, Θ(n), and a rank array when the heuristic is on. Kruskal's algorithm uses this to skip an edge whose ends are already connected.
 
 ## Run it
 
@@ -38,4 +38,4 @@ print(sets.find(2))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Minimum spanning trees. The checkpoint stays in this browser.

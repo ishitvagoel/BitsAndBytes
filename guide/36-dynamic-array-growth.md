@@ -19,7 +19,7 @@ A dynamic array stores items in a contiguous block and remembers a length and a 
 
 ## Why it is correct
 
-Each resize copies every item that is already stored, because the new block is a different region of memory. Doubling is what makes the total copy count linear. The copy sizes are 1 + 2 + 4 + ... + n/2, which is less than n. Every item is copied once per doubling that happens after it was appended, and an item appended when the length is about n/2 is copied only once more before the length reaches n. Charging each append a constant amount covers all of those copies. That charge is the amortized bound.
+Each resize copies every item that is already stored, because the new block is a different region of memory. Doubling is what makes the total copy count linear. The copy sizes are 1 + 2 + 4 + ... + n/2, which is less than n. Every item is copied once per doubling that happens after it was appended, and an item appended. When the length is about n/2 is copied only once more before the length reaches n. Charging each append a constant amount covers all of those copies. That charge is the amortized bound.
 
 ## What it costs
 
@@ -36,4 +36,4 @@ print(array.total_copy_cost_for_appends(3))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Recursion and recurrences. The checkpoint stays in this browser.

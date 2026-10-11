@@ -35,4 +35,4 @@ print(quickselect([3, 1, 4, 2], 0))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Inversion counting. The checkpoint stays in this browser.

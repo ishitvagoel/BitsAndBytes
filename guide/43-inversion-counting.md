@@ -8,7 +8,7 @@ module: bitsandbytes.sorting.selection_and_radix
 
 ## The idea
 
-An inversion is a pair of indexes i < j whose values are out of order, value i greater than value j. inversion_count on 3, 1, 4, 2 returns 3. The pairs are 3 before 1, 3 before 2, and 4 before 2. A sorted array has zero inversions. A reversed array has one inversion per pair. The library counts them while it merges, the same split merge sort uses. Inside one sorted run there are no new inversions. Every inversion that still matters has one endpoint in the left run and one in the right run. When the merge takes from the right run while the left run still has a smaller-index key waiting, that left key and every key still in the left run form inversions with the key just taken.
+An inversion is a pair of indexes i < j whose values are out of order, value i greater than value j. inversion_count on 3, 1, 4, 2 returns 3. The pairs are 3 before 1, 3 before 2, and 4 before 2. A sorted array has zero inversions. A reversed array has one inversion per pair. The library counts them while it merges, the same split merge sort uses. Inside one sorted run there are no new inversions. Every inversion that still matters has one endpoint in the left run and one in the right run. When the merge takes from the right run while the left run still has a smaller-index key waiting. That left key and every key still in the left run form inversions with the key just taken.
 
 ## A worked trace
 
@@ -34,4 +34,4 @@ print(inversion_count([3, 1, 4, 2]))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Hash tables with chaining. The checkpoint stays in this browser.

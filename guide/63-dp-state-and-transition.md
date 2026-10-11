@@ -34,4 +34,4 @@ print(min_coin_change([1, 3, 4], 6))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open String search algorithms. The checkpoint stays in this browser.

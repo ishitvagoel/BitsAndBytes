@@ -18,7 +18,7 @@ A comparison sort decides order only by asking whether one key is less than anot
 
 ## Why it is correct
 
-The insertion invariant is the sorted prefix from the loop-invariants lesson. After inserting 1, every item in the prefix is in order and every item outside it is still untouched. The next step considers 2 only against that prefix. Selection sort's invariant is different. The prefix holds the smallest items so far, in order, and the algorithm does not promise stability, because a swap can move an equal key from the suffix in front of an equal key in the prefix. Knowing which invariant you have tells you which bugs are possible.
+The insertion invariant is the sorted prefix from the loop-invariants lesson. After inserting 1, every item in the prefix is in order and every item outside it is still untouched. The next step considers 2 only against that prefix. Selection sort's invariant is different. The prefix holds the smallest items so far, in order, and the algorithm does not promise stability. Because a swap can move an equal key from the suffix in front of an equal key in the prefix. Knowing which invariant you have tells you which bugs are possible.
 
 ## What it costs
 
@@ -36,4 +36,4 @@ print(insertion_sort([3, 1, 2]))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Merge sort. The checkpoint stays in this browser.

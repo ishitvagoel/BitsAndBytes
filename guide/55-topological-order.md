@@ -8,7 +8,7 @@ module: bitsandbytes.graphs.algorithms
 
 ## The idea
 
-A topological order is a list of the vertices of a directed graph such that every edge points forward in the list. topological_order on edges A to B, A to C, B to D, and C to D returns A, B, C, D. Kahn's algorithm computes an indegree for each vertex. It starts a queue with every vertex whose indegree is zero. A is the only such vertex here. When a vertex leaves the queue, each outgoing edge reduces a neighbor's indegree. A neighbor enters the queue when its indegree hits zero. B and C both become ready after A, and D waits until both of its incoming edges have been counted. has_directed_cycle on this graph is false. On a two-cycle from A to B and back, it is true, and topological_order raises ValueError because the queue runs dry before every vertex has been emitted.
+A topological order is a list of the vertices of a directed graph such that every edge points forward in the list. topological_order on edges A to B, A to C, B to D, and C to D returns A, B, C, D. Kahn's algorithm computes an indegree for each vertex. It starts a queue with every vertex whose indegree is zero. A is the only such vertex here. When a vertex leaves the queue, each outgoing edge reduces a neighbor's indegree. A neighbor enters the queue when its indegree hits zero. B and C both become ready after A, and D waits until both of its incoming edges have been counted. has_directed_cycle on this graph is false. On a two-cycle from A to B and back, it is true, and topological_order raises ValueError. Because the queue runs dry before every vertex has been emitted.
 
 ## A worked trace
 
@@ -40,4 +40,4 @@ print(topological_order(graph))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Shortest paths. The checkpoint stays in this browser.

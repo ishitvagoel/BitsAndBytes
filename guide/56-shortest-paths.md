@@ -8,7 +8,7 @@ module: bitsandbytes.graphs.algorithms
 
 ## The idea
 
-The shortest-path algorithm you want depends on the weights. Unweighted edges can use breadth-first search, because the fewest edges is the shortest path. Non-negative weights can use Dijkstra. Negative weights need Bellman-Ford, which also reports a negative cycle if you ask it to keep relaxing. On edges A to B weight 1, A to C weight 4, and B to C weight 2, dijkstra_distances_heap from A gives C the distance 3. The direct edge is not the best path. Relaxation is the step that discovers this. When B's distance is final, the edge B to C offers 1 + 2, which beats 4. bellman_ford_distances on A to B weight 1 and B to C weight -2 gives C the distance -1. Dijkstra is not the right call once a weight can be negative. zero_one_bfs_distances on a path of two weight-1 edges gives C the distance 2. floyd_warshall on that path also gives A to C the distance 2, and it fills every pair. is_bipartite is true on the path and false on a directed triangle, which is an odd cycle. kosaraju_strongly_connected_components on that triangle returns one component containing A, C, and B.
+The shortest-path algorithm you want depends on the weights. Unweighted edges can use breadth-first search, because the fewest edges is the shortest path. Non-negative weights can use Dijkstra. Negative weights need Bellman-Ford, which also reports a negative cycle if you ask it to keep relaxing. On edges A to B weight 1, A to C weight 4, and B to C weight 2. Dijkstra_distances_heap from A gives C the distance 3. The direct edge is not the best path. Relaxation is the step that discovers this. When B's distance is final, the edge B to C offers 1 + 2, which beats 4. bellman_ford_distances on A to B weight 1 and B to C weight -2 gives C the distance -1. Dijkstra is not the right call once a weight can be negative. zero_one_bfs_distances on a path of two weight-1 edges gives C the distance 2. floyd_warshall on that path also gives A to C the distance 2, and it fills every pair. is_bipartite is true on the path and false on a directed triangle, which is an odd cycle. kosaraju_strongly_connected_components on that triangle returns one component containing A, C, and B.
 
 ## A worked trace
 
@@ -39,4 +39,4 @@ print(dijkstra_distances_heap(graph, 'A')['C'])
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Union-find. The checkpoint stays in this browser.

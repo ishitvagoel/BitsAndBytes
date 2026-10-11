@@ -22,7 +22,7 @@ Trie lookup is correct because each step consumes one character and the path is 
 
 ## What it costs
 
-Inserting or looking up a key in the trie is proportional to the key length, not to the number of stored keys, unless you are scanning children linearly. The trie memory is proportional to the number of distinct prefixes. Building a suffix array by sorting suffixes naively is more expensive than one query, and the array itself is linear in the text length. Include that build when you compare a trie with a scan of the raw text. A query-only bound hides the index.
+Inserting or looking up a key in the trie is proportional to the key length. Not to the number of stored keys, unless you are scanning children linearly. The trie memory is proportional to the number of distinct prefixes. Building a suffix array by sorting suffixes naively is more expensive than one query, and the array itself is linear in the text length. Include that build when you compare a trie with a scan of the raw text. A query-only bound hides the index.
 
 ## Run it
 
@@ -37,4 +37,4 @@ print(trie.contains('car'), trie.contains('ca'))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Range-query structures. The checkpoint stays in this browser.

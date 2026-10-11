@@ -37,4 +37,4 @@ print(chain.remove_node(first))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Stack basics. The checkpoint stays in this browser.

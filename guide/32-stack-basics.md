@@ -25,7 +25,7 @@ Each push writes one reference at the end of the list, which is the top. Each po
 
 ## What it costs
 
-push and pop at the end of a list are amortized Θ(1), and on this bounded stack they are Θ(1) because the list does not need to grow past the items you actually pushed within the limit. Extra memory is Θ(n) for n stored items. A stack does not offer Θ(1) access to the bottom. If you need the other end, use a queue.
+push and pop at the end of a list are amortized Θ(1). On this bounded stack they are Θ(1) because the list does not need to grow past the items you actually pushed within the limit. Extra memory is Θ(n) for n stored items. A stack does not offer Θ(1) access to the bottom. If you need the other end, use a queue.
 
 ## Run it
 
@@ -41,4 +41,4 @@ print(stack.pop(), stack.pop())
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Monotonic stack patterns. The checkpoint stays in this browser.

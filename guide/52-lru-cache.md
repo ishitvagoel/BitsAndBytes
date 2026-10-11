@@ -22,7 +22,7 @@ The recency order is the list order. Moving a node to the front is a constant-ti
 
 ## What it costs
 
-get and put are expected constant time. The dictionary lookup is expected constant time and the list edit is constant time. A cache that scanned a singly linked list of k nodes would pay linear time in the capacity on every eviction. Extra memory is one dictionary entry and one node per live key, so it is proportional to the capacity, not to the history of every key you have ever seen. Name both structures when you explain the bound. Either one alone is not enough.
+get and put are expected constant time. The dictionary lookup is expected constant time and the list edit is constant time. A cache that scanned a singly linked list of k nodes would pay linear time in the capacity on every eviction. Extra memory is one dictionary entry and one node per live key. So it is proportional to the capacity, not to the history of every key you have ever seen. Name both structures when you explain the bound. Either one alone is not enough.
 
 ## Run it
 
@@ -39,4 +39,4 @@ print(cache.get('b'))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Binary search tree operations. The checkpoint stays in this browser.

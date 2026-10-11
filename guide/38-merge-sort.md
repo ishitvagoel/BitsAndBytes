@@ -28,7 +28,7 @@ Merge sort splits the list in half, sorts each half, and merges the two sorted r
 
 ## Why it is correct
 
-A list of length 0 or 1 is already sorted, which is the base case. If both halves are sorted, the merge is sorted because every output item is the smaller remaining front, so nothing still in either run is smaller than it. Stability follows from taking the left run on a tie. The left run holds the earlier original items of that key, because the split keeps original order inside each half and the recursive sorts are themselves stable.
+A list of length 0 or 1 is already sorted, which is the base case. If both halves are sorted, the merge is sorted because every output item is the smaller remaining front. So nothing still in either run is smaller than it. Stability follows from taking the left run on a tie. The left run holds the earlier original items of that key. Because the split keeps original order inside each half and the recursive sorts are themselves stable.
 
 ## What it costs
 
@@ -44,4 +44,4 @@ print(merge_sort([3, 1, 4, 2]))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Quicksort and partition. The checkpoint stays in this browser.

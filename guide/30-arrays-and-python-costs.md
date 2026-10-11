@@ -24,7 +24,7 @@ The shift cost follows from the layout. If item i + 1 must occupy slot i, every 
 
 n front removals on a list copy about n + (n - 1) + ... + 1 references, which is Θ(n²). The same n removals on a deque are Θ(n) total. Random access on the deque is not the list's Θ(1) index. The choice is which operations the algorithm actually performs.
 
-A worked check is n = 1000. One pop(0) moves about 999 references. Doing that once per item, to drain the list from the front, moves about half a million references. A deque draining the same list moves about 1000 nodes. The asymptotic symbols are the summary of that count. Indexing stays Θ(1) on the list either way, which is why a binary search later in the guide requires a list or another random-access sequence and not a linked chain.
+A worked check is n = 1000. One pop(0) moves about 999 references. Doing that once per item moves about half a million references. A deque draining the same list moves about 1000 nodes. The asymptotic symbols summarize that count. Indexing stays Θ(1) on the list either way. A later binary search needs a random-access sequence, not a linked chain.
 
 ## Run it
 
@@ -35,4 +35,4 @@ print(sum(range(1000)))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Dynamic-array growth. The checkpoint stays in this browser.

@@ -34,4 +34,4 @@ print(interval_scheduling_max_count([(1, 3, 'a'), (2, 4, 'b'), (3, 5, 'c')]))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Dynamic programming. The checkpoint stays in this browser.

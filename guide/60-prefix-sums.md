@@ -8,7 +8,7 @@ module: bitsandbytes.patterns.arrays
 
 ## The idea
 
-A prefix sum array stores the total of every item up to each index. The library PrefixSum on 1, 2, 3, 4 builds those totals once. range_sum(start, end) returns the sum of values[start:end], end exclusive. range_sum(1, 3) is 2 + 3, which is 5. The formula is total[end] minus total[start]. The item at start is included and the item at end is not, matching a Python slice. Any later range on the same array is then a subtraction. Counting subarrays that sum to a target uses the same totals. As you walk the array, a map from a previous prefix to how many times it occurred tells you how many earlier starts would make the current prefix hit the target.
+A prefix sum array stores the total of every item up to each index. The library PrefixSum on 1, 2, 3, 4 builds those totals once. range_sum(start, end) returns the sum of values[start:end], end exclusive. range_sum(1, 3) is 2 + 3, which is 5. The formula is total[end] minus total[start]. The item at start is included and the item at end is not, matching a Python slice. Any later range on the same array is then a subtraction. Counting subarrays that sum to a target uses the same totals. As you walk the array. A map from a previous prefix. To how many times it occurred tells you how many earlier starts would make the current prefix hit the target.
 
 ## A worked trace
 
@@ -34,4 +34,4 @@ print(PrefixSum([1, 2, 3, 4]).range_sum(1, 3))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Backtracking search. The checkpoint stays in this browser.

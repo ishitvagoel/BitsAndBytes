@@ -34,4 +34,4 @@ print(list_pop_front_cost_demo(3))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Loop invariants. The checkpoint stays in this browser.

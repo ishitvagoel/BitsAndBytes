@@ -18,7 +18,7 @@ Two pointers scan a sorted array from the ends, or scan a sequence with a start 
 
 ## Why it is correct
 
-The invariant is that any solution still available uses a left index at or after the current left, and a right index at or before the current right. It holds at the start because the whole array is inside that range. Moving the left index forward is safe when the sum is too small, because the current left value plus any value to the left of the right index is even smaller. The symmetric argument moves the right index. Sorted order is the assumption. Without it, a larger index is not a larger value, and the move is not safe.
+The invariant is that any solution still available uses a left index at or after the current left. A right index at or before the current right. It holds at the start because the whole array is inside that range. Moving the left index forward is safe when the sum is too small. Because the current left value plus any value to the left of the right index is even smaller. The symmetric argument moves the right index. Sorted order is the assumption. Without it, a larger index is not a larger value, and the move is not safe.
 
 ## What it costs
 
@@ -34,4 +34,4 @@ print(two_sum_sorted([1, 2, 4, 7], 6))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Sliding windows. The checkpoint stays in this browser.

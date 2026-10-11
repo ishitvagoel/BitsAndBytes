@@ -38,4 +38,4 @@ print(sorted(vertex_cover_two_approximation(graph)))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Analysis and library costs. The checkpoint stays in this browser.

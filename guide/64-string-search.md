@@ -8,7 +8,7 @@ module: bitsandbytes.strings.algorithms
 
 ## The idea
 
-A naive search tries the pattern at every index of the text and compares characters until one differs. Knuth-Morris-Pratt avoids restarting the text index after a partial match. kmp_search of pattern ababa in text ababcababa returns 5. Index 0 matches four characters and then fails, because the text has c where the pattern needs a. The failure links say how long a prefix of the pattern is also a suffix of the part just matched, so the search resumes in the middle of the pattern instead of at its first character. rabin_karp_search on the same strings also returns 5. It compares a rolling hash of the pattern with the hash of each window, and it still checks the characters when the hashes agree. A hash hit is a candidate, not a proof.
+A naive search tries the pattern at every index of the text and compares characters until one differs. Knuth-Morris-Pratt avoids restarting the text index after a partial match. kmp_search of pattern ababa in text ababcababa returns 5. Index 0 matches four characters and then fails, because the text has c where the pattern needs a. The failure links say how long a prefix of the pattern is also a suffix of the part just matched. So the search resumes in the middle of the pattern instead of at its first character. rabin_karp_search on the same strings also returns 5. It compares a rolling hash of the pattern with the hash of each window, and it still checks the characters when the hashes agree. A hash hit is a candidate, not a proof.
 
 ## A worked trace
 
@@ -34,4 +34,4 @@ print(kmp_search('ababcababa', 'ababa'))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Tries and text indexes. The checkpoint stays in this browser.

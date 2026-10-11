@@ -8,7 +8,7 @@ module: bitsandbytes.hash_tables.chaining
 
 ## The idea
 
-Separate chaining stores a list of key-value pairs in each bucket. The hash of the key picks the bucket. Insert appends a pair, or replaces the value if the key is already in that list. Lookup scans the list and compares keys. With a 4-bucket table, hash(0) % 4 and hash(4) % 4 are both 0, so inserting 0 and then 4 places both pairs in one chain. A later lookup of 0 walks that chain and returns 1. The library ChainingHashTable does this, and len stays 2 because the keys differ.
+Separate chaining stores a list of key-value pairs in each bucket. The hash of the key picks the bucket. Insert appends a pair, or replaces the value if the key is already in that list. Lookup scans the list and compares keys. With a 4-bucket table, hash(0) % 4 and hash(4) % 4 are both 0, so inserting 0. Then 4 places both pairs in one chain. A later lookup of 0 walks that chain and returns 1. The library ChainingHashTable does this, and len stays 2 because the keys differ.
 
 ## A worked trace
 
@@ -19,7 +19,7 @@ Separate chaining stores a list of key-value pairs in each bucket. The hash of t
 
 ## Why it is correct
 
-The hash is only a suggestion of where to look. Equality of keys is the real test, so two keys that share a bucket remain distinct as long as the chain stores both pairs and lookup does not stop at the first pair. Insert of a new key appends, which preserves the pairs already there. Insert of an existing key overwrites that pair's value instead of appending a duplicate. That is why a lookup that scans from the front finds the current value.
+The hash is only a suggestion of where to look. Equality of keys is the real test. So two keys that share a bucket remain distinct as long as the chain stores both pairs. Lookup does not stop at the first pair. Insert of a new key appends, which preserves the pairs already there. Insert of an existing key overwrites that pair's value instead of appending a duplicate. That is why a lookup that scans from the front finds the current value.
 
 ## What it costs
 
@@ -40,4 +40,4 @@ print(table[0], table[4])
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Hash tables with linear probing. The checkpoint stays in this browser.

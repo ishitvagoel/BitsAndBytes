@@ -36,4 +36,4 @@ print(bloom.maybe_contains('cat'))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Storage engines and locality. The checkpoint stays in this browser.

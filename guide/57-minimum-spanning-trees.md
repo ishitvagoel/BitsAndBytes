@@ -18,7 +18,7 @@ A minimum spanning tree connects every vertex of an undirected weighted graph an
 
 ## Why it is correct
 
-Kruskal's accepted edges never form a cycle because union refuses an edge whose ends already share a root. A set of n - 1 such edges on n vertices is a tree, and it is spanning because every vertex that appears in an edge was merged. The cut property says the cheapest edge leaving a set of visited vertices is safe to add. Prim always adds such an edge. Replacing it with a heavier edge across the same cut would not reduce the total. The rejected weight-4 edge is the unique heaviest edge on the only cycle, which is why both algorithms drop it.
+Kruskal's accepted edges never form a cycle because union refuses an edge whose ends already share a root. A set of n - 1 such edges on n vertices is a tree, and it is spanning. Because every vertex that appears in an edge was merged. The cut property says the cheapest edge leaving a set of visited vertices is safe to add. Prim always adds such an edge. Replacing it with a heavier edge across the same cut would not reduce the total. The rejected weight-4 edge is the unique heaviest edge on the only cycle, which is why both algorithms drop it.
 
 ## What it costs
 
@@ -38,4 +38,4 @@ print(prim_minimum_spanning_weight(graph, 'A'))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Two-pointer patterns. The checkpoint stays in this browser.

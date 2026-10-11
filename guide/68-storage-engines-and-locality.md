@@ -18,7 +18,7 @@ Storage engines place reads and writes in different structures. A B-tree keeps k
 
 ## Why it is correct
 
-B-tree search is correct because each node stores its keys in order and the child between two keys holds only the keys that belong between them. A missing key falls out of a leaf. Insert splits a full node so the branching invariant survives. A write-ahead log is correct when a replay reproduces the same committed writes. A sequential scan is correct because addition is applied once per item and the items are exactly the input. The locality claim is not a change in the arithmetic result. It is a claim about how many cache lines or pages that arithmetic touches.
+B-tree search is correct because each node stores its keys in order. The child between two keys holds only the keys that belong between them. A missing key falls out of a leaf. Insert splits a full node so the branching invariant survives. A write-ahead log is correct when a replay reproduces the same committed writes. A sequential scan is correct because addition is applied once per item and the items are exactly the input. The locality claim is not a change in the arithmetic result. It is a claim about how many cache lines or pages that arithmetic touches.
 
 ## What it costs
 
@@ -34,4 +34,4 @@ print(sequential_scan_sum([1, 2, 3]))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Approximation guarantees. The checkpoint stays in this browser.

@@ -35,4 +35,4 @@ print(counting_sort([3, 1, 2, 1], maximum=3))
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Order-statistic selection. The checkpoint stays in this browser.

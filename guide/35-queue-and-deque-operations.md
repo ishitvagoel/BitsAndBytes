@@ -21,7 +21,7 @@ A queue is first-in, first-out. enqueue adds at the back and dequeue removes fro
 
 ## Why it is correct
 
-The front is the earliest item that has not been dequeued. Enqueue does not change the front unless the queue was empty, in which case the new item is both front and back. Dequeue advances the front to the next node and returns the old one. That is why the exit order matches the arrival order. A stack would have returned c first. Mixing the two is the usual bug when a graph search asks for a queue and the code uses a list with pop() at the end and insert at the end.
+The front is the earliest item that has not been dequeued. Enqueue does not change the front unless the queue was empty, in which case the new item is both front and back. Dequeue advances the front to the next node and returns the old one. That is why the exit order matches the arrival order. A stack would have returned c first. Mixing the two is the usual bug when a graph search asks for a queue. The code uses a list with pop() at the end and insert at the end.
 
 ## What it costs
 
@@ -42,4 +42,4 @@ print(queue.dequeue())
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Comparison sorts. The checkpoint stays in this browser.

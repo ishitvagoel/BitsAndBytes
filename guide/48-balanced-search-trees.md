@@ -18,7 +18,7 @@ A plain binary search tree becomes a chain when keys arrive in sorted order. Eve
 
 ## Why it is correct
 
-A rotation changes which node is the parent and which is the child. It does not change inorder. The keys that were left of a node stay left, and the keys that were right stay right. Only the shape moves. The red-black rules limit how many black links appear on a path from the root to a leaf, and a red link cannot simply stack on another red link. That bound is why the height stays logarithmic after the sorted inserts. select walks by subtree size. If the left subtree holds more than k keys, the answer is in the left subtree. Otherwise it is the node itself or a key in the right subtree.
+A rotation changes which node is the parent and which is the child. It does not change inorder. The keys that were left of a node stay left, and the keys that were right stay right. Only the shape moves. The red-black rules limit how many black links appear on a path from the root to a leaf. A red link cannot simply stack on another red link. That bound is why the height stays logarithmic after the sorted inserts. select walks by subtree size. If the left subtree holds more than k keys, the answer is in the left subtree. Otherwise it is the node itself or a key in the right subtree.
 
 ## What it costs
 
@@ -37,4 +37,4 @@ print(tree.inorder())
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Heap operations. The checkpoint stays in this browser.
