@@ -23,7 +23,7 @@ Preorder is correct by induction on the tree. The first value is the root. The n
 
 ## What it costs
 
-Each walk visits every node once and looks at every child link once, so the time is linear in the number of nodes. The call stack of a skewed preorder is linear. A balanced tree keeps that stack logarithmic. The level-order queue holds one level at a time and can hold about half the nodes in a complete tree, so extra memory is linear in the worst case. Use inorder when you want the sorted keys. Use level order when the depth itself is the question.
+Each walk visits every node once and looks at every child link once, so the time is linear in the number of nodes. The call stack of a skewed preorder is linear. A balanced tree keeps that stack logarithmic. The level-order queue holds one level at a time and can hold about half the nodes of a wide level, so extra memory is linear in the worst case. Use inorder when you want the sorted keys. Use level order when the depth itself is the question.
 
 ## Run it
 

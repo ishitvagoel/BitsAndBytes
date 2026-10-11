@@ -368,7 +368,7 @@ export const curriculumLessons: Record<string, CurriculumLesson> = {
     prerequisites: ["two-pointers", "backtracking"],
     editorialState: "reference",
   },
-  "two-pointers": { id: "lesson-two-pointers", summary: "Use a movement invariant to justify scans from ends, gaps, or paired inputs.", prerequisites: ["arrays-and-python-costs"], editorialState: "guide" },
+  "two-pointers": { id: "lesson-two-pointers", summary: "Use a movement invariant to justify scans from ends, gaps, or paired inputs.", prerequisites: ["arrays-and-python-costs", "loop-invariants"], editorialState: "guide" },
   "sliding-window": { id: "lesson-sliding-window", summary: "Maintain a contiguous range as it grows and shrinks under a valid monotone condition.", prerequisites: ["two-pointers"], editorialState: "guide" },
   "prefix-sums": { id: "lesson-prefix-sums", summary: "Answer range-sum queries and count target-sum subarrays from cumulative totals.", prerequisites: ["arrays-and-python-costs"], editorialState: "guide" },
   "backtracking": { id: "lesson-backtracking", summary: "Explore choice trees with reversible state, safe pruning and explicit search costs.", prerequisites: ["recursion-and-recurrences"], editorialState: "guide" },

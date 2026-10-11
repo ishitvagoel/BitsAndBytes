@@ -8,7 +8,7 @@ module: bitsandbytes.linked_lists.merge_sorted, bitsandbytes.linked_lists.sort_l
 
 ## The idea
 
-When two chains are sorted, compare only their current heads. Take the smaller head, append it to the result, and advance that input. When one input is empty, attach the other suffix. It is already in order. merge_sorted of 1, 4 and 2, 3 returns 1, 2, 3, 4. Ties use a strict less-than against the second list, so an equal key from the first list stays in front. That is a stable merge. The nodes are relinked, not copied into a second array of values. Both inputs are left empty because their nodes now belong to the result. Merging a list with itself is rejected, because that would build a cycle. Bottom-up merge sort repeats this combine on adjacent runs of width 1, then 2, then 4. A linked list has no random-access middle, so this width schedule fits it better than a top-down split that indexes the midpoint.
+When two chains are sorted, compare only their current heads. Take the smaller head, append it to the result, and advance that input. When one input is empty, attach the other suffix. It is already in order. merge_sorted of 1, 4 and 2, 3 returns 1, 2, 3, 4. Ties use a strict less-than against the second list, so an equal key from the first list stays in front. The nodes are relinked, not copied into a second array of values. Both inputs are left empty because their nodes now belong to the result. Merging a list with itself is rejected, because that would build a cycle. Bottom-up merge sort repeats this combine on adjacent runs of width 1, then 2, then 4. A linked list has no random-access middle, so this width schedule fits it better than a top-down split that indexes the midpoint.
 
 ## A worked trace
 
@@ -18,7 +18,7 @@ When two chains are sorted, compare only their current heads. Take the smaller h
 
 ## Why it is correct
 
-Each step appends the smaller remaining head, so nothing still in either chain is smaller than the item just written. The attached suffix is sorted by the precondition, and it sits after a head that was smaller than its own head. Stability follows from taking the first list on a tie. The inputs end empty because the same node objects moved. Intersection is a different question. After both chains are linear, equalize the distance to the ends and advance together. Compare node identity, not equal values. The guard that checks the chains has its own cost.
+Each step appends the smaller remaining head, so nothing still in either chain is smaller than the item just written. The attached suffix is sorted by the precondition, and it sits after a head that was smaller than its own head. Taking the first list on a tie keeps the earlier equal key in front. The inputs end empty because the same node objects moved. Intersection is a different question. After both chains are linear, equalize the distance to the ends and advance together. Compare node identity, not equal values. The guard that checks the chains has its own cost.
 
 ## What it costs
 
