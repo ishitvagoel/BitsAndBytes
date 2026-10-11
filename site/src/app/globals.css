@@ -869,7 +869,7 @@ main:focus-visible {
 
 .resume-card p:not(.eyebrow) {
   margin: 0.2rem 0 0;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.86rem;
 }
 
