@@ -6,8 +6,13 @@ const siteDir = path.dirname(fileURLToPath(import.meta.url));
 const baseUrl = process.argv[2] ?? process.env.PREVIEW_URL;
 if (!baseUrl) throw new Error("Pass a reachable preview base URL or set PREVIEW_URL.");
 
-const aliases = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-slug-aliases.json"), "utf8"));
-const routes = ["/", "/readiness", "/python-foundations", "/reference", ...Object.keys(aliases).map((slug) => `/lessons/${slug}`)];
+const guideDir = path.resolve(siteDir, "../../guide");
+const lessonSlugs = fs.readdirSync(guideDir).flatMap((name) => {
+  if (!name.endsWith(".md")) return [];
+  const slug = /^slug:\s*(.+)$/m.exec(fs.readFileSync(path.join(guideDir, name), "utf8"))?.[1]?.trim();
+  return slug ? [slug] : [];
+});
+const routes = ["/", "/readiness", "/python-foundations", "/reference", ...lessonSlugs.map((slug) => `/lessons/${slug}`)];
 const failures = [];
 
 for (const route of routes) {

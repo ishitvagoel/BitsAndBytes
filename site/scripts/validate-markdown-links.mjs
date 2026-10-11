@@ -6,14 +6,13 @@ import { resolveLessonMarkdownHref } from "../src/lib/markdown-links.ts";
 const siteDir = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(siteDir, "../..");
 const guideDir = path.join(repositoryRoot, "guide");
-const aliases = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-slug-aliases.json"), "utf8"));
-const lessonSlugs = new Set(Object.values(aliases));
 const lessonFilesBySlug = new Map();
 for (const name of fs.readdirSync(guideDir).filter((item) => item.endsWith(".md"))) {
   const text = fs.readFileSync(path.join(guideDir, name), "utf8");
   const slug = /^slug:\s*(.+)$/m.exec(text)?.[1]?.trim();
   if (slug) lessonFilesBySlug.set(slug, path.join(guideDir, name));
 }
+const lessonSlugs = new Set(lessonFilesBySlug.keys());
 const linkPattern = /\]\(([^)\s]+)(?:\s+[^)]*)?\)/g;
 const failures = [];
 let checked = 0;

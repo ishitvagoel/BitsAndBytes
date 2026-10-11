@@ -26,12 +26,15 @@ import random
 from collections.abc import Callable
 from typing import TypeVar
 
-T = TypeVar("T")
+from bitsandbytes.tracing import TraceEvent, TraceSink
+from bitsandbytes.typing import SupportsLessThan
+
+T = TypeVar("T", bound=SupportsLessThan)
 
 Chooser = Callable[[int, int], int]
 
 
-def quick_sort(values: list[T], *, rng: random.Random | None = None) -> list[T]:
+def quick_sort(values: list[T], *, rng: random.Random | None = None, trace_sink: TraceSink | None = None) -> list[T]:
     """Sort ``values`` in ascending order in place.
 
     Cost
@@ -45,7 +48,7 @@ def quick_sort(values: list[T], *, rng: random.Random | None = None) -> list[T]:
     """
 
     choose = random.randint if rng is None else rng.randint
-    _quick_sort(values, 0, len(values) - 1, choose)
+    _quick_sort(values, 0, len(values) - 1, choose, trace_sink)
     return values
 
 
@@ -54,6 +57,7 @@ def _quick_sort(
     start: int,
     end: int,
     choose: Chooser,
+    trace_sink: TraceSink | None = None,
 ) -> None:
     """Sort ``values[start:end + 1]`` in place.
 
@@ -72,12 +76,12 @@ def _quick_sort(
     # One element, or an empty range, is already partitioned.
     if start >= end:
         return
-    boundary = _partition(values, start, end, choose)
-    _quick_sort(values, start, boundary - 1, choose)
-    _quick_sort(values, boundary + 1, end, choose)
+    boundary = _partition(values, start, end, choose, trace_sink)
+    _quick_sort(values, start, boundary - 1, choose, trace_sink)
+    _quick_sort(values, boundary + 1, end, choose, trace_sink)
 
 
-def _partition(values: list[T], start: int, end: int, choose: Chooser) -> int:
+def _partition(values: list[T], start: int, end: int, choose: Chooser, trace_sink: TraceSink | None = None) -> int:
     """Place a random pivot in its final index and return that index.
 
     After this returns, every index before the pivot holds a value ``<=`` pivot
@@ -94,12 +98,16 @@ def _partition(values: list[T], start: int, end: int, choose: Chooser) -> int:
     pivot_index = choose(start, end)
     values[end], values[pivot_index] = values[pivot_index], values[end]
     pivot = values[end]
+    if trace_sink is not None:
+        trace_sink(TraceEvent("pivot", {"index": end, "value": pivot, "values": list(values)}))
 
     # ``boundary`` is the next slot that should receive a value <= pivot.
     boundary = start
     for index in range(start, end):
-        if values[index] <= pivot:
+        if not (pivot < values[index]):
             values[boundary], values[index] = values[index], values[boundary]
+            if trace_sink is not None:
+                trace_sink(TraceEvent("swap", {"index": index, "boundary": boundary, "values": list(values)}))
             boundary += 1
 
     values[boundary], values[end] = values[end], values[boundary]

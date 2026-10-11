@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="site-shell">
           <a className="skip-link" href="#main-content">Skip to content</a>
           <header className="site-header">
-            <Link href="/">Bits and Bytes</Link>
+            <Link className="site-brand" href="/">Bits and Bytes</Link>
             <div id="header-slot" />
             <LessonsMenu lessons={menuLessons} />
           </header>

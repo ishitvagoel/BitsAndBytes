@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterator, MutableMapping
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 K = TypeVar("K")
 V = TypeVar("V")
@@ -50,6 +50,16 @@ class LinearProbingHashTable(MutableMapping[K, V]):
         for key in self._keys:
             if key is not None and key is not _TOMBSTONE:
                 yield key
+
+    def __repr__(self) -> str:
+        """Return the stored mapping.
+
+        Cost
+        ----
+        Copying n pairs is O(n) time and O(n) extra memory.
+        """
+
+        return f"LinearProbingHashTable({dict(self)!r})"
 
     def __getitem__(self, key: K) -> V:
         """Return the value for ``key``.

@@ -11,7 +11,7 @@ posting list.
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable
 
 
 class Trie:

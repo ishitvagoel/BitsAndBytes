@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
+  applyLessonUpdate,
   recordLessonVisit,
+  setLessonComplete,
   validateLearningProgress,
   type LessonProgressConfig,
 } from "@/lib/learning-progress";
@@ -44,27 +47,6 @@ function readRecord(raw: string, lessons: ResumeLesson[]): { record: ResumeRecor
   }
 }
 
-function subscribeToResume(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(RESUME_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(RESUME_EVENT, callback);
-  };
-}
-
-function getResumeSnapshot() {
-  try {
-    return window.localStorage.getItem(STORAGE_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
-function getResumeServerSnapshot() {
-  return "";
-}
-
 function saveRecord(slug: string, sectionId: string | null) {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, slug, sectionId } satisfies ResumeRecord));
@@ -77,11 +59,13 @@ function saveRecord(slug: string, sectionId: string | null) {
 export function ResumeTracker({
   slug,
   sections,
-  progressConfigs,
+  progressConfig,
+  completeWithoutPractice = false,
 }: {
   slug: string;
   sections: Array<{ id: string; title: string }>;
-  progressConfigs: Record<string, LessonProgressConfig>;
+  progressConfig: LessonProgressConfig;
+  completeWithoutPractice?: boolean;
 }) {
   const activeSectionId = useRef<string | null>(null);
   useEffect(() => {
@@ -89,11 +73,18 @@ export function ResumeTracker({
       activeSectionId.current = sectionId;
       saveRecord(slug, sectionId);
       try {
-        const current = validateLearningProgress(
+        const updated = applyLessonUpdate(
           JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
-          progressConfigs,
+          slug,
+          progressConfig,
+          (current) => {
+            const visited = recordLessonVisit(current, slug, progressConfig, sectionId);
+            const lastId = sections.at(-1)?.id;
+            return completeWithoutPractice && sectionId === lastId
+              ? setLessonComplete(visited, slug, progressConfig, true)
+              : visited;
+          },
         );
-        const updated = recordLessonVisit(current, slug, progressConfigs[slug], sectionId);
         window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
         window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
       } catch {
@@ -132,27 +123,14 @@ export function ResumeTracker({
       observer.disconnect();
       window.removeEventListener("hashchange", onHashChange);
     };
-  }, [progressConfigs, slug, sections]);
+  }, [completeWithoutPractice, progressConfig, slug, sections]);
 
   return null;
 }
 
-export function ResumeLine({ lessons }: { lessons: ResumeLesson[] }) {
-  const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
-  const resume = useMemo(() => readRecord(raw, lessons), [raw, lessons]);
-  if (!resume) return null;
-  const sectionTitle = resume.section?.title;
-
-  return (
-    <p className="resume-line">
-      Saved on this device: {resume.lesson.title}{sectionTitle ? ` · ${sectionTitle}` : ""}
-    </p>
-  );
-}
-
 export function ResumeCard({ lessons }: { lessons: ResumeLesson[] }) {
-  const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
-  const resume = useMemo(() => readRecord(raw, lessons), [raw, lessons]);
+  const [raw] = useLocalJsonState(STORAGE_KEY, null, (value: unknown) => value);
+  const resume = useMemo(() => readRecord(JSON.stringify(raw ?? ""), lessons), [raw, lessons]);
   if (!resume) return null;
   const href = `/lessons/${resume.lesson.slug}${resume.section ? `#${encodeURIComponent(resume.section.id)}` : ""}`;
 
@@ -170,11 +148,50 @@ export function ResumeCard({ lessons }: { lessons: ResumeLesson[] }) {
   );
 }
 
+export function CompletionControl({
+  slug,
+  progressConfig,
+}: {
+  slug: string;
+  progressConfig: LessonProgressConfig;
+}) {
+  const [raw] = useLocalJsonState(LEARNING_PROGRESS_KEY, null, (value: unknown) => value);
+  const done = useMemo(() => {
+    try {
+      const progress = validateLearningProgress(raw, { [slug]: progressConfig });
+      return Boolean(progress.lessons[slug]?.completedAt);
+    } catch {
+      return false;
+    }
+  }, [progressConfig, raw, slug]);
+
+  function toggle() {
+    try {
+      const updated = applyLessonUpdate(
+        JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
+        slug,
+        progressConfig,
+        (progress) => setLessonComplete(progress, slug, progressConfig, !done),
+      );
+      window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
+      window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
+    } catch {
+      // The lesson stays readable when storage is blocked.
+    }
+  }
+
+  return (
+    <p className="completion-row">
+      <button type="button" className="button button-secondary" onClick={toggle}>{done ? "Completed" : "Mark as done"}</button>
+    </p>
+  );
+}
+
 export function useLastVisitedSlug(knownSlugs: string[]) {
-  const raw = useSyncExternalStore(subscribeToResume, getResumeSnapshot, getResumeServerSnapshot);
+  const [raw] = useLocalJsonState(STORAGE_KEY, null, (value: unknown) => value);
   return useMemo(() => {
     try {
-      const value: unknown = JSON.parse(raw);
+      const value = raw;
       if (!value || typeof value !== "object") return null;
       const candidate = value as Partial<ResumeRecord>;
       return candidate.version === 1 && typeof candidate.slug === "string" && knownSlugs.includes(candidate.slug)

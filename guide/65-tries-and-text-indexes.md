@@ -6,16 +6,35 @@ status: present
 module: bitsandbytes.strings.algorithms
 ---
 
-## Choose an index from the query
+## The idea
 
-A trie shares prefixes and supports prefix queries in O(L) character steps for query length L, with memory proportional to stored nodes and edges. An inverted index maps terms to document postings. A suffix array orders suffix starts and supports binary search over text substrings, with preprocessing and LCP storage costs.
+A trie stores strings along a path of characters. Trie.insert walks or creates a child for each character. contains walks the same path and succeeds only when the whole key was inserted. After inserting cat and car, contains car is true, contains cat is true, and contains ca is false. ca is a prefix of both keys, and this trie does not treat a prefix as a stored key. A suffix array is a different index. suffix_array_with_lcp on banana returns the suffix starts 5, 3, 1, 0, 4, 2 and an LCP array whose third entry is 3. The suffixes in that order are a, ana, anana, banana, na, nana. Equal prefixes sit together, which is why a pattern query can binary-search the array. The LCP says how long the shared prefix of neighbors is, so you do not recompare those characters.
 
-## Include the build cost
+## A worked trace
 
-An index speeds queries by spending time and memory before the query arrives. State whether the cost includes construction, stored text, and output size; outputting k matches alone costs at least Ω(k).
+| Step | State | What changed |
+| --- | --- | --- |
+| Keys | hit = car | car is a stored key. ca is only a prefix. |
 
-## Practice
+## Why it is correct
 
-Choose among a trie, inverted index and suffix array for autocomplete, document search and substring queries. Name the query each structure makes efficient.
+Trie lookup is correct because each step consumes one character and the path is unique. Missing a child means the key was never inserted. Stopping in the middle is not a hit unless insert marked that node as a key, and this contains requires the full key. The suffix array is the sorted order of every suffix. Binary search is valid because that order is alphabetical. The LCP of two adjacent suffixes is a lower bound on comparisons you can skip. Construction has to be counted separately from a single query.
 
-Source: [`algorithms.py`](../bitsandbytes/strings/algorithms.py).
+## What it costs
+
+Inserting or looking up a key in the trie is proportional to the key length. Not to the number of stored keys, unless you are scanning children linearly. The trie memory is proportional to the number of distinct prefixes. Building a suffix array by sorting suffixes naively is more expensive than one query, and the array itself is linear in the text length. Include that build when you compare a trie with a scan of the raw text. A query-only bound hides the index.
+
+## Run it
+
+```python
+from bitsandbytes.strings.algorithms import Trie
+trie = Trie()
+trie.insert('cat')
+trie.insert('car')
+print(trie.contains('car'), trie.contains('ca'))
+# prints: True False
+```
+
+## Practice and next step
+
+Answer the checkpoints, then open Range-query structures. The checkpoint stays in this browser.

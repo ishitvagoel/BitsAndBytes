@@ -6,20 +6,32 @@ status: present
 module: bitsandbytes.complexity, bitsandbytes.library_costs
 ---
 
-## State what counts as one step
+## The idea
 
-A complexity claim depends on its model. The word-RAM model treats a fixed-width comparison, pointer write, and word-sized arithmetic operation as constant cost. That makes it useful for comparing common algorithms, but it is an assumption about the input representation.
+A complexity claim is true only inside a stated model. The word-RAM model charges one step for a comparison, a pointer write, or word-sized arithmetic. That model fits a list of machine words. It is the wrong model when one named step hides a loop. A Python list is a dynamic array of references. Reading an index is one address calculation. list.pop(0) moves every later reference one slot toward index 0. list_pop_front_cost_demo(3) returns 2. Those two writes are the items that remain after the front item leaves. A linked list has no constant-time middle. Binary search stays logarithmic only when each index is constant time. Count the container operation the code actually performs. State a key-size assumption before you call hashing constant time. Count the recursion stack apart from the loop variables. The point of this lesson is to separate algorithm steps from Python container costs.
 
-**By the end of this overview, you can** state the assumptions behind a time bound and separate algorithmic work from Python container work.
+## A worked trace
 
-## Apply the model to a real operation
+| Step | State | What changed |
+| --- | --- | --- |
+| Front pop | copies = 2 | One pop(0) on three items moves 2 references. |
 
-Binary search uses O(log n) comparisons on an already sorted, random-access sequence when each comparison and index operation has constant cost. A linked list does not offer constant-time access to the middle, so the same comparison count does not imply O(log n) elapsed work there.
+## Why it is correct
 
-Python's list is a dynamic array. Reading `values[i]` uses direct indexing, while inserting near the front moves later references. A `deque` is designed for changes at both ends. Python's [`bisect` documentation](https://docs.python.org/3/library/bisect.html) explains that `insort` takes O(n) overall because insertion dominates its logarithmic search; [`deque`](https://docs.python.org/3/library/collections.html#collections.deque) documents approximately O(1) endpoint appends and pops.
+The demo returns length minus 1 for a positive length. A list of three items has two items behind the front. Each of those items slides one slot. The spare capacity of a list sits at the end, not at index 0. Binary search on a list is logarithmic because each middle index is constant time. The same comparisons on a linked list walk from the head. The elapsed work is then linear in the index, not logarithmic. bisect.insort is linear overall because the insertion dominates the logarithmic search. A deque documents approximately constant-time endpoint appends and pops. The bound and the container belong in the same sentence.
 
-Count the data structure operation your code actually performs. Do not call hashing constant-time for arbitrarily large keys without stating a key-size assumption, and count recursion stack separately from loop variables.
+## What it costs
+
+One pop(0) on n items moves n - 1 references. That is linear in n. Draining n items from the front moves about n squared over 2 references. n calls to deque.popleft are linear in total. The demo computes length minus 1 and does not build the list. Reporting a logarithmic bound without saying random-access hides the linked-list case. The assumption is part of the claim. A later lesson can turn this exact count into a tight growth bound.
+
+## Run it
+
+```python
+from bitsandbytes.library_costs import list_pop_front_cost_demo
+print(list_pop_front_cost_demo(3))
+# prints: 2
+```
 
 ## Practice and next step
 
-Explain why binary search is logarithmic on a list but not on a linked list. Then compare `list.pop(0)` with `deque.popleft()`. Continue to [loop invariants](./loop-invariants.md) to connect a cost count to a correctness argument.
+Answer the checkpoints, then open Loop invariants. The checkpoint stays in this browser.

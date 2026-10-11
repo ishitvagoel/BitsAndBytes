@@ -6,14 +6,35 @@ status: present
 module: bitsandbytes.doubly_linked_list
 ---
 
-## Update both directions
+## The idea
 
-A doubly linked node stores `prev` and `next`. A list with head and tail sentinels can unlink a known node by connecting its neighbors, then clear the removed node's links.
+A doubly linked node stores prev and next. If you already hold the node, you do not walk from the head to find its neighbors. remove_node on the node for a, in a list that also holds b, returns a and leaves b. The unlink follows prev and next and rewires those neighbors to each other. insert_after splices a new node between a known node and that node's next. Both directions must be written. A missing reverse link makes a forward walk and a backward walk disagree. Finding a node by value is still linear, unless another structure stores the node. Sentinels are one way to make every real node have neighbors, including the empty list. This list keeps a head and a tail instead, and the endpoint cases update those caches.
 
-**By the end of this overview, you can** trace an unlink and state the sentinel/list-size invariants that must remain true.
+## A worked trace
 
-Unlinking or inserting beside a known node takes O(1) pointer updates. Finding a node by value still takes O(n), unless another structure stores its location. Every insertion must update four neighboring references; missing one direction can leave forward and backward walks disagreeing. Sentinels simplify empty and endpoint cases because real nodes always have neighbors.
+| Step | State | What changed |
+| --- | --- | --- |
+| Unlink | removed = a | Removing a known node does not walk the list. |
+
+## Why it is correct
+
+The known-node claim is that the predecessor and the successor are fields, not search results. Rewiring them restores a single chain. The forward neighbor's prev and the backward neighbor's next must both change, or one direction still points at the removed node. insert_after writes the new node's two links and the two neighboring links that should point at it. That is four pointers when both neighbors exist. An endpoint has a missing neighbor, so the list updates head or tail instead of a second node. The size cache changes by one. After the edit, a walk from the head and a walk from the tail must list the same nodes in opposite orders.
+
+## What it costs
+
+Unlinking or inserting beside a known node is a constant number of pointer writes. It is constant time. A singly linked delete of an arbitrary node is linear, because the predecessor must be found from the head. A search by value on this list is still linear. n such searches are quadratic if you repeat them. Extra memory is one node per item plus the list caches. Draw both directions after a removal. Then test an empty list and a one-node list, and check that head and tail still agree.
+
+## Run it
+
+```python
+from bitsandbytes.doubly_linked_list import DoublyLinkedList
+chain = DoublyLinkedList()
+first = chain.append('a')
+chain.append('b')
+print(chain.remove_node(first))
+# prints: a
+```
 
 ## Practice and next step
 
-Draw head sentinel → A ↔ B → tail sentinel. Remove A by writing every changed pointer. Check the list in both directions, then test an empty list and a one-node list. Compare with [the repository linked-list tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_linked_list.py) and continue to [the LRU cache](./lru-cache.md).
+Answer the checkpoints, then open Stack basics. The checkpoint stays in this browser.

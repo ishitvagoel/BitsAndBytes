@@ -28,7 +28,10 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
-T = TypeVar("T")
+from bitsandbytes.tracing import TraceEvent, TraceSink
+from bitsandbytes.typing import SupportsLessThan
+
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 @dataclass(eq=False, slots=True)
@@ -43,7 +46,7 @@ class TreeNode(Generic[T]):
 class BinarySearchTree(Generic[T]):
     """Binary search tree ordered by ``<`` on ``data``."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, trace_sink: TraceSink | None = None) -> None:
         """Create an empty tree.
 
         Cost
@@ -52,30 +55,36 @@ class BinarySearchTree(Generic[T]):
         """
 
         self.root: TreeNode[T] | None = None
+        self._trace_sink = trace_sink
 
     def insert(self, value: T) -> None:
         """Insert ``value`` if it is not already present.
 
         Cost
         ----
-        One comparison per level. h levels take h steps: O(h) time, O(h)
-        call-stack memory for the recursive walk, O(1) if rewritten
-        iteratively. Worst h is n on a sorted insert chain.
+        One comparison per level. h levels take h steps: O(h) time and O(1)
+        extra memory. The walk is a loop. Worst h is n on a sorted insert chain.
         """
 
         if self.root is None:
             self.root = TreeNode(value)
+            if self._trace_sink is not None:
+                self._trace_sink(TraceEvent("child", {"value": value, "parent": None, "side": "root"}))
             return
         node = self.root
         while True:
             if value < node.data:
                 if node.left is None:
                     node.left = TreeNode(value)
+                    if self._trace_sink is not None:
+                        self._trace_sink(TraceEvent("child", {"value": value, "parent": node.data, "side": "left"}))
                     return
                 node = node.left
             elif node.data < value:
                 if node.right is None:
                     node.right = TreeNode(value)
+                    if self._trace_sink is not None:
+                        self._trace_sink(TraceEvent("child", {"value": value, "parent": node.data, "side": "right"}))
                     return
                 node = node.right
             else:
@@ -123,6 +132,46 @@ class BinarySearchTree(Generic[T]):
         from bitsandbytes.trees.traversals import inorder_iter
 
         yield from inorder_iter(self.root)
+
+    def __len__(self) -> int:
+        """Return how many keys are stored.
+
+        Cost
+        ----
+        The inorder walk visits n nodes. O(n) time, O(h) extra memory.
+        """
+
+        return len(self.inorder())
+
+    def __iter__(self) -> Iterator[T]:
+        """Yield keys in sorted order.
+
+        Cost
+        ----
+        Same walk as ``inorder_iter``. O(n) time, O(h) extra memory.
+        """
+
+        return self.inorder_iter()
+
+    def __contains__(self, value: object) -> bool:
+        """Return whether ``value`` is stored.
+
+        Cost
+        ----
+        Compare with each stored key until one matches. O(n) time, O(1) extra memory besides the walk.
+        """
+
+        return any(stored == value for stored in self)
+
+    def __repr__(self) -> str:
+        """Return the keys in sorted order.
+
+        Cost
+        ----
+        Formatting n keys is O(n) time and O(n) extra memory.
+        """
+
+        return f"BinarySearchTree({list(self)!r})"
 
     def delete(self, value: T) -> bool:
         """Remove ``value`` if present. Return whether a node was removed.

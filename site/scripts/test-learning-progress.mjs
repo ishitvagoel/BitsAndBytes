@@ -3,6 +3,7 @@ import {
   emptyLearningProgress,
   recordLessonVisit,
   recordObjectiveAttempt,
+  setLessonComplete,
   validateLearningProgress,
   validateLearningProgressImport,
 } from "../src/lib/learning-progress.ts";
@@ -82,5 +83,14 @@ assert.equal(needsRecheck.lessons["binary-search"].contentVersion, 2);
 assert.equal(validateLearningProgressImport({ schemaVersion: 99, lessons: {} }, config), null);
 assert.equal(validateLearningProgressImport({ schemaVersion: 1, lessons: { "unknown-lesson": {} } }, config), null);
 assert.equal(validateLearningProgressImport(updatedProgress, updatedConfig)?.lessons["binary-search"].contentVersion, 2);
+
+const withCompletion = setLessonComplete(updatedProgress, "binary-search", updatedConfig["binary-search"], true, start);
+assert.equal(withCompletion.lessons["binary-search"].completedAt, start.toISOString());
+const roundTrip = validateLearningProgress(withCompletion, updatedConfig);
+assert.equal(roundTrip.lessons["binary-search"].completedAt, start.toISOString());
+const withoutField = { ...withCompletion, lessons: { "binary-search": { ...withCompletion.lessons["binary-search"] } } };
+delete withoutField.lessons["binary-search"].completedAt;
+assert.equal(validateLearningProgressImport(withoutField, updatedConfig)?.lessons["binary-search"].completedAt, undefined);
+assert.equal(setLessonComplete(withCompletion, "binary-search", updatedConfig["binary-search"], false, start).lessons["binary-search"].completedAt, undefined);
 
 console.log("learning progress schema, review scheduling and version recheck: ok");

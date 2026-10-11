@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 from bitsandbytes.queues.linked_queue import LinkedQueue
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+from bitsandbytes.stacks.stack import Stack
 from bitsandbytes.trees.bst import TreeNode
+from bitsandbytes.typing import SupportsLessThan
 
-T = TypeVar("T")
+T = TypeVar("T", bound=SupportsLessThan)
 
 
 def preorder(root: TreeNode[T] | None) -> list[T]:
@@ -24,7 +25,7 @@ def preorder(root: TreeNode[T] | None) -> list[T]:
     if root is None:
         return []
     order: list[T] = []
-    stack: AlgorithmStack[TreeNode[T]] = AlgorithmStack()
+    stack: Stack[TreeNode[T]] = Stack(limit=None)
     stack.push(root)
     while not stack.is_empty:
         node = stack.pop()
@@ -47,7 +48,7 @@ def postorder(root: TreeNode[T] | None) -> list[T]:
     if root is None:
         return []
     order: list[T] = []
-    stack: AlgorithmStack[tuple[TreeNode[T], bool]] = AlgorithmStack()
+    stack: Stack[tuple[TreeNode[T], bool]] = Stack(limit=None)
     stack.push((root, False))
     while not stack.is_empty:
         node, visited_children = stack.pop()
@@ -94,7 +95,7 @@ def map_inorder(root: TreeNode[T] | None, visit: Callable[[T], None]) -> None:
     Same as ``BinarySearchTree.inorder_iter``: O(n) time, O(h) stack memory.
     """
 
-    stack: AlgorithmStack[TreeNode[T]] = AlgorithmStack()
+    stack: Stack[TreeNode[T]] = Stack(limit=None)
     node = root
     while node is not None or not stack.is_empty:
         while node is not None:
@@ -113,7 +114,7 @@ def inorder_iter(root: TreeNode[T] | None) -> Iterator[T]:
     O(n) time, O(h) extra memory.
     """
 
-    stack: AlgorithmStack[TreeNode[T]] = AlgorithmStack()
+    stack: Stack[TreeNode[T]] = Stack(limit=None)
     node = root
     while node is not None or not stack.is_empty:
         while node is not None:

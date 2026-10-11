@@ -64,6 +64,13 @@ class SkipList(Generic[T]):
         self._level = 0
 
     def contains(self, key: T) -> bool:
+        """Return whether ``key`` is in the skip list.
+
+        Cost
+        ----
+        Expected O(log n) level walks. O(1) extra memory.
+        """
+
         current = self._head
         for level in range(self._level, -1, -1):
             while current.forward[level] is not None and current.forward[level].key < key:
@@ -73,6 +80,13 @@ class SkipList(Generic[T]):
         return False
 
     def insert(self, key: T) -> None:
+        """Insert ``key`` if it is absent.
+
+        Cost
+        ----
+        Expected O(log n) time. O(1) extra memory besides the new node.
+        """
+
         update: list[SkipNode[T | None]] = [self._head] * (self._max_level + 1)
         current = self._head
         for level in range(self._level, -1, -1):
@@ -123,8 +137,6 @@ class PersistentStackFrame(Generic[T]):
         O(1).
         """
 
-        if self.top is None:
+        if self.top is None or self.previous is None:
             raise IndexError("pop from empty persistent stack")
-        assert self.previous is not None or True
-        previous = self.previous if self.previous is not None else PersistentStackFrame(None, None)
-        return self.top, previous
+        return self.top, self.previous

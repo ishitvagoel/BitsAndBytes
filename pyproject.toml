@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "bitsandbytes"
 version = "1.0.0"
@@ -6,9 +10,55 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
 
+[tool.hatch.build.targets.wheel]
+packages = ["bitsandbytes"]
+
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "pytest-cov>=5.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-q --cov=bitsandbytes --cov-report=term-missing"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# Docstrings already exceed 100 characters. Wrapping them would rewrite teaching text.
+# TypeVar stays. PEP 695 syntax is not an import-order fix.
+# Scripts insert the repository root on sys.path before the first bitsandbytes import.
+ignore = ["E501", "UP046", "UP047", "E402"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["bitsandbytes"]
+
+# 21 modules. Later packages remove entries from this list and never add to it.
+[[tool.mypy.overrides]]
+module = [
+  "bitsandbytes.approximate.structures",
+  "bitsandbytes.decorators.permission",
+  "bitsandbytes.deques.linked_deque",
+  "bitsandbytes.dynamic_programming.classic",
+  "bitsandbytes.graphs.adjacency_list",
+  "bitsandbytes.graphs.algorithms",
+  "bitsandbytes.hash_tables.linear_probing",
+  "bitsandbytes.library_costs",
+  "bitsandbytes.limits.approximation",
+  "bitsandbytes.linked_list",
+  "bitsandbytes.linked_lists.merge_sorted",
+  "bitsandbytes.linked_lists.nth_from_end",
+  "bitsandbytes.linked_lists.odd_even",
+  "bitsandbytes.linked_lists.partition",
+  "bitsandbytes.linked_lists.random_pointer",
+  "bitsandbytes.linked_lists.reverse_in_pairs",
+  "bitsandbytes.linked_lists.sort_list",
+  "bitsandbytes.stacks.min_stack",
+  "bitsandbytes.stacks.stack",
+  "bitsandbytes.storage.engines",
+  "bitsandbytes.strings.algorithms",
+]
+ignore_errors = true

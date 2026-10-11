@@ -2,7 +2,7 @@
 
 The span at day ``i`` is the number of days ending at ``i`` whose price is
 less than or equal to ``prices[i]``. A decreasing
-:class:`~bitsandbytes.stacks.algorithm_stack.AlgorithmStack` stores the
+unbounded ``Stack`` stores the
 indexes of prices that are still candidates for a strictly higher later day.
 
 The same counting argument as next-greater applies: each day is pushed once
@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+from bitsandbytes.stacks.stack import Stack
 
 
 def stock_spans(prices: Sequence[int]) -> list[int]:
@@ -26,12 +26,12 @@ def stock_spans(prices: Sequence[int]) -> list[int]:
     ----
     Let n be ``len(prices)``. The outer loop runs n times. Each index is
     pushed once and popped at most once, so those pops total at most n.
-    Time is O(n). The ``AlgorithmStack`` holds at most n indexes: O(n)
+    Time is O(n). The stack holds at most n indexes: O(n)
     extra memory besides the result list.
     """
 
     spans: list[int] = []
-    candidates: AlgorithmStack[int] = AlgorithmStack()
+    candidates: Stack[int] = Stack(limit=None)
     for index, price in enumerate(prices):
         while not candidates.is_empty and prices[candidates.peek()] <= price:
             candidates.pop()

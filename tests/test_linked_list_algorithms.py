@@ -247,7 +247,7 @@ def test_modular_nodes_from_the_sample() -> None:
 
 def test_reviewer_rotation_inserts_new_people_after_the_cursor() -> None:
     reviewers = ReviewersList()
-    with pytest.raises(RuntimeError):
+    with pytest.raises(IndexError):
         reviewers.next_reviewer()
 
     reviewers.add_reviewer("Sachin Tendulkar")

@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
+
 import { ReferenceSearch, type GlossaryTerm, type ReferenceRow } from "@/components/reference-search";
+import costReference from "@/data/cost-reference.json";
+
+export const metadata: Metadata = {
+  title: "Glossary and library choices | Bits and Bytes",
+  description: "Search short definitions and compare Python tools with the algorithm idea they support.",
+};
 
 const comparisons: ReferenceRow[] = [
   {
@@ -70,7 +78,7 @@ export default function ReferencePage() {
       <p className="eyebrow">ALGORITHM AND PYTHON REFERENCE</p>
       <h1>Glossary and library choices</h1>
       <p className="reference-intro">Search short definitions and compare Python tools with the algorithm idea they support. These reference lookups do not change course progress.</p>
-      <ReferenceSearch comparisons={comparisons} terms={terms} />
+      <ReferenceSearch comparisons={comparisons} terms={terms} costs={costReference.rows} />
     </main>
   );
 }

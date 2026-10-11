@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+from bitsandbytes.stacks.stack import Stack
 
 _PRECEDENCE = {"+": 1, "-": 1, "*": 2, "/": 2}
 _OPERATORS = set(_PRECEDENCE)
@@ -47,7 +47,7 @@ def infix_to_postfix(expression: str) -> list[str]:
     """
 
     output: list[str] = []
-    operators: AlgorithmStack[str] = AlgorithmStack()
+    operators: Stack[str] = Stack(limit=None)
     for token in _tokenize(expression):
         if token.isdigit():
             output.append(token)
@@ -93,7 +93,7 @@ def evaluate_postfix(tokens: Sequence[str]) -> int:
     O(t) extra memory.
     """
 
-    values: AlgorithmStack[int] = AlgorithmStack()
+    values: Stack[int] = Stack(limit=None)
     for token in tokens:
         if token in _OPERATORS:
             if len(values) < 2:

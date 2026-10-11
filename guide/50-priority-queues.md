@@ -6,16 +6,36 @@ status: present
 module: bitsandbytes.heaps.priority_queue
 ---
 
-## Retrieve the next item by priority
+## The idea
 
-A priority queue stores items with priorities and returns the smallest or largest priority first. A heap supports this without sorting the whole collection after each update.
+A priority queue returns the best priority, not the oldest item and not the newest item. The library's PriorityQueue is a binary min-heap. push(5, a), push(3, b), and push(4, c) leave 3 at the root. The first pop returns the pair 3, b. Later pops return 4, c and then 5, a. Each push returns a token. decrease_key uses that token to find the heap index without scanning. The heap stores priority, token, and item. The token breaks ties so two equal priorities stay distinct. This is the structure Dijkstra and Prim need when they repeatedly ask for the next smallest tentative weight. Sorting the whole set once is cheaper when you need every item in order and you will not insert anything in between.
 
-**By the end of this overview, you can** relate push, pop and decrease-key to heap height and explain what an index map adds.
+## A worked trace
 
-Push and pop restore the heap invariant along one path, so they take O(log n) time. Decrease-key must find the item as well as move it upward; an index map provides the location in O(1) expected time, followed by O(log n) repair. Every swap must update the map or later operations may target the wrong item.
+| Step | State | What changed |
+| --- | --- | --- |
+| Pop | item = b | The smallest priority leaves first. |
 
-Python's [`heapq`](https://docs.python.org/3/library/heapq.html) exposes a list-based min-heap with the minimum at index 0. It does not provide an indexed decrease-key operation directly; a separate map or stale-entry strategy is needed when priorities change.
+## Why it is correct
+
+The heap invariant says every parent priority is less than or equal to its children. push appends and sifts up until the invariant holds. pop swaps the root with the last item, removes the old root, and sifts down. The item that leaves is the minimum because the root is the minimum. decrease_key is allowed to move a priority down, toward a better min, and then sifts up. An equal priority is not a decrease. The map from token to index is updated on every swap, so the next decrease still finds the item.
+
+## What it costs
+
+push and pop are logarithmic in the number of stored items. The token map makes the find step constant time, so it does not hide a linear scan inside the logarithmic sift. Extra memory is the heap array plus the map, both linear. n pushes followed by n pops are n log n, the same family as heapsort. Prefer the queue when the set of candidates changes between extractions. Prefer a sort when the set is fixed.
+
+## Run it
+
+```python
+from bitsandbytes.heaps.priority_queue import PriorityQueue
+queue = PriorityQueue()
+queue.push(5, 'a')
+queue.push(3, 'b')
+queue.push(4, 'c')
+print(queue.pop())
+# prints: (3, 'b')
+```
 
 ## Practice and next step
 
-Trace priorities `[7, 2, 5]` through push and pop. Then explain what must change in an index map when two heap items swap. See [the repository priority-queue tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_heaps.py).
+Answer the checkpoints, then open Graph representations. The checkpoint stays in this browser.

@@ -12,7 +12,7 @@ Sometimes the answer is not an item in a sorted list. Instead, you can test a ca
 
 **By the end of this lesson, you can** state the monotonicity condition, trace a smallest-feasible search, and multiply the number of feasibility checks by the cost of one check.
 
-**Before you start:** You should be able to follow the `left`, `right` and midpoint updates in [binary search](./06-binary-search.md). Allow about 15 minutes to work through the trace and checks.
+**Before you start:** You should be able to follow the `left`, `right` and midpoint updates in [binary search](./06-binary-search.md). Work through the trace and the checks.
 
 ## Make the decision monotone
 
@@ -42,6 +42,8 @@ At the midpoint, a feasible rate may be the answer, so keep it by setting `high 
 The answer is 4. Notice that a feasible midpoint does not end the search: a smaller rate may also work. The loop ends when the only remaining possible value is the first feasible rate.
 
 ## Connect the boundary to code and cost
+
+The loop below is a variant of the library function. `binary_search_on_answer` keeps an `answer` variable and sets `high = middle - 1` when a rate is feasible.
 
 ```python
 def hours_needed(piles: list[int], rate: int) -> int:

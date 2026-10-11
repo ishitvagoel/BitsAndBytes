@@ -62,6 +62,36 @@ lines.push(
   "",
 );
 
-fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-fs.writeFileSync(outputPath, lines.join("\n"));
-console.log(`lesson readiness audit: ${rows.length} lessons (${Object.entries(counts).map(([state, lessons]) => `${lessons.length} ${state}`).join(", ")}) written to ${path.relative(siteDir, outputPath)}`);
+const readmePath = path.join(siteDir, "..", "README.md");
+const startMarker = "<!-- curriculum:start -->";
+const endMarker = "<!-- curriculum:end -->";
+const curriculumLines = ["Generated from `site/src/lib/curriculum.ts`. This list is the lesson order.", ""];
+let currentStage = "";
+for (const row of rows) {
+  if (row.stage !== currentStage) {
+    currentStage = row.stage;
+    curriculumLines.push(`### ${row.stage}`, "");
+  }
+  curriculumLines.push(`- [${row.title}](guide/${row.file})`);
+}
+curriculumLines.push("");
+const readme = fs.readFileSync(readmePath, "utf8");
+const start = readme.indexOf(startMarker);
+const end = readme.indexOf(endMarker);
+if (start < 0 || end < start) throw new Error("README is missing curriculum markers");
+const nextReadme = `${readme.slice(0, start + startMarker.length)}\n${curriculumLines.join("\n")}${readme.slice(end)}`;
+const auditText = lines.join("\n");
+const checking = process.argv.includes("--check");
+const auditCurrent = fs.existsSync(outputPath) && fs.readFileSync(outputPath, "utf8") === auditText;
+if (checking) {
+  if (nextReadme !== readme || !auditCurrent) {
+    console.error("lesson readiness audit: committed output is stale");
+    process.exit(1);
+  }
+  console.log(`lesson readiness audit: ${rows.length} lessons, check=true`);
+} else {
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, auditText);
+  fs.writeFileSync(readmePath, nextReadme);
+  console.log(`lesson readiness audit: ${rows.length} lessons (${Object.entries(counts).map(([state, lessons]) => `${lessons.length} ${state}`).join(", ")}) written to ${path.relative(siteDir, outputPath)}`);
+}

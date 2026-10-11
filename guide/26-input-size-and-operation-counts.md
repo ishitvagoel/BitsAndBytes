@@ -14,10 +14,7 @@ Name the input size before you count work. For one list, n is the number of item
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Start | checks = 0, n = 4 | Nothing has been compared. n is 4. |
-| Outer 0 | checks = 3, outer = 0 | Index 0 pairs with the three items to its right. |
-| Outer 1 | checks = 5, outer = 1 | Index 1 pairs with two items to its right. The total is 5. |
-| Outer 2 | checks = 6, outer = 2 | Index 2 pairs with one item. The total is 6, which is 4 * 3 / 2. |
+| Example | n = 3 | The lesson counts this input. |
 
 ## Why it is correct
 
@@ -25,8 +22,16 @@ The count is correct because every pair of indexes i < j is visited once. Index 
 
 ## What it costs
 
-The pair scan does Θ(n²) comparisons. Memory besides the input is a handful of indexes, so extra memory is O(1). If the inner loop ran over the whole list instead of only the right side, the count would be n², which is the same growth with a different constant.
+The pair scan does n(n - 1) / 2 comparisons, which grows like n squared. Memory besides the input is a handful of indexes, a constant amount of extra memory. If the inner loop ran over the whole list instead of only the right side. The count would be n times n, which is the same growth with a different constant.
+
+## Run it
+
+```python
+n = 6
+print(n * (n - 1) // 2)
+# prints: 15
+```
 
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Asymptotic growth. The checkpoint stays in this browser.

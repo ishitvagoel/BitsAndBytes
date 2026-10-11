@@ -2,7 +2,7 @@
 
 Each bar is a candidate for the shortest bar of some rectangle. That
 rectangle extends left and right until a strictly shorter bar. An
-:class:`~bitsandbytes.stacks.algorithm_stack.AlgorithmStack` of indexes keeps
+unbounded ``Stack`` of indexes keeps
 bar heights increasing from bottom to top. When a shorter bar arrives, every
 taller bar on the stack ends here: its right edge is the new index, and its
 left edge is the index now underneath it.
@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from bitsandbytes.stacks.algorithm_stack import AlgorithmStack
+from bitsandbytes.stacks.stack import Stack
 
 
 def largest_rectangle(heights: Sequence[int]) -> int:
@@ -42,7 +42,7 @@ def largest_rectangle(heights: Sequence[int]) -> int:
     stack holds at most n indexes plus the sentinel: O(n) extra memory.
     """
 
-    pending: AlgorithmStack[int] = AlgorithmStack()
+    pending: Stack[int] = Stack(limit=None)
     pending.push(-1)
     best = 0
     for index, height in enumerate(heights):
@@ -58,7 +58,7 @@ def largest_rectangle(heights: Sequence[int]) -> int:
 
 def _area(
     heights: Sequence[int],
-    pending: AlgorithmStack[int],
+    pending: Stack[int],
     right: int,
 ) -> int:
     """Pop one finished bar and return the rectangle it limits.

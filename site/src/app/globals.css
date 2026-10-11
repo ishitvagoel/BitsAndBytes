@@ -2,7 +2,6 @@
   --background: #101318;
   --foreground: #f4f0e6;
   --muted: #b7b1a6;
-  --accent: #e6b15a;
   --border: #2c313a;
   --code-bg: #efe8dc;
   --surface: #fffdf8;
@@ -13,7 +12,6 @@
   --warning-soft: #fde8e1;
   --ink: #241c14;
   --ink-muted: #5c5348;
-  --paper: #f7f4ee;
   --amber: #e6b15a;
   --amber-ink: #1a1408;
   --panel: #181c23;
@@ -45,7 +43,7 @@ body {
 }
 
 a {
-  color: var(--accent);
+  color: var(--amber);
   text-decoration: underline;
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.16em;
@@ -91,7 +89,8 @@ main:focus-visible {
 }
 
 .lessons-menu-button {
-  display: none;
+  display: inline-flex;
+  align-items: center;
   margin-left: auto;
   min-height: 44px;
   border: 1px solid var(--border);
@@ -135,10 +134,16 @@ main:focus-visible {
   text-decoration: none;
 }
 
-.lessons-panel a span:last-child {
-  grid-column: 2;
+.lessons-panel h3 {
+  margin: 1rem 0 0.25rem;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lessons-panel a[aria-current="page"] {
+  color: var(--amber);
 }
 
 .site-header a {
@@ -164,7 +169,7 @@ main:focus-visible {
 
 .not-found-page > p:not(.eyebrow) {
   margin: 0 0 1.5rem;
-  color: var(--muted);
+  color: var(--ink-muted);
 }
 
 .skip-link {
@@ -182,16 +187,6 @@ main:focus-visible {
 
 .skip-link:focus {
   transform: translateY(0);
-}
-
-.page {
-  max-width: 42rem;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
-}
-
-.lede {
-  color: var(--muted);
 }
 
 .lesson-index {
@@ -247,7 +242,7 @@ main:focus-visible {
 }
 
 .lesson-nav-link:hover {
-  border-color: var(--accent);
+  border-color: var(--amber);
   text-decoration: none;
 }
 
@@ -410,7 +405,7 @@ main:focus-visible {
 }
 
 .code-line-number {
-  color: #8491aa;
+  color: #d0d7e4;
   text-align: right;
   user-select: none;
 }
@@ -435,7 +430,7 @@ main:focus-visible {
   letter-spacing: -0.02em;
 }
 
-.site-header a::before {
+.site-brand::before {
   content: "B";
   display: grid;
   width: 1.8rem;
@@ -490,7 +485,7 @@ main:focus-visible {
 .reference-intro {
   max-width: 54rem;
   margin: 1rem 0 2rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 1.08rem;
 }
 
@@ -553,7 +548,7 @@ main:focus-visible {
 .reference-source {
   display: block;
   margin-top: 0.25rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.72rem;
   font-weight: 450;
 }
@@ -608,13 +603,13 @@ main:focus-visible {
 .support-lede {
   max-width: 42rem;
   margin: 1rem 0 2rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 1.05rem;
   line-height: 1.7;
 }
 
 .readiness-intro {
-  color: var(--muted);
+  color: var(--ink-muted);
   line-height: 1.6;
 }
 
@@ -636,7 +631,7 @@ main:focus-visible {
 }
 
 .readiness-question legend span {
-  color: var(--accent);
+  color: var(--link);
 }
 
 .readiness-question pre,
@@ -711,7 +706,7 @@ main:focus-visible {
 }
 
 .readiness-actions > span {
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.84rem;
 }
 
@@ -874,7 +869,7 @@ main:focus-visible {
 
 .resume-card p:not(.eyebrow) {
   margin: 0.2rem 0 0;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.86rem;
 }
 
@@ -984,7 +979,7 @@ main:focus-visible {
 .curriculum-result-count {
   min-height: 1.35rem;
   margin: 0.4rem 0 0;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.78rem;
 }
 
@@ -1110,7 +1105,7 @@ main:focus-visible {
 .readiness-reference {
   border-color: var(--line);
   color: var(--ink-muted);
-  background: var(--paper);
+  background: var(--surface-soft);
 }
 
 .personal-state-label {
@@ -1200,7 +1195,7 @@ main:focus-visible {
 .editorial-reference {
   border-color: var(--line);
   color: var(--ink-muted);
-  background: var(--paper);
+  background: var(--surface-soft);
 }
 
 .lesson-index-main a {
@@ -1210,7 +1205,7 @@ main:focus-visible {
 }
 
 .lesson-index-main a:hover {
-  color: var(--accent);
+  color: var(--amber);
   text-decoration: underline;
 }
 
@@ -1289,7 +1284,6 @@ main:focus-visible {
     align-items: start;
   }
 
-  .course-place-chapters,
   .chapter-grid .curriculum-stages {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -1308,19 +1302,6 @@ main:focus-visible {
   display: inline-block;
   margin: 0 0 1.5rem;
   font-size: 0.9rem;
-}
-
-.lesson-kicker {
-  margin: 0 0 0.5rem;
-  color: var(--ink);
-  font-size: 0.7rem;
-  font-weight: 750;
-  letter-spacing: 0.1em;
-}
-
-.lesson-kicker span {
-  margin: 0 0.35rem;
-  color: var(--ink);
 }
 
 .lesson-title {
@@ -1365,7 +1346,7 @@ main:focus-visible {
 
 .prerequisite-card p {
   margin: 0.35rem 0;
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.85rem;
   line-height: 1.5;
 }
@@ -1481,7 +1462,7 @@ main:focus-visible {
   border: 1px solid var(--line);
   border-radius: 1rem;
   color: var(--ink);
-  background: var(--paper);
+  background: var(--surface-soft);
 }
 
 .interaction-loading {
@@ -1556,7 +1537,7 @@ main:focus-visible {
 }
 
 .trace-state-table dt {
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.75rem;
 }
 
@@ -2135,9 +2116,12 @@ main:focus-visible {
 }
 
 .lesson-outcomes summary,
-.progress-tools > summary,
-.course-rail li a {
+.progress-tools > summary {
   min-height: 2.75rem;
+}
+
+.text-button {
+  min-height: 44px;
 }
 
 .code-copy-button,
@@ -2321,7 +2305,6 @@ main:focus-visible {
   color: var(--muted);
 }
 
-.lesson-kicker,
 .lesson-subtitle,
 .back-link {
   color: var(--muted);
@@ -2466,11 +2449,54 @@ a.button-primary {
   }
 }
 
+.stage-more {
+  display: none;
+  min-height: 44px;
+  margin-top: 0.4rem;
+}
+
 @media (max-width: 719px) {
   .workshop-bench,
-  .course-place-chapters,
   .chapter-grid .curriculum-stages {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .curriculum-stages:not(.is-searching) .curriculum-stage:not(.is-expanded) .lesson-index-row:nth-child(n + 5) {
+    display: none;
+  }
+
+  .curriculum-stages:not(.is-searching) .lesson-index-main > p,
+  .curriculum-stages:not(.is-searching) .lesson-outcomes,
+  .curriculum-stages:not(.is-searching) .prerequisite-line,
+  .curriculum-stages:not(.is-searching) .lesson-index-metadata,
+  .chapter-grid .curriculum-stage-heading p {
+    display: none;
+  }
+
+  .chapter-grid .lesson-index-title-line a {
+    min-height: 44px;
+  }
+
+  .browse-section {
+    margin-top: 0.75rem;
+  }
+
+  .home-page {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .stage-more {
+    margin-top: 0.15rem;
+  }
+
+  .chapter-grid .curriculum-stage {
+    padding-bottom: 0.25rem;
+  }
+
+  .stage-more {
+    display: inline-flex;
+    align-items: center;
   }
 }
 
@@ -2537,7 +2563,7 @@ a.button-primary {
   padding: 0.8rem 1rem;
   border: 1px solid var(--border);
   border-radius: 0.75rem;
-  background: var(--paper);
+  background: var(--surface-soft);
   color: var(--ink);
 }
 
@@ -2545,21 +2571,17 @@ a.button-primary {
   display: none;
 }
 
-@media (max-width: 959px) {
-  .lessons-menu-button {
-    display: inline-flex;
-    align-items: center;
-  }
-}
-
 @media (min-width: 960px) {
-  .lessons-menu-button,
-  .lessons-scrim {
-    display: none;
+  .lessons-panel {
+    top: 3.5rem;
+    height: auto;
+    max-height: calc(100vh - 4rem);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
   }
 }
 
-@media (max-width: 719px) {
+@media (max-width: 959px) {
   .lesson-nav:not(.lesson-nav-sticky) {
     display: none;
   }

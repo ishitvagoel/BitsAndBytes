@@ -6,16 +6,36 @@ status: present
 module: bitsandbytes.limits.approximation
 ---
 
-## Separate a feasible answer from an optimality claim
+## The idea
 
-For minimum vertex cover, selecting both endpoints of every edge in a maximal matching yields a cover with at most twice the optimum size. Every matching needs distinct cover vertices, so the optimum is at least the matching size; the construction selects two per matched edge.
+Some problems have no known exact algorithm that is fast on every input. An approximation algorithm returns a legal answer whose cost is provably close to the best cost. vertex_cover_two_approximation scans edges and, when neither endpoint is already chosen, adds both. On a graph with only the edges A-B and C-D, the cover is the set A, B, C, D. The cover is feasible because every edge has both ends selected, so it certainly has one. An optimum cover can pick one end from each edge, so its size is 2. The algorithm returned 4, which is twice the optimum. The proof is the pairing. Each time the algorithm adds two vertices, it does so for an edge whose ends were both still free. Those edges do not share vertices. Any cover must pick at least one vertex from each such edge. The algorithm picked two. The ratio is therefore at most 2 on every graph, not only on this one.
 
-## State what the ratio means
+## A worked trace
 
-A 2-approximation guarantees solution cost at most 2·OPT for this minimization problem. It does not promise a solution exactly twice optimal or a useful ratio for every optimization problem. Verify feasibility separately from the bound.
+| Step | State | What changed |
+| --- | --- | --- |
+| Cover | edges = 2 | Each uncovered edge contributes both endpoints. |
 
-## Practice
+## Why it is correct
 
-Given a maximal matching, form the endpoint set. Prove it covers every edge and derive the factor-two bound from disjoint matched endpoints.
+Feasibility is the first half. Every edge is either selected as a pair or already touched by an earlier pair, so no edge is left uncovered. The ratio is the second half. Let the selected edges be the ones that contributed a pair. They are vertex-disjoint, so the optimum is at least the number of those edges. The algorithm's cover has two vertices per selected edge, plus nothing else from this rule. Twice the optimum is therefore an upper bound on the size of the cover. A single example that happens to be close is not this proof. The proof counts the disjoint edges.
 
-Source: [`approximation.py`](../bitsandbytes/limits/approximation.py).
+## What it costs
+
+The scan looks at each adjacency-list entry once, so the time is proportional to vertices plus edges. Extra memory is the cover set, which is at most the vertices. The guarantee does not say the cover is the smallest possible. It says you can bound how far it is from the smallest. Use that bound when an exact cover would require a search you cannot afford.
+
+## Run it
+
+```python
+from bitsandbytes.limits.approximation import vertex_cover_two_approximation
+from bitsandbytes.graphs.adjacency_list import Graph
+graph = Graph()
+graph.add_edge('A', 'B', 1)
+graph.add_edge('C', 'D', 1)
+print(sorted(vertex_cover_two_approximation(graph)))
+# prints: ['A', 'B', 'C', 'D']
+```
+
+## Practice and next step
+
+Answer the checkpoints, then open Analysis and library costs. The checkpoint stays in this browser.

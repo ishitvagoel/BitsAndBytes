@@ -6,14 +6,32 @@ status: present
 module: bitsandbytes.sorting.selection_and_radix
 ---
 
-## Count out-of-order pairs during a merge
+## The idea
 
-An inversion is a pair of positions `i < j` whose values are out of order: `values[i] > values[j]`. A quadratic double loop is simple, but merge sort can count many inversions at once.
+An inversion is a pair of indexes i < j whose values are out of order, value i greater than value j. inversion_count on 3, 1, 4, 2 returns 3. The pairs are 3 before 1, 3 before 2, and 4 before 2. A sorted array has zero inversions. A reversed array has one inversion per pair. The library counts them while it merges, the same split merge sort uses. Inside one sorted run there are no new inversions. Every inversion that still matters has one endpoint in the left run and one in the right run. When the merge takes from the right run while the left run still has a smaller-index key waiting. That left key and every key still in the left run form inversions with the key just taken.
 
-**By the end of this overview, you can** explain why choosing a right-run value before the remaining left-run values counts a block of inversions.
+## A worked trace
 
-During merge, if the next right value is smaller than the next left value, it is smaller than every remaining value in the sorted left run. Add the number of those left values to the count, then continue merging. The divide-and-conquer recurrence is the same shape as merge sort, so time is O(n log n), with O(n) extra buffer memory.
+| Step | State | What changed |
+| --- | --- | --- |
+| Pairs | count = 3 | Three pairs are out of order in 3, 1, 4, 2. |
+
+## Why it is correct
+
+The merge already knows both runs are sorted. If the right front is smaller, it is smaller than every remaining left key, not only the left front. Adding the number of remaining left keys counts those inversions in one step. Keys taken from the left form no cross inversion with the current right front. Splitting into halves and adding the inversions inside each half counts every pair exactly once. A pair inside a half is counted by the recursive call. A pair that crosses the midpoint is counted by the merge.
+
+## What it costs
+
+The recurrence matches merge sort. A logarithmic number of levels each do linear work, so the time is n log n. Extra memory is the merged runs, which is linear, plus the call stack. Checking every pair directly is quadratic and needs no extra array. Use the merge when you want the count and a sorted copy together. The count is also a measure of how far the input is from sorted.
+
+## Run it
+
+```python
+from bitsandbytes.sorting.selection_and_radix import inversion_count
+print(inversion_count([3, 1, 4, 2]))
+# prints: 3
+```
 
 ## Practice and next step
 
-Count inversions in `[2, 4, 1, 3]` by listing each pair, then trace the merge where the 1 moves before 2 and 4. Compare with [the repository tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_search_and_sort_extras.py).
+Answer the checkpoints, then open Hash tables with chaining. The checkpoint stays in this browser.

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { isValidElement, type ReactNode } from "react";
 
@@ -8,10 +8,9 @@ import { CopyableCodeBlock } from "@/components/copyable-code-block";
 import { LessonHeaderSlot } from "@/components/lesson-header-slot";
 import type { TraceScenario } from "@/components/trace-bench";
 import { ModuleList } from "@/components/module-list";
-import { ResumeTracker } from "@/components/resume-progress";
+import { CompletionControl, ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
 import lessonTraces from "@/data/lesson-traces.json";
-import lessonSlugAliases from "@/data/lesson-slug-aliases.json";
 import {
   formatModuleNames,
   getAllLessons,
@@ -179,25 +178,26 @@ function LessonSequence({
 }
 
 export function generateStaticParams() {
-  return Object.keys(lessonSlugAliases).map((slug) => ({ slug }));
+  return getAllLessons().map((lesson) => ({ slug: lesson.slug }));
 }
 
 export async function generateMetadata({ params }: LessonPageProps) {
   const { slug } = await params;
-  const canonicalSlug = lessonSlugAliases[slug as keyof typeof lessonSlugAliases] ?? slug;
-  const lesson = getLessonBySlug(canonicalSlug);
+  const lesson = getLessonBySlug(slug);
   if (!lesson) {
     return { title: "Lesson not found" };
   }
-  return { title: `${lesson.title} | Bits and Bytes` };
+  return {
+    title: `${lesson.title} | Bits and Bytes`,
+    description: lesson.summary,
+    openGraph: { title: `${lesson.title} | Bits and Bytes` },
+  };
 }
 
 export default async function LessonPage({ params }: LessonPageProps) {
   const { slug } = await params;
-  const canonicalSlug = lessonSlugAliases[slug as keyof typeof lessonSlugAliases] ?? slug;
-  if (canonicalSlug !== slug) redirect(`/lessons/${canonicalSlug}`);
   const lessons = getAllLessons();
-  const lesson = getLessonBySlug(canonicalSlug);
+  const lesson = getLessonBySlug(slug);
   if (!lesson) {
     notFound();
   }
@@ -206,14 +206,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const learningSequence = lessons.filter((item) => item.editorialState !== "reference");
   const position = learningSequence.findIndex((item) => item.slug === lesson.slug) + 1;
   const sections = getLessonSections(lesson);
-  const progressConfigs: Record<string, LessonProgressConfig> = Object.fromEntries(lessons.map((item) => [
-    item.slug,
-    {
-      contentVersion: item.contentVersion,
-      sectionIds: getLessonSections(item).map((section) => section.id),
-      objectiveIds: item.objectiveIds,
-    },
-  ]));
+  const progressConfig: LessonProgressConfig = {
+    contentVersion: lesson.contentVersion,
+    sectionIds: sections.map((section) => section.id),
+    objectiveIds: lesson.objectiveIds,
+  };
   const sourceExcerpt = lesson.slug === "binary-search"
     ? {
         ...binarySearchSource,
@@ -230,9 +227,12 @@ export default async function LessonPage({ params }: LessonPageProps) {
     : lesson.contentReadiness === "ready" || lesson.contentReadiness === "partial"
       ? "Full lesson"
       : "Overview";
+  const markdownSections = sections.filter((section) => section.id !== "trace-section" && section.id !== "practice-section");
   const lessonContext = (
     <>
-      {lesson.outcomes.length <= 4 ? (
+      {lesson.outcomes.length <= 2 ? (
+        <p className="lesson-outcomes-line">You will learn to {lesson.outcomes.map((outcome) => outcome.charAt(0).toLowerCase() + outcome.slice(1)).join(" and ")}.</p>
+      ) : lesson.outcomes.length <= 4 ? (
         <section className="lesson-outcomes lesson-page-outcomes" aria-labelledby="outcomes-title">
           <h2 id="outcomes-title">What you will learn</h2>
           <ul>{lesson.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
@@ -245,23 +245,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
       )}
 
       {lesson.prerequisites.length > 0 && (
-        <section className="prerequisite-card" aria-labelledby="prerequisite-title">
-          <h2 id="prerequisite-title">Recommended first</h2>
-          <p>These topics introduce ideas used here. They are recommendations; you can continue directly.</p>
-          <ul>
-            {lesson.prerequisites.map((prerequisite) => (
-              <li key={prerequisite.slug}><Link href={`/lessons/${prerequisite.slug}`}>{prerequisite.title}</Link></li>
-            ))}
-          </ul>
-        </section>
+        <p className="prerequisite-line">Recommended first: {lesson.prerequisites.map((prerequisite, index) => (
+          <span key={prerequisite.slug}>{index > 0 ? ", " : ""}<Link href={`/lessons/${prerequisite.slug}`}>{prerequisite.title}</Link></span>
+        ))}.</p>
       )}
 
-      {sections.length >= 3 && (
+      {markdownSections.length >= 5 && (
         <details className="contents-panel">
-          <summary>On this page <span>{sections.length} sections</span></summary>
+          <summary>On this page <span>{markdownSections.length} sections</span></summary>
           <nav aria-label="On this page">
             <ol>
-              {sections.map((section) => (
+              {markdownSections.map((section) => (
                 <li className={section.level === 3 ? "contents-subsection" : undefined} key={`${section.id}-${section.title}`}>
                   <a href={`#${section.id}`}>{section.title}</a>
                 </li>
@@ -276,7 +270,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   return (
     <main id="main-content" className={hasWorkshopBench ? "lesson-layout lesson-layout-bench" : "lesson-layout"} tabIndex={-1}>
       <div className="lesson-main-column">
-        <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfigs={progressConfigs} />
+        <ResumeTracker slug={lesson.slug} sections={sections.map(({ id, title }) => ({ id, title }))} progressConfig={progressConfig} completeWithoutPractice={lesson.exerciseIds.length === 0} />
         <LessonHeaderSlot>
           <p className="header-lesson-position">
             {lesson.stageTitle}
@@ -285,7 +279,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </p>
         </LessonHeaderSlot>
         <Link className="back-link" href="/">← Course home</Link>
-        <p className="lesson-kicker">{lesson.stageTitle} · {position > 0 ? `Lesson ${position} of ${learningSequence.length}` : "Reference"}</p>
+        <p className="sr-only">{lesson.stageTitle} · {position > 0 ? `Lesson ${position} of ${learningSequence.length}` : "Reference"}</p>
         <h1 className="lesson-title">{lesson.title}</h1>
         <p className="lesson-subtitle">
           {lesson.summary}
@@ -295,32 +289,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <span>About {lesson.estimatedMinutes} min</span>
         </div>
 
-        {hasWorkshopBench && (
-          <div className="workshop-bench">
-            <div className="workshop-trace">
-              {sourceExcerpt ? (
-                <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />
-              ) : (
-                <TraceBench lessonSlug={lesson.slug} scenarios={genericTrace} />
-              )}
-            </div>
-            <div className="workshop-check">
-              <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />
-            </div>
-          </div>
-        )}
-
         <div className="reading-card">
         {lessonContext}
 
-        <ModuleList names={formatModuleNames(lesson.module)} />
         <article className="lesson-body">
           <Markdown source={lesson.content} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
-          {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfigs={progressConfigs} />}
+          {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />}
         </article>
 
         <details className="source-disclosure">
           <summary>Implementation and tests <span>Optional reference</span></summary>
+          <ModuleList names={formatModuleNames(lesson.module)} />
           <p>Use these references to compare the explanation with repository code and tests. A test link means it imports a lesson symbol; it does not by itself claim complete behavior coverage.</p>
           <ul>
             {lesson.sourceReferences.map((reference) => {
@@ -352,9 +331,25 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </ul>
         </details>
 
+        <CompletionControl slug={lesson.slug} progressConfig={progressConfig} />
         <LessonSequence previous={lesson.previous} next={lesson.next} />
         <LessonSequence previous={lesson.previous} next={lesson.next} sticky />
         </div>
+
+        {hasWorkshopBench && (
+          <div className="workshop-bench">
+            <div className="workshop-trace">
+              {sourceExcerpt ? (
+                <BinarySearchLab sourceCode={sourceExcerpt.code} sourcePath={sourceExcerpt.sourcePath} sourceCommit={sourceExcerpt.commit} traceLines={sourceExcerpt.traceLines} />
+              ) : (
+                <TraceBench lessonSlug={lesson.slug} scenarios={genericTrace} />
+              )}
+            </div>
+            <div className="workshop-check">
+              <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );

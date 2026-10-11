@@ -14,10 +14,10 @@ A binary search tree node holds a key, a left child, and a right child. Every ke
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Insert 4 | root = 4 | The tree was empty. 4 becomes the root. |
-| Insert 2 | parent = 4, side = left | 2 < 4, and the left child is empty. |
-| Insert 6 | parent = 4, side = right | 6 > 4, and the right child is empty. |
-| Insert 1 | parent = 2, side = left | 1 < 4 and 1 < 2. It becomes the left child of 2. |
+| root | parent = None | 4 becomes the root child. |
+| left | parent = 4 | 2 becomes the left child. |
+| right | parent = 4 | 6 becomes the right child. |
+| left | parent = 2 | 1 becomes the left child. |
 
 ## Why it is correct
 
@@ -27,6 +27,17 @@ The search invariant is that the target, if it exists, lies in the subtree still
 
 Each insert or lookup does one comparison per level, so the time is Θ(h) where h is the height. A balanced tree has h = Θ(log n). Inserting sorted keys makes a chain and h = n, so the same operations are Θ(n). The call in this library is a loop, so extra memory is O(1) besides the nodes. The nodes themselves are Θ(n). Deletion has the same height cost. The successor is the next inorder key, the leftmost node of the right subtree when a right child exists.
 
+## Run it
+
+```python
+from bitsandbytes.trees.bst import BinarySearchTree
+tree = BinarySearchTree()
+for value in (4, 2, 6, 1):
+    tree.insert(value)
+print(tree.inorder())
+# prints: [1, 2, 4, 6]
+```
+
 ## Practice and next step
 
-Answer the checkpoint on this page, then use Next for the following lesson. The checkpoint stays in this browser.
+Answer the checkpoints, then open Tree traversals. The checkpoint stays in this browser.

@@ -6,14 +6,33 @@ status: present
 module: bitsandbytes.sorting.selection_and_radix
 ---
 
-## Find one rank without sorting everything
+## The idea
 
-The `k`th smallest value is an order statistic. Quickselect partitions around a pivot and continues only in the side containing rank `k`, unlike quicksort, which sorts both sides.
+An order statistic is the k-th smallest key, counting from zero. Sorting would find it, and would also order every other key. quickselect stops when the pivot lands on k. On a copy of 3, 1, 4, 2, quickselect with k = 0 returns 1. The same input with k = 2 returns 3, the third smallest key in 1, 2, 3, 4. The library partition always uses the rightmost value as the pivot. It walks the range once, swaps smaller keys toward the left boundary, and writes the pivot into the boundary. If that index is k, the pivot is the answer. If k is smaller, the search continues on the left side only. If k is larger, it continues on the right side only. The discarded side is not sorted.
 
-**By the end of this overview, you can** explain why expected quickselect work is O(n) and state its worst case.
+## A worked trace
 
-With random-like pivot splits, the active range shrinks enough that total work is expected O(n). Repeatedly choosing an extreme pivot can still produce O(n²). The implementation mutates the input list, so callers must account for that behavior. Sorting is a better choice when many ranks or a fully ordered result are needed; selection is useful for one rank.
+| Step | State | What changed |
+| --- | --- | --- |
+| Smallest | k = 0 | quickselect with k = 0 returns the minimum. |
+| Third | k = 2 | k = 2 is the third smallest key, which is 3. |
+
+## Why it is correct
+
+The partition invariant matches quicksort. Everything before the boundary is less than or equal to the pivot, and everything after it is greater. The pivot is therefore in its final sorted index even though the two sides are not sorted. The k-th smallest key must lie on the side that still contains index k. Throwing the other side away cannot hide the answer. The loop ends when the pivot index equals k, so the value sitting there is the order statistic.
+
+## What it costs
+
+A balanced pivot throws away a constant fraction of the range, and the expected cost of that recurrence is linear. This implementation does not choose a random pivot. It always uses the right end. An input that always puts an extreme key at the right end shrinks the range by one item and the time becomes quadratic. Extra memory is a handful of indexes. Sort the whole array when you need every order statistic. Select when you need one.
+
+## Run it
+
+```python
+from bitsandbytes.sorting.selection_and_radix import quickselect
+print(quickselect([3, 1, 4, 2], 0))
+# prints: 1
+```
 
 ## Practice and next step
 
-For `[7, 2, 5, 1, 9]`, identify the values smaller and larger than a pivot of 5, then decide which side contains the 1st-smallest value. See [the repository selection tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_search_and_sort_extras.py).
+Answer the checkpoints, then open Inversion counting. The checkpoint stays in this browser.

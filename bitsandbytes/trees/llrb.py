@@ -16,10 +16,13 @@ Worked trace (insert 1, 2, 3 in order):
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
-T = TypeVar("T")
+from bitsandbytes.typing import SupportsLessThan
+
+T = TypeVar("T", bound=SupportsLessThan)
 
 RED = True
 BLACK = False
@@ -58,6 +61,36 @@ class LeftLeaningRedBlackTree(Generic[T]):
         """
 
         return 0 if self.root is None else self.root.size
+
+    def __iter__(self) -> Iterator[T]:
+        """Yield keys in sorted order.
+
+        Cost
+        ----
+        The inorder walk visits n keys. O(n) time, O(n) extra memory for the list.
+        """
+
+        return iter(self.inorder())
+
+    def __contains__(self, key: object) -> bool:
+        """Return whether ``key`` is stored.
+
+        Cost
+        ----
+        Compare the key with each stored key until one matches. O(n) time, O(1) extra memory.
+        """
+
+        return any(stored == key for stored in self)
+
+    def __repr__(self) -> str:
+        """Return the keys in sorted order.
+
+        Cost
+        ----
+        Formatting n keys is O(n) time and O(n) extra memory.
+        """
+
+        return f"LeftLeaningRedBlackTree({list(self)!r})"
 
     def contains(self, key: T) -> bool:
         """Return whether ``key`` is stored.
@@ -119,9 +152,10 @@ class LeftLeaningRedBlackTree(Generic[T]):
                     self.root.key = successor.key
                     self.root.right, removed = self._delete_min(self.root.right)
             else:
-                if self._is_red(self.root.right) and self.root.right.left is None:
-                    self.root.right.color = BLACK
-                self.root.right, removed = self._delete(self.root.right, key)
+                right = self.root.right
+                if right is not None and self._is_red(right) and right.left is None:
+                    right.color = BLACK
+                self.root.right, removed = self._delete(right, key)
         if self.root is not None:
             self.root.color = BLACK
         return removed
@@ -189,6 +223,7 @@ class LeftLeaningRedBlackTree(Generic[T]):
                 node = self._move_red_right(node)
             removed = False
             if node.key == key:
+                assert node.right is not None
                 successor = self._min_node(node.right)
                 assert successor is not None
                 node.key = successor.key
@@ -215,6 +250,7 @@ class LeftLeaningRedBlackTree(Generic[T]):
             return node.right, True
         if not self._is_red(node.left) and not self._is_red(node.left.left):
             node = self._move_red_left(node)
+        assert node.left is not None
         node.left, removed = self._delete_min(node.left)
         node = self._balance(node)
         self._refresh_size(node)
@@ -223,7 +259,7 @@ class LeftLeaningRedBlackTree(Generic[T]):
     def _rank(self, node: LLRBNode[T] | None, key: T) -> int:
         if node is None:
             return 0
-        if key <= node.key:
+        if not (node.key < key):
             return self._rank(node.left, key)
         left_size = 0 if node.left is None else node.left.size
         return left_size + 1 + self._rank(node.right, key)

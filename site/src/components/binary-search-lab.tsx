@@ -1,15 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
+import { useEffect, useMemo } from "react";
 import traceFixtures from "@/data/binary-search-traces.json";
 import exerciseFixtures from "@/data/exercises.json";
 import { CopyableCodeBlock } from "@/components/copyable-code-block";
 import { practiceStorageKey } from "@/lib/practice-storage";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 import {
   LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
+  applyLessonUpdate,
   recordObjectiveAttempt,
-  validateLearningProgress,
+  setLessonComplete,
   type LessonProgressConfig,
 } from "@/lib/learning-progress";
 
@@ -35,12 +37,13 @@ type TraceFrame = {
 const scenarios = traceFixtures as Scenario[];
 
 const TRACE_STORAGE_KEY = "bitsandbytes.binary-search-trace.v1";
-const memoryStore = new Map<string, string>();
+type PracticeKind = "choice" | "predict-output" | "fill-cell";
 
 type PracticeQuestion = {
   id: string;
   lessonSlug: string;
   storageId: string;
+  kind?: PracticeKind;
   objectiveId: string;
   prompt: string;
   hints: string[];
@@ -48,6 +51,10 @@ type PracticeQuestion = {
   answer: string;
   correct: string;
   retry: string;
+  code?: string;
+  frameLabel?: string;
+  rowLabel?: string;
+  cellIndex?: number;
 };
 
 const allQuestions = exerciseFixtures as PracticeQuestion[];
@@ -89,55 +96,6 @@ function validatePracticeState(value: unknown): Record<string, SavedAnswer> {
     }
   }
   return answers;
-}
-
-function useLocalJsonState<T>(key: string, fallback: T, validate: (value: unknown) => T) {
-  const fallbackJson = JSON.stringify(fallback);
-  const eventName = `bitsandbytes:local-state:${key}`;
-  const subscribe = useCallback((onChange: () => void) => {
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === key || event.key === null) memoryStore.delete(key);
-      onChange();
-    };
-    const onLocalState = (event: Event) => {
-      const localStateEvent = event as CustomEvent<{ source?: string }>;
-      if (localStateEvent.detail?.source !== "local-state") memoryStore.delete(key);
-      onChange();
-    };
-    window.addEventListener("storage", onStorage);
-    window.addEventListener(eventName, onLocalState);
-    return () => {
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener(eventName, onLocalState);
-    };
-  }, [eventName, key]);
-  const getSnapshot = useCallback(() => {
-    const memoryValue = memoryStore.get(key);
-    if (memoryValue !== undefined) return memoryValue;
-    try {
-      const raw = window.localStorage.getItem(key) ?? fallbackJson;
-      return JSON.stringify(validate(JSON.parse(raw))) ?? fallbackJson;
-    } catch {
-      return memoryStore.get(key) ?? fallbackJson;
-    }
-  }, [fallbackJson, key, validate]);
-  const getServerSnapshot = useCallback(() => fallbackJson, [fallbackJson]);
-  const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const value = validate(JSON.parse(snapshot) as unknown);
-  const setValue = useCallback((next: T | ((current: T) => T)) => {
-    const current = validate(JSON.parse(getSnapshot()) as unknown);
-    const updated = typeof next === "function" ? (next as (current: T) => T)(current) : next;
-    const serialized = JSON.stringify(validate(updated));
-    memoryStore.set(key, serialized);
-    try {
-      window.localStorage.setItem(key, serialized);
-      memoryStore.delete(key);
-    } catch {
-      // Keep a session-local copy if the browser blocks persistent storage.
-    }
-    window.dispatchEvent(new CustomEvent(eventName, { detail: { source: "local-state" } }));
-  }, [eventName, getSnapshot, key, validate]);
-  return [value, setValue] as const;
 }
 
 export function BinarySearchLab({
@@ -264,8 +222,8 @@ export function BinarySearchLab({
 
 export function LessonPractice({
   lessonSlug,
-  progressConfigs,
-}: { lessonSlug: string; progressConfigs: Record<string, LessonProgressConfig> }) {
+  progressConfig,
+}: { lessonSlug: string; progressConfig: LessonProgressConfig }) {
   const [answers, setAnswers] = useLocalJsonState(practiceStorageKey(lessonSlug), {}, validatePracticeState);
   const questions = useMemo(() => allQuestions.filter((question) => question.lessonSlug === lessonSlug), [lessonSlug]);
 
@@ -313,11 +271,18 @@ export function LessonPractice({
     }));
     if (!selected) return;
     try {
-      const progress = validateLearningProgress(
+      const recorded = applyLessonUpdate(
         JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "null") as unknown,
-        progressConfigs,
+        lessonSlug,
+        progressConfig,
+        (progress) => recordObjectiveAttempt(progress, lessonSlug, progressConfig, question.objectiveId, selected === question.answer),
       );
-      const updated = recordObjectiveAttempt(progress, lessonSlug, progressConfigs[lessonSlug], question.objectiveId, selected === question.answer);
+      const allCorrect = questions.every((item) => {
+        const chosen = item.storageId === questionId ? selected : answers[item.storageId]?.selected;
+        const checked = item.storageId === questionId || Boolean(answers[item.storageId]?.checked);
+        return checked && chosen === item.answer;
+      });
+      const updated = setLessonComplete(recorded, lessonSlug, progressConfig, allCorrect);
       window.localStorage.setItem(LEARNING_PROGRESS_KEY, JSON.stringify(updated));
       window.dispatchEvent(new Event(LEARNING_PROGRESS_EVENT));
     } catch {
@@ -334,9 +299,25 @@ export function LessonPractice({
         {questions.map((question, index) => {
           const saved = answers[question.storageId] ?? { selected: "", checked: false, hintIndex: 0 };
           const correct = saved.selected === question.answer;
+          const kind = question.kind ?? "choice";
+          const stem = (() => {
+            switch (kind) {
+              case "choice":
+                return null;
+              case "predict-output":
+                return <pre className="practice-code"><code>{question.code}</code></pre>;
+              case "fill-cell":
+                return <p className="practice-code">Fill {question.frameLabel}, row {question.rowLabel}, cell {question.cellIndex}.</p>;
+              default: {
+                const unsupported: never = kind;
+                return unsupported;
+              }
+            }
+          })();
           return (
             <fieldset className="practice-card" key={question.id}>
               <legend><span className="practice-number">{index + 1}</span>{question.prompt}</legend>
+              {stem}
               <div className="practice-options">
                 {question.options.map((option) => (
                   <label className="practice-option" key={option.id}>

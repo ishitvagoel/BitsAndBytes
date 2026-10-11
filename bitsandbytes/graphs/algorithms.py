@@ -172,10 +172,13 @@ def dijkstra_distances_heap(
     graph: Graph,
     start: Vertex,
 ) -> dict[Vertex, int]:
-    """Dijkstra with a binary heap and index map: O((V + E) log V).
+    """Return shortest-path distances using a binary heap.
 
-    The scan-based ``dijkstra_distances`` in ``adjacency_list`` stays as the
-    teaching O(V²) version.
+    The bound is O((V + E) log V), the same figure as the Cost block.
+
+    Cost
+    ----
+    O((V + E) log V) time. O(V) extra memory for the heap and the distance map.
     """
 
     best: dict[Vertex, int] = {start: 0}

@@ -27,7 +27,9 @@ this lesson.
 from __future__ import annotations
 
 from collections.abc import Iterator, MutableMapping
-from typing import Generic, TypeVar
+from typing import TypeVar
+
+from bitsandbytes.tracing import TraceEvent, TraceSink
 
 K = TypeVar("K")
 V = TypeVar("V")
@@ -36,7 +38,7 @@ V = TypeVar("V")
 class ChainingHashTable(MutableMapping[K, V]):
     """Mutable mapping implemented with separate chaining."""
 
-    def __init__(self, *, bucket_count: int = 8) -> None:
+    def __init__(self, *, bucket_count: int = 8, trace_sink: TraceSink | None = None) -> None:
         """Create an empty table with ``bucket_count`` buckets.
 
         Cost
@@ -50,6 +52,7 @@ class ChainingHashTable(MutableMapping[K, V]):
         self._bucket_count = bucket_count
         self._buckets: list[list[tuple[K, V]]] = [[] for _ in range(bucket_count)]
         self._size = 0
+        self._trace_sink = trace_sink
 
     def __len__(self) -> int:
         """Return how many keys are stored.
@@ -73,6 +76,16 @@ class ChainingHashTable(MutableMapping[K, V]):
         for bucket in self._buckets:
             for key, _value in bucket:
                 yield key
+
+    def __repr__(self) -> str:
+        """Return the stored mapping.
+
+        Cost
+        ----
+        Copying n pairs is O(n) time and O(n) extra memory.
+        """
+
+        return f"ChainingHashTable({dict(self)!r})"
 
     def __getitem__(self, key: K) -> V:
         """Return the value for ``key``.
@@ -105,6 +118,8 @@ class ChainingHashTable(MutableMapping[K, V]):
                 return
         bucket.append((key, value))
         self._size += 1
+        if self._trace_sink is not None:
+            self._trace_sink(TraceEvent("bucket", {"key": key, "index": self._bucket_index(key), "chain": list(bucket)}))
         if self._size > 2 * self._bucket_count:
             self._rehash()
 

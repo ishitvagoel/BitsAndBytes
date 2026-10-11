@@ -1,12 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CurriculumIndex } from "@/components/curriculum-index";
 import { LocalProgressTools } from "@/components/local-progress-tools";
+import exerciseFixtures from "@/data/exercises.json";
 import { ReviewQueue } from "@/components/review-queue";
-import { ResumeLine } from "@/components/resume-progress";
+import { ResumeCard } from "@/components/resume-progress";
 import { getAllLessons, getCurriculumStages } from "@/lib/lessons";
 import { getLessonSections } from "@/lib/lesson-sections";
 import type { LessonProgressConfig } from "@/lib/learning-progress";
+
+export const metadata: Metadata = {
+  title: "Bits and Bytes",
+  description: "Start with how to count the work an algorithm does, then follow 52 lessons in order.",
+};
 
 export default function Home() {
   const lessons = getAllLessons();
@@ -50,7 +57,7 @@ export default function Home() {
     <main id="main-content" className="home-page" tabIndex={-1}>
       <h1 id="home-title">Learn the idea. Then follow the steps.</h1>
       <p className="home-lead">Start with how to count the work an algorithm does. Each later lesson uses that count.</p>
-      <ResumeLine lessons={resumeLessons} />
+      <ResumeCard lessons={resumeLessons} />
       <p className="home-actions">
         <Link className="button button-primary" href={`/lessons/${start.slug}`}>
           Start here <span aria-hidden="true">→</span>
@@ -67,6 +74,10 @@ export default function Home() {
         slug: lesson.slug,
         title: lesson.title,
         outcomes: lesson.outcomes,
+        prompts: Object.fromEntries(lesson.objectiveIds.map((objectiveId) => [
+          objectiveId,
+          exerciseFixtures.find((exercise) => exercise.lessonSlug === lesson.slug && exercise.objectiveId === objectiveId)?.prompt ?? "",
+        ])),
         config: progressConfigs[lesson.slug],
         practiceAvailable: lesson.exerciseIds.length > 0,
       }))} />

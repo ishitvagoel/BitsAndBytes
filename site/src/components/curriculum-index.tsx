@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocalJsonState } from "@/lib/use-local-json-state";
 import { useLastVisitedSlug } from "@/components/resume-progress";
 import {
-  LEARNING_PROGRESS_EVENT,
   LEARNING_PROGRESS_KEY,
   validateLearningProgress,
   type LessonProgressConfig,
@@ -21,6 +21,16 @@ type CurriculumEntry = {
   prerequisites: Array<{ slug: string; title: string }>;
   progressConfig: LessonProgressConfig;
   position: number | null;
+  matchedHeading?: string;
+};
+
+type SearchEntry = {
+  slug: string;
+  title: string;
+  headings: string[];
+  code: string[];
+  body: string;
+  reference: boolean;
 };
 
 type CurriculumGroup = {
@@ -43,38 +53,50 @@ const readinessLabels = {
   reference: "Reference",
 } as const;
 
-function subscribeToLearningProgress(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(LEARNING_PROGRESS_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(LEARNING_PROGRESS_EVENT, callback);
-  };
-}
-
-function getLearningProgressSnapshot() {
-  try {
-    return window.localStorage.getItem(LEARNING_PROGRESS_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
 export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
   const [query, setQuery] = useState("");
-  const savedProgress = useSyncExternalStore(subscribeToLearningProgress, getLearningProgressSnapshot, () => "");
+  const [openedStages, setOpenedStages] = useState<Record<string, boolean>>({});
+  const [searchIndex, setSearchIndex] = useState<SearchEntry[] | null>(null);
+  const [savedProgress] = useLocalJsonState(LEARNING_PROGRESS_KEY, null, (value: unknown) => value);
   const knownSlugs = useMemo(() => groups.flatMap((group) => group.lessons.map((lesson) => lesson.slug)), [groups]);
   const progressConfigs = useMemo(() => Object.fromEntries(groups.flatMap((group) => group.lessons.map((lesson) => [lesson.slug, lesson.progressConfig]))), [groups]);
   const personalProgress = useMemo(() => {
     try {
-      return validateLearningProgress(JSON.parse(savedProgress || "null") as unknown, progressConfigs);
+      return validateLearningProgress(savedProgress, progressConfigs);
     } catch {
       return validateLearningProgress(null, progressConfigs);
     }
   }, [progressConfigs, savedProgress]);
   const lastVisitedSlug = useLastVisitedSlug(knownSlugs);
   const normalizedQuery = query.trim().toLocaleLowerCase("en");
-  const filteredGroups = useMemo(() => groups.map((group) => ({
+  useEffect(() => {
+    if (normalizedQuery.length < 2 || searchIndex) return;
+    let cancelled = false;
+    fetch("/search-index.json")
+      .then((response) => response.json())
+      .then((value: SearchEntry[]) => { if (!cancelled) setSearchIndex(value); })
+      .catch(() => { if (!cancelled) setSearchIndex([]); });
+    return () => { cancelled = true; };
+  }, [normalizedQuery, searchIndex]);
+  const indexed = useMemo(() => new Map((searchIndex ?? []).map((entry) => [entry.slug, entry])), [searchIndex]);
+  const filteredGroups = useMemo(() => {
+    if (normalizedQuery.length >= 2 && searchIndex) {
+      const ranked = groups.flatMap((group) => group.lessons.flatMap((lesson) => {
+        const entry = indexed.get(lesson.slug);
+        const titleHit = entry ? entry.title.includes(normalizedQuery) : lesson.title.toLocaleLowerCase("en").includes(normalizedQuery);
+        const heading = entry?.headings.find((item) => item.includes(normalizedQuery));
+        const bodyHit = entry ? entry.body.includes(normalizedQuery) || entry.code.some((item) => item.includes(normalizedQuery)) : false;
+        const score = titleHit ? 3 : heading ? 2 : bodyHit ? 1 : 0;
+        return score === 0 ? [] : [{ lesson, score: score - (entry?.reference ? 0.5 : 0), heading }];
+      })).sort((left, right) => right.score - left.score || left.lesson.title.localeCompare(right.lesson.title));
+      return ranked.length === 0 ? [] : [{
+        id: "search",
+        title: "Matches",
+        description: "",
+        lessons: ranked.map((item) => ({ ...item.lesson, matchedHeading: item.heading })),
+      }];
+    }
+    return groups.map((group) => ({
     ...group,
     lessons: group.lessons.filter((lesson) => {
       if (!normalizedQuery) return true;
@@ -87,8 +109,20 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
       ].join(" ").toLocaleLowerCase("en");
       return searchable.includes(normalizedQuery);
     }),
-  })).filter((group) => group.lessons.length > 0), [groups, normalizedQuery]);
+  })).filter((group) => group.lessons.length > 0);
+  }, [groups, indexed, normalizedQuery, searchIndex]);
   const resultCount = filteredGroups.reduce((count, group) => count + group.lessons.length, 0);
+  const sequence = groups.flatMap((group) => group.lessons.filter((lesson) => lesson.editorialState !== "reference"));
+  const completed = sequence
+    .filter((lesson) => personalProgress.lessons[lesson.slug]?.completedAt)
+    .sort((left, right) => (personalProgress.lessons[right.slug]?.completedAt ?? "").localeCompare(personalProgress.lessons[left.slug]?.completedAt ?? ""));
+  const latest = completed[0];
+  const latestIndex = latest ? sequence.findIndex((lesson) => lesson.slug === latest.slug) : -1;
+  const continueLesson = latest
+    ? sequence.slice(latestIndex + 1).find((lesson) => !personalProgress.lessons[lesson.slug]?.completedAt)
+      ?? sequence.find((lesson) => !personalProgress.lessons[lesson.slug]?.completedAt)
+    : undefined;
+  const searching = normalizedQuery.length > 0;
 
   return (
     <div className="curriculum-browser">
@@ -105,17 +139,28 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
           />
           {query && <button className="curriculum-clear" type="button" onClick={() => setQuery("")}>Clear</button>}
         </div>
-        <p className="curriculum-result-count" role="status" aria-live="polite">
-          {normalizedQuery ? `${resultCount} ${resultCount === 1 ? "lesson" : "lessons"} found` : "Search titles, descriptions, stages, and recommended prerequisites."}
+        <p className="curriculum-result-count" role="status" aria-live={searching ? "polite" : "off"}>
+          {searching ? `${resultCount} ${resultCount === 1 ? "lesson" : "lessons"} found` : "Search titles, descriptions, stages, and recommended prerequisites."}
         </p>
       </div>
+      {continueLesson && (
+        <p className="continue-card">
+          <Link className="button button-primary" href={`/lessons/${continueLesson.slug}`}>Continue with {continueLesson.title}</Link>
+        </p>
+      )}
 
       {filteredGroups.length > 0 ? (
-        <div className="curriculum-stages">
-          {filteredGroups.map((group) => (
-            <section className={`curriculum-stage${group.lessons.some((lesson) => lesson.slug === lastVisitedSlug) ? " is-current" : ""}`} key={group.id} aria-labelledby={`stage-${group.id}`}>
+        <div className={`curriculum-stages${searching ? " is-searching" : ""}`}>
+          {filteredGroups.map((group) => {
+            const countable = group.lessons.filter((lesson) => lesson.editorialState !== "reference");
+            const doneCount = countable.filter((lesson) => personalProgress.lessons[lesson.slug]?.completedAt).length;
+            const defaultOpen = group.id === groups[0]?.id || group.lessons.some((lesson) => lesson.slug === lastVisitedSlug);
+            const expanded = openedStages[group.id] ?? defaultOpen;
+            const hiddenCount = Math.max(0, group.lessons.length - 4);
+            return (
+            <section className={`curriculum-stage${group.lessons.some((lesson) => lesson.slug === lastVisitedSlug) ? " is-current" : ""}${expanded ? " is-expanded" : ""}`} key={group.id} aria-labelledby={`stage-${group.id}`}>
               <div className="curriculum-stage-heading">
-                <h3 id={`stage-${group.id}`}>{group.title}</h3>
+                <h3 id={`stage-${group.id}`}>{group.title}{countable.length > 0 ? ` · ${doneCount} of ${countable.length} done` : ""}</h3>
                 <p>{group.description}</p>
               </div>
               <ol className="lesson-index">
@@ -125,6 +170,7 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
                     <div className="lesson-index-main">
                       <div className="lesson-index-title-line">
                         <Link href={`/lessons/${lesson.slug}`}>{lesson.title}</Link>
+                        {lesson.matchedHeading && <span className="search-hit">{lesson.matchedHeading}</span>}
                         <span className={`editorial-badge editorial-${lesson.editorialState}`}>{stateLabels[lesson.editorialState]}</span>
                       </div>
                       <p>{lesson.summary}</p>
@@ -156,8 +202,14 @@ export function CurriculumIndex({ groups }: { groups: CurriculumGroup[] }) {
                   </li>
                 ))}
               </ol>
+              {hiddenCount > 0 && (
+                <button className="stage-more" type="button" onClick={() => setOpenedStages((current) => ({ ...current, [group.id]: !expanded }))}>
+                  {expanded ? "Show fewer" : `Show ${hiddenCount} more`}
+                </button>
+              )}
             </section>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <p className="curriculum-empty">No lessons match “{query.trim()}”. Try another term or clear the search.</p>

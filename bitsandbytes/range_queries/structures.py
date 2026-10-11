@@ -100,7 +100,6 @@ class SegmentTree:
     def _push(self, node: int, left: int, right: int) -> None:
         if self._lazy[node] == 0 or left == right:
             return
-        middle = (left + right) // 2
         self._lazy[node * 2] += self._lazy[node]
         self._lazy[node * 2 + 1] += self._lazy[node]
         self._lazy[node] = 0
@@ -145,7 +144,6 @@ class SparseTable:
         O(n log n) time and memory.
         """
 
-        import math
 
         self._values = list(values)
         length = len(values)
@@ -170,7 +168,6 @@ class SparseTable:
         O(1) after O(n log n) build.
         """
 
-        import math
 
         length = right - left + 1
         level = length.bit_length() - 1

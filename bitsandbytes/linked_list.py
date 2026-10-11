@@ -133,6 +133,16 @@ class LinkedList(Generic[T]):
 
         return f"LinkedList({list(self)!r})"
 
+    def __contains__(self, item: object) -> bool:
+        """Return whether ``item`` is stored.
+
+        Cost
+        ----
+        Scan n nodes. O(n) time, O(1) extra memory.
+        """
+
+        return any(stored == item for stored in self)
+
     def __str__(self) -> str:
         """Join the values with `` --> ``.
 

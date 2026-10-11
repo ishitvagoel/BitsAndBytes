@@ -83,8 +83,8 @@ def insert_into_sorted(sorted_values: list[T], item: T) -> None:
 
     Cost
     ----
-    O(n) time for the shift, O(n) extra memory briefly while CPython moves
-    references. The search alone is O(log n).
+    O(n) time for the shift inside the existing list. O(1) extra memory.
+    The search alone is O(log n).
     """
 
     bisect.insort(sorted_values, item)

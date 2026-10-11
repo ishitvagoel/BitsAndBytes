@@ -146,5 +146,21 @@
     "correct": "Correct. A feasible midpoint may be the boundary, so retain it as the known-feasible high value while checking for a smaller answer.",
     "retry": "The goal is the first feasible rate, not merely any feasible rate. Keep the midpoint and test smaller candidates.",
     "objectiveId": "binary-search-answer-trace-search"
+  },
+  {
+    "id": "binary-search-answer-multiply-cost",
+    "lessonSlug": "binary-search-on-answer",
+    "storageId": "answer-multiply-cost",
+    "prompt": "Each feasibility check scans 4 piles and the search tests 3 rates. How many pile visits does the search make?",
+    "hints": ["Multiply the cost of one check by the number of checks.", "4 piles times 3 rates is not 4 plus 3."],
+    "options": [
+      { "id": "twelve", "label": "12 pile visits" },
+      { "id": "seven", "label": "7 pile visits" },
+      { "id": "four", "label": "4 pile visits, because the checks share one scan" }
+    ],
+    "answer": "twelve",
+    "correct": "Each of the 3 checks visits all 4 piles, so the search makes 12 pile visits.",
+    "retry": "A later rate does not reuse the earlier scan. Count 4 visits for every rate you test.",
+    "objectiveId": "binary-search-answer-multiply-check-cost"
   }
 ]

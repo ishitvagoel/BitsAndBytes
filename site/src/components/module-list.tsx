@@ -8,7 +8,7 @@ export function ModuleList({ names }: { names: string[] }) {
   const visible = names.length <= 4 || open ? names : names.slice(0, 4);
   return (
     <section className="module-list" aria-labelledby="module-list-title">
-      <h2 id="module-list-title">Modules <span>{names.length}</span></h2>
+      <h2 id="module-list-title">Library code <span>{names.length}</span></h2>
       <ul>
         {visible.map((name) => <li key={name}><code>{name}</code></li>)}
       </ul>

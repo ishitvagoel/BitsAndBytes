@@ -13,6 +13,7 @@ Worked trace (``append_right`` 1, ``append_left`` 0, ``pop_left``):
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import Generic, TypeVar
 
 from bitsandbytes.doubly_linked_list import DoublyLinkedList, DoublyNode
@@ -86,7 +87,7 @@ class LinkedDeque(Generic[T]):
 
         return self._items.pop_tail()
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[T]:
         """Yield items from front to back.
 
         Cost
@@ -95,6 +96,26 @@ class LinkedDeque(Generic[T]):
         """
 
         yield from self._items
+
+    def __contains__(self, item: object) -> bool:
+        """Return whether ``item`` is stored.
+
+        Cost
+        ----
+        Scan n items. O(n) time, O(1) extra memory.
+        """
+
+        return item in self._items
+
+    def __repr__(self) -> str:
+        """Return the items from front to back.
+
+        Cost
+        ----
+        Formatting n items is O(n) time and O(n) extra memory.
+        """
+
+        return f"LinkedDeque({list(self)!r})"
 
     def insert_at(self, index: int, item: T) -> None:
         """Insert ``item`` before the item currently at ``index``.
