@@ -33,9 +33,23 @@ class BTree(Generic[T]):
         self.root: _BNode[T] = _BNode[T](leaf=True)
 
     def search(self, key: T) -> bool:
+        """Return whether ``key`` is in the tree.
+
+        Cost
+        ----
+        O(log n) node visits for n keys. O(1) extra memory besides the call stack, which is O(log n).
+        """
+
         return self._search(self.root, key)
 
     def insert(self, key: T) -> None:
+        """Insert ``key``, splitting a full root first.
+
+        Cost
+        ----
+        O(log n) time. O(1) extra memory besides the new node.
+        """
+
         root = self.root
         if len(root.keys) == 2 * self.branching - 1:
             new_root: _BNode[T] = _BNode[T](leaf=False)
@@ -101,9 +115,23 @@ class WriteAheadLog:
         self._entries: list[tuple[str, str]] = []
 
     def append(self, operation: str, key: str) -> None:
+        """Append one operation to the log.
+
+        Cost
+        ----
+        O(1) time. O(1) extra memory for the new entry.
+        """
+
         self._entries.append((operation, key))
 
     def replay(self, memtable: LeftLeaningRedBlackTree[str]) -> None:
+        """Replay every logged operation into ``memtable``.
+
+        Cost
+        ----
+        O(n log m) time for n log entries and a memtable of m keys. O(1) extra memory besides the tree.
+        """
+
         for operation, key in self._entries:
             if operation == "put":
                 memtable.insert(key)
@@ -120,12 +148,26 @@ class ToyLSM:
         self.wal = WriteAheadLog()
 
     def put(self, key: str) -> None:
+        """Record ``key`` in the log and the memtable.
+
+        Cost
+        ----
+        O(log m) time for a memtable of m keys. A flush copies the memtable.
+        """
+
         self.wal.append("put", key)
         self.memtable.insert(key)
         if len(self.memtable) >= 8:
             self._flush()
 
     def maybe_contains(self, key: str) -> bool:
+        """Return whether ``key`` may be present. A true result can be a false positive.
+
+        Cost
+        ----
+        O(log m + r) time for a memtable of m keys and r runs. O(1) extra memory.
+        """
+
         if self.memtable.contains(key):
             return True
         for bloom, run in self.runs:

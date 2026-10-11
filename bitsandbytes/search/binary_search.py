@@ -157,7 +157,12 @@ def _binary_search_trace_impl(
 
 
 def binary_search_trace(sorted_values: Sequence[T], target: T) -> tuple[int, list[dict[str, object]]]:
-    """Run binary search and collect pointer/message states for a lesson trace."""
+    """Run binary search and collect pointer states for a lesson trace.
+
+    Cost
+    ----
+    O(log n) iterations on n values. O(log n) extra memory for the frame list.
+    """
 
     frames: list[dict[str, object]] = []
     result = _binary_search_trace_impl(sorted_values, target, frames.append)

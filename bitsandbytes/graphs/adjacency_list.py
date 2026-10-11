@@ -146,7 +146,7 @@ def dijkstra_distances(
 
     This teaching version scans all unsettled vertices to pick the smallest
     tentative distance. That scan is O(V) per settled vertex, so total time
-    is O(V^2) on V vertices. A binary min-heap would reduce the extraction
+    is O(V^2 + E) on V vertices and E edges. A binary min-heap would reduce the extraction
     step to O(log V) and the whole algorithm to O((V + E) log V).
 
     Cost

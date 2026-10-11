@@ -64,6 +64,13 @@ class SkipList(Generic[T]):
         self._level = 0
 
     def contains(self, key: T) -> bool:
+        """Return whether ``key`` is in the skip list.
+
+        Cost
+        ----
+        Expected O(log n) level walks. O(1) extra memory.
+        """
+
         current = self._head
         for level in range(self._level, -1, -1):
             while current.forward[level] is not None and current.forward[level].key < key:
@@ -73,6 +80,13 @@ class SkipList(Generic[T]):
         return False
 
     def insert(self, key: T) -> None:
+        """Insert ``key`` if it is absent.
+
+        Cost
+        ----
+        Expected O(log n) time. O(1) extra memory besides the new node.
+        """
+
         update: list[SkipNode[T | None]] = [self._head] * (self._max_level + 1)
         current = self._head
         for level in range(self._level, -1, -1):

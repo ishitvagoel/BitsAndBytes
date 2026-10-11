@@ -111,7 +111,7 @@ class DynamicArray(Generic[T]):
 
         Cost
         ----
-        O(log append_count) arithmetic steps: O(1) extra memory.
+        O(append_count) arithmetic steps, one per append: O(1) extra memory.
         """
 
         if append_count < 0:

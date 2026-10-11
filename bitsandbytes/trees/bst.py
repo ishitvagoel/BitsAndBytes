@@ -58,9 +58,8 @@ class BinarySearchTree(Generic[T]):
 
         Cost
         ----
-        One comparison per level. h levels take h steps: O(h) time, O(h)
-        call-stack memory for the recursive walk, O(1) if rewritten
-        iteratively. Worst h is n on a sorted insert chain.
+        One comparison per level. h levels take h steps: O(h) time and O(1)
+        extra memory. The walk is a loop. Worst h is n on a sorted insert chain.
         """
 
         if self.root is None:

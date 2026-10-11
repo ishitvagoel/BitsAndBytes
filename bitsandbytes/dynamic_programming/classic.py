@@ -22,12 +22,11 @@ from bitsandbytes.graphs.adjacency_list import Graph
 
 
 def fibonacci_modulo(n: int, mod: int = 10**9 + 7) -> int:
-    """Return F(n) modulo ``mod`` with a bottom-up table.
+    """Return F(n) modulo ``mod`` from the two previous values.
 
     Cost
     ----
-    O(n) word operations, O(n) extra memory for the table (O(1) memory
-    variant keeps only two previous values in O(n) time).
+    O(n) word operations. O(1) extra memory for the two running values.
     """
 
     if n < 0:
