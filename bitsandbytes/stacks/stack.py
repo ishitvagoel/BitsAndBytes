@@ -17,18 +17,18 @@ documentation lists an end ``append`` and an end ``pop`` as amortized O(1).
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from functools import wraps
 from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
 
-class StackFullError(Exception):
+class StackFullError(OverflowError):
     """Raised when ``push`` is called and the stack is already at its limit."""
 
 
-class StackEmptyError(Exception):
+class StackEmptyError(IndexError):
     """Raised when ``pop`` or ``peek`` is called on an empty stack."""
 
 
@@ -114,8 +114,28 @@ class Stack(Generic[T]):
 
         return len(self._items)
 
+    def __iter__(self) -> Iterator[T]:
+        """Yield items from bottom to top.
+
+        Cost
+        ----
+        n yields. O(n) time, O(1) extra memory.
+        """
+
+        return iter(self._items)
+
+    def __contains__(self, item: object) -> bool:
+        """Return whether ``item`` is stored.
+
+        Cost
+        ----
+        Scan n items. O(n) time, O(1) extra memory.
+        """
+
+        return item in self._items
+
     def __repr__(self) -> str:
-        """Return the items from bottom to top, plus the limit.
+        """Return the items from bottom to top.
 
         Cost
         ----
@@ -123,7 +143,7 @@ class Stack(Generic[T]):
         extra memory are O(n).
         """
 
-        return f"Stack({self._items!r}, limit={self.limit})"
+        return f"Stack({self._items!r})"
 
     @property
     def is_empty(self) -> bool:

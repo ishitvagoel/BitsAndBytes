@@ -132,6 +132,46 @@ class BinarySearchTree(Generic[T]):
 
         yield from inorder_iter(self.root)
 
+    def __len__(self) -> int:
+        """Return how many keys are stored.
+
+        Cost
+        ----
+        The inorder walk visits n nodes. O(n) time, O(h) extra memory.
+        """
+
+        return len(self.inorder())
+
+    def __iter__(self) -> Iterator[T]:
+        """Yield keys in sorted order.
+
+        Cost
+        ----
+        Same walk as ``inorder_iter``. O(n) time, O(h) extra memory.
+        """
+
+        return self.inorder_iter()
+
+    def __contains__(self, value: object) -> bool:
+        """Return whether ``value`` is stored.
+
+        Cost
+        ----
+        Compare with each stored key until one matches. O(n) time, O(1) extra memory besides the walk.
+        """
+
+        return any(stored == value for stored in self)
+
+    def __repr__(self) -> str:
+        """Return the keys in sorted order.
+
+        Cost
+        ----
+        Formatting n keys is O(n) time and O(n) extra memory.
+        """
+
+        return f"BinarySearchTree({list(self)!r})"
+
     def delete(self, value: T) -> bool:
         """Remove ``value`` if present. Return whether a node was removed.
 

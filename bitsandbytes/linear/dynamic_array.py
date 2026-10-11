@@ -62,6 +62,26 @@ class DynamicArray(Generic[T]):
             assert value is not None
             yield value
 
+    def __contains__(self, item: object) -> bool:
+        """Return whether ``item`` is stored.
+
+        Cost
+        ----
+        Scan n items. O(n) time, O(1) extra memory.
+        """
+
+        return any(stored == item for stored in self)
+
+    def __repr__(self) -> str:
+        """Return the stored items in order.
+
+        Cost
+        ----
+        Formatting n items is O(n) time and O(n) extra memory.
+        """
+
+        return f"DynamicArray({list(self)!r})"
+
     def append(self, item: T) -> None:
         """Append ``item`` at the end, resizing when full.
 

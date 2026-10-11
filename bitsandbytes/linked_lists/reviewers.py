@@ -72,6 +72,26 @@ class ReviewersList:
             yield node
             node = node.next
 
+    def __contains__(self, name: object) -> bool:
+        """Return whether a reviewer with this name is in the circle.
+
+        Cost
+        ----
+        Scan n reviewers. O(n) time, O(1) extra memory.
+        """
+
+        return any(reviewer.name == name for reviewer in self)
+
+    def __repr__(self) -> str:
+        """Return reviewer names in rotation order.
+
+        Cost
+        ----
+        Formatting n names is O(n) time and O(n) extra memory.
+        """
+
+        return f"ReviewersList({[reviewer.name for reviewer in self]!r})"
+
     @property
     def current(self) -> Reviewer:
         """Return the reviewer who holds the cursor.
@@ -82,7 +102,7 @@ class ReviewersList:
         """
 
         if self._current is None:
-            raise RuntimeError("No reviewers have been added.")
+            raise IndexError("No reviewers have been added.")
         return self._current
 
     @property

@@ -85,16 +85,18 @@ for (const viewport of viewports) {
         };
       }
       function backgroundOf(element) {
-        let current = element;
         const layers = [];
-        while (current && current !== document.documentElement) {
+        let current = element;
+        while (current) {
           const parsed = parseColor(getComputedStyle(current).backgroundColor);
           if (parsed && parsed.a > 0) layers.push(parsed);
           if (parsed && parsed.a === 1) break;
           current = current.parentElement;
         }
-        const page = parseColor(getComputedStyle(document.body).backgroundColor) ?? { r: 255, g: 253, b: 248, a: 1 };
-        return layers.reduceRight((back, front) => mix(front, back), page);
+        const html = parseColor(getComputedStyle(document.documentElement).backgroundColor);
+        const body = parseColor(getComputedStyle(document.body).backgroundColor);
+        const base = (body && body.a === 1 ? body : null) ?? (html && html.a === 1 ? html : null) ?? { r: 16, g: 19, b: 24, a: 1 };
+        return layers.reduceRight((back, front) => mix(front, back), base);
       }
       function ratio(front, back) {
         const left = luminance(front);

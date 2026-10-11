@@ -706,7 +706,7 @@ main:focus-visible {
 }
 
 .readiness-actions > span {
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.84rem;
 }
 

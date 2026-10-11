@@ -12,6 +12,7 @@ count, a sacrificed slot, or a boolean flag. This version keeps an explicit
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import Generic, TypeVar
 
 T = TypeVar("T")
@@ -45,6 +46,41 @@ class CircularQueue(Generic[T]):
         """
 
         return self._size
+
+    def __iter__(self) -> Iterator[T]:
+        """Yield items from the front toward the back.
+
+        Cost
+        ----
+        n yields. O(n) time, O(1) extra memory.
+        """
+
+        index = self._head
+        for _ in range(self._size):
+            item = self._slots[index]
+            assert item is not None
+            yield item
+            index = (index + 1) % self._capacity
+
+    def __contains__(self, item: object) -> bool:
+        """Return whether ``item`` is stored.
+
+        Cost
+        ----
+        Scan n items. O(n) time, O(1) extra memory.
+        """
+
+        return any(stored == item for stored in self)
+
+    def __repr__(self) -> str:
+        """Return the items from front to back.
+
+        Cost
+        ----
+        Formatting n items is O(n) time and O(n) extra memory.
+        """
+
+        return f"CircularQueue({list(self)!r})"
 
     @property
     def is_full(self) -> bool:

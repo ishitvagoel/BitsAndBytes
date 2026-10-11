@@ -18,6 +18,7 @@ approximately the same O(1) performance in either direction, which is why
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import Generic, TypeVar
 
 from bitsandbytes.doubly_linked_list import DoublyLinkedList
@@ -47,6 +48,36 @@ class LinkedQueue(Generic[T]):
         """
 
         return len(self._items)
+
+    def __iter__(self) -> Iterator[T]:
+        """Yield items from front to back.
+
+        Cost
+        ----
+        n yields. O(n) time, O(1) extra memory.
+        """
+
+        return iter(self._items)
+
+    def __contains__(self, item: object) -> bool:
+        """Return whether ``item`` is waiting.
+
+        Cost
+        ----
+        Scan n items. O(n) time, O(1) extra memory.
+        """
+
+        return item in self._items
+
+    def __repr__(self) -> str:
+        """Return the items from front to back.
+
+        Cost
+        ----
+        Formatting n items is O(n) time and O(n) extra memory.
+        """
+
+        return f"LinkedQueue({list(self)!r})"
 
     @property
     def is_empty(self) -> bool:

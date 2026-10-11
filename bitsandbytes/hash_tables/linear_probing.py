@@ -51,6 +51,16 @@ class LinearProbingHashTable(MutableMapping[K, V]):
             if key is not None and key is not _TOMBSTONE:
                 yield key
 
+    def __repr__(self) -> str:
+        """Return the stored mapping.
+
+        Cost
+        ----
+        Copying n pairs is O(n) time and O(n) extra memory.
+        """
+
+        return f"LinearProbingHashTable({dict(self)!r})"
+
     def __getitem__(self, key: K) -> V:
         """Return the value for ``key``.
 

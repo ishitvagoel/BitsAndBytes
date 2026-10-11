@@ -11,6 +11,7 @@ Worked trace (push (5,a), push (3,b), pop):
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import Generic, TypeVar
 
 T = TypeVar("T")
@@ -40,6 +41,37 @@ class PriorityQueue(Generic[T]):
         """
 
         return len(self._heap)
+
+    def __iter__(self) -> Iterator[T]:
+        """Yield items in current heap order, not sorted order.
+
+        Cost
+        ----
+        n yields. O(n) time, O(1) extra memory.
+        """
+
+        for _priority, _token, item in self._heap:
+            yield item
+
+    def __contains__(self, item: object) -> bool:
+        """Return whether ``item`` is stored.
+
+        Cost
+        ----
+        Scan n items. O(n) time, O(1) extra memory.
+        """
+
+        return any(stored == item for stored in self)
+
+    def __repr__(self) -> str:
+        """Return the items in heap order.
+
+        Cost
+        ----
+        Formatting n items is O(n) time and O(n) extra memory.
+        """
+
+        return f"PriorityQueue({list(self)!r})"
 
     def push(self, priority: int, item: T) -> int:
         """Insert ``item`` with ``priority``. Return a token for ``decrease_key``.

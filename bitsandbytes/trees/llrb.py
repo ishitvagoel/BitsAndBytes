@@ -16,6 +16,7 @@ Worked trace (insert 1, 2, 3 in order):
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
@@ -58,6 +59,36 @@ class LeftLeaningRedBlackTree(Generic[T]):
         """
 
         return 0 if self.root is None else self.root.size
+
+    def __iter__(self) -> Iterator[T]:
+        """Yield keys in sorted order.
+
+        Cost
+        ----
+        The inorder walk visits n keys. O(n) time, O(n) extra memory for the list.
+        """
+
+        return iter(self.inorder())
+
+    def __contains__(self, key: object) -> bool:
+        """Return whether ``key`` is stored.
+
+        Cost
+        ----
+        Compare the key with each stored key until one matches. O(n) time, O(1) extra memory.
+        """
+
+        return any(stored == key for stored in self)
+
+    def __repr__(self) -> str:
+        """Return the keys in sorted order.
+
+        Cost
+        ----
+        Formatting n keys is O(n) time and O(n) extra memory.
+        """
+
+        return f"LeftLeaningRedBlackTree({list(self)!r})"
 
     def contains(self, key: T) -> bool:
         """Return whether ``key`` is stored.
