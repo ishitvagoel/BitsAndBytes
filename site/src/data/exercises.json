@@ -672,7 +672,7 @@
     "lessonSlug": "stack-basics",
     "storageId": "stack-basics-transfer",
     "kind": "predict-output",
-    "prompt": "Apply the same rule from stack-basics to one new case. Which statement holds?",
+    "prompt": "What does this code print?",
     "hints": [
       "The lesson's rule does not change for a new input.",
       "Reject the statement that contradicts the rule."
@@ -692,8 +692,8 @@
       }
     ],
     "answer": "yes",
-    "correct": "The last pop returns 1, and the stack is empty",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "correct": "The code prints 2.",
+    "retry": "The code prints 2.",
     "objectiveId": "stack-maintain-size-invariant",
     "code": "print([1, 2].pop())"
   },
@@ -731,7 +731,7 @@
     "lessonSlug": "queue-and-deque-operations",
     "storageId": "queue-and-deque-operations-transfer",
     "kind": "predict-output",
-    "prompt": "Apply the same rule from queue-and-deque-operations to one new case. Which statement holds?",
+    "prompt": "What does this code print?",
     "hints": [
       "The lesson's rule does not change for a new input.",
       "Reject the statement that contradicts the rule."
@@ -751,8 +751,8 @@
       }
     ],
     "answer": "yes",
-    "correct": "b leaves second, because a already left",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "correct": "The code prints b.",
+    "retry": "The code prints b.",
     "objectiveId": "queue-compare-implementations",
     "code": "from collections import deque\nitems = deque(['a', 'b'])\nitems.popleft()\nitems.append('c')\nprint(items.popleft())"
   },
@@ -2936,7 +2936,7 @@
     "lessonSlug": "heap-operations",
     "storageId": "heap-operations-transfer",
     "kind": "fill-cell",
-    "prompt": "Apply the same rule from heap-operations to one new case. Which statement holds?",
+    "prompt": "Which value belongs in the named cell?",
     "hints": [
       "The lesson's rule does not change for a new input.",
       "Reject the statement that contradicts the rule."
@@ -2956,8 +2956,8 @@
       }
     ],
     "answer": "shown",
-    "correct": "Index 3, because 9 is larger than 4",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "correct": "The cell shows 3.",
+    "retry": "The cell shows 3.",
     "objectiveId": "heap-operations-derive-heapsort-cost",
     "frameLabel": "Sift 1",
     "rowLabel": "State",

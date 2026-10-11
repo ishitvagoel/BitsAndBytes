@@ -1116,6 +1116,10 @@ def build() -> dict[str, str]:
             {"id": "other", "label": wrong_b},
         ]
         item["answer"] = "yes"
+        if item["id"] not in {"dynamic-programming-memory", "input-size-and-operation-counts-transfer"}:
+            item["prompt"] = "What does this code print?"
+            item["correct"] = f"The code prints {right}."
+            item["retry"] = f"The code prints {right}."
     heap = next(item for item in exercises if item["id"] == "heap-operations-transfer")
     heap_frame = traces["heap-operations"][0]["frames"][0]
     heap["kind"] = "fill-cell"
@@ -1129,6 +1133,9 @@ def build() -> dict[str, str]:
         {"id": "missing", "label": "missing"},
     ]
     heap["answer"] = "shown"
+    heap["prompt"] = "Which value belongs in the named cell?"
+    heap["correct"] = f"The cell shows {cell_text}."
+    heap["retry"] = f"The cell shows {cell_text}."
     files[str(TRACES_OUT.relative_to(ROOT))] = json.dumps(traces, indent=2) + "\n"
     files[str(EXERCISES_OUT.relative_to(ROOT))] = json.dumps(exercises, indent=2) + "\n"
     files[str(CURRICULUM.relative_to(ROOT))] = patch_curriculum(CURRICULUM.read_text(), specs)
