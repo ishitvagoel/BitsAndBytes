@@ -9,6 +9,7 @@ const references = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/le
 const traces = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/binary-search-traces.json"), "utf8"));
 const source = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/binary-search-source.json"), "utf8"));
 const exercises = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/exercises.json"), "utf8"));
+const lessonTraces = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-traces.json"), "utf8"));
 const slugAliases = JSON.parse(fs.readFileSync(path.join(siteDir, "../src/data/lesson-slug-aliases.json"), "utf8"));
 const curriculumSource = fs.readFileSync(path.join(siteDir, "../src/lib/curriculum.ts"), "utf8");
 
@@ -164,6 +165,16 @@ try {
     assert(objectiveEntry, `${slug}: missing stable objective IDs`);
     const manifestObjectiveIds = new Set([...objectiveEntry[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]));
     assert((exercisesByLesson.get(slug) ?? []).every((exercise) => manifestObjectiveIds.has(exercise.objectiveId)), `${slug}: an exercise references an unknown learning objective`);
+  }
+
+  const knownTraceIds = new Set([
+    ...traces.map((trace) => trace.id),
+    ...Object.values(lessonTraces).flatMap((items) => items.map((trace) => trace.id)),
+  ]);
+  for (const match of curriculumSource.matchAll(/traceIds:\s*\[([^\]]*)\]/g)) {
+    for (const id of [...match[1].matchAll(/"([^"]+)"/g)].map((item) => item[1])) {
+      assert(knownTraceIds.has(id), `unknown trace id ${id}`);
+    }
   }
 
   console.log(`curriculum data: ok (${slugs.size} lessons, ${moduleCount} source modules, ${traces.length} trace scenarios)`);

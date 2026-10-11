@@ -189,7 +189,11 @@ export async function generateMetadata({ params }: LessonPageProps) {
   if (!lesson) {
     return { title: "Lesson not found" };
   }
-  return { title: `${lesson.title} | Bits and Bytes` };
+  return {
+    title: `${lesson.title} | Bits and Bytes`,
+    description: lesson.summary,
+    openGraph: { title: `${lesson.title} | Bits and Bytes` },
+  };
 }
 
 export default async function LessonPage({ params }: LessonPageProps) {

@@ -10,7 +10,7 @@ module: bitsandbytes.search.binary_search
 
 **By the end of this lesson, you can** trace binary search, explain why each discarded index cannot contain the answer, handle a missing value and duplicate values, and distinguish the cost of searching from the cost of inserting.
 
-**Before you start:** You should be comfortable reading a Python list, comparing values, and following `while` loops. No prior search-algorithm knowledge is required. Set aside about **15 minutes** for the explanation and practice.
+**Before you start:** You should be comfortable reading a Python list, comparing values, and following `while` loops. No prior search-algorithm knowledge is required. The page states how long the explanation and practice take.
 
 ## Start with a prediction
 

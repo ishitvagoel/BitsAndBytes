@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
+
 import { ReferenceSearch, type GlossaryTerm, type ReferenceRow } from "@/components/reference-search";
+
+export const metadata: Metadata = {
+  title: "Glossary and library choices | Bits and Bytes",
+  description: "Search short definitions and compare Python tools with the algorithm idea they support.",
+};
 
 const comparisons: ReferenceRow[] = [
   {

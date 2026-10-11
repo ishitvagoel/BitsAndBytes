@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CurriculumIndex } from "@/components/curriculum-index";
@@ -7,6 +8,11 @@ import { ResumeLine } from "@/components/resume-progress";
 import { getAllLessons, getCurriculumStages } from "@/lib/lessons";
 import { getLessonSections } from "@/lib/lesson-sections";
 import type { LessonProgressConfig } from "@/lib/learning-progress";
+
+export const metadata: Metadata = {
+  title: "Bits and Bytes",
+  description: "Start with how to count the work an algorithm does, then follow 52 lessons in order.",
+};
 
 export default function Home() {
   const lessons = getAllLessons();

@@ -4,10 +4,19 @@ import { useCallback, useMemo, useSyncExternalStore } from "react";
 
 export type TraceCellStatus = "idle" | "active" | "done" | "excluded" | "chosen";
 
+const defaultLabels: Record<TraceCellStatus, string> = {
+  idle: "",
+  active: "comparing",
+  chosen: "chosen",
+  done: "done",
+  excluded: "ruled out",
+};
+
 export type TraceScenario = {
   id: string;
   title: string;
   prompt: string;
+  labels?: Partial<Record<TraceCellStatus, string>>;
   frames: Array<{
     label: string;
     narration: string;
@@ -66,6 +75,7 @@ export function TraceBench({ lessonSlug, scenarios }: { lessonSlug: string; scen
   const saved = validate(JSON.parse(snapshot) as unknown);
   const scenario = scenarios.find((item) => item.id === saved.scenarioId) ?? scenarios[0];
   const frame = scenario.frames[saved.frameIndex];
+  const labels = { ...defaultLabels, ...scenario.labels };
 
   function write(next: { scenarioId: string; frameIndex: number }) {
     const serialized = JSON.stringify(validate(next));
@@ -109,7 +119,7 @@ export function TraceBench({ lessonSlug, scenarios }: { lessonSlug: string; scen
               <li className={`search-cell ${statusClass[cell.status]}`} key={`${row.label}-${index}`}>
                 <span className="search-cell-index">{index}</span>
                 <span className="search-cell-value">{cell.text}</span>
-                <span className="search-cell-state">{cell.status}</span>
+                <span className="search-cell-state">{labels[cell.status]}</span>
               </li>
             ))}
           </ol>

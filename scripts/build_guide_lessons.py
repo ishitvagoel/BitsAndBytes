@@ -55,8 +55,21 @@ def frame(label: str, narration: str, state: list[tuple[str, str]], rows: list[d
     }
 
 
-def scenario(scenario_id: str, title: str, prompt: str, frames: list[dict[str, object]]) -> dict[str, object]:
-    return {"id": scenario_id, "title": title, "prompt": prompt, "frames": frames}
+def scenario(
+    scenario_id: str,
+    title: str,
+    prompt: str,
+    frames: list[dict[str, object]],
+    labels: dict[str, str] | None = None,
+) -> dict[str, object]:
+    if labels is None and any(token in scenario_id for token in ("sort", "heap", "quick", "comparison", "merge")):
+        labels = {"idle": "", "active": "comparing", "chosen": "taken", "done": "placed", "excluded": "ruled out"}
+    if labels is None and "graph" in scenario_id:
+        labels = {"idle": "", "active": "visiting", "chosen": "front", "done": "visited", "excluded": "ruled out"}
+    payload: dict[str, object] = {"id": scenario_id, "title": title, "prompt": prompt, "frames": frames}
+    if labels:
+        payload["labels"] = labels
+    return payload
 
 
 def exercise(slug: str, objective_id: str, prompt: str, options: list[tuple[str, str]], answer: str, correct: str, retry: str, hints: list[str]) -> dict[str, object]:
@@ -490,7 +503,7 @@ def final_lessons() -> list[dict[str, object]]:
             "slug": "union-find",
             "objective": "union-find-track-components",
             "prompt": "Naive union links 1 under 0, then links 2 under find(1). What does find(2) walk?",
-            "options": [("two-links", "2 to 0, two links if compression is off and 2's parent is 0"), ("chain", "2 to 1 to 0, when 2 was linked to 1"), ("none", "Nothing. find returns 2 because 2 was never a parent")],
+            "options": [("two-links", "2 to 0, one link, because find(1) returned 0 before 2 was linked"), ("chain", "2 to 1 to 0, when 2 was linked to 1"), ("none", "Nothing. find returns 2 because 2 was never a parent")],
             "answer": "two-links",
             "correct": "For the library's naive union, find(1) returns 0 before the link, so 2's parent becomes 0. find(2) then walks 2 → 0.",
             "retry": "Look at the parent written for 2. Naive union links the root of the second item, and that root was found before the write.",

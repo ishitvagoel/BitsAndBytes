@@ -43,6 +43,8 @@ The answer is 4. Notice that a feasible midpoint does not end the search: a smal
 
 ## Connect the boundary to code and cost
 
+The loop below is a variant of the library function. `binary_search_on_answer` keeps an `answer` variable and sets `high = middle - 1` when a rate is feasible.
+
 ```python
 def hours_needed(piles: list[int], rate: int) -> int:
     return sum((pile + rate - 1) // rate for pile in piles)

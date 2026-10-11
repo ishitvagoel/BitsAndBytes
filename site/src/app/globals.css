@@ -435,7 +435,7 @@ main:focus-visible {
   letter-spacing: -0.02em;
 }
 
-.site-header a::before {
+.site-brand::before {
   content: "B";
   display: grid;
   width: 1.8rem;

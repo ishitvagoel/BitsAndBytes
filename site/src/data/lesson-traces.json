@@ -1165,7 +1165,14 @@
             }
           ]
         }
-      ]
+      ],
+      "labels": {
+        "idle": "",
+        "active": "comparing",
+        "chosen": "taken",
+        "done": "placed",
+        "excluded": "ruled out"
+      }
     }
   ],
   "merge-sort": [
@@ -1343,7 +1350,14 @@
             }
           ]
         }
-      ]
+      ],
+      "labels": {
+        "idle": "",
+        "active": "comparing",
+        "chosen": "taken",
+        "done": "placed",
+        "excluded": "ruled out"
+      }
     }
   ],
   "quicksort-and-partition": [
@@ -1488,7 +1502,14 @@
             }
           ]
         }
-      ]
+      ],
+      "labels": {
+        "idle": "",
+        "active": "comparing",
+        "chosen": "taken",
+        "done": "placed",
+        "excluded": "ruled out"
+      }
     }
   ],
   "hash-chaining": [
@@ -1859,7 +1880,14 @@
             }
           ]
         }
-      ]
+      ],
+      "labels": {
+        "idle": "",
+        "active": "comparing",
+        "chosen": "taken",
+        "done": "placed",
+        "excluded": "ruled out"
+      }
     }
   ],
   "graph-traversals": [
