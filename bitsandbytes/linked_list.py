@@ -34,6 +34,8 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
+from bitsandbytes.tracing import TraceSink, emit
+
 T = TypeVar("T")
 
 # Printed form used by the original examples: "1 --> 2 --> 3".
@@ -360,7 +362,7 @@ class LinkedList(Generic[T]):
         node.next = None
         return node.data
 
-    def remove(self, data: T) -> None:
+    def remove(self, data: T, *, trace_sink: TraceSink | None = None) -> None:
         """Remove the first node whose value equals ``data``.
 
         Cost
@@ -375,6 +377,7 @@ class LinkedList(Generic[T]):
         previous: Node[T] | None = None
         current = self.head
         while current is not None:
+            emit(trace_sink, "visit", value=current.data)
             if current.data == data:
                 if previous is None:
                     self.head = current.next

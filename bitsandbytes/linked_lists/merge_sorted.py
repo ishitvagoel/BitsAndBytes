@@ -16,11 +16,17 @@ from __future__ import annotations
 from typing import TypeVar
 
 from bitsandbytes.linked_list import LinkedList, Node
+from bitsandbytes.tracing import TraceSink, emit
 
 T = TypeVar("T")
 
 
-def merge_sorted(first: LinkedList[T], second: LinkedList[T]) -> LinkedList[T]:
+def merge_sorted(
+    first: LinkedList[T],
+    second: LinkedList[T],
+    *,
+    trace_sink: TraceSink | None = None,
+) -> LinkedList[T]:
     """Return a new list that owns the nodes of ``first`` and ``second``.
 
     ``first`` and ``second`` are left empty.
@@ -33,7 +39,7 @@ def merge_sorted(first: LinkedList[T], second: LinkedList[T]) -> LinkedList[T]:
     """
 
     merged: LinkedList[T] = LinkedList()
-    merged.head = _detach_merged(first, second)
+    merged.head = _detach_merged(first, second, trace_sink)
     merged.refresh()
     return merged
 
@@ -63,7 +69,11 @@ def merge_sorted_into(destination: LinkedList[T], source: LinkedList[T]) -> None
     destination.refresh()
 
 
-def _detach_merged(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | None:
+def _detach_merged(
+    first: LinkedList[T],
+    second: LinkedList[T],
+    trace_sink: TraceSink | None = None,
+) -> Node[T] | None:
     """Merge ``first`` and ``second`` and detach both lists from the result.
 
     Cost
@@ -78,7 +88,7 @@ def _detach_merged(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | Non
         raise ValueError("Cannot merge a list with itself.")
     first.require_linear()
     second.require_linear()
-    merged_head = _merge_nodes(first.head, second.head)
+    merged_head = _merge_nodes(first.head, second.head, trace_sink)
     first.head = None
     second.head = None
     first.refresh()
@@ -86,7 +96,11 @@ def _detach_merged(first: LinkedList[T], second: LinkedList[T]) -> Node[T] | Non
     return merged_head
 
 
-def _merge_nodes(first: Node[T] | None, second: Node[T] | None) -> Node[T] | None:
+def _merge_nodes(
+    first: Node[T] | None,
+    second: Node[T] | None,
+    trace_sink: TraceSink | None = None,
+) -> Node[T] | None:
     """Relink two ascending chains into one and return its head.
 
     Cost
@@ -112,6 +126,7 @@ def _merge_nodes(first: Node[T] | None, second: Node[T] | None) -> Node[T] | Non
         else:
             tail.next = chosen
         tail = chosen
+        emit(trace_sink, "take", value=chosen.data)
 
     # The leftover chain is already sorted, so one assignment attaches all of it.
     remainder = first if first is not None else second

@@ -8,22 +8,28 @@ module: bitsandbytes.dynamic_programming.classic
 
 ## The idea
 
+fibonacci_modulo(6, 1000) returns 8 and keeps only two running values.
+
 Dynamic programming applies when a problem repeats smaller versions of itself and you can order those versions. So each one is ready before you need it. The Fibonacci recurrence F(n) = F(n - 1) + F(n - 2), with F(0) = 0 and F(1) = 1, is the smallest example. A naive recursion recomputes F(3) many times. A bottom-up table fills each index once. The library function fibonacci_modulo keeps only the last two values and returns F(n) mod m. For n = 6 and m = 1000 the result is 8.
 
 ## A worked trace
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Start | previous = 0, current = 1 | F(0) and F(1) are the two running values. |
-| F(2) | current = 1 | The next value is the sum of the two previous values. |
-| F(3) | current = 2 | The next value is the sum of the two previous values. |
-| F(4) | current = 3 | The next value is the sum of the two previous values. |
-| F(5) | current = 5 | The next value is the sum of the two previous values. |
-| F(6) | current = 8 | The next value is the sum of the two previous values. |
+| F(1) | current = 1 | F(1) is 1. The previous value is 0. |
+| F(2) | current = 1 | F(2) is 1. The previous value is 1. |
+| F(3) | current = 2 | F(3) is 2. The previous value is 1. |
+| F(4) | current = 3 | F(4) is 3. The previous value is 2. |
+| F(5) | current = 5 | F(5) is 5. The previous value is 3. |
+| F(6) | current = 8 | F(6) is 8. The previous value is 5. |
 
 ## Why it is correct
 
 The table is correct by induction. The base cells match the definition. If cells n - 1 and n - 2 hold F(n - 1) and F(n - 2). Their sum is F(n) by the recurrence, so writing that sum into cell n preserves the claim. The fill order matters. Cell n is written only after the two cells it reads. A recursion with memoization is the same idea stored in a dictionary instead of an array. The state is the argument n. The transition is the sum. The base cases are the two starting cells.
+
+## A common mistake
+
+The naive recursion recomputes the same F(n) many times. The table does not.
 
 ## What it costs
 
@@ -39,4 +45,4 @@ print(fibonacci_modulo(6, 1000))
 
 ## Practice and next step
 
-Answer the checkpoints, then open Dynamic programming state and transitions. The checkpoint stays in this browser.
+Open Dynamic programming state and transitions next. The next lesson names the state and the transition for coin change and knapsack.

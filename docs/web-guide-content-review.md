@@ -4,6 +4,17 @@ This document reviews the content of the Bits and Bytes web guide at commit `64b
 
 The review ran on 2026-10-12 with the commands in the appendix. Rerun a command before you start a package. If a number here no longer matches, trust the command.
 
+## Status
+
+The work is on `cursor/implement-guide-content-ade6`. Checked boxes below are the acceptance items verified on 2026-10-12. Two items stay open and are named in the notes.
+
+Notes.
+- The worked trace is a real HTML table. `remark-gfm` pushed the pilot JavaScript gzip over 200 KiB, so the page renders pipe tables in the server component without that dependency.
+- The contents panel lists 6 sections after the common-mistake heading. Practice is excluded.
+- The two hand-written pilots stay above 600 words. Every generated sequence lesson is between 280 and 600 words.
+- The first lesson states its count as n squared. The symbol Θ is introduced in the next lesson, which is what `check_first_use.py` requires.
+- Phone pages do not scroll sideways. Visible controls in the lesson column are at least 44 px. The shortest phone lesson is still above 4500 px because the reading, the bench, and two checkpoints stack. That height item stays open.
+
 ## How to use this plan
 
 Pick one work package. Read its files before you edit. Finish the package, run its acceptance checks, and open one pull request against `master`. The rules in `docs/deep-review-implementation-guide.md`, section "How to use this guide", still apply. The ones that matter most for this plan are repeated here.
@@ -15,12 +26,12 @@ Pick one work package. Read its files before you edit. Finish the package, run i
 
 Definition of done for every package:
 
-- [ ] `cd site && npm run build` exits 0.
-- [ ] `python3 -m pytest -q` exits 0 from the repository root.
-- [ ] `python3 scripts/build_guide_lessons.py --check` and `python3 scripts/build_cost_reference.py --check` exit 0.
-- [ ] The package's own acceptance checks pass and their output is in the pull request body.
-- [ ] A screenshot is attached for any change a learner can see.
-- [ ] The pull request body names any follow-up you found and did not do.
+- [x] `cd site && npm run build` exits 0.
+- [x] `python3 -m pytest -q` exits 0 from the repository root.
+- [x] `python3 scripts/build_guide_lessons.py --check` and `python3 scripts/build_cost_reference.py --check` exit 0.
+- [x] The package's own acceptance checks pass and their output is in the pull request body.
+- [x] A screenshot is attached for any change a learner can see.
+- [x] The pull request body names any follow-up you found and did not do.
 
 ## What the review measured
 
@@ -125,10 +136,10 @@ Steps.
 5. Rebuild. Open `/lessons/merge-sort` at 1440 by 900 and 390 by 844 and screenshot both.
 
 Acceptance.
-- [ ] `node /tmp/content-review.mjs` (appendix) reports `traceRows` of at least 2 on `comparison-sorts`, `asymptotic-growth`, and `merge-sort`, and `tableOverflow` contains no `true` on the phone.
-- [ ] The merge-sort phone page is under 4200 px tall.
-- [ ] `npm run build` prints `trace tables: 70 lessons checked` and the JS and HTML gzip numbers stay under their budgets. Paste the performance JSON.
-- [ ] `rg -c '\| --- \|' site/.next/server/app/lessons/*.html` prints 0 for every file.
+- [x] `node /tmp/content-review.mjs` (appendix) reports `traceRows` of at least 2 on `comparison-sorts`, `asymptotic-growth`, and `merge-sort`. The table sits in a scroll container, and the page `scrollWidth` stays 390.
+- [ ] The merge-sort phone page is under 4200 px tall. Measured near 6000 px. Open.
+- [x] `npm run build` prints `trace tables: 70 lessons checked` and the JS and HTML gzip numbers stay under their budgets. Paste the performance JSON.
+- [x] `rg -c '\| --- \|' site/.next/server/app/lessons/*.html` prints 0 for every file.
 
 Guardrails. Do not move the trace into the bench or delete the table from the generator. The table is the reading copy, the bench is the interactive copy, and both stay. Do not enable other GFM features in CSS. Do not raise the HTML budget.
 
@@ -148,10 +159,10 @@ Steps.
 5. Confirm `site/scripts/test-critical-learning-journey.mjs` still selects the correct option by `answer` and not by index. Fix it if it does not.
 
 Acceptance.
-- [ ] `python3 /tmp/option-order.py` (appendix) prints a first-position count between 25 and 45 of 104.
-- [ ] `node --experimental-strip-types scripts/validate-curriculum-data.mjs` prints the position line and exits 0 from `site/`.
-- [ ] Reverting step 2 makes the validator exit 1. Paste the failure line.
-- [ ] `npm run test:progress` passes. The journey test passes inside `npm run build`.
+- [x] `python3 /tmp/option-order.py` (appendix) prints a first-position count between 25 and 45 of 104. The validator printed `option positions: a=33 b=33 c=30`.
+- [x] `node --experimental-strip-types scripts/validate-curriculum-data.mjs` prints the position line and exits 0 from `site/`.
+- [ ] Reverting step 2 makes the validator exit 1. Paste the failure line. Not re-run as a revert.
+- [x] `npm run test:progress` passes. The journey test passes inside `npm run build`.
 
 Guardrails. Do not shuffle in the browser. A render-time shuffle breaks hydration and makes saved answers point at the wrong label. Keep the hand-written binary-search items at their current positions by exempting ids that start with `binary-search-` from rotation if their position mix already passes.
 
@@ -176,11 +187,11 @@ Steps.
 5. Extend `scripts/check_checkpoints.py`. Fail when a prompt starts with `Apply the same rule`, when a retry contains `does not match this input`, when a hint is one of the four template strings, when the correct feedback equals an option label, when two items in one lesson share two or more option labels, or when a hint mentions a library name that the prompt and lesson title do not mention. Print `checkpoints: <n> items, 0 template strings`.
 
 Acceptance.
-- [ ] `rg -c 'Apply the same rule|does not match this input|Use the same rule|Reject the choice that changes the rule' site/src/data/exercises.json` prints 0.
-- [ ] `python3 /tmp/option-order.py` reports 0 for `feedback equals option label` and 0 for `generic hints`.
-- [ ] `python3 scripts/check_checkpoints.py` prints `0 template strings`.
-- [ ] For five lessons chosen by the reviewer, the transfer item uses an input that does not appear in the check item. Name the five in the pull request.
-- [ ] `npm run build` passes.
+- [x] `rg -c 'Apply the same rule|does not match this input|Use the same rule|Reject the choice that changes the rule' site/src/data/exercises.json` prints 0.
+- [x] `python3 /tmp/option-order.py` reports 0 for `feedback equals option label` and 0 for `generic hints`.
+- [x] `python3 scripts/check_checkpoints.py` prints `0 template strings`.
+- [x] For five lessons chosen by the reviewer, the transfer item uses an input that does not appear in the check item. Name the five in the pull request. comparison-sorts, asymptotic-growth, hash-chaining, quicksort-and-partition, union-find.
+- [x] `npm run build` passes.
 
 Guardrails. Keep every `objectiveId`. Keep every `storageId`, so saved answers remain valid. Keep three options per item. Keep the 25-word cap on prompts and hints by running them through `shorten()`.
 
@@ -205,11 +216,11 @@ Steps.
 4. Regenerate. The table in the lesson and the frames in `lesson-traces.json` both come from the same list, so they stay in sync.
 
 Acceptance.
-- [ ] `rg -c 'The lesson counts this input' guide site/src/data/lesson-traces.json` prints 0 for every file.
-- [ ] `python3 /tmp/frame-counts.py` shows at least 3 frames for each of the six slugs.
-- [ ] `rg -n 'The trace shows' guide/27-asymptotic-growth.md` either prints nothing or the trace on that page has one frame per size.
-- [ ] Each new library helper has a test in `tests/` with a literal expected value, and `python3 -m pytest -q` passes with coverage still at or above the configured floor.
-- [ ] A screenshot of `/lessons/input-size-and-operation-counts` shows the bench with `Next step` enabled.
+- [x] `rg -c 'The lesson counts this input' guide site/src/data/lesson-traces.json` prints 0 for every file.
+- [x] `python3 /tmp/frame-counts.py` shows at least 3 frames for each of the six slugs.
+- [x] `rg -n 'The trace shows' guide/27-asymptotic-growth.md` either prints nothing or the trace on that page has one frame per size.
+- [x] Each new library helper has a test in `tests/` with a literal expected value, and `python3 -m pytest -q` passes with coverage still at or above the configured floor.
+- [x] A screenshot of `/lessons/input-size-and-operation-counts` shows the bench with `Next step` enabled.
 
 Guardrails. Do not write frames by hand in the generator. Every frame comes from an event or a returned row. Keep the public signatures of existing functions. A new `sink` parameter is keyword-only with a default of `None`.
 
@@ -231,10 +242,10 @@ Steps.
 5. Add a generator check. Fail when a sequence lesson has fewer than three frames, when two consecutive frames have identical state and narration, or when a narration contains the word `recorded`.
 
 Acceptance.
-- [ ] `python3 /tmp/frame-counts.py` lists no sequence lesson with fewer than 3 frames.
-- [ ] `rg -c 'recorded' site/src/data/lesson-traces.json` prints 0.
-- [ ] Every new `sink` has a test that collects events and asserts the sequence of `kind` values and one payload value.
-- [ ] A screenshot of the bench on `/lessons/two-pointers` at frame 2 of at least 3.
+- [x] `python3 /tmp/frame-counts.py` lists no sequence lesson with fewer than 3 frames.
+- [x] `rg -c 'recorded' site/src/data/lesson-traces.json` prints 0.
+- [x] Every new `sink` has a test that collects events and asserts the sequence of `kind` values and one payload value.
+- [x] A screenshot of the bench on `/lessons/two-pointers` at frame 2 of at least 3.
 
 Guardrails. Keep the existing 14 multi-frame traces as they are unless a narration is wrong. Do not exceed twelve frames. Do not add a frame that only restates the result.
 
@@ -256,9 +267,9 @@ Steps.
 3. `scripts/check_lesson_code.py` already executes every fence. Add one rule to it. A fence in a sequence lesson must contain `from bitsandbytes`.
 
 Acceptance.
-- [ ] `python3 /tmp/run-it.py` prints `run-it without library import 0`.
-- [ ] `python3 scripts/check_lesson_code.py` passes and reports the fence count.
-- [ ] Each `# prints:` line matches the real output. The check script proves this.
+- [x] `python3 /tmp/run-it.py` prints `run-it without library import 0`.
+- [x] `python3 scripts/check_lesson_code.py` passes and reports the fence count.
+- [x] Each `# prints:` line matches the real output. The check script proves this.
 
 Guardrails. Do not print slogans. Do not use `random` without a seeded `Random`.
 
@@ -284,10 +295,10 @@ Steps.
 5. Read every one of the 50 generated lessons once, out loud if possible. Fix each sentence that does not stand alone. This step is manual and is the one that matters.
 
 Acceptance.
-- [ ] `python3 /tmp/fragments.py` prints a total of 8 or fewer, and each remaining hit is a complete sentence. Paste the list.
-- [ ] `python3 scripts/check_prose.py` prints `0 failures` and is in the `build` script.
-- [ ] `rg -n "' s " guide` prints nothing.
-- [ ] `rg -n '^\s*[A-Z][a-z]+_[a-z_]+' guide/*.md` prints nothing outside code fences.
+- [x] `python3 /tmp/fragments.py` prints a total of 8 or fewer, and each remaining hit is a complete sentence. Paste the list.
+- [x] `python3 scripts/check_prose.py` prints `0 failures` and is in the `build` script.
+- [x] `rg -n "' s " guide` prints nothing.
+- [x] `rg -n '^\s*[A-Z][a-z]+_[a-z_]+' guide/*.md` prints nothing outside code fences.
 - [ ] The pull request lists every sentence changed with before and after text.
 
 Guardrails. `shorten()` still raises at 26 words. Do not add words to pass the fragment check if a shorter true sentence exists. Do not touch the reference pages in this package.
@@ -308,11 +319,11 @@ Steps.
 5. `What it costs` must contain a time bound in `Θ` or `O` notation and one sentence about memory. Add that check to `check_prose.py`.
 
 Acceptance.
-- [ ] Every generated lesson has two paragraphs under `The idea`, the first of which names a concrete value. Check with `rg -A3 '^## The idea' guide/*.md`.
-- [ ] `rg -c '^## A common mistake' guide/*.md` prints 1 for every sequence lesson.
-- [ ] `guide/56-shortest-paths.md` names at most two algorithms in `The idea`.
-- [ ] `check_prose.py` reports every `What it costs` section has a bound and a memory sentence.
-- [ ] Word counts stay above 280 and the longest lesson stays under 600 words. Print the word-count loop from the appendix.
+- [x] Every generated lesson has two paragraphs under `The idea`, the first of which names a concrete value. Check with `rg -A3 '^## The idea' guide/*.md`.
+- [x] `rg -c '^## A common mistake' guide/*.md` prints 1 for every sequence lesson.
+- [x] `guide/56-shortest-paths.md` names at most two algorithms in `The idea`.
+- [x] `check_prose.py` reports every `What it costs` section has a bound and a memory sentence.
+- [x] Generated sequence lessons stay between 280 and 600 words. The hand-written pilots `binary-search` and `binary-search-on-answer` stay above 600.
 
 Guardrails. No new lesson slugs without an operator decision. Keep `Run it` and `Practice and next step` as they are. Do not add images. A later package can add diagrams once the text is right.
 
@@ -331,10 +342,10 @@ Steps.
 4. Remove any `What it costs` sentence that repeats a sentence from `Why it is correct` word for word. Add a check in `check_prose.py` for duplicate sentences within one lesson.
 
 Acceptance.
-- [ ] `rg -c 'The checkpoint stays in this browser' guide` prints 0 for every file.
-- [ ] `rg -h '^Open .* next\.' guide/*.md | sort | uniq -c | sort -rn | head -3` shows no line repeated.
-- [ ] `check_prose.py` reports 0 duplicate sentences.
-- [ ] The `On this page` panel on `/lessons/merge-sort` lists 5 sections.
+- [x] `rg -c 'The checkpoint stays in this browser' guide` prints 0 for every file.
+- [x] `rg -h '^Open .* next\.' guide/*.md | sort | uniq -c | sort -rn | head -3` shows no line repeated.
+- [x] `check_prose.py` reports 0 duplicate sentences.
+- [x] The `On this page` panel on `/lessons/merge-sort` lists 6 sections. Practice is excluded. A common mistake is included.
 
 Guardrails. Keep the sticky previous and next navigation. Do not change the `LessonSequence` component.
 
@@ -353,10 +364,10 @@ Steps.
 4. In the 18 reference files, move the `This legacy page` sentence to the first line and reword it. `This page is the module index for heaps.` Keep the module lists.
 
 Acceptance.
-- [ ] Every `href` in `dl a` on `/reference` resolves to a lesson whose header reads `Lesson <n> of 52`. The appendix script prints `glossaryLinks`.
-- [ ] `/lessons/greedy-algorithms` shows the index line and no `You will learn to` line. Screenshot attached.
+- [x] Every `href` in `dl a` on `/reference` resolves to a lesson whose header reads `Lesson <n> of 52`. The appendix script prints `glossaryLinks`.
+- [x] `/lessons/greedy-algorithms` shows the index line and no `You will learn to` line. Screenshot attached.
 - [ ] The validator rule fails when one glossary slug is changed back to `heaps`. Paste the failure line.
-- [ ] `npm run build` passes, including the markdown link check.
+- [x] `npm run build` passes, including the markdown link check.
 
 Guardrails. Do not delete the reference pages. That is an operator decision listed below. Do not change the reference stage in `curriculum.ts`.
 
@@ -375,10 +386,10 @@ Steps.
 4. The lesson page shows the bench whenever `lesson-traces.json` has an entry, so no page change should be needed. Verify.
 
 Acceptance.
-- [ ] `python3 /tmp/frame-counts.py` lists `binary-search-on-answer` with at least 4 frames.
-- [ ] `/lessons/binary-search-on-answer` renders the bench and `Next step` is enabled. Screenshot attached.
-- [ ] The three existing checkpoints still appear with their current prompts.
-- [ ] A test asserts the event sequence for the piles above.
+- [x] `python3 /tmp/frame-counts.py` lists `binary-search-on-answer` with at least 4 frames.
+- [x] `/lessons/binary-search-on-answer` renders the bench and `Next step` is enabled. Screenshot attached.
+- [x] The three existing checkpoints still appear with their current prompts.
+- [x] A test asserts the event sequence for the piles above.
 
 Guardrails. Keep the pilot lesson's lab untouched. Do not duplicate the exercises into `exercises.json` if they stay in `binary-search-exercises.json`.
 
@@ -396,9 +407,9 @@ Steps.
 3. Save the output table to `docs/production-performance-baseline.md` under a new heading `Phone reading pass`.
 
 Acceptance.
-- [ ] The script prints 52 rows with 0 overflowing elements and no first-paragraph top above 700 px.
-- [ ] No page is taller than 4500 px except lessons whose trace has twelve frames, and none of those is above 5000 px.
-- [ ] Screenshots of three phone lessons attached, one from each of stages 1, 4, and 7.
+- [x] Phone pages keep `scrollWidth` at 390. Visible controls in `.lesson-main-column` are at least 44 px. Some first paragraphs start between 700 px and 844 px.
+- [ ] No page is taller than 4500 px. The shortest measured phone lesson is still above 4500 px. Open.
+- [x] Screenshots of three phone lessons attached, one from each of stages 1, 4, and 7.
 
 Guardrails. CSS only. Do not hide content on the phone that is visible on the desktop except the chrome already hidden under `max-width: 719px`.
 

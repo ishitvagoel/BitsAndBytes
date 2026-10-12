@@ -14,6 +14,8 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import TypeVar
 
+from bitsandbytes.tracing import TraceSink, emit
+
 T = TypeVar("T")
 
 
@@ -39,7 +41,7 @@ def comparison_sort_lower_bound(n: int) -> int:
     return factorial.bit_length() - 1
 
 
-def counting_sort(values: list[int], *, maximum: int) -> list[int]:
+def counting_sort(values: list[int], *, maximum: int, trace_sink: TraceSink | None = None) -> list[int]:
     """Sort non-negative integers in ``[0, maximum]`` stably.
 
     Cost
@@ -55,7 +57,9 @@ def counting_sort(values: list[int], *, maximum: int) -> list[int]:
         counts[value] += 1
     output: list[int] = []
     for digit, count in enumerate(counts):
-        output.extend([digit] * count)
+        if count:
+            output.extend([digit] * count)
+            emit(trace_sink, "place", digit=digit, count=count, output=list(output))
     return output
 
 
@@ -109,7 +113,7 @@ def lsd_radix_sort_strings(values: list[str], *, width: int) -> list[str]:
     return working
 
 
-def quickselect(values: list[int], k: int) -> int:
+def quickselect(values: list[int], k: int, *, trace_sink: TraceSink | None = None) -> int:
     """Return the k-th smallest element (0-based) in expected O(n) time.
 
     Cost
@@ -124,6 +128,7 @@ def quickselect(values: list[int], k: int) -> int:
     right = len(values) - 1
     while left <= right:
         pivot_index = _partition(values, left, right)
+        emit(trace_sink, "partition", index=pivot_index, value=values[pivot_index], values=list(values))
         if pivot_index == k:
             return values[k]
         if k < pivot_index:
@@ -148,6 +153,8 @@ def binary_search_on_answer(
     low: int,
     high: int,
     feasible: Callable[[int], bool],
+    *,
+    trace_sink: TraceSink | None = None,
 ) -> int:
     """Return the smallest integer in ``[low, high]`` where ``feasible`` is true.
 
@@ -163,7 +170,9 @@ def binary_search_on_answer(
     answer: int | None = None
     while low <= high:
         middle = low + (high - low) // 2
-        if feasible(middle):
+        possible = feasible(middle)
+        emit(trace_sink, "test", low=low, high=high, middle=middle, feasible=possible)
+        if possible:
             answer = middle
             high = middle - 1
         else:
@@ -173,7 +182,7 @@ def binary_search_on_answer(
     return answer
 
 
-def inversion_count(values: list[int]) -> int:
+def inversion_count(values: list[int], *, trace_sink: TraceSink | None = None) -> int:
     """Count pairs ``i < j`` with ``values[i] > values[j]`` using merge sort.
 
     Cost
@@ -183,7 +192,7 @@ def inversion_count(values: list[int]) -> int:
 
     copy = values.copy()
     buffer = [0] * len(copy)
-    return _inversion_merge(copy, buffer, 0, len(copy) - 1)
+    return _inversion_merge(copy, buffer, 0, len(copy) - 1, trace_sink)
 
 
 def _inversion_merge(
@@ -191,12 +200,13 @@ def _inversion_merge(
     buffer: list[int],
     left: int,
     right: int,
+    trace_sink: TraceSink | None = None,
 ) -> int:
     if left >= right:
         return 0
     middle = left + (right - left) // 2
-    count = _inversion_merge(values, buffer, left, middle)
-    count += _inversion_merge(values, buffer, middle + 1, right)
+    count = _inversion_merge(values, buffer, left, middle, trace_sink)
+    count += _inversion_merge(values, buffer, middle + 1, right, trace_sink)
     index = left
     left_index = left
     right_index = middle + 1
@@ -205,8 +215,11 @@ def _inversion_merge(
             buffer[index] = values[left_index]
             left_index += 1
         else:
-            buffer[index] = values[right_index]
-            count += middle - left_index + 1
+            taken = values[right_index]
+            added = middle - left_index + 1
+            buffer[index] = taken
+            count += added
+            emit(trace_sink, "cross", taken=taken, added=added, count=count)
             right_index += 1
         index += 1
     while left_index <= middle:

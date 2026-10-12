@@ -85,4 +85,5 @@ def test_dynamic_array_emits_each_resize_copy():
     array.append("b")
     array.append("c")
     assert list(array) == ["a", "b", "c"]
-    assert [event.values for event in events] == [{"copied": 1, "capacity": 2}, {"copied": 2, "capacity": 4}]
+    assert [event.values for event in events if event.kind == "resize"] == [{"copied": 1, "capacity": 2}, {"copied": 2, "capacity": 4}]
+    assert [event.kind for event in events if event.kind == "append"] == ["append", "append", "append"]

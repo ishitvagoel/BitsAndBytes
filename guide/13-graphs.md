@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.graphs.adjacency_list, bitsandbytes.graphs.algorithms
 ---
 
+This page is the module index for graphs.
+
 * `graphs/adjacency_list.py` — adjacency lists. DFS and BFS are O(V + E). The teaching `dijkstra_distances` scans all unsettled vertices each step, so O(V²) time on dense graphs.
 
 ## Focused lessons

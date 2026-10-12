@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.decorators.permission, bitsandbytes.decorators.access_control, bitsandbytes.tools.print_directory
 ---
 
+This page is the module index for appendix: python tools.
+
 These are not the next data-structure lesson after graphs. They stay in the repo as small Python examples.
 
 * `decorators/permission.py` — wrapper is O(1) plus the wrapped call.

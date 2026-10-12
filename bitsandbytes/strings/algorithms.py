@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
+from bitsandbytes.tracing import TraceSink, emit
+
 
 class Trie:
     """Prefix tree over string keys."""
@@ -56,7 +58,7 @@ class Trie:
         return "$" in node
 
 
-def kmp_search(text: str, pattern: str) -> int:
+def kmp_search(text: str, pattern: str, *, trace_sink: TraceSink | None = None) -> int:
     """Return the first index of ``pattern`` in ``text``, or -1.
 
     Cost
@@ -73,6 +75,7 @@ def kmp_search(text: str, pattern: str) -> int:
             state = failure[state - 1]
         if pattern[state] == char:
             state += 1
+        emit(trace_sink, "scan", index=index, state=state, char=char)
         if state == len(pattern):
             return index - len(pattern) + 1
     return -1

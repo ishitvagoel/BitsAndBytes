@@ -5,8 +5,15 @@ from __future__ import annotations
 from collections import deque
 from collections.abc import Sequence
 
+from bitsandbytes.tracing import TraceSink, emit
 
-def two_sum_sorted(sorted_values: Sequence[int], target: int) -> tuple[int, int] | None:
+
+def two_sum_sorted(
+    sorted_values: Sequence[int],
+    target: int,
+    *,
+    trace_sink: TraceSink | None = None,
+) -> tuple[int, int] | None:
     """Return indices of two values summing to ``target`` on a sorted array.
 
     Cost
@@ -18,6 +25,7 @@ def two_sum_sorted(sorted_values: Sequence[int], target: int) -> tuple[int, int]
     right = len(sorted_values) - 1
     while left < right:
         total = sorted_values[left] + sorted_values[right]
+        emit(trace_sink, "move", left=left, right=right, total=total)
         if total == target:
             return left, right
         if total < target:
@@ -72,7 +80,12 @@ class PrefixSum:
         return self._totals[end] - self._totals[start]
 
 
-def sliding_window_maximum(values: Sequence[int], window: int) -> list[int]:
+def sliding_window_maximum(
+    values: Sequence[int],
+    window: int,
+    *,
+    trace_sink: TraceSink | None = None,
+) -> list[int]:
     """Return the maximum in each sliding window of size ``window``.
 
     Cost
@@ -93,4 +106,5 @@ def sliding_window_maximum(values: Sequence[int], window: int) -> list[int]:
             deque_indices.popleft()
         if index >= window - 1:
             output.append(values[deque_indices[0]])
+            emit(trace_sink, "window", index=index, maximum=output[-1], output=list(output))
     return output

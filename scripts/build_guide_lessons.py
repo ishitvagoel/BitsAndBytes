@@ -8,6 +8,7 @@ file would change.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import random
 import re
@@ -72,6 +73,30 @@ def scenario(
     return payload
 
 
+def place_options(item: dict[str, object]) -> None:
+    """Rotate options by a stable hash of the exercise id and assign letter ids."""
+
+    if item.get("lessonSlug") in {"binary-search", "binary-search-on-answer"}:
+        return
+    options = item.get("options")
+    if not isinstance(options, list) or len(options) < 2:
+        return
+    offset = int(hashlib.sha1(str(item["id"]).encode()).hexdigest(), 16) % len(options)
+    rotated = options[offset:] + options[:offset]
+    letters = "abcdefghij"
+    new_options: list[dict[str, str]] = []
+    new_answer = None
+    for index, option in enumerate(rotated):
+        new_id = letters[index]
+        if option["id"] == item["answer"]:
+            new_answer = new_id
+        new_options.append({"id": new_id, "label": option["label"]})
+    if new_answer is None:
+        raise SystemExit(f"{item['id']} lost its answer during rotation")
+    item["options"] = new_options
+    item["answer"] = new_answer
+
+
 def exercise(slug: str, objective_id: str, prompt: str, options: list[tuple[str, str]], answer: str, correct: str, retry: str, hints: list[str], suffix: str = "check") -> dict[str, object]:
     return {
         "id": f"{slug}-{suffix}",
@@ -128,21 +153,32 @@ def _titles() -> dict[str, str]:
     return found
 
 
-def closing(slug: str) -> str:
+def closing(slug: str, reason: str) -> str:
     order = _lesson_order()
     titles = _titles()
     position = order.index(slug)
     if position + 1 >= len(order):
         return "Answer the checkpoints. This is the last lesson in the curriculum."
     nxt = titles[order[position + 1]]
-    return f"Answer the checkpoints, then open {nxt}."
+    return shorten(f"Open {nxt} next. {reason}")
 
 
 def body(idea: str, frames: list[dict[str, object]], why: str, cost: str, slug: str) -> str:
+    from guide_lesson_voice import COST_NOTE, VOICE
+
+    voice = VOICE[slug]
+    example = shorten(str(voice["example"]))
+    mistake = shorten(str(voice["mistake"]))
     idea = shorten(idea)
     why = shorten(why)
     cost = shorten(cost)
-    lines = ["## The idea", "", idea.strip(), "", "## A worked trace", ""]
+    if slug != "input-size-and-operation-counts" and (("Θ" not in cost and "O(" not in cost) or "memory" not in cost.lower()):
+        cost = shorten(cost + " " + COST_NOTE[slug])
+    if slug != "input-size-and-operation-counts" and "Θ" not in cost and "O(" not in cost:
+        raise SystemExit(f"{slug} cost section has no bound")
+    if "memory" not in cost.lower():
+        raise SystemExit(f"{slug} cost section does not mention memory")
+    lines = ["## The idea", "", example, "", idea.strip(), "", "## A worked trace", ""]
     lines.append("| Step | State | What changed |")
     lines.append("| --- | --- | --- |")
     for item in frames:
@@ -158,12 +194,12 @@ def body(idea: str, frames: list[dict[str, object]], why: str, cost: str, slug: 
         "graph-traversals": "The same graph searched depth-first from A can visit D before C, because D is pushed after C and a stack pops D first. If your test expected BFS order and the code used a stack, this is the mismatch. The container is the algorithm.",
     }.get(slug, "")
     extra = shorten(extra_text) if extra_text else ""
-    lines.extend(["", "## Why it is correct", "", why.strip(), "", "## What it costs", "", cost.strip(), ""])
+    lines.extend(["", "## Why it is correct", "", why.strip(), "", "## A common mistake", "", mistake, "", "## What it costs", "", cost.strip(), ""])
     if extra:
         lines.extend([extra, ""])
     snippet = RUNNABLE[slug]
     lines.extend(["## Run it", "", "```python", snippet.rstrip(), "```", ""])
-    lines.extend(["## Practice and next step", "", f"{closing(slug)} The checkpoint stays in this browser."])
+    lines.extend(["## Practice and next step", "", closing(slug, str(voice["next_reason"]))])
     for item in frames:
         narration = str(item["narration"])
         count = len(_tokens(narration))
@@ -173,10 +209,10 @@ def body(idea: str, frames: list[dict[str, object]], why: str, cost: str, slug: 
 
 
 RUNNABLE = {
-    "input-size-and-operation-counts": "n = 6\nprint(n * (n - 1) // 2)\n# prints: 15",
-    "asymptotic-growth": "print('n squared grows faster')\n# prints: n squared grows faster",
-    "loop-invariants": "prefix = [1, 3]\nprint(prefix == sorted(prefix))\n# prints: True",
-    "arrays-and-python-costs": "print(sum(range(1000)))\n# prints: 499500",
+    "input-size-and-operation-counts": "from bitsandbytes.complexity import pair_comparison_count\nprint(pair_comparison_count([3, 1, 2]))\n# prints: 3",
+    "asymptotic-growth": "from bitsandbytes.complexity import growth_table\nprint(growth_table((64,))[0])\n# prints: (64, 384, 4096)",
+    "loop-invariants": "from bitsandbytes.sorting.insertion_sort import insertion_sort\nseen = []\ndef sink(event):\n    seen.append(list(event.values['values']))\ninsertion_sort([3, 1, 2], trace_sink=sink)\nprint(seen)\n# prints: [[3, 1, 2], [1, 3, 2], [1, 2, 3]]",
+    "arrays-and-python-costs": "from bitsandbytes.library_costs import list_pop_front_cost_demo\nprint(list_pop_front_cost_demo(1000))\n# prints: 999",
     "dynamic-array-growth": "from bitsandbytes.linear.dynamic_array import DynamicArray\narray = DynamicArray()\nprint(array.total_copy_cost_for_appends(3))\n# prints: 3",
     "recursion-and-recurrences": "from bitsandbytes.sorting.merge_sort import merge_sort\nprint(merge_sort([3, 1, 4, 2]))\n# prints: [1, 2, 3, 4]",
     "singly-linked-list": "from bitsandbytes.linked_list import LinkedList\nchain = LinkedList()\nchain.append('a')\nprint(list(chain))\n# prints: ['a']",
@@ -260,6 +296,11 @@ def _nums(values: object, status: str = "idle") -> list[dict[str, object]]:
 
 def computed_frames(slug: str) -> list[dict[str, object]]:
     """Build each lesson trace by calling the library. Narration is fixed per event kind."""
+    from lesson_frames import frames_for
+
+    generated = frames_for(slug)
+    if generated is not None:
+        return generated
     frames: list[dict[str, object]] = []
 
     def add(label: str, narration: str, state: list[tuple[str, str]], values: object, status: str = "idle") -> None:
@@ -445,7 +486,7 @@ LESSONS: list[dict[str, object]] = [
         ),
         "idea": "Name the input size before you count work. For one list, n is the number of items. For a graph, say V vertices and E edges instead of one n. An operation is one comparison, one link follow, or one arithmetic step that does not itself hide a loop. A single loop from 0 to n - 1 does n iterations. A nested loop that compares every index with every later index does (n - 1) + (n - 2) + ... + 1 checks. That sum is n(n - 1) / 2. Dropping the constant 1/2 and the lower term is a later step. This lesson keeps the exact count so the next lesson has something real to bound.",
         "why": "The count is correct because every pair of indexes i < j is visited once. Index i is the outer loop, and j runs from i + 1 to n - 1. No pair is skipped, and no pair is counted twice. The closed form n(n - 1) / 2 is the formula for the sum of the first n - 1 positive integers. For n = 4 the trace records 3 + 2 + 1 = 6, and 4 * 3 / 2 = 6.",
-        "cost": "The pair scan does n(n - 1) / 2 comparisons, which grows like n squared. Memory besides the input is a handful of indexes, a constant amount of extra memory. If the inner loop ran over the whole list instead of only the right side. The count would be n times n, which is the same growth with a different constant.",
+        "cost": "The pair scan does n(n - 1) / 2 comparisons, which grows like n squared. Memory besides the input is a handful of indexes, a constant amount of extra memory. Suppose the inner loop ran over the whole list. The count would then be n times n. That is the same growth with a different constant.",
     },
     {
         "slug": "asymptotic-growth",
@@ -463,7 +504,7 @@ LESSONS: list[dict[str, object]] = [
         ),
         "idea": "An exact count such as 3n + 20 is useful, and it is also more precise than the decision you usually need. Big O, Θ, and Ω compare growth. O(f) says the work is at most a constant times f for large n. Ω(f) says it is at least a constant times f. Θ(f) says both, so f is a tight description. 3n + 20 is Θ(n) because (3n + 20) / n approaches 3. It is also O(n²), since a looser upper bound is still true, but Θ(n²) is false. When you write a cost in this guide, prefer the tight bound and say so.",
         "why": "The limit test is the reason the constant and the added 20 disappear. For any fixed c, (cn + d) / n approaches c. A function is Θ(n) when two positive constants sandwich it between multiples of n for all large n. 3n + 20 sits between 3n and 4n once n is at least 20. It does not sit between two multiples of n², because (3n + 20) / n² approaches 0.",
-        "cost": "Using the notation does not change the algorithm. It changes the claim. A Θ(n) scan of a million items is a different engineering choice from a Θ(n²) pair scan of the same list. The trace shows n² overtaking n log n once n leaves the toy range.",
+        "cost": "Using the notation does not change the algorithm. It changes the claim. A Θ(n) scan of a million items is a different engineering choice from a Θ(n²) pair scan of the same list. The trace shows n squared pulling away from n log n as n leaves the toy range.",
     },
     {
         "slug": "loop-invariants",
@@ -516,7 +557,7 @@ LESSONS: list[dict[str, object]] = [
             "Capacity starts at 1 and doubles when an append finds the array full. Copied slots are marked chosen.", computed_frames("dynamic-array-growth"),
         ),
         "idea": "A dynamic array stores items in a contiguous block and remembers a length and a capacity. append writes into the next free slot when length < capacity. When the block is full, the array allocates a new block with twice the capacity, copies the old references, and then writes the new item. The example starts at capacity 1. Appending a, b, and c copies 0, then 1, then 2 references. The library's DynamicArray.capacity after those three appends is 4, and the stored items are a, b, c.",
-        "why": "Each resize copies every item that is already stored, because the new block is a different region of memory. Doubling is what makes the total copy count linear. The copy sizes are 1 + 2 + 4 + ... + n/2, which is less than n. Every item is copied once per doubling that happens after it was appended, and an item appended. When the length is about n/2 is copied only once more before the length reaches n. Charging each append a constant amount covers all of those copies. That charge is the amortized bound.",
+        "why": "Each resize copies every item that is already stored, because the new block is a different region of memory. Doubling is what makes the total copy count linear. The copy sizes are 1 + 2 + 4 + ... + n/2, which is less than n. Every item is copied once per doubling after it arrives. An item that arrives near length n/2 is copied only once more before the length reaches n. Charging each append a constant amount covers all of those copies. That charge is the amortized bound.",
         "cost": "One append is O(1) amortized and O(n) in the worst single call, the call that resizes. n appends copy fewer than 2n references in total, so the aggregate time is Θ(n) and the extra memory is Θ(n) for the block. A growth factor of 1, adding one slot each time, would copy Θ(n²) references. The factor, not the mere fact of resizing, is the reason append is cheap on average.",
     },
     {
@@ -533,9 +574,9 @@ LESSONS: list[dict[str, object]] = [
             "Halve 8 until 1",
             "Each call splits into two half-size calls. This frame shows one root-to-leaf path and the size at that level.", computed_frames("recursion-and-recurrences"),
         ),
-        "idea": "A recurrence describes a function that calls itself. The one you will meet in merge sort is T(n) = 2 T(n/2) + Θ(n), with T(1) = Θ(1). The 2 T(n/2) is the two recursive calls. The Θ(n) is the work to merge the halves. Unrolling the recurrence shows log2(n) levels, because the input size halves each time. Θ(n) work on every level, because the pieces at one level add up to n. The product is Θ(n log n). The call stack on one path is Θ(log n) frames deep. That is extra memory even when each frame stores only a few indexes.",
+        "idea": "A recurrence describes a function that calls itself. The one you will meet in merge sort is T(n) = 2 T(n/2) + Θ(n), with T(1) = Θ(1). The 2 T(n/2) is the two recursive calls. The Θ(n) is the work to merge the halves. Unrolling the recurrence shows log2(n) levels, because the input size halves each time. Each level does Θ(n) work, because the pieces at one level add up to n. The product is Θ(n log n). The call stack on one path is Θ(log n) frames deep. That is extra memory even when each frame stores only a few indexes.",
         "why": "The level count is exact for powers of two. n, n/2, n/4, ..., 1 is log2(n) steps. At level i there are 2^i calls and each call works on n / 2^i items, so the level sums to n. Adding log2(n) levels of n work gives n log2(n). The base case stops the recurrence, which is the same role termination plays for a loop. An unbalanced recursion such as T(n) = T(n - 1) + Θ(n) has n levels and Θ(n²) total work. The shape of the calls is the whole story.",
-        "cost": "Time is the unrolled sum, Θ(n log n) for the balanced split. Stack memory is proportional to the deepest chain of calls, Θ(log n) when every split is even. Θ(n) when each call peels off one item. Report both. A time bound does not imply a stack bound.",
+        "cost": "Time is the unrolled sum, Θ(n log n) for the balanced split. Stack memory is proportional to the deepest chain of calls. It is Θ(log n) when every split is even. It is Θ(n) when each call peels off one item. Report the time and the stack. A time bound does not imply a stack bound.",
     },
 ]
 
@@ -553,7 +594,7 @@ def more_lessons() -> list[dict[str, object]]:
             "hints": ["Draw three nodes and the tail pointer.", "Ask which reference has to change when the last node goes away."],
             "scenario": scenario("linked-list-core", "Append, then look at the tail", "Head and tail both move only when the end they point at changes.", computed_frames("singly-linked-list")),
             "idea": "A singly linked list stores each value in a node whose next reference points at the following node. The list keeps a head, a cached tail, and a size. The invariant is that following next from the head visits exactly size nodes and ends at the cached tail, whose next is empty. Prepending changes the head in Θ(1) time. Appending with a cached tail changes the old tail's next and moves the tail pointer in Θ(1) time. Reading an index walks from the head, so it is Θ(n). Removing the tail is also Θ(n), because the predecessor is not stored.",
-            "why": "The invariant is preserved by each edit that updates the cached fields together with the links. Append writes the new node, points the old tail at it, and then moves the tail cache. If it moved the cache first, the old tail would be unreachable and the invariant would fail. A search that starts at the head and follows next i times lands on index i. Because the nodes are in a single chain with no extra forward jumps. There is no predecessor pointer, so the only way to find the node before the tail is to walk until next is the tail.",
+            "why": "The invariant is preserved by each edit that updates the cached fields together with the links. Append writes the new node, points the old tail at it, and then moves the tail cache. If it moved the cache first, the old tail would be unreachable and the invariant would fail. A search that starts at the head and follows next i times lands on index i. The nodes form a single chain with no extra forward jumps. There is no predecessor pointer, so the only way to find the node before the tail is to walk until next is the tail.",
             "cost": "Append and prepend are Θ(1). Index lookup and tail removal are Θ(n). len is Θ(1) because size is cached. Extra memory is one node per item plus the three list fields. A Python list is the better default when you need list[i]. The linked list earns its place when you already hold the node you want to relink.",
         },
         {
@@ -594,9 +635,9 @@ def more_lessons() -> list[dict[str, object]]:
             "retry": "The trace places 1 in front of 3 before it looks at 2.",
             "hints": ["The prefix grows by one item each outer step.", "2 is still waiting in the unsorted suffix."],
             "scenario": scenario("comparison-sorts-core", "Insertion sort [3, 1, 2]", "The library insertion_sort shifts the prefix with a strict < comparison, so equal keys would not pass each other. This input has no ties.", computed_frames("comparison-sorts")),
-            "idea": "A comparison sort decides order only by asking whether one key is less than another. Insertion sort keeps a sorted prefix and inserts the next key into it. Selection sort grows a sorted prefix by swapping the minimum of the suffix into place. Bubble sort walks neighbors and swaps inversions. All three are Θ(n²) in the worst case. They differ in the best case, in stability, and in how many writes they perform. Insertion sort on a sorted list is Θ(n) because each new key is already in place. The library function insertion_sort([3, 1, 2]) returns [1, 2, 3]. Python's list.sort uses Timsort, a stable merge sort. It is O(n log n) and it keeps runs that are already ordered.",
-            "why": "The insertion invariant is the sorted prefix from the loop-invariants lesson. After inserting 1, every item in the prefix is in order and every item outside it is still untouched. The next step considers 2 only against that prefix. Selection sort's invariant is different. The prefix holds the smallest items so far, in order, and the algorithm does not promise stability. Because a swap can move an equal key from the suffix in front of an equal key in the prefix. Knowing which invariant you have tells you which bugs are possible.",
-            "cost": "Worst-case time for these simple sorts is Θ(n²) comparisons. Insertion sort's best case is Θ(n). Extra memory is O(1) for the in-place versions. Merge sort, next, spends Θ(n) extra memory to bring the worst case down to Θ(n log n). The simple sorts are the right tool for tiny or nearly sorted prefixes, not for a large worst-case input.",
+            "idea": "A comparison sort decides order only by asking whether one key is less than another. Insertion sort keeps a sorted prefix and inserts the next key into it. On a sorted list each new key is already in place, so the best case is Θ(n). The worst case is still Θ(n²). The library function insertion_sort([3, 1, 2]) returns [1, 2, 3]. Python's list.sort uses Timsort. It is O(n log n) and it keeps runs that are already ordered.",
+            "why": "The insertion invariant is the sorted prefix from the loop-invariants lesson. After inserting 1, every item in the prefix is in order and every item outside it is still untouched. The next step considers 2 only against that prefix. Selection sort is a different invariant, covered here only as a cost comparison. Its prefix holds the smallest items so far, and a swap can move an equal key past another equal key.",
+            "cost": "Worst-case time for insertion sort is Θ(n²) comparisons. The best case is Θ(n). Extra memory is O(1). Selection sort and bubble sort share the Θ(n²) worst case and also use O(1) extra memory. Merge sort, next, spends Θ(n) extra memory to bring the worst case down to Θ(n log n).",
         },
     ]
 
@@ -614,7 +655,7 @@ def final_lessons() -> list[dict[str, object]]:
             "hints": ["A merge does not look past the front of either run.", "1 has already been written to the output."],
             "scenario": scenario("merge-sort-core", "Merge sort [3, 1, 4, 2]", "Each half is sorted, then the two sorted runs are merged by taking the smaller front. Ties would take the left run, which is why the sort is stable. merge_sort returns [1, 2, 3, 4].", computed_frames("merge-sort")),
             "idea": "Merge sort splits the list in half, sorts each half, and merges the two sorted runs. The midpoint is len(values) // 2, integer division, so the halves differ by at most one item. The merge walks the two fronts and appends the smaller one. When the keys are equal it appends the left front, so equal keys keep the order they had in the input. The library merge_sort([3, 1, 4, 2]) returns [1, 2, 3, 4] and does not modify the input list.",
-            "why": "A list of length 0 or 1 is already sorted, which is the base case. If both halves are sorted, the merge is sorted because every output item is the smaller remaining front. So nothing still in either run is smaller than it. Stability follows from taking the left run on a tie. The left run holds the earlier original items of that key. Because the split keeps original order inside each half and the recursive sorts are themselves stable.",
+            "why": "A list of length 0 or 1 is already sorted, which is the base case. If both halves are sorted, the merge is sorted because every output item is the smaller remaining front. Nothing still in either run is smaller than that item. Stability follows from taking the left run on a tie. The left run holds the earlier original items of that key. The split keeps original order inside each half, and the recursive sorts are themselves stable.",
             "cost": "The recurrence is T(n) = 2 T(n/2) + Θ(n). There are Θ(log n) levels and Θ(n) work merging on each level, so the time is Θ(n log n) for every input order. Each level allocates new lists holding n items, so extra memory is Θ(n), plus Θ(log n) for the call stack. The sort is stable and it always pays the full n log n cost, including on sorted input.",
         },
         {
@@ -627,9 +668,9 @@ def final_lessons() -> list[dict[str, object]]:
             "retry": "Count how many values were ≤ the pivot. Only 1 moved. The pivot takes the next slot, index 1.",
             "hints": ["The boundary is the next slot for a value ≤ pivot.", "The final swap writes the pivot into that slot."],
             "scenario": scenario("quicksort-core", "Partition [3, 1, 4, 2] with pivot 2", "The library swaps a chosen pivot to the end, then scans. This trace starts after 2 is already at the end, which is what happens when the chosen index is the last index.", computed_frames("quicksort-and-partition")),
-            "idea": "Quicksort picks a pivot, partitions the range so every value before the pivot is ≤ the pivot. Every value after it is > the pivot, and then sorts the two sides. The library's partition swaps the chosen pivot to the end and scans once. boundary is the next slot that should receive a value ≤ pivot. For pivot 2 at the end of [3, 1, 4, 2], the scan swaps 1 to index 0. Then swaps 2 into index 1, leaving [1, 2, 4, 3]. The recursive calls sort the two sides. quick_sort on this input returns [1, 2, 3, 4]. The pivot index itself is random unless you pass a Random instance.",
+            "idea": "Quicksort picks a pivot and partitions the range. Every value before the pivot is at most the pivot. Every value after it is greater, and then the two sides are sorted. The library's partition swaps the chosen pivot to the end and scans once. boundary is the next slot that should receive a value at most the pivot. For pivot 2 at the end of [3, 1, 4, 2], the scan swaps 1 to index 0. The next swap places 2 at index 1, leaving [1, 2, 4, 3]. The recursive calls sort the two sides. quick_sort on this input returns [1, 2, 3, 4]. The pivot index itself is random unless you pass a Random instance.",
             "why": "The partition invariant is that every index before boundary holds a value ≤ pivot. Every index from boundary to the scan cursor holds a value > pivot. It is true before the scan because that region is empty. Seeing a value > pivot extends the right region without moving boundary. Seeing a value ≤ pivot swaps it into the boundary slot and advances the boundary, which restores the invariant. The final swap puts the pivot at boundary. Everything before it is ≤ pivot and everything after it is > pivot, so the pivot is in its final sorted index.",
-            "cost": "One partition of k items is Θ(k) time and O(1) extra memory. If every pivot splits off one item, the recurrence is T(n) = T(n - 1) + Θ(n). Which is Θ(n²), and the call stack is Θ(n) deep. Balanced pivots give T(n) = 2 T(n/2) + Θ(n), which is Θ(n log n) time and Θ(log n) stack. The sort is not stable, because the swaps move equal keys past each other. A three-way partition gathers equals in the middle so a run of duplicate keys does not fall into the n² case.",
+            "cost": "One partition of k items is Θ(k) time and O(1) extra memory. If every pivot splits off one item, the recurrence is T(n) = T(n - 1) + Θ(n). That shape is Θ(n²), and the call stack is Θ(n) deep. Balanced pivots give T(n) = 2 T(n/2) + Θ(n), which is Θ(n log n) time and Θ(log n) stack. The sort is not stable, because the swaps move equal keys past each other. A three-way partition gathers equals in the middle so a run of duplicate keys does not fall into the n² case.",
         },
         {
             "slug": "hash-chaining",
@@ -641,8 +682,8 @@ def final_lessons() -> list[dict[str, object]]:
             "retry": "A shared bucket is a collision, not a miss. The chain still holds both pairs.",
             "hints": ["The hash selects the bucket. The key comparison selects the pair.", "The second insert appended. It did not erase the first pair."],
             "scenario": scenario("hash-chaining-core", "Keys 0 and 4 share a bucket", "ChainingHashTable with 4 buckets stores (0, 1) and (4, 2) in the same chain, because hash(0) % 4 and hash(4) % 4 are both 0. Lookup of 0 walks that chain.", computed_frames("hash-chaining")),
-            "idea": "Separate chaining stores a list of key-value pairs in each bucket. The hash of the key picks the bucket. Insert appends a pair, or replaces the value if the key is already in that list. Lookup scans the list and compares keys. With a 4-bucket table, hash(0) % 4 and hash(4) % 4 are both 0, so inserting 0. Then 4 places both pairs in one chain. A later lookup of 0 walks that chain and returns 1. The library ChainingHashTable does this, and len stays 2 because the keys differ.",
-            "why": "The hash is only a suggestion of where to look. Equality of keys is the real test. So two keys that share a bucket remain distinct as long as the chain stores both pairs. Lookup does not stop at the first pair. Insert of a new key appends, which preserves the pairs already there. Insert of an existing key overwrites that pair's value instead of appending a duplicate. That is why a lookup that scans from the front finds the current value.",
+            "idea": "Separate chaining stores a list of key-value pairs in each bucket. The hash of the key picks the bucket. Insert appends a pair, or replaces the value if the key is already in that list. Lookup scans the list and compares keys. With a 4-bucket table, hash(0) % 4 and hash(4) % 4 are both 0. Inserting 0 and then 4 places both pairs in one chain. A later lookup of 0 walks that chain and returns 1. The library ChainingHashTable does this, and len stays 2 because the keys differ.",
+            "why": "The hash is only a suggestion of where to look. Equality of keys is the real test. Two keys that share a bucket remain distinct as long as the chain stores both pairs. Lookup does not stop at the first pair. Insert of a new key appends, which preserves the pairs already there. Insert of an existing key overwrites that pair's value instead of appending a duplicate. That is why a lookup that scans from the front finds the current value.",
             "cost": "The load factor is the number of keys divided by the number of buckets. With n keys and b buckets the average chain is that load factor, n / b. One lookup is Θ(1 + n / b) comparisons when keys spread evenly, and Θ(n) when every key lands in one bucket. Resizing when the load factor grows keeps the average chain short, and the resize itself copies every pair once. Extra memory is Θ(n + b) for the pairs and the bucket lists. Expected Θ(1) is not a worst-case promise.",
         },
         {
@@ -684,7 +725,7 @@ def final_lessons() -> list[dict[str, object]]:
             "hints": ["Enqueue neighbors in the order the edge list stores them.", "D is a neighbor of B, so it cannot pass C if C was already queued."],
             "scenario": scenario("bfs-core", "Breadth-first search from A", "The library breadth_first_order on this graph returns [A, B, C, D]. The queue's left end is the front.", computed_frames("graph-traversals")),
             "idea": "Breadth-first search uses a queue. Depth-first search uses a stack, or the call stack. Both mark a vertex when they first discover it so an edge back to a visited vertex does not enqueue it again. On the directed graph A→B, A→C, B→D, breadth-first order from A is A, B, C, D. B and C are both neighbors of A, and B is enqueued first because it is the first edge. D is discovered from B, so it waits behind C. The library function breadth_first_order returns that list.",
-            "why": "The queue's FIFO order is the reason BFS visits vertices in order of distance from the start. When A is dequeued, its neighbors are one edge away and they enter the queue together. The next dequeues are those neighbors, and their new neighbors are two edges away. A vertex is marked visited when it is enqueued, not when it is dequeued. So a later edge cannot place it in the queue a second time. DFS would push neighbors on a stack and could visit D before C, because the most recently pushed neighbor is popped first.",
+            "why": "The queue's FIFO order is the reason BFS visits vertices in order of distance from the start. When A is dequeued, its neighbors are one edge away and they enter the queue together. The next dequeues are those neighbors, and their new neighbors are two edges away. A vertex is marked visited when it is enqueued, not when it is dequeued. A later edge cannot place it in the queue a second time. DFS would push neighbors on a stack and could visit D before C, because the most recently pushed neighbor is popped first.",
             "cost": "Each vertex is enqueued once and each edge is inspected once. The time is Θ(V + E) for the vertices and edges reachable from the start. The queue holds at most V vertices, so extra memory is Θ(V). An adjacency matrix would make the neighbor scan Θ(V) per vertex even when the graph is sparse, which is Θ(V²). The adjacency list is why the bound can mention E.",
         },
         {
@@ -764,7 +805,7 @@ def batch_a() -> list[dict[str, object]]:
             "slug": "linked-list-special-cases",
             "objective": "list-state-preconditions",
             "scenario": scenario("special-cases-core", "Two places from the end of 1, 2, 3, 4", "nth_from_end counts the tail as 1. A gap of 2 on this list lands on 3.", computed_frames("linked-list-special-cases")),
-            "idea": "Some linked-list routines are valid only under a contract that is easy to miss. Values may be sorted. Digits may be stored least-significant digit first. A circular list may have a distinguished head. The function may receive one node and not the list head. nth_from_end makes its contract explicit. n is 1-based, and 1 means the tail. On 1, 2, 3, 4, nth_from_end with n equal to 2 returns the node holding 3. The leader walks n steps first. Then the leader and the trailer walk together. When the leader falls off, the trailer is the requested node. Removing adjacent duplicates in a sorted list needs only a neighbor comparison. The sorted precondition is what makes that enough. An unsorted list needs a set of seen values, which changes the memory. Deleting a node without the list head can copy the successor and bypass it. That trick cannot remove the tail, because there is no successor to copy. Adding numbers stored least-significant digit first can walk both heads and carry one digit. Splitting a circular list must restore two cycles and handle an odd count and an even count. ReviewersList is a circular list with its own node type.",
+            "idea": "Some linked-list routines are valid only under a contract that is easy to miss. Values may be sorted. Digits may be stored least-significant digit first. A circular list may have a distinguished head. The function may receive one node and not the list head. nth_from_end makes its contract explicit. n is 1-based, and 1 means the tail. On 1, 2, 3, 4, nth_from_end with n equal to 2 returns the node holding 3. The leader walks n steps first, and then both pointers walk together. When the leader falls off, the trailer is the requested node. Removing adjacent duplicates in a sorted list needs only a neighbor comparison. The sorted precondition is what makes that enough. An unsorted list needs a set of seen values, which changes the memory. Deleting a node without the list head can copy the successor and bypass it. That trick cannot remove the tail, because there is no successor to copy. Adding numbers stored least-significant digit first can walk both heads and carry one digit.",
             "why": "The gap stays n because both pointers move one step after the leader's head start. The trailer therefore sits n nodes behind the leader for the rest of the walk. No length subtraction is required. The sorted-duplicate claim fails as soon as an inversion exists, because a later duplicate is not beside its earlier copy. The headless delete fails on the tail for a structural reason, not an off-by-one. There is no next node whose value can be copied back. A circular split is wrong if either result is linear or if the two cycles share a node. Name the input shape, the output shape, and whether existing nodes are mutated.",
             "cost": "The leader takes n steps and then both pointers take the remaining steps. The total is linear in the length. Extra memory for the gap is two references. Counting the length and then walking length minus n is the same linear bound. The gap removes the subtraction, not the scan. A set of seen values for unsorted duplicates is linear extra memory. Copying a successor is constant time only when the successor exists. Test the empty list, one node, the last node, a duplicate run, and the smallest valid cycle or digit list.",
         },
@@ -774,7 +815,7 @@ def batch_a() -> list[dict[str, object]]:
             "scenario": scenario("doubly-core", "Unlink a known node", "append a, then b. remove_node on the node for a returns a, and the list that remains is b.", computed_frames("doubly-linked-list-operations")),
             "idea": "A doubly linked node stores prev and next. If you already hold the node, you do not walk from the head to find its neighbors. remove_node on the node for a, in a list that also holds b, returns a and leaves b. The unlink follows prev and next and rewires those neighbors to each other. insert_after splices a new node between a known node and that node's next. Both directions must be written. A missing reverse link makes a forward walk and a backward walk disagree. Finding a node by value is still linear, unless another structure stores the node. Sentinels are one way to make every real node have neighbors, including the empty list. This list keeps a head and a tail instead, and the endpoint cases update those caches.",
             "why": "The known-node claim is that the predecessor and the successor are fields, not search results. Rewiring them restores a single chain. The forward neighbor's prev and the backward neighbor's next must both change, or one direction still points at the removed node. insert_after writes the new node's two links and the two neighboring links that should point at it. That is four pointers when both neighbors exist. An endpoint has a missing neighbor, so the list updates head or tail instead of a second node. The size cache changes by one. After the edit, a walk from the head and a walk from the tail must list the same nodes in opposite orders.",
-            "cost": "Unlinking or inserting beside a known node is a constant number of pointer writes. It is constant time. A singly linked delete of an arbitrary node is linear, because the predecessor must be found from the head. A search by value on this list is still linear. n such searches are quadratic if you repeat them. Extra memory is one node per item plus the list caches. Draw both directions after a removal. Then test an empty list and a one-node list, and check that head and tail still agree.",
+            "cost": "Unlinking or inserting beside a known node is a constant number of pointer writes. It is constant time. A singly linked delete of an arbitrary node is linear, because the predecessor must be found from the head. A search by value on this list is still linear. n such searches are quadratic if you repeat them. Extra memory is one node per item plus the list caches. Draw both directions after a removal. Test an empty list and a one-node list, and check that head and tail still agree.",
         },
     ]
 
@@ -993,6 +1034,14 @@ def complete_transfers(partial: dict[str, dict[str, object]]) -> dict[str, dict[
         if slug in partial:
             continue
         partial[slug] = _choice(slug, objective, prompt, correct, wrong_a, wrong_b)
+    from guide_checkpoint_copy import CHECKS
+
+    for slug, fields in CHECKS.items():
+        item = partial[slug]
+        item["correct"] = fields["why"]
+        item["retry"] = fields["retry"]
+        item["hints"] = fields["hints"]
+        item["more"] = [fields["more"]]
     partial["dynamic-programming"]["more"].append({
         "suffix": "memory",
         "objective": "dp-analyze-time-memory",
@@ -1119,7 +1168,8 @@ def build() -> dict[str, str]:
         if item["id"] not in {"dynamic-programming-memory", "input-size-and-operation-counts-transfer"}:
             item["prompt"] = "What does this code print?"
             item["correct"] = f"The code prints {right}."
-            item["retry"] = f"The code prints {right}."
+            item["retry"] = f"The printed value is {right}."
+            item["hints"] = [f"The code prints one value, {right}.", "Ignore the values that are not printed."]
     heap = next(item for item in exercises if item["id"] == "heap-operations-transfer")
     heap_frame = traces["heap-operations"][0]["frames"][0]
     heap["kind"] = "fill-cell"
@@ -1135,7 +1185,34 @@ def build() -> dict[str, str]:
     heap["answer"] = "shown"
     heap["prompt"] = "Which value belongs in the named cell?"
     heap["correct"] = f"The cell shows {cell_text}."
-    heap["retry"] = f"The cell shows {cell_text}."
+    heap["retry"] = f"The named cell is {cell_text}."
+    from lesson_frames import frames_for
+
+    answer_frames = frames_for("binary-search-on-answer")
+    if answer_frames is None:
+        raise SystemExit("binary-search-on-answer trace missing")
+    traces["binary-search-on-answer"] = [{
+        "id": "binary-search-on-answer-core",
+        "title": "Rates for piles 3, 6, 7, 11",
+        "prompt": "The library tests rates 6, 3, and 4, then returns 4.",
+        "frames": answer_frames,
+    }]
+    for slug, scenes in traces.items():
+        count = sum(len(scene["frames"]) for scene in scenes)
+        if count < 3 or count > 12:
+            raise SystemExit(f"{slug} has {count} frames")
+        previous = None
+        for scene in scenes:
+            for frame_item in scene["frames"]:
+                narration = str(frame_item["narration"])
+                if "recorded" in narration:
+                    raise SystemExit(f"{slug} narration says recorded")
+                signature = (frame_item["state"], narration)
+                if signature == previous:
+                    raise SystemExit(f"{slug} repeats a frame")
+                previous = signature
+    for item in exercises:
+        place_options(item)
     files[str(TRACES_OUT.relative_to(ROOT))] = json.dumps(traces, indent=2) + "\n"
     files[str(EXERCISES_OUT.relative_to(ROOT))] = json.dumps(exercises, indent=2) + "\n"
     files[str(CURRICULUM.relative_to(ROOT))] = patch_curriculum(CURRICULUM.read_text(), specs)

@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.limits.approximation
 ---
 
+This page is the module index for limits and approximation.
+
 * `limits/approximation.py` — 2-approximation vertex cover.
 
 ## Focused lesson

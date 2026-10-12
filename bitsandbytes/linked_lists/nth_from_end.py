@@ -18,11 +18,12 @@ from __future__ import annotations
 from typing import TypeVar
 
 from bitsandbytes.linked_list import LinkedList, Node
+from bitsandbytes.tracing import TraceSink, emit
 
 T = TypeVar("T")
 
 
-def nth_from_end(lst: LinkedList[T], n: int) -> Node[T]:
+def nth_from_end(lst: LinkedList[T], n: int, *, trace_sink: TraceSink | None = None) -> Node[T]:
     """Return the node ``n`` places from the tail, counting the tail as 1.
 
     Cost
@@ -39,16 +40,18 @@ def nth_from_end(lst: LinkedList[T], n: int) -> Node[T]:
     _require_positive(n)
     lst.require_linear()
     leader = lst.head
-    for _ in range(n):
+    for step in range(n):
         if leader is None:
             raise ValueError("n is larger than the list.")
         leader = leader.next
+        emit(trace_sink, "gap", step=step + 1, leader=None if leader is None else leader.data)
 
     trailer = lst.head
     while leader is not None:
         assert trailer is not None and trailer.next is not None
         leader = leader.next
         trailer = trailer.next
+        emit(trace_sink, "walk", trailer=trailer.data, leader=None if leader is None else leader.data)
     if trailer is None:
         raise ValueError("n is larger than the list.")
     return trailer

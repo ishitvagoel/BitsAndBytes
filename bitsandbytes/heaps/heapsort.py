@@ -69,6 +69,8 @@ def heapsort(values: list[T], *, trace_sink: TraceSink | None = None) -> list[T]
         values[0], values[end] = values[end], values[0]
         end -= 1
         _sift_down(values, 0, end + 1)
+        if trace_sink is not None:
+            trace_sink(TraceEvent("extract", {"end": end + 1, "values": list(values)}))
     return values
 
 

@@ -6,7 +6,9 @@ status: present
 module: bitsandbytes.trees.bst, bitsandbytes.trees.traversals, bitsandbytes.trees.llrb
 ---
 
-This legacy page is the implementation index. Start with [BST operations](./binary-search-tree-operations.md), then study [traversals](./tree-traversals.md) and [balanced search trees](./balanced-search-trees.md).
+This page is the module index for binary search tree.
+
+Start with [BST operations](./binary-search-tree-operations.md), then study [traversals](./tree-traversals.md) and [balanced search trees](./balanced-search-trees.md).
 
 * `trees/bst.py` — insert, search, delete, and in-order walk. O(h) per operation for height h.
 * `trees/traversals.py` — preorder, postorder, and level order in O(n) time.

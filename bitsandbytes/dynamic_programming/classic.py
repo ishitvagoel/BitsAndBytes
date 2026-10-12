@@ -19,9 +19,10 @@ from __future__ import annotations
 from collections.abc import Hashable, Sequence
 
 from bitsandbytes.graphs.adjacency_list import Graph
+from bitsandbytes.tracing import TraceSink, emit
 
 
-def fibonacci_modulo(n: int, mod: int = 10**9 + 7) -> int:
+def fibonacci_modulo(n: int, mod: int = 10**9 + 7, *, trace_sink: TraceSink | None = None) -> int:
     """Return F(n) modulo ``mod`` from the two previous values.
 
     Cost
@@ -38,12 +39,14 @@ def fibonacci_modulo(n: int, mod: int = 10**9 + 7) -> int:
     if n == 1:
         return 1 % mod
     previous, current = 0, 1
-    for _ in range(2, n + 1):
+    emit(trace_sink, "step", number=1, previous=previous, current=current)
+    for number in range(2, n + 1):
         previous, current = current, (previous + current) % mod
+        emit(trace_sink, "step", number=number, previous=previous, current=current)
     return current
 
 
-def min_coin_change(coins: Sequence[int], amount: int) -> int:
+def min_coin_change(coins: Sequence[int], amount: int, *, trace_sink: TraceSink | None = None) -> int:
     """Return the minimum number of coins to make ``amount``, or -1 if impossible.
 
     Cost
@@ -57,6 +60,7 @@ def min_coin_change(coins: Sequence[int], amount: int) -> int:
         for coin in coins:
             if coin <= value:
                 table[value] = min(table[value], table[value - coin] + 1)
+        emit(trace_sink, "amount", value=value, coins=table[value])
     return -1 if table[amount] > amount else table[amount]
 
 

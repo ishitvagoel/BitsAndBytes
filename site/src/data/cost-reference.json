@@ -1,5 +1,5 @@
 {
-  "count": 322,
+  "count": 325,
   "rows": [
     {
       "module": "bitsandbytes.approximate.structures",
@@ -107,9 +107,33 @@
     },
     {
       "module": "bitsandbytes.complexity",
+      "name": "growth_table",
+      "time": "\u0398(1)",
+      "memory": "Extra memory is \u0398(1) per returned row.",
+      "lessonSlug": "input-size-and-operation-counts",
+      "lessonTitle": "Input size and operation counts"
+    },
+    {
+      "module": "bitsandbytes.complexity",
+      "name": "pair_comparison_count",
+      "time": "\u0398(n\u00b2)",
+      "memory": "Extra memory is \u0398(1) for the indexes.",
+      "lessonSlug": "input-size-and-operation-counts",
+      "lessonTitle": "Input size and operation counts"
+    },
+    {
+      "module": "bitsandbytes.complexity",
       "name": "recursion_limit",
       "time": "O(1)",
       "memory": "not stated",
+      "lessonSlug": "input-size-and-operation-counts",
+      "lessonTitle": "Input size and operation counts"
+    },
+    {
+      "module": "bitsandbytes.complexity",
+      "name": "recursion_tree_levels",
+      "time": "\u0398(log n)",
+      "memory": "Extra memory is one row per level.",
       "lessonSlug": "input-size-and-operation-counts",
       "lessonTitle": "Input size and operation counts"
     },

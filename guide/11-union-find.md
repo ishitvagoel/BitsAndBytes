@@ -8,6 +8,8 @@ module: bitsandbytes.union_find.disjoint_set, bitsandbytes.union_find.percolatio
 
 ## The idea
 
+Naive union of 0 with 1 and then 1 with 2 makes find(2) return 0.
+
 A disjoint-set forest tracks which items are in the same set. Each item stores a parent. The root is the item whose parent is itself, and it names the set. find walks parents to the root. union merges two sets by pointing one root at the other. Without heuristics, union(0, 1) sets parent[1] = 0, and union(1, 2) finds that 1's root is already 0 and sets parent[2] = 0. find(2) and find(0) then return the same root. The library's DisjointSet(3, use_heuristics=False) does this.
 
 ## A worked trace
@@ -16,10 +18,15 @@ A disjoint-set forest tracks which items are in the same set. Each item stores a
 | --- | --- | --- |
 | Link | parents = [0, 0, 2] | 1 now points at 0. |
 | Link | parents = [0, 0, 0] | 2 now points at 0. |
+| Find | root = 0 | find of 2 walks to the root 0. |
 
 ## Why it is correct
 
 find returns the same root for two items exactly when they are in the same tree. union joins those trees only when the roots differ, so it does not create a cycle. Linking a root, rather than an arbitrary item, keeps every node on a path to a single root. The naive version can still build a long chain if each new item is hung under the previous leaf and find does not compress. Path compression points every visited node at the root. Union by rank hangs the shorter tree under the taller one. Together they make a long chain unlikely.
+
+## A common mistake
+
+Linking under a root is one hop. It is not a walk through the old parent.
 
 ## What it costs
 
@@ -38,4 +45,4 @@ print(sets.find(2))
 
 ## Practice and next step
 
-Answer the checkpoints, then open Minimum spanning trees. The checkpoint stays in this browser.
+Open Minimum spanning trees next. Minimum spanning trees use that test to reject an edge that would close a cycle.

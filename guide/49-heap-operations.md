@@ -8,18 +8,27 @@ module: bitsandbytes.heaps.heapsort
 
 ## The idea
 
+heapsort on [3, 1, 4, 2] returns [1, 2, 3, 4].
+
 A complete tree fills every level except possibly the last, and that last level fills from the left. A binary heap stores a complete tree in an array. Python's heapq is this structure as a min-heap. heappop returns the smallest item. For a max-heap, every parent is ≥ its children, so the largest key is at index 0. The children of index i are 2i + 1 and 2i + 2. heapify starts at the last parent and sifts that item down until the invariant holds. On [3, 1, 4, 2] the last parent is index 1. Sifting swaps 1 with 2, leaving [3, 2, 4, 1]. Sifting the root then swaps 3 with 4, leaving [4, 2, 3, 1]. heapsort extracts the root until the array is sorted. The library returns [1, 2, 3, 4].
 
 ## A worked trace
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Sift 1 | heap = [3, 2, 4, 1] | Sift-down restored the parent. |
-| Sift 0 | heap = [4, 2, 3, 1] | Sift-down restored the parent. |
+| sift | heap = [3, 2, 4, 1] | Sift-down at index 1 leaves [3, 2, 4, 1]. |
+| sift | heap = [4, 2, 3, 1] | Sift-down at index 0 leaves [4, 2, 3, 1]. |
+| extract | heap = [3, 2, 1, 4] | Extract moves the next root. The array is [3, 2, 1, 4]. |
+| extract | heap = [2, 1, 3, 4] | Extract moves the next root. The array is [2, 1, 3, 4]. |
+| extract | heap = [1, 2, 3, 4] | Extract moves the next root. The array is [1, 2, 3, 4]. |
 
 ## Why it is correct
 
 Sift-down restores the invariant in one subtree when both children are already heaps. It swaps the parent with the larger child when the parent is smaller, then repeats. Each swap moves the violation down, and a leaf has no child to violate. heapify can start at the last parent because every index after that is a leaf, and a leaf is already a heap. The extraction loop removes the current maximum and sifts the item that was moved into the root, so the next maximum surfaces. Writing extracted maxima from the end of the array backward produces ascending order.
+
+## A common mistake
+
+heapify is linear. Repeating extract-max is the n log n part.
 
 ## What it costs
 
@@ -35,4 +44,4 @@ print(heapsort([3, 1, 4, 2]))
 
 ## Practice and next step
 
-Answer the checkpoints, then open Priority queues. The checkpoint stays in this browser.
+Open Priority queues next. A priority queue is that heap when you also need to lower a key you already pushed.

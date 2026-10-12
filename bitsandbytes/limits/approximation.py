@@ -12,9 +12,10 @@ vertex-disjoint, giving a 2-approximation.
 from __future__ import annotations
 
 from bitsandbytes.graphs.adjacency_list import Graph
+from bitsandbytes.tracing import TraceSink, emit
 
 
-def vertex_cover_two_approximation(graph: Graph) -> set:
+def vertex_cover_two_approximation(graph: Graph, *, trace_sink: TraceSink | None = None) -> set:
     """Return a 2-approximate vertex cover by scanning graph edges once.
 
     An edge here is an adjacency-list entry ``(source, target)``; a directed
@@ -33,9 +34,11 @@ def vertex_cover_two_approximation(graph: Graph) -> set:
     """
 
     cover: set = set()
+    emit(trace_sink, "start", cover=[])
     for source in graph.vertices():
         for target, _weight in graph.neighbors(source):
             if source not in cover and target not in cover:
                 cover.add(source)
                 cover.add(target)
+                emit(trace_sink, "pair", source=source, target=target, cover=sorted(cover))
     return cover

@@ -14,6 +14,8 @@ import heapq
 from collections.abc import Sequence
 from dataclasses import dataclass
 
+from bitsandbytes.tracing import TraceSink, emit
+
 
 @dataclass(order=True, slots=True)
 class _Interval:
@@ -22,7 +24,11 @@ class _Interval:
     label: str = ""
 
 
-def interval_scheduling_max_count(intervals: Sequence[tuple[int, int, str]]) -> int:
+def interval_scheduling_max_count(
+    intervals: Sequence[tuple[int, int, str]],
+    *,
+    trace_sink: TraceSink | None = None,
+) -> int:
     """Return the size of a maximum set of non-overlapping intervals.
 
     Sort by finish time, then greedily take compatible intervals.
@@ -39,6 +45,9 @@ def interval_scheduling_max_count(intervals: Sequence[tuple[int, int, str]]) -> 
         if interval.start >= last_finish:
             count += 1
             last_finish = interval.finish
+            emit(trace_sink, "take", label=interval.label, count=count)
+        else:
+            emit(trace_sink, "skip", label=interval.label, count=count)
     return count
 
 

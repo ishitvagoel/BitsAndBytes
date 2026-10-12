@@ -77,10 +77,14 @@ This analysis assumes the sequence is already sorted, comparisons take constant 
 
 Finding an insertion point is also logarithmic with Python’s [`bisect`](https://docs.python.org/3/library/bisect.html) module. Inserting into the middle of a Python list is still **O(n)** in the worst case: later elements need to shift to make room. Thus `bisect.insort` is O(n) overall even though its search step is O(log n).
 
+## A common mistake
+
+Discarding only the midpoint leaves the rest of the failing half in the range. If the list is sorted and the middle is too small, every index through that middle is too small too.
+
 ## Practice: predict, debug and transfer
 
 Use the checkpoint cards below to make a prediction, diagnose a non-shrinking range, transfer the bounds idea to duplicates, and explain why searching for an insertion point does not make list insertion logarithmic. Each response includes feedback explaining the reasoning.
 
 ## Next step
 
-Try tracing a target that is absent and explain why every discarded index is impossible. Then continue to [binary search on an answer](./binary-search-on-answer.md) to apply the shrinking-range idea to a monotone yes/no condition, followed by [sorting](./05-sorting.md).
+Try tracing a target that is absent and explain why every discarded index is impossible. Continue to [binary search on an answer](./binary-search-on-answer.md) to apply the shrinking-range idea to a monotone yes/no condition.

@@ -19,6 +19,8 @@ from collections import deque
 from collections.abc import Hashable, Mapping, Sequence
 from typing import TypeVar
 
+from bitsandbytes.tracing import TraceSink, emit
+
 T = TypeVar("T")
 Vertex = TypeVar("Vertex", bound=Hashable)
 
@@ -106,7 +108,7 @@ def timsort_sorted(values: Sequence[T]) -> list[T]:
     return copy
 
 
-def list_pop_front_cost_demo(length: int) -> int:
+def list_pop_front_cost_demo(length: int, *, trace_sink: TraceSink | None = None) -> int:
     """Return how many reference moves ``pop(0)`` performs on a list of ``length``.
 
     CPython shifts every remaining element one slot toward index 0. That is
@@ -120,4 +122,8 @@ def list_pop_front_cost_demo(length: int) -> int:
 
     if length < 0:
         raise ValueError("length cannot be negative.")
-    return length - 1 if length else 0
+    moves = length - 1 if length else 0
+    emit(trace_sink, "start", length=length, moved=0)
+    for index in range(moves):
+        emit(trace_sink, "slide", index=index, moved=index + 1, remaining=moves)
+    return moves
