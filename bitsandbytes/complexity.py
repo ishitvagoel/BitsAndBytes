@@ -61,7 +61,7 @@ import sys
 from collections.abc import Sequence
 from enum import Enum
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 
 class RecurrenceShape(Enum):
@@ -156,7 +156,7 @@ def pair_comparison_count(values: Sequence[object], *, trace_sink: TraceSink | N
     for left in range(size):
         for right in range(left + 1, size):
             count += 1
-            emit(
+            _emit(
                 trace_sink,
                 "compare",
                 left=left,

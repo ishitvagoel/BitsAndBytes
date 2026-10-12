@@ -16,7 +16,7 @@ from __future__ import annotations
 from typing import TypeVar
 
 from bitsandbytes.linked_list import LinkedList, Node
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 T = TypeVar("T")
 
@@ -126,7 +126,7 @@ def _merge_nodes(
         else:
             tail.next = chosen
         tail = chosen
-        emit(trace_sink, "take", value=chosen.data)
+        _emit(trace_sink, "take", value=chosen.data)
 
     # The leftover chain is already sorted, so one assignment attaches all of it.
     remainder = first if first is not None else second

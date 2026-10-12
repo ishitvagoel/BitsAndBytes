@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import TypeVar
 
 from bitsandbytes.linked_list import LinkedList, Node
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 T = TypeVar("T")
 
@@ -44,14 +44,14 @@ def nth_from_end(lst: LinkedList[T], n: int, *, trace_sink: TraceSink | None = N
         if leader is None:
             raise ValueError("n is larger than the list.")
         leader = leader.next
-        emit(trace_sink, "gap", step=step + 1, leader=None if leader is None else leader.data)
+        _emit(trace_sink, "gap", step=step + 1, leader=None if leader is None else leader.data)
 
     trailer = lst.head
     while leader is not None:
         assert trailer is not None and trailer.next is not None
         leader = leader.next
         trailer = trailer.next
-        emit(trace_sink, "walk", trailer=trailer.data, leader=None if leader is None else leader.data)
+        _emit(trace_sink, "walk", trailer=trailer.data, leader=None if leader is None else leader.data)
     if trailer is None:
         raise ValueError("n is larger than the list.")
     return trailer

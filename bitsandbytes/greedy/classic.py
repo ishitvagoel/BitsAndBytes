@@ -14,7 +14,7 @@ import heapq
 from collections.abc import Sequence
 from dataclasses import dataclass
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 
 @dataclass(order=True, slots=True)
@@ -45,9 +45,9 @@ def interval_scheduling_max_count(
         if interval.start >= last_finish:
             count += 1
             last_finish = interval.finish
-            emit(trace_sink, "take", label=interval.label, count=count)
+            _emit(trace_sink, "take", label=interval.label, count=count)
         else:
-            emit(trace_sink, "skip", label=interval.label, count=count)
+            _emit(trace_sink, "skip", label=interval.label, count=count)
     return count
 
 

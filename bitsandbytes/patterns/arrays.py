@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import deque
 from collections.abc import Sequence
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 
 def two_sum_sorted(
@@ -25,7 +25,7 @@ def two_sum_sorted(
     right = len(sorted_values) - 1
     while left < right:
         total = sorted_values[left] + sorted_values[right]
-        emit(trace_sink, "move", left=left, right=right, total=total)
+        _emit(trace_sink, "move", left=left, right=right, total=total)
         if total == target:
             return left, right
         if total < target:
@@ -106,5 +106,5 @@ def sliding_window_maximum(
             deque_indices.popleft()
         if index >= window - 1:
             output.append(values[deque_indices[0]])
-            emit(trace_sink, "window", index=index, maximum=output[-1], output=list(output))
+            _emit(trace_sink, "window", index=index, maximum=output[-1], output=list(output))
     return output

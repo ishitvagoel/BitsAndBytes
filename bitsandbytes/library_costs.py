@@ -19,7 +19,7 @@ from collections import deque
 from collections.abc import Hashable, Mapping, Sequence
 from typing import TypeVar
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 T = TypeVar("T")
 Vertex = TypeVar("Vertex", bound=Hashable)
@@ -123,7 +123,7 @@ def list_pop_front_cost_demo(length: int, *, trace_sink: TraceSink | None = None
     if length < 0:
         raise ValueError("length cannot be negative.")
     moves = length - 1 if length else 0
-    emit(trace_sink, "start", length=length, moved=0)
+    _emit(trace_sink, "start", length=length, moved=0)
     for index in range(moves):
-        emit(trace_sink, "slide", index=index, moved=index + 1, remaining=moves)
+        _emit(trace_sink, "slide", index=index, moved=index + 1, remaining=moves)
     return moves

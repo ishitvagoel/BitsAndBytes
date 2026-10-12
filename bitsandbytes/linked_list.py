@@ -34,7 +34,7 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 T = TypeVar("T")
 
@@ -377,7 +377,7 @@ class LinkedList(Generic[T]):
         previous: Node[T] | None = None
         current = self.head
         while current is not None:
-            emit(trace_sink, "visit", value=current.data)
+            _emit(trace_sink, "visit", value=current.data)
             if current.data == data:
                 if previous is None:
                     self.head = current.next

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 
 def permutations(items: list[int], *, trace_sink: TraceSink | None = None) -> list[list[int]]:
@@ -29,7 +29,7 @@ def permutations(items: list[int], *, trace_sink: TraceSink | None = None) -> li
     def extend(path: list[int], remaining: list[int]) -> None:
         if not remaining:
             output.append(path.copy())
-            emit(trace_sink, "leaf", path=list(path), count=len(output))
+            _emit(trace_sink, "leaf", path=list(path), count=len(output))
             return
         for index, value in enumerate(remaining):
             path.append(value)

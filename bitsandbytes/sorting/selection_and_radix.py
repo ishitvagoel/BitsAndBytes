@@ -14,7 +14,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import TypeVar
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 T = TypeVar("T")
 
@@ -59,7 +59,7 @@ def counting_sort(values: list[int], *, maximum: int, trace_sink: TraceSink | No
     for digit, count in enumerate(counts):
         if count:
             output.extend([digit] * count)
-            emit(trace_sink, "place", digit=digit, count=count, output=list(output))
+            _emit(trace_sink, "place", digit=digit, count=count, output=list(output))
     return output
 
 
@@ -128,7 +128,7 @@ def quickselect(values: list[int], k: int, *, trace_sink: TraceSink | None = Non
     right = len(values) - 1
     while left <= right:
         pivot_index = _partition(values, left, right)
-        emit(trace_sink, "partition", index=pivot_index, value=values[pivot_index], values=list(values))
+        _emit(trace_sink, "partition", index=pivot_index, value=values[pivot_index], values=list(values))
         if pivot_index == k:
             return values[k]
         if k < pivot_index:
@@ -171,7 +171,7 @@ def binary_search_on_answer(
     while low <= high:
         middle = low + (high - low) // 2
         possible = feasible(middle)
-        emit(trace_sink, "test", low=low, high=high, middle=middle, feasible=possible)
+        _emit(trace_sink, "test", low=low, high=high, middle=middle, feasible=possible)
         if possible:
             answer = middle
             high = middle - 1
@@ -219,7 +219,7 @@ def _inversion_merge(
             added = middle - left_index + 1
             buffer[index] = taken
             count += added
-            emit(trace_sink, "cross", taken=taken, added=added, count=count)
+            _emit(trace_sink, "cross", taken=taken, added=added, count=count)
             right_index += 1
         index += 1
     while left_index <= middle:

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 
 class Trie:
@@ -75,7 +75,7 @@ def kmp_search(text: str, pattern: str, *, trace_sink: TraceSink | None = None) 
             state = failure[state - 1]
         if pattern[state] == char:
             state += 1
-        emit(trace_sink, "scan", index=index, state=state, char=char)
+        _emit(trace_sink, "scan", index=index, state=state, char=char)
         if state == len(pattern):
             return index - len(pattern) + 1
     return -1

@@ -9,7 +9,7 @@ from bitsandbytes.deques.linked_deque import LinkedDeque
 from bitsandbytes.graphs.adjacency_list import Graph
 from bitsandbytes.heaps.priority_queue import PriorityQueue
 from bitsandbytes.queues.linked_queue import LinkedQueue
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 from bitsandbytes.union_find.disjoint_set import DisjointSet
 
 Vertex = TypeVar("Vertex", bound=Hashable)
@@ -76,7 +76,7 @@ def topological_order(graph: Graph, *, trace_sink: TraceSink | None = None) -> l
     while not queue.is_empty:
         vertex = queue.dequeue()
         order.append(vertex)
-        emit(trace_sink, "emit", vertex=vertex, order=list(order))
+        _emit(trace_sink, "emit", vertex=vertex, order=list(order))
         for neighbor, _weight in graph.neighbors(vertex):
             indegree[neighbor] -= 1
             if indegree[neighbor] == 0:
@@ -194,7 +194,7 @@ def dijkstra_distances_heap(
         if vertex in settled:
             continue
         settled.add(vertex)
-        emit(trace_sink, "settle", vertex=vertex, distance=distance, best=dict(best))
+        _emit(trace_sink, "settle", vertex=vertex, distance=distance, best=dict(best))
         for neighbor, weight in graph.neighbors(vertex):
             if weight < 0:
                 raise ValueError("Dijkstra requires non-negative edge weights.")
@@ -236,11 +236,11 @@ def kruskal_minimum_spanning_weight(
     total = 0
     for weight, first, second in edges:
         if dsu.connected(index[first], index[second]):
-            emit(trace_sink, "reject", weight=weight, first=first, second=second, total=total)
+            _emit(trace_sink, "reject", weight=weight, first=first, second=second, total=total)
             continue
         dsu.union(index[first], index[second])
         total += weight
-        emit(trace_sink, "take", weight=weight, first=first, second=second, total=total)
+        _emit(trace_sink, "take", weight=weight, first=first, second=second, total=total)
     return total
 
 
@@ -270,7 +270,7 @@ def prim_minimum_spanning_weight(
             continue
         visited.add(target)
         total += weight
-        emit(trace_sink, "add", vertex=target, weight=weight, total=total)
+        _emit(trace_sink, "add", vertex=target, weight=weight, total=total)
         for neighbor, next_weight in graph.neighbors(target):
             if neighbor in visited:
                 continue

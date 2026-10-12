@@ -14,7 +14,7 @@ from __future__ import annotations
 from typing import TypeVar
 
 from bitsandbytes.linked_list import LinkedList, Node
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 T = TypeVar("T")
 
@@ -50,7 +50,7 @@ def reverse_iterative(lst: LinkedList[T], *, trace_sink: TraceSink | None = None
         while walker is not None:
             chain.append(walker.data)
             walker = walker.next
-        emit(trace_sink, "flip", head=previous.data if previous is not None else None, chain=chain)
+        _emit(trace_sink, "flip", head=previous.data if previous is not None else None, chain=chain)
     lst.head = previous
     lst.refresh()
 

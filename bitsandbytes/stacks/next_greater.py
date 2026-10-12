@@ -24,7 +24,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from bitsandbytes.stacks.stack import Stack
-from bitsandbytes.tracing import TraceSink, emit
+from bitsandbytes.tracing import TraceSink, _emit
 
 
 def next_greater(values: Sequence[int], *, trace_sink: TraceSink | None = None) -> list[int | None]:
@@ -45,5 +45,5 @@ def next_greater(values: Sequence[int], *, trace_sink: TraceSink | None = None) 
         while not pending.is_empty and values[pending.peek()] < value:
             answer[pending.pop()] = value
         pending.push(index)
-        emit(trace_sink, "scan", index=index, value=value, answers=list(answer))
+        _emit(trace_sink, "scan", index=index, value=value, answers=list(answer))
     return answer
