@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.greedy.classic
 ---
 
+This page is the module index for greedy algorithms.
+
 * `greedy/classic.py` — interval scheduling, fractional knapsack, Huffman codes.
 
 ## Industry

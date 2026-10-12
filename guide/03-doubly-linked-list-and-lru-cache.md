@@ -6,7 +6,9 @@ status: present
 module: bitsandbytes.doubly_linked_list, bitsandbytes.linked_lists.random_pointer, bitsandbytes.linked_lists.lru_cache
 ---
 
-This legacy page is the implementation index. Learn [doubly linked-list operations](./doubly-linked-list-operations.md), then apply them to the [LRU cache](./lru-cache.md).
+This page is the module index for doubly linked list and the lru cache.
+
+Learn [doubly linked-list operations](./doubly-linked-list-operations.md), then apply them to the [LRU cache](./lru-cache.md).
 
 * `bitsandbytes/doubly_linked_list.py` — `prev` makes unlink and insert-beside-a-node O(1). Reversal is O(n) time and O(1) extra memory.
 * `linked_lists/random_pointer.py` — dictionary clone expected O(n) time and O(n) extra memory; interleaved clone O(n) time and O(1) scratch besides the copy.

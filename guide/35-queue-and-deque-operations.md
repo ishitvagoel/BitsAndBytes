@@ -8,20 +8,26 @@ module: bitsandbytes.queues.linked_queue, bitsandbytes.queues.circular_queue, bi
 
 ## The idea
 
+Enqueue a, b, and c. The first dequeue returns a.
+
 A queue is first-in, first-out. enqueue adds at the back and dequeue removes from the front. The linked queue in this repository uses a doubly linked list with a cached tail, so both ends are Θ(1). A ring buffer stores the same order in an array with a head index and a tail index. A deque allows add and remove at both ends. The order promise is the part to learn first. After enqueue a, b, c, two dequeues return a and then b. A Python list can act as a stack with append and pop at the end, and that is a different order from this queue.
 
 ## A worked trace
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Enqueue | front = a | Enqueued a. |
-| Enqueue | front = a | Enqueued b. |
-| Enqueue | front = a | Enqueued c. |
-| Dequeue | front = b | The first dequeue returns a. |
+| Enqueue | front = a | Enqueued a. The front is a. |
+| Enqueue | front = a | Enqueued b. The front is a. |
+| Enqueue | front = a | Enqueued c. The front is a. |
+| Dequeue | front = b | The first dequeue returns a. The front is now b. |
 
 ## Why it is correct
 
 The front is the earliest item that has not been dequeued. Enqueue does not change the front unless the queue was empty, in which case the new item is both front and back. Dequeue advances the front to the next node and returns the old one. That is why the exit order matches the arrival order. A stack would have returned c first. Mixing the two is the usual bug when a graph search asks for a queue. The code uses a list with pop() at the end and insert at the end.
+
+## A common mistake
+
+Using pop at the end of a list returns the latest item and breaks the queue order.
 
 ## What it costs
 
@@ -42,4 +48,4 @@ print(queue.dequeue())
 
 ## Practice and next step
 
-Answer the checkpoints, then open Comparison sorts. The checkpoint stays in this browser.
+Open Comparison sorts next. Comparison sorts use an ordered prefix. Insertion sort is the one this lesson traces.

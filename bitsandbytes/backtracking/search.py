@@ -13,8 +13,10 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
+from bitsandbytes.tracing import TraceSink, _emit
 
-def permutations(items: list[int]) -> list[list[int]]:
+
+def permutations(items: list[int], *, trace_sink: TraceSink | None = None) -> list[list[int]]:
     """Return all permutations of ``items``.
 
     Cost
@@ -27,6 +29,7 @@ def permutations(items: list[int]) -> list[list[int]]:
     def extend(path: list[int], remaining: list[int]) -> None:
         if not remaining:
             output.append(path.copy())
+            _emit(trace_sink, "leaf", path=list(path), count=len(output))
             return
         for index, value in enumerate(remaining):
             path.append(value)

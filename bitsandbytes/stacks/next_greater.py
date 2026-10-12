@@ -24,9 +24,10 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from bitsandbytes.stacks.stack import Stack
+from bitsandbytes.tracing import TraceSink, _emit
 
 
-def next_greater(values: Sequence[int]) -> list[int | None]:
+def next_greater(values: Sequence[int], *, trace_sink: TraceSink | None = None) -> list[int | None]:
     """Return the next strictly greater value to the right of each item.
 
     Cost
@@ -44,4 +45,5 @@ def next_greater(values: Sequence[int]) -> list[int | None]:
         while not pending.is_empty and values[pending.peek()] < value:
             answer[pending.pop()] = value
         pending.push(index)
+        _emit(trace_sink, "scan", index=index, value=value, answers=list(answer))
     return answer

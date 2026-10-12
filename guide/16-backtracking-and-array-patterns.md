@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.backtracking.search, bitsandbytes.patterns.arrays
 ---
 
+This page is the module index for backtracking and array patterns.
+
 * `backtracking/search.py` — permutations, combinations, subsets, N-queens count.
 
 ## Focused lessons

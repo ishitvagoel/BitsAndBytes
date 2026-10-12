@@ -96,6 +96,8 @@ class DynamicArray(Generic[T]):
             self._grow()
         self._items[self._length] = item
         self._length += 1
+        if self._trace_sink is not None:
+            self._trace_sink(TraceEvent("append", {"item": item, "length": self._length, "capacity": self._capacity}))
 
     def pop(self) -> T:
         """Remove and return the last item.

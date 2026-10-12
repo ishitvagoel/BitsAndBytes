@@ -74,6 +74,27 @@ export const curriculumStages: CurriculumStage[] = [
   },
 ];
 
+export const referenceLessonFor: Record<string, string> = {
+  "analysis-and-library-costs": "cost-models",
+  "list-algorithms": "singly-linked-list",
+  stacks: "stack-basics",
+  "queues-and-deque": "queue-and-deque-operations",
+  sorting: "comparison-sorts",
+  "sorting-extras": "noncomparison-sorts",
+  heaps: "heap-operations",
+  "hash-table": "hash-chaining",
+  "binary-search-tree": "binary-search-tree-operations",
+  "doubly-linked-list-and-lru-cache": "doubly-linked-list-operations",
+  graphs: "graph-traversals",
+  "greedy-algorithms": "greedy-methods",
+  "backtracking-and-array-patterns": "backtracking",
+  strings: "string-search",
+  "range-queries-and-approximate-structures": "range-query-structures",
+  "storage-and-locality": "storage-engines-and-locality",
+  "limits-and-approximation": "approximation-guarantees",
+  "appendix-python-tools": "cost-models",
+};
+
 export const curriculumLessons: Record<string, CurriculumLesson> = {
   "analysis-and-library-costs": {
     id: "lesson-analysis-and-library-costs",

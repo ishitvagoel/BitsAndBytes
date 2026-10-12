@@ -56,8 +56,12 @@ for appends and pops in either direction.
 
 from __future__ import annotations
 
+import math
 import sys
+from collections.abc import Sequence
 from enum import Enum
+
+from bitsandbytes.tracing import TraceSink, _emit
 
 
 class RecurrenceShape(Enum):
@@ -137,3 +141,67 @@ def classify_recurrence(shape: RecurrenceShape) -> str:
         RecurrenceShape.LINEAR_DECREMENT: "Θ(n²)",
     }
     return table[shape]
+
+
+def pair_comparison_count(values: Sequence[object], *, trace_sink: TraceSink | None = None) -> int:
+    """Return how many unordered pairs a nested right-looking scan checks.
+
+    Cost
+    ----
+    Time is Θ(n²) comparisons for n items. Extra memory is Θ(1) for the indexes.
+    """
+
+    count = 0
+    size = len(values)
+    for left in range(size):
+        for right in range(left + 1, size):
+            count += 1
+            _emit(
+                trace_sink,
+                "compare",
+                left=left,
+                right=right,
+                first=values[left],
+                second=values[right],
+                count=count,
+            )
+    return count
+
+
+def growth_table(sizes: Sequence[int]) -> list[tuple[int, int, int]]:
+    """Return ``(n, n log2 n, n²)`` for each size, using floor log.
+
+    Cost
+    ----
+    Time is Θ(1) per size. Extra memory is Θ(1) per returned row.
+    """
+
+    rows: list[tuple[int, int, int]] = []
+    for size in sizes:
+        if size < 1:
+            raise ValueError("size must be positive")
+        log_term = size * int(math.log2(size))
+        rows.append((size, log_term, size * size))
+    return rows
+
+
+def recursion_tree_levels(size: int, shape: RecurrenceShape) -> list[tuple[int, int, int]]:
+    """Return ``(subproblems, subproblem size, level work)`` for a power of two.
+
+    Cost
+    ----
+    Time is Θ(log n) for the merge-divide shape. Extra memory is one row per level.
+    """
+
+    if size < 1 or size & (size - 1):
+        raise ValueError("size must be a positive power of two")
+    if shape is not RecurrenceShape.MERGE_DIVIDE:
+        raise ValueError("only the merge-divide shape is tabulated")
+    rows: list[tuple[int, int, int]] = []
+    subproblems = 1
+    width = size
+    while width >= 1:
+        rows.append((subproblems, width, size))
+        subproblems *= 2
+        width //= 2
+    return rows

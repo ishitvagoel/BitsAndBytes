@@ -13,12 +13,13 @@ from __future__ import annotations
 
 from typing import TypeVar
 
+from bitsandbytes.tracing import TraceSink, _emit
 from bitsandbytes.typing import SupportsLessThan
 
 T = TypeVar("T", bound=SupportsLessThan)
 
 
-def insertion_sort(values: list[T]) -> list[T]:
+def insertion_sort(values: list[T], *, trace_sink: TraceSink | None = None) -> list[T]:
     """Sort ``values`` in ascending order in place.
 
     Cost
@@ -33,6 +34,7 @@ def insertion_sort(values: list[T]) -> list[T]:
     the key are O(1) extra memory.
     """
 
+    _emit(trace_sink, "start", index=0, key=values[0] if values else None, values=list(values))
     for index in range(1, len(values)):
         key = values[index]
         hole = index - 1
@@ -40,4 +42,5 @@ def insertion_sort(values: list[T]) -> list[T]:
             values[hole + 1] = values[hole]
             hole -= 1
         values[hole + 1] = key
+        _emit(trace_sink, "insert", index=index, key=key, values=list(values))
     return values

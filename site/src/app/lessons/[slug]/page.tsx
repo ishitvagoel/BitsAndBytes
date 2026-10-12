@@ -10,6 +10,7 @@ import type { TraceScenario } from "@/components/trace-bench";
 import { ModuleList } from "@/components/module-list";
 import { CompletionControl, ResumeTracker } from "@/components/resume-progress";
 import binarySearchSource from "@/data/binary-search-source.json";
+import exerciseFixtures from "@/data/exercises.json";
 import lessonTraces from "@/data/lesson-traces.json";
 import {
   formatModuleNames,
@@ -17,6 +18,7 @@ import {
   getLessonBySlug,
 } from "@/lib/lessons";
 import { getLessonSections } from "@/lib/lesson-sections";
+import { referenceLessonFor } from "@/lib/curriculum";
 import { getSections, headingId } from "@/lib/markdown-sections";
 import { resolveLessonMarkdownHref } from "@/lib/markdown-links";
 import type { LessonProgressConfig } from "@/lib/learning-progress";
@@ -84,60 +86,127 @@ function Markdown({
     return section?.id ?? headingId(headingText(children));
   };
   const chunks = source.split(/\n(?=## )/);
+  const markdownProps = { excerpts, lessonSlugs, repositoryRef, renderedHeadingId };
   return (
     <>
       {chunks.map((chunk, index) => {
         const callout = chunk.startsWith("## ");
-        const body = (
-          <ReactMarkdown
-      components={{
-        a: ({ href, children, ...props }) => {
-          if (!href) return <a {...props}>{children}</a>;
-          const lessonHref = resolveLessonMarkdownHref(href, lessonSlugs);
-          if (lessonHref) return <Link href={lessonHref}>{children}</Link>;
-
-          const sourcePath = /^\.\.\/(bitsandbytes|tests)\/(.+)$/.exec(href);
-          if (sourcePath) {
-            const repositoryPath = `${sourcePath[1]}/${sourcePath[2]}`;
-            return (
-              <a href={`https://github.com/ishitvagoel/BitsAndBytes/blob/${repositoryRef}/${repositoryPath}`} target="_blank" rel="noreferrer" {...props}>
-                {children}<span className="sr-only"> (opens repository source in a new tab)</span>
-              </a>
-            );
-          }
-
-          const repositoryMasterLink = href.replace(
-            "https://github.com/ishitvagoel/BitsAndBytes/blob/master/",
-            `https://github.com/ishitvagoel/BitsAndBytes/blob/${repositoryRef}/`,
-          );
-          return <a href={repositoryMasterLink} {...props}>{children}</a>;
-        },
-        pre: ({ children }) => {
-          const block = codeBlockContent(children);
-          return <CopyableCodeBlock code={block.code} language={block.language} />;
-        },
-        p: ({ children, ...props }) => {
-          const marker = /^\[\[source-excerpt:([a-z0-9-]+)\]\]$/.exec(headingText(children).trim());
-          const excerpt = marker ? excerpts[marker[1]] : undefined;
-          if (marker && excerpt) {
-            return <p><a href="#binary-search-source">Follow the current Python source and highlighted lines in the trace above.</a></p>;
-          }
-          if (marker) throw new Error(`Missing source excerpt for ${marker[1]}`);
-          return <p {...props}>{children}</p>;
-        },
-        h2: ({ children, ...props }) => <h2 {...props} id={renderedHeadingId(children)}>{children}</h2>,
-        h3: ({ children, ...props }) => <h3 {...props} id={renderedHeadingId(children)}>{children}</h3>,
-      }}
-          >
-            {chunk}
-          </ReactMarkdown>
-        );
+        const body = <MarkdownBlocks key={`${index}-blocks`} source={chunk} {...markdownProps} />;
         return callout
           ? <section className="heading-callout" key={`${index}-${chunk.slice(0, 24)}`}>{body}</section>
           : <div key={`${index}-plain`}>{body}</div>;
       })}
     </>
   );
+}
+
+function MarkdownBlocks({
+  source,
+  excerpts,
+  lessonSlugs,
+  repositoryRef,
+  renderedHeadingId,
+}: {
+  source: string;
+  excerpts: Record<string, SourceCodeExcerpt>;
+  lessonSlugs: ReadonlySet<string>;
+  repositoryRef: string;
+  renderedHeadingId: (children: ReactNode) => string;
+}) {
+  const blocks: ReactNode[] = [];
+  let prose: string[] = [];
+  let table: string[] = [];
+  let key = 0;
+  const flushProse = () => {
+    if (!prose.some((line) => line.trim())) {
+      prose = [];
+      return;
+    }
+    blocks.push(
+      <ReactMarkdown key={`prose-${key++}`} components={markdownComponents(excerpts, lessonSlugs, repositoryRef, renderedHeadingId)}>
+        {prose.join("\n")}
+      </ReactMarkdown>,
+    );
+    prose = [];
+  };
+  const flushTable = () => {
+    if (!table.length) return;
+    const rows = table.map((line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim()));
+    const isRule = (row: string[]) => row.every((cell) => /^:?-+:?$/.test(cell));
+    const kept = rows.filter((row) => !isRule(row));
+    const [header, ...body] = kept;
+    blocks.push(
+      <div className="table-scroll" key={`table-${key++}`}>
+        <table>
+          {header ? <thead><tr>{header.map((cell, index) => <th key={`${index}-${cell}`}>{cell}</th>)}</tr></thead> : null}
+          <tbody>
+            {body.map((row, rowIndex) => (
+              <tr key={rowIndex}>{row.map((cell, index) => <td key={`${rowIndex}-${index}`}>{cell}</td>)}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>,
+    );
+    table = [];
+  };
+  for (const line of source.split("\n")) {
+    if (line.trim().startsWith("|")) {
+      flushProse();
+      table.push(line);
+    } else {
+      flushTable();
+      prose.push(line);
+    }
+  }
+  flushProse();
+  flushTable();
+  return <>{blocks}</>;
+}
+
+function markdownComponents(
+  excerpts: Record<string, SourceCodeExcerpt>,
+  lessonSlugs: ReadonlySet<string>,
+  repositoryRef: string,
+  renderedHeadingId: (children: ReactNode) => string,
+) {
+  return {
+    a: ({ href, children, ...props }: { href?: string; children?: ReactNode }) => {
+      if (!href) return <a {...props}>{children}</a>;
+      const lessonHref = resolveLessonMarkdownHref(href, lessonSlugs);
+      if (lessonHref) return <Link href={lessonHref}>{children}</Link>;
+
+      const sourcePath = /^\.\.\/(bitsandbytes|tests)\/(.+)$/.exec(href);
+      if (sourcePath) {
+        const repositoryPath = `${sourcePath[1]}/${sourcePath[2]}`;
+        return (
+          <a href={`https://github.com/ishitvagoel/BitsAndBytes/blob/${repositoryRef}/${repositoryPath}`} target="_blank" rel="noreferrer" {...props}>
+            {children}<span className="sr-only"> (opens repository source in a new tab)</span>
+          </a>
+        );
+      }
+
+      const repositoryMasterLink = href.replace(
+        "https://github.com/ishitvagoel/BitsAndBytes/blob/master/",
+        `https://github.com/ishitvagoel/BitsAndBytes/blob/${repositoryRef}/`,
+      );
+      return <a href={repositoryMasterLink} {...props}>{children}</a>;
+    },
+    pre: ({ children }: { children?: ReactNode }) => {
+      const block = codeBlockContent(children);
+      return <CopyableCodeBlock code={block.code} language={block.language} />;
+    },
+    p: ({ children, ...props }: { children?: ReactNode }) => {
+      const marker = /^\[\[source-excerpt:([a-z0-9-]+)\]\]$/.exec(headingText(children).trim());
+      const excerpt = marker ? excerpts[marker[1]] : undefined;
+      if (marker && excerpt) {
+        return <p><a href="#binary-search-source">Follow the current Python source and highlighted lines in the trace above.</a></p>;
+      }
+      if (marker) throw new Error(`Missing source excerpt for ${marker[1]}`);
+      return <p {...props}>{children}</p>;
+    },
+    h2: ({ children, ...props }: { children?: ReactNode }) => <h2 {...props} id={renderedHeadingId(children)}>{children}</h2>,
+    h3: ({ children, ...props }: { children?: ReactNode }) => <h3 {...props} id={renderedHeadingId(children)}>{children}</h3>,
+  };
 }
 
 function LessonSequence({
@@ -230,7 +299,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const markdownSections = sections.filter((section) => section.id !== "trace-section" && section.id !== "practice-section");
   const lessonContext = (
     <>
-      {lesson.outcomes.length <= 2 ? (
+      {lesson.editorialState === "reference" ? (
+        <p className="prerequisite-line">This page lists the library modules for {lesson.title}. The lesson is <Link href={`/lessons/${referenceLessonFor[lesson.slug]}`}>{lessons.find((item) => item.slug === referenceLessonFor[lesson.slug])?.title}</Link>.</p>
+      ) : lesson.outcomes.length <= 2 ? (
         <p className="lesson-outcomes-line">You will learn to {lesson.outcomes.map((outcome) => outcome.charAt(0).toLowerCase() + outcome.slice(1)).join(" and ")}.</p>
       ) : lesson.outcomes.length <= 4 ? (
         <section className="lesson-outcomes lesson-page-outcomes" aria-labelledby="outcomes-title">
@@ -244,18 +315,18 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </details>
       )}
 
-      {lesson.prerequisites.length > 0 && (
+      {lesson.editorialState !== "reference" && lesson.prerequisites.length > 0 && (
         <p className="prerequisite-line">Recommended first: {lesson.prerequisites.map((prerequisite, index) => (
           <span key={prerequisite.slug}>{index > 0 ? ", " : ""}<Link href={`/lessons/${prerequisite.slug}`}>{prerequisite.title}</Link></span>
         ))}.</p>
       )}
 
-      {markdownSections.length >= 5 && (
+      {markdownSections.filter((section) => section.title !== "Practice and next step").length >= 5 && (
         <details className="contents-panel">
-          <summary>On this page <span>{markdownSections.length} sections</span></summary>
+          <summary>On this page <span>{markdownSections.filter((section) => section.title !== "Practice and next step").length} sections</span></summary>
           <nav aria-label="On this page">
             <ol>
-              {markdownSections.map((section) => (
+              {markdownSections.filter((section) => section.title !== "Practice and next step").map((section) => (
                 <li className={section.level === 3 ? "contents-subsection" : undefined} key={`${section.id}-${section.title}`}>
                   <a href={`#${section.id}`}>{section.title}</a>
                 </li>
@@ -294,7 +365,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         <article className="lesson-body">
           <Markdown source={lesson.content} excerpts={excerpts} lessonSlugs={lessonSlugs} repositoryRef={repositoryRef} />
-          {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />}
+          {!hasWorkshopBench && lesson.exerciseIds.length > 0 && <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} questions={exerciseFixtures.filter((exercise) => exercise.lessonSlug === lesson.slug)} />}
         </article>
 
         <details className="source-disclosure">
@@ -346,7 +417,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
               )}
             </div>
             <div className="workshop-check">
-              <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} />
+              <LessonPractice lessonSlug={lesson.slug} progressConfig={progressConfig} questions={exerciseFixtures.filter((exercise) => exercise.lessonSlug === lesson.slug)} />
             </div>
           </div>
         )}

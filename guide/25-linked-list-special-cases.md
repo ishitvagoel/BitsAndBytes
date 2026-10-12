@@ -8,21 +8,30 @@ module: bitsandbytes.linked_lists.duplicates, bitsandbytes.linked_lists.delete_n
 
 ## The idea
 
-Some linked-list routines are valid only under a contract that is easy to miss. Values may be sorted. Digits may be stored least-significant digit first. A circular list may have a distinguished head. The function may receive one node and not the list head. nth_from_end makes its contract explicit. n is 1-based, and 1 means the tail. On 1, 2, 3, 4, nth_from_end with n equal to 2 returns the node holding 3. The leader walks n steps first. Then the leader and the trailer walk together. When the leader falls off, the trailer is the requested node. Removing adjacent duplicates in a sorted list needs only a neighbor comparison. The sorted precondition is what makes that enough. An unsorted list needs a set of seen values, which changes the memory. Deleting a node without the list head can copy the successor and bypass it. That trick cannot remove the tail, because there is no successor to copy. Adding numbers stored least-significant digit first can walk both heads and carry one digit. Splitting a circular list must restore two cycles and handle an odd count and an even count. ReviewersList is a circular list with its own node type.
+nth_from_end with a gap of 2 on 1, 2, 3, 4 lands on 3.
+
+Some linked-list routines are valid only under a contract that is easy to miss. Values may be sorted. Digits may be stored least-significant digit first. A circular list may have a distinguished head. The function may receive one node and not the list head. nth_from_end makes its contract explicit. n is 1-based, and 1 means the tail. On 1, 2, 3, 4, nth_from_end with n equal to 2 returns the node holding 3. The leader walks n steps first, and then both pointers walk together. When the leader falls off, the trailer is the requested node. Removing adjacent duplicates in a sorted list needs only a neighbor comparison. The sorted precondition is what makes that enough. An unsorted list needs a set of seen values, which changes the memory. Deleting a node without the list head can copy the successor and bypass it. That trick cannot remove the tail, because there is no successor to copy. Adding numbers stored least-significant digit first can walk both heads and carry one digit.
 
 ## A worked trace
 
 | Step | State | What changed |
 | --- | --- | --- |
-| From end | node = 3 | Two steps from the end lands on 3. |
+| gap | step = 1 | The leader has taken 1 steps. It sits on 2. |
+| gap | step = 2 | The leader has taken 2 steps. It sits on 3. |
+| walk | step = 2 | Both pointers move. The trailer is on 2. |
+| walk | step = 3 | Both pointers move. The trailer is on 3. |
 
 ## Why it is correct
 
 The gap stays n because both pointers move one step after the leader's head start. The trailer therefore sits n nodes behind the leader for the rest of the walk. No length subtraction is required. The sorted-duplicate claim fails as soon as an inversion exists, because a later duplicate is not beside its earlier copy. The headless delete fails on the tail for a structural reason, not an off-by-one. There is no next node whose value can be copied back. A circular split is wrong if either result is linear or if the two cycles share a node. Name the input shape, the output shape, and whether existing nodes are mutated.
 
+## A common mistake
+
+The headless delete trick cannot remove the tail, because the tail has no successor.
+
 ## What it costs
 
-The leader takes n steps and then both pointers take the remaining steps. The total is linear in the length. Extra memory for the gap is two references. Counting the length and then walking length minus n is the same linear bound. The gap removes the subtraction, not the scan. A set of seen values for unsorted duplicates is linear extra memory. Copying a successor is constant time only when the successor exists. Test the empty list, one node, the last node, a duplicate run, and the smallest valid cycle or digit list.
+The leader takes n steps and then both pointers take the remaining steps. The total is linear in the length. Extra memory for the gap is two references. Counting the length and then walking length minus n is the same linear bound. The gap removes the subtraction, not the scan. A set of seen values for unsorted duplicates is linear extra memory. Copying a successor is constant time only when the successor exists. Test the empty list, one node, the last node, a duplicate run, and the smallest valid cycle or digit list. The gap walk is Θ(n) time and O(1) extra memory.
 
 ## Run it
 
@@ -38,4 +47,4 @@ print(nth_from_end(chain, 2).data)
 
 ## Practice and next step
 
-Answer the checkpoints, then open Doubly linked-list operations. The checkpoint stays in this browser.
+Open Doubly linked-list operations next. A doubly linked node stores both neighbors, so a known node can be unlinked in place.

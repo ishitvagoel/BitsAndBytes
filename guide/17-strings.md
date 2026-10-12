@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.strings.algorithms
 ---
 
+This page is the module index for strings.
+
 * `strings/algorithms.py` — trie, KMP, Rabin-Karp, inverted index, run-length encoding, suffix array with LCP.
 
 ## Focused lessons

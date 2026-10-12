@@ -30,51 +30,46 @@ Let `low` be the smallest rate still possible and `high` a rate already known to
 
 The largest pile size is a feasible upper bound when the number of available hours is at least the number of piles: at that rate every pile takes one hour. If fewer hours than piles are available, no rate can finish the work under these rules.
 
-At the midpoint, a feasible rate may be the answer, so keep it by setting `high = middle`. An infeasible midpoint and every slower rate are too small, so set `low = middle + 1`. Both updates preserve the invariant and make the interval smaller.
+At the midpoint, a feasible rate may be the answer, so the library records it and sets `high = middle - 1`. An infeasible midpoint and every slower rate are too small, so set `low = middle + 1`. Both updates preserve the invariant and make the interval smaller.
 
-| `low` | `high` | `middle` | Hours at `middle` | Decision | Remaining interval |
+| `low` | `high` | `middle` | Hours at `middle` | Decision | Next range |
 |---:|---:|---:|---:|---|---|
-| 1 | 11 | 6 | 6 | Feasible | `[1, 6]` |
-| 1 | 6 | 3 | 10 | Too slow | `[4, 6]` |
-| 4 | 6 | 5 | 8 | Feasible | `[4, 5]` |
-| 4 | 5 | 4 | 8 | Feasible | `[4, 4]` |
+| 1 | 11 | 6 | 6 | Feasible | high = 5 |
+| 1 | 5 | 3 | 10 | Too slow | low = 4 |
+| 4 | 5 | 4 | 8 | Feasible | high = 3 |
 
-The answer is 4. Notice that a feasible midpoint does not end the search: a smaller rate may also work. The loop ends when the only remaining possible value is the first feasible rate.
+The answer is 4. The library tested 6, then 3, then 4. A feasible midpoint does not end the search: a smaller rate may also work.
 
 ## Connect the boundary to code and cost
 
-The loop below is a variant of the library function. `binary_search_on_answer` keeps an `answer` variable and sets `high = middle - 1` when a rate is feasible.
+`binary_search_on_answer` keeps an `answer` variable and sets `high = middle - 1` when a rate is feasible.
 
 ```python
+from bitsandbytes.sorting.selection_and_radix import binary_search_on_answer
+
 def hours_needed(piles: list[int], rate: int) -> int:
     return sum((pile + rate - 1) // rate for pile in piles)
 
-
-def minimum_rate(piles: list[int], available_hours: int) -> int | None:
-    if not piles or available_hours < len(piles):
-        return None
-
-    low = 1
-    high = max(piles)
-    while low < high:
-        middle = low + (high - low) // 2
-        if hours_needed(piles, middle) <= available_hours:
-            high = middle
-        else:
-            low = middle + 1
-    return low
+piles = [3, 6, 7, 11]
+answer = binary_search_on_answer(1, max(piles), lambda rate: hours_needed(piles, rate) <= 8)
+print(answer)
+# prints: 4
 ```
 
 Each feasibility check visits `p` piles, so it costs O(p) time. The interval contains at most `M` rates, where `M` is the largest pile. Binary search makes O(log M) checks, for O(p log M) time and O(1) extra space beyond the input. The check is not free: if one feasibility test costs more, multiply that cost by the number of candidate rates tested.
 
-The code assumes positive pile sizes and whole-hour slots, and returns `None` when the stated deadline cannot be met. If the problem changes, revisit both the feasibility predicate and the invariant before reusing the search.
+The library raises ValueError when no rate in the range is feasible. If the problem changes, revisit both the feasibility predicate and the invariant before reusing the search.
+
+## A common mistake
+
+A feasible rate is not automatically the answer. Rate 6 finishes early, and the search still has to test slower rates. Stopping at the first feasible midpoint returns a rate that works and misses the smallest one.
 
 ## Practice and check the reasoning
 
-For the four piles above and eight hours, first predict whether rate 3 is feasible. Then write the interval after rates 6, 3 and 5 are tested. Explain why a feasible rate 5 does not prove it is the minimum.
+For the four piles above and eight hours, predict rate 3, then rate 6, then rate 4. The library tests them in the order 6, 3, 4.
 
-**Check your work:** Rate 3 takes `1 + 2 + 3 + 4 = 10` hours, so it is too slow and the next interval is `[4, 6]`. Rate 6 takes `1 + 1 + 2 + 2 = 6`, so the interval becomes `[1, 6]`. Rate 5 takes `1 + 2 + 2 + 3 = 8`, so the interval becomes `[4, 5]`. Rate 5 is feasible, but 4 might also be feasible; testing it confirms that the boundary is 4.
+**Check your work:** Rate 6 takes 6 hours, so it is feasible and the high bound becomes 5. Rate 3 takes 10 hours, so it is too slow and the low bound becomes 4. Rate 4 takes 8 hours, so it is feasible and it is the smallest such rate.
 
-Now change the deadline to three hours. There are four positive piles and at least one hour is required per pile, so no candidate rate is feasible. This is why the code checks feasibility assumptions before searching.
+Now change the deadline to three hours. There are four positive piles and at least one hour is required per pile, so no candidate rate is feasible. The library raises ValueError on that search.
 
 Compare this problem with [binary search in a sorted list](./06-binary-search.md): one searches stored values, while the other searches the ordered answers to a monotone decision. The [repository implementation and tests](https://github.com/ishitvagoel/BitsAndBytes/blob/master/tests/test_search_and_sort_extras.py) provide related search examples.

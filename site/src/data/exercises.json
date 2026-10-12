@@ -243,19 +243,19 @@
     ],
     "options": [
       {
-        "id": "fifteen",
+        "id": "a",
+        "label": "36 checks, from 6 times 6"
+      },
+      {
+        "id": "b",
         "label": "15 checks, from 6 times 5 divided by 2"
       },
       {
-        "id": "six",
+        "id": "c",
         "label": "6 checks, one per item"
-      },
-      {
-        "id": "thirty-six",
-        "label": "36 checks, from 6 times 6"
       }
     ],
-    "answer": "fifteen",
+    "answer": "b",
     "correct": "The pair count is 6 * 5 / 2, which is 15.",
     "retry": "The last item has no partner left. Do not count 6 * 6.",
     "objectiveId": "input-size-choose-variable"
@@ -272,19 +272,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "6"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "4"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "12"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "4 * 3 / 2 is 6.",
     "retry": "Count pairs, not the length of the list.",
     "objectiveId": "input-size-count-loop-work",
@@ -297,26 +297,26 @@
     "kind": "choice",
     "prompt": "For large n, which grows faster?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Compare the columns in the growth trace.",
+      "At n = 64 the square is already 4096."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "n squared grows faster than n log n"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "n log n grows faster than n squared"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "They stay equal for every n"
       }
     ],
-    "answer": "yes",
-    "correct": "n squared grows faster than n log n",
-    "retry": "Check the count again. n log n grows faster than n squared does not match this input.",
+    "answer": "a",
+    "correct": "Dividing n squared by n log n grows without a bound, so n squared pulls ahead.",
+    "retry": "n log n is larger than n at first and still loses to n squared.",
     "objectiveId": "asymptotic-distinguish-bounds"
   },
   {
@@ -324,28 +324,28 @@
     "lessonSlug": "asymptotic-growth",
     "storageId": "asymptotic-growth-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from asymptotic-growth to one new case. Which statement holds?",
+    "prompt": "At n = 16, n log2 n is 64 and n squared is 256. Which comparison holds?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Read the n = 16 row.",
+      "256 is the square column."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "n squared grows faster than n log n"
+        "id": "a",
+        "label": "The two columns are equal at n = 16"
       },
       {
-        "id": "fails",
-        "label": "n log n grows faster than n squared"
+        "id": "b",
+        "label": "n squared is already four times n log2 n"
       },
       {
-        "id": "unrelated",
-        "label": "They stay equal for every n"
+        "id": "c",
+        "label": "n log2 n is larger at n = 16"
       }
     ],
-    "answer": "holds",
-    "correct": "n squared grows faster than n log n",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "b",
+    "correct": "256 divided by 64 is 4, so the square is ahead.",
+    "retry": "64 is the log column, not the larger one.",
     "objectiveId": "asymptotic-compare-growth"
   },
   {
@@ -355,26 +355,26 @@
     "kind": "choice",
     "prompt": "A loop has finished. What must the invariant still say?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Ask what the comparison promises about equal keys.",
+      "A strict less-than does not move an equal key."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "The invariant holds after the last iteration too"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The invariant applies only before the loop"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The invariant replaces the postcondition"
       }
     ],
-    "answer": "yes",
-    "correct": "The invariant holds after the last iteration too",
-    "retry": "Check the count again. The invariant applies only before the loop does not match this input.",
+    "answer": "a",
+    "correct": "Sorted order survives either arrangement of equal keys. Stability is the extra promise.",
+    "retry": "Initialization of a one-item prefix still holds if equals move.",
     "objectiveId": "invariant-check-proof-steps"
   },
   {
@@ -382,28 +382,28 @@
     "lessonSlug": "loop-invariants",
     "storageId": "loop-invariants-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from loop-invariants to one new case. Which statement holds?",
+    "prompt": "The insertion loop has finished on a list of 4 items. What does the invariant say?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "The outer index runs through the last item.",
+      "A finished loop does not throw the invariant away."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "The invariant holds after the last iteration too"
+        "id": "a",
+        "label": "The prefix is the whole list, so the list is sorted"
       },
       {
-        "id": "fails",
-        "label": "The invariant applies only before the loop"
+        "id": "b",
+        "label": "The invariant expired when the loop stopped"
       },
       {
-        "id": "unrelated",
-        "label": "The invariant replaces the postcondition"
+        "id": "c",
+        "label": "Only the first item is known to be sorted"
       }
     ],
-    "answer": "holds",
-    "correct": "The invariant holds after the last iteration too",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "a",
+    "correct": "Termination plus the invariant makes the prefix the whole list.",
+    "retry": "The exit condition is that every index has been inserted.",
     "objectiveId": "invariant-state-loop-property"
   },
   {
@@ -413,26 +413,26 @@
     "kind": "choice",
     "prompt": "You drain 1000 items with pop from the front. What dominates?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "A list is a contiguous array.",
+      "pop with no argument touches the end."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "About 1000 hash lookups"
+      },
+      {
+        "id": "b",
         "label": "About half a million reference moves, from repeated front pops"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "About 1000 moves, one per pop"
-      },
-      {
-        "id": "other",
-        "label": "About 1000 hash lookups"
       }
     ],
-    "answer": "yes",
-    "correct": "About half a million reference moves, from repeated front pops",
-    "retry": "Check the count again. About 1000 moves, one per pop does not match this input.",
+    "answer": "b",
+    "correct": "Each front pop slides every remaining reference, so one call is linear.",
+    "retry": "The last index is the cheap end. Index 0 is the expensive end.",
     "objectiveId": "python-sequence-select-structure"
   },
   {
@@ -440,28 +440,28 @@
     "lessonSlug": "arrays-and-python-costs",
     "storageId": "arrays-and-python-costs-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from arrays-and-python-costs to one new case. Which statement holds?",
+    "prompt": "You drain 4 items with pop from the front. How many reference moves is that?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Length 4 slides 3 on the first pop.",
+      "Add 3 + 2 + 1."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "About half a million reference moves, from repeated front pops"
+        "id": "a",
+        "label": "6 moves, from 3 + 2 + 1"
       },
       {
-        "id": "fails",
-        "label": "About 1000 moves, one per pop"
+        "id": "b",
+        "label": "4 moves, one per pop"
       },
       {
-        "id": "unrelated",
-        "label": "About 1000 hash lookups"
+        "id": "c",
+        "label": "3 moves, only the first pop"
       }
     ],
-    "answer": "holds",
-    "correct": "About half a million reference moves, from repeated front pops",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "a",
+    "correct": "The pops slide 3, then 2, then 1 references. The last pop slides nothing.",
+    "retry": "Do not charge one move per pop. Charge the items behind the front.",
     "objectiveId": "python-sequence-analyze-amortized-cost"
   },
   {
@@ -471,26 +471,26 @@
     "kind": "choice",
     "prompt": "Capacity starts at 1 and doubles. After 3 appends, how many copies happened?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "The first slot is already allocated.",
+      "Add the copies, not the capacities."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "3 copies, from 0 plus 1 plus 2"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "1 copy, only the last resize"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "7 copies, one per new slot"
+      },
+      {
+        "id": "c",
+        "label": "3 copies, from 0 plus 1 plus 2"
       }
     ],
-    "answer": "yes",
-    "correct": "3 copies, from 0 plus 1 plus 2",
-    "retry": "Check the count again. 1 copy, only the last resize does not match this input.",
+    "answer": "c",
+    "correct": "The first append copies nothing. The next two copies copy 1 and then 2.",
+    "retry": "Capacity 1, then 2, then 4. Only the growth steps copy.",
     "objectiveId": "dynamic-array-amortized-append"
   },
   {
@@ -498,28 +498,28 @@
     "lessonSlug": "dynamic-array-growth",
     "storageId": "dynamic-array-growth-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from dynamic-array-growth to one new case. Which statement holds?",
+    "prompt": "Capacity starts at 1 and doubles. After 4 appends, how many copies happened?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Copies happen when length meets capacity.",
+      "1 + 2 + 4 is the growth total."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "3 copies, from 0 plus 1 plus 2"
+        "id": "a",
+        "label": "8 copies, the final capacity"
       },
       {
-        "id": "fails",
-        "label": "1 copy, only the last resize"
+        "id": "b",
+        "label": "7 copies, from 0 + 1 + 2 + 4"
       },
       {
-        "id": "unrelated",
-        "label": "7 copies, one per new slot"
+        "id": "c",
+        "label": "4 copies, one per append"
       }
     ],
-    "answer": "holds",
-    "correct": "3 copies, from 0 plus 1 plus 2",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "b",
+    "correct": "The growth steps copy 1, then 2, then 4. The total is 7.",
+    "retry": "The fourth append fills capacity 4 and does not copy a fifth time.",
     "objectiveId": "dynamic-array-geometric-growth"
   },
   {
@@ -529,26 +529,26 @@
     "kind": "choice",
     "prompt": "A recursion splits in half and does linear work. What is the total?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Write n, n/2, n/4 until the size is 1.",
+      "Multiply levels by the work on one level."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "\u0398(n log n) from a balanced split plus linear work per level"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "\u0398(n\u00b2) from a chain of n calls"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "\u0398(n) because the depth is logarithmic"
       }
     ],
-    "answer": "yes",
-    "correct": "\u0398(n log n) from a balanced split plus linear work per level",
-    "retry": "Check the count again. \u0398(n\u00b2) from a chain of n calls does not match this input.",
+    "answer": "a",
+    "correct": "The size halves each level, so the depth is logarithmic, and each level still touches n items.",
+    "retry": "Do not drop the linear work on a level just because the depth is short.",
     "objectiveId": "recursion-count-levels-and-stack"
   },
   {
@@ -556,28 +556,28 @@
     "lessonSlug": "recursion-and-recurrences",
     "storageId": "recursion-and-recurrences-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from recursion-and-recurrences to one new case. Which statement holds?",
+    "prompt": "A call does \u0398(n) work and then one call on n - 1. What is the total?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Count the levels before you quote n log n.",
+      "A chain of n calls is the expensive shape."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "\u0398(n log n) from a balanced split plus linear work per level"
+        "id": "a",
+        "label": "\u0398(n log n), because every recursion is a tree"
       },
       {
-        "id": "fails",
-        "label": "\u0398(n\u00b2) from a chain of n calls"
+        "id": "b",
+        "label": "\u0398(1), because only one call is pending"
       },
       {
-        "id": "unrelated",
-        "label": "\u0398(n) because the depth is logarithmic"
+        "id": "c",
+        "label": "\u0398(n\u00b2), because the chain has n levels of shrinking work"
       }
     ],
-    "answer": "holds",
-    "correct": "\u0398(n log n) from a balanced split plus linear work per level",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "c",
+    "correct": "The costs n + (n - 1) + ... + 1 sum to \u0398(n\u00b2).",
+    "retry": "One recursive call is a chain, not a balanced split.",
     "objectiveId": "recursion-identify-shape"
   },
   {
@@ -587,26 +587,26 @@
     "kind": "choice",
     "prompt": "You have a pointer to the tail of a singly linked list. What is expensive?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Draw three nodes and the tail pointer.",
+      "Ask which reference has to change."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "Deleting the tail, because the predecessor is not stored"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "Reading the tail, because the pointer is already there"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "Appending, because the tail pointer must walk from the head"
+      },
+      {
+        "id": "c",
+        "label": "Deleting the tail, because the predecessor is not stored"
       }
     ],
-    "answer": "yes",
-    "correct": "Deleting the tail, because the predecessor is not stored",
-    "retry": "Check the count again. Reading the tail, because the pointer is already there does not match this input.",
+    "answer": "c",
+    "correct": "The predecessor of the tail is not stored, so the list walks from the head.",
+    "retry": "The tail pointer finds the last node. It does not find the node before it.",
     "objectiveId": "linked-list-operation-costs"
   },
   {
@@ -614,28 +614,28 @@
     "lessonSlug": "singly-linked-list",
     "storageId": "singly-linked-list-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from singly-linked-list to one new case. Which statement holds?",
+    "prompt": "You hold only the head of a 3-node list. What is cheap?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "The head is the node you already hold.",
+      "Index 2 is two hops from the head."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "Deleting the tail, because the predecessor is not stored"
+        "id": "a",
+        "label": "Reading index 2, because the tail is cached"
       },
       {
-        "id": "fails",
-        "label": "Reading the tail, because the pointer is already there"
+        "id": "b",
+        "label": "Deleting the tail, because the size is cached"
       },
       {
-        "id": "unrelated",
-        "label": "Appending, because the tail pointer must walk from the head"
+        "id": "c",
+        "label": "Prepending, because the head pointer moves"
       }
     ],
-    "answer": "holds",
-    "correct": "Deleting the tail, because the predecessor is not stored",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "c",
+    "correct": "A new head is one pointer write. Index 2 still walks.",
+    "retry": "A cached size does not store the predecessor of the tail.",
     "objectiveId": "linked-list-trace-links"
   },
   {
@@ -645,26 +645,26 @@
     "kind": "choice",
     "prompt": "Push 1, push 2, pop, push 3, pop, pop. What remains, then what was last?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Write the items from bottom to top.",
+      "Pop removes the rightmost item."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "The last pop returns 1, and the stack is empty"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "The last pop returns 3"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "The last pop returns 2"
+      },
+      {
+        "id": "c",
+        "label": "The last pop returns 1, and the stack is empty"
       }
     ],
-    "answer": "yes",
-    "correct": "The last pop returns 1, and the stack is empty",
-    "retry": "Check the count again. The last pop returns 3 does not match this input.",
+    "answer": "c",
+    "correct": "The first pop returns 3. The second pop returns 2.",
+    "retry": "After 3 leaves, 2 is on top.",
     "objectiveId": "stack-trace-lifo"
   },
   {
@@ -674,26 +674,26 @@
     "kind": "predict-output",
     "prompt": "What does this code print?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "The code prints one value, 2.",
+      "Ignore the values that are not printed."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "2"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "1"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "3"
+      },
+      {
+        "id": "c",
+        "label": "2"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "The code prints 2.",
-    "retry": "The code prints 2.",
+    "retry": "The printed value is 2.",
     "objectiveId": "stack-maintain-size-invariant",
     "code": "print([1, 2].pop())"
   },
@@ -704,26 +704,26 @@
     "kind": "choice",
     "prompt": "Enqueue a, enqueue b, dequeue, enqueue c, dequeue. What leaves second?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Enqueue adds at the back.",
+      "The front does not change when you enqueue."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "b leaves second, because a already left"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "c leaves second"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "a leaves second"
+      },
+      {
+        "id": "c",
+        "label": "b leaves second, because a already left"
       }
     ],
-    "answer": "yes",
-    "correct": "b leaves second, because a already left",
-    "retry": "Check the count again. c leaves second does not match this input.",
+    "answer": "c",
+    "correct": "a leaves first. The second dequeue returns b.",
+    "retry": "A queue removes from the front. c is still at the back.",
     "objectiveId": "queue-trace-fifo"
   },
   {
@@ -733,26 +733,26 @@
     "kind": "predict-output",
     "prompt": "What does this code print?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "The code prints one value, b.",
+      "Ignore the values that are not printed."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "b"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "a"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "c"
+      },
+      {
+        "id": "c",
+        "label": "b"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "The code prints b.",
-    "retry": "The code prints b.",
+    "retry": "The printed value is b.",
     "objectiveId": "queue-compare-implementations",
     "code": "from collections import deque\nitems = deque(['a', 'b'])\nitems.popleft()\nitems.append('c')\nprint(items.popleft())"
   },
@@ -763,26 +763,26 @@
     "kind": "choice",
     "prompt": "Insertion sort uses a strict less-than. What happens to equal keys?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "The inner loop stops on a key that is not strictly smaller.",
+      "Stability is about equal keys, not about speed."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Equal keys keep their order, so the sort is stable"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "Equal keys always swap"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "Equal keys make the sort quadratic"
       }
     ],
-    "answer": "yes",
-    "correct": "Equal keys keep their order, so the sort is stable",
-    "retry": "Check the count again. Equal keys always swap does not match this input.",
+    "answer": "a",
+    "correct": "A strict less-than does not move an equal key past an earlier equal key.",
+    "retry": "Equal keys do not swap, and they do not change the quadratic worst case by themselves.",
     "objectiveId": "comparison-sort-track-prefix"
   },
   {
@@ -790,28 +790,28 @@
     "lessonSlug": "comparison-sorts",
     "storageId": "comparison-sorts-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from comparison-sorts to one new case. Which statement holds?",
+    "prompt": "Selection sort swaps the minimum of the suffix into place. What can that do to equal keys?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "The minimum can be an equal key later in the list.",
+      "A swap exchanges positions."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "Equal keys keep their order, so the sort is stable"
+        "id": "a",
+        "label": "An equal key from the suffix can move in front of an earlier equal key"
       },
       {
-        "id": "fails",
-        "label": "Equal keys always swap"
+        "id": "b",
+        "label": "Equal keys always keep their original order"
       },
       {
-        "id": "unrelated",
-        "label": "Equal keys make the sort quadratic"
+        "id": "c",
+        "label": "Equal keys are left unsorted"
       }
     ],
-    "answer": "holds",
-    "correct": "Equal keys keep their order, so the sort is stable",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "a",
+    "correct": "The swap follows position, not original order, so selection sort is not stable.",
+    "retry": "Insertion sort is the stable one. Selection sort swaps.",
     "objectiveId": "comparison-sort-compare-properties"
   },
   {
@@ -826,19 +826,19 @@
     ],
     "options": [
       {
-        "id": "list",
-        "label": "On a Python list, because each index is constant time"
-      },
-      {
-        "id": "chain",
+        "id": "a",
         "label": "On a singly linked list, because the middle is one hop"
       },
       {
-        "id": "either",
+        "id": "b",
         "label": "On either structure, because only the comparison count matters"
+      },
+      {
+        "id": "c",
+        "label": "On a Python list, because each index is constant time"
       }
     ],
-    "answer": "list",
+    "answer": "c",
     "correct": "Each middle index on a list is one address calculation.",
     "retry": "A linked list walks from the head to reach the middle.",
     "objectiveId": "cost-model-state-assumptions"
@@ -855,19 +855,19 @@
     ],
     "options": [
       {
-        "id": "two",
+        "id": "a",
+        "label": "1 reference move, only the removed item"
+      },
+      {
+        "id": "b",
         "label": "2 reference moves, one per item still in the list"
       },
       {
-        "id": "three",
+        "id": "c",
         "label": "3 reference moves, one per original item"
-      },
-      {
-        "id": "one",
-        "label": "1 reference move, only the removed item"
       }
     ],
-    "answer": "two",
+    "answer": "b",
     "correct": "A list of length 3 moves the 2 items that remain.",
     "retry": "The removed item does not slide. The items behind it do.",
     "objectiveId": "cost-model-python-operations"
@@ -884,19 +884,19 @@
     ],
     "options": [
       {
-        "id": "middle",
+        "id": "a",
         "label": "On the single middle node of that five-node list"
       },
       {
-        "id": "tail",
+        "id": "b",
         "label": "On the last node, because the fast pointer finishes there"
       },
       {
-        "id": "head",
+        "id": "c",
         "label": "On the first node, because the slow pointer starts there"
       }
     ],
-    "answer": "middle",
+    "answer": "a",
     "correct": "Fast moves two steps and slow moves one, so slow stops in the middle.",
     "retry": "Slow does not stay on the head, and it does not chase fast all the way to the end.",
     "objectiveId": "fast-slow-locate-middle-cycle"
@@ -913,19 +913,19 @@
     ],
     "options": [
       {
-        "id": "gap",
+        "id": "a",
         "label": "Two nodes behind the end, because the gap never changes"
       },
       {
-        "id": "head",
+        "id": "b",
         "label": "On the head, because only the lead pointer moves"
       },
       {
-        "id": "tail",
+        "id": "c",
         "label": "On the tail, because the lead pointer is the position you want"
       }
     ],
-    "answer": "gap",
+    "answer": "a",
     "correct": "Both pointers move together after the lead's head start, so the gap stays two.",
     "retry": "The trailer moves. It just stays a fixed number of nodes behind the lead.",
     "objectiveId": "fast-slow-preserve-gap"
@@ -942,19 +942,19 @@
     ],
     "options": [
       {
-        "id": "suffix",
+        "id": "a",
         "label": "The untouched suffix, or that suffix becomes unreachable"
       },
       {
-        "id": "prefix",
+        "id": "b",
         "label": "Only the reversed prefix, because the suffix stays indexed"
       },
       {
-        "id": "nothing",
+        "id": "c",
         "label": "Nothing, because a tail pointer remembers every later node"
       }
     ],
-    "answer": "suffix",
+    "answer": "a",
     "correct": "The upcoming node is the only reference to the rest of the chain.",
     "retry": "A singly linked node does not remember its old next after you write a new one.",
     "objectiveId": "list-reversal-preserve-suffix"
@@ -971,19 +971,19 @@
     ],
     "options": [
       {
-        "id": "join",
+        "id": "a",
+        "label": "The head of the list must point at the old tail of this block"
+      },
+      {
+        "id": "b",
         "label": "The previous block must point at the new head of the block just reversed"
       },
       {
-        "id": "skip",
+        "id": "c",
         "label": "No extra write, because the whole list is one block"
-      },
-      {
-        "id": "tail",
-        "label": "The head of the list must point at the old tail of this block"
       }
     ],
-    "answer": "join",
+    "answer": "b",
     "correct": "The reversed block has a new head, and the node before the block must follow it.",
     "retry": "Reversing inside the block does not update the node that pointed at the old head.",
     "objectiveId": "list-relink-boundary-reconnection"
@@ -1000,19 +1000,19 @@
     ],
     "options": [
       {
-        "id": "smaller",
+        "id": "a",
+        "label": "Both heads in one step, then the loop stops"
+      },
+      {
+        "id": "b",
         "label": "The smaller head, the node holding the lesser key"
       },
       {
-        "id": "larger",
+        "id": "c",
         "label": "The larger head, so the result is descending"
-      },
-      {
-        "id": "both",
-        "label": "Both heads in one step, then the loop stops"
       }
     ],
-    "answer": "smaller",
+    "answer": "b",
     "correct": "A sorted merge appends the smaller remaining head.",
     "retry": "Do not concatenate the chains, and do not prefer the larger key.",
     "objectiveId": "list-merge-head-order"
@@ -1029,19 +1029,19 @@
     ],
     "options": [
       {
-        "id": "nlog",
+        "id": "a",
+        "label": "Quadratic, because each comparison scans a chain"
+      },
+      {
+        "id": "b",
         "label": "n log n, because every round is linear"
       },
       {
-        "id": "linear",
+        "id": "c",
         "label": "Linear, because a linked list has no indexes"
-      },
-      {
-        "id": "square",
-        "label": "Quadratic, because each comparison scans a chain"
       }
     ],
-    "answer": "nlog",
+    "answer": "b",
     "correct": "A logarithmic number of linear rounds is n log n.",
     "retry": "The missing indexes do not remove the work of walking each run.",
     "objectiveId": "list-merge-sort-cost"
@@ -1058,19 +1058,19 @@
     ],
     "options": [
       {
-        "id": "tail",
-        "label": "The tail, because there is no successor value to copy"
-      },
-      {
-        "id": "head",
+        "id": "a",
         "label": "The head, because the head value is always copied forward"
       },
       {
-        "id": "middle",
+        "id": "b",
         "label": "Any middle node, because the predecessor is required"
+      },
+      {
+        "id": "c",
+        "label": "The tail, because there is no successor value to copy"
       }
     ],
-    "answer": "tail",
+    "answer": "c",
     "correct": "The trick copies the successor and bypasses it. The tail has no successor.",
     "retry": "A middle node has a successor. The tail does not.",
     "objectiveId": "list-state-preconditions"
@@ -1087,19 +1087,19 @@
     ],
     "options": [
       {
-        "id": "back",
-        "label": "Two places before the end"
-      },
-      {
-        "id": "end",
+        "id": "a",
         "label": "The tail, because the count starts at zero"
       },
       {
-        "id": "front",
+        "id": "b",
         "label": "The head, because the trailer never moves"
+      },
+      {
+        "id": "c",
+        "label": "Two places before the end"
       }
     ],
-    "answer": "back",
+    "answer": "c",
     "correct": "The leader takes two steps first, and the gap stays two.",
     "retry": "n is 1-based. A gap of 2 is not the tail and not the head on this list.",
     "objectiveId": "list-special-boundary-tests"
@@ -1116,19 +1116,19 @@
     ],
     "options": [
       {
-        "id": "four",
+        "id": "a",
         "label": "Four pointers, both directions on both sides of the splice"
       },
       {
-        "id": "one",
+        "id": "b",
         "label": "One pointer, only the forward link of the left neighbor"
       },
       {
-        "id": "two",
+        "id": "c",
         "label": "Two pointers, only the new node's own links"
       }
     ],
-    "answer": "four",
+    "answer": "a",
     "correct": "The new node points both ways, and each neighbor must point back at it.",
     "retry": "Writing only the new node's links leaves the neighbors pointing at each other.",
     "objectiveId": "doubly-linked-update-neighbors"
@@ -1145,19 +1145,19 @@
     ],
     "options": [
       {
-        "id": "constant",
-        "label": "Constant time, because prev and next are stored on the node"
-      },
-      {
-        "id": "linear",
+        "id": "a",
         "label": "Linear time, because the list walks from the head"
       },
       {
-        "id": "square",
+        "id": "b",
         "label": "Quadratic time, because both directions are scanned"
+      },
+      {
+        "id": "c",
+        "label": "Constant time, because prev and next are stored on the node"
       }
     ],
-    "answer": "constant",
+    "answer": "c",
     "correct": "The neighbors are fields. Nothing searches for them.",
     "retry": "A walk from the head is the cost of finding the node, which this call does not do.",
     "objectiveId": "doubly-linked-known-node-unlink"
@@ -1174,19 +1174,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "The first strictly greater value on its right"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "The nearest smaller value on its left"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "The last value in the list, even when it is smaller"
+      },
+      {
+        "id": "c",
+        "label": "The first strictly greater value on its right"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "The stack pops an index when a greater value arrives.",
     "retry": "A smaller neighbor does not answer a next-greater question.",
     "objectiveId": "monotonic-stack-resolve-candidates"
@@ -1198,24 +1198,24 @@
     "kind": "choice",
     "prompt": "Each index is pushed once and popped at most once. What is the total work?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Linear in the number of indexes in this question.",
+      "Reject the claim that changes Linear in the number of indexes."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "Linear in the number of indexes"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "Quadratic, because a nested loop always restarts"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "Constant, because only the top index matters"
+      },
+      {
+        "id": "c",
+        "label": "Linear in the number of indexes"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "The pops are charged across the whole scan, not to one iteration.",
     "retry": "Do not multiply the inner loop by n a second time.",
     "objectiveId": "monotonic-stack-count-total-work"
@@ -1232,19 +1232,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "([]) because each closer matches the current opener"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "([)] because every bracket has a partner somewhere"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "(() because a leftover opener is optional"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "The closer must match the opener on top of the stack.",
     "retry": "A partner later in the string is not a match if another opener is in between.",
     "objectiveId": "stack-match-nested-delimiters"
@@ -1256,24 +1256,24 @@
     "kind": "choice",
     "prompt": "evaluate_infix of 2+3*4 applies which operator first?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from 2 in this question.",
+      "Reject the claim that changes 2."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Multiplication, because it leaves the operator stack before addition"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "Addition, because it appears further left"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "Neither, because postfix ignores precedence"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "The postfix form is 2 3 4 * +, so the product happens first.",
     "retry": "Left-to-right position is not the precedence rule.",
     "objectiveId": "stack-trace-operator-precedence"
@@ -1290,19 +1290,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "A count slot for every key value from zero through the maximum"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "A comparison between every pair of keys"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "A binary search on the output"
+      },
+      {
+        "id": "c",
+        "label": "A count slot for every key value from zero through the maximum"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "The range of keys becomes an array, not a comparison tree.",
     "retry": "The sort still has to place every input key.",
     "objectiveId": "noncomparison-use-key-range"
@@ -1314,24 +1314,24 @@
     "kind": "choice",
     "prompt": "A radix sort repeats a stable digit pass once per digit. What is the cost when the digit count is constant?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Linear in the number of keys in this question.",
+      "Reject the claim that changes Linear in the number of keys."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Quadratic from restarting each pass"
+      },
+      {
+        "id": "b",
         "label": "Linear in the number of keys"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "n log n from comparisons"
-      },
-      {
-        "id": "other",
-        "label": "Quadratic from restarting each pass"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "A constant number of linear passes is still linear.",
     "retry": "Do not add a comparison-sort bound on top of the digit passes.",
     "objectiveId": "noncomparison-derive-radix-cost"
@@ -1348,19 +1348,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Neither side, because the pivot is always the answer"
+      },
+      {
+        "id": "b",
         "label": "The side that still contains index k"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "Both sides, because the answer might be anywhere"
-      },
-      {
-        "id": "other",
-        "label": "Neither side, because the pivot is always the answer"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The pivot is already in its sorted index.",
     "retry": "The discarded side cannot contain the k-th smallest key.",
     "objectiveId": "selection-trace-quickselect"
@@ -1372,24 +1372,24 @@
     "kind": "choice",
     "prompt": "This quickselect always pivots on the rightmost value. What can the worst case cost?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Quadratic time when every pivot is extreme in this question.",
+      "Reject the claim that changes Quadratic time when every pivot is extreme."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "Quadratic time when every pivot is extreme"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "Linear time on every input, because a pivot always halves the range"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "n log n time, because it finishes the sort"
+      },
+      {
+        "id": "c",
+        "label": "Quadratic time when every pivot is extreme"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "An extreme pivot shrinks the range by one item.",
     "retry": "The expected linear bound needs balanced pivots, which this code does not force.",
     "objectiveId": "selection-compare-cost-risks"
@@ -1406,19 +1406,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "3 before 1, because the earlier key is larger"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "1 before 4, because they are neighbors"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "4 before nothing, because 4 is the largest key"
+      },
+      {
+        "id": "c",
+        "label": "3 before 1, because the earlier key is larger"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "An inversion is an earlier larger key and a later smaller key.",
     "retry": "A sorted pair is not an inversion.",
     "objectiveId": "inversion-define-pair"
@@ -1430,24 +1430,24 @@
     "kind": "choice",
     "prompt": "During a merge, the right front is smaller and two keys remain on the left. How many inversions does that one take add?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Two in this question.",
+      "Reject the claim that changes Two."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Two, one for each key still on the left"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "One, only against the left front"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "Zero, because both runs are already sorted"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "The right front is smaller than every remaining left key.",
     "retry": "Sorted runs still hide cross inversions.",
     "objectiveId": "inversion-count-cross-run"
@@ -1464,19 +1464,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "A tombstone, so lookup of 4 keeps probing"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "An empty slot, so lookup of 4 stops and misses"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "Key 4, because deletion moves later keys backward"
+      },
+      {
+        "id": "c",
+        "label": "A tombstone, so lookup of 4 keeps probing"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "A tombstone is occupied for the purpose of continuing a probe.",
     "retry": "An empty slot would hide every key that stepped over this one.",
     "objectiveId": "hash-probing-trace-tombstones"
@@ -1488,24 +1488,24 @@
     "kind": "choice",
     "prompt": "What is the load factor of a probing table?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Live keys divided by the number of slots in this question.",
+      "Reject the claim that changes Live keys divided by the number of slots."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Live keys divided by the number of slots"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The length of the longest probe, always"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "One, because hashing avoids collisions"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "Load factor is size over capacity.",
     "retry": "Clustering gets worse as that ratio grows.",
     "objectiveId": "hash-probing-explain-clustering"
@@ -1522,19 +1522,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "c, because the newest key is the first to leave"
+      },
+      {
+        "id": "b",
         "label": "b, because a was used more recently than b"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "a, because the first key always leaves"
-      },
-      {
-        "id": "other",
-        "label": "c, because the newest key is the first to leave"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The tail is the least recently used key.",
     "retry": "A get counts as a use and moves that key off the tail.",
     "objectiveId": "lru-trace-recency-and-eviction"
@@ -1546,24 +1546,24 @@
     "kind": "choice",
     "prompt": "Why is eviction constant time rather than a scan of the capacity?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from The tail node and the dictionary entry are both known in this question.",
+      "Reject the claim that changes The tail node and the dictionary entry are both known."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "The singly linked tail pointer walks from the head"
+      },
+      {
+        "id": "b",
         "label": "The tail node and the dictionary entry are both known"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "The cache sorts every key by age on each put"
-      },
-      {
-        "id": "other",
-        "label": "The singly linked tail pointer walks from the head"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "move and unlink use the stored neighbors.",
     "retry": "A search by age would be linear in the capacity.",
     "objectiveId": "lru-analyze-combined-operations"
@@ -1580,19 +1580,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "4, then 2, then 1, then 6"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "1, then 2, then 4, then 6"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "4, then 2, then 6, then 1"
+      },
+      {
+        "id": "c",
+        "label": "4, then 2, then 1, then 6"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "Preorder visits the node before its children.",
     "retry": "Inorder is the sorted sequence. Level order uses a queue.",
     "objectiveId": "tree-traversal-predict-depth-first"
@@ -1604,24 +1604,24 @@
     "kind": "choice",
     "prompt": "The same tree is visited with a queue. Which sequence is level order?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from 4 in this question.",
+      "Reject the claim that changes 4."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "1, then 6, then 2, then 4"
+      },
+      {
+        "id": "b",
         "label": "4, then 2, then 6, then 1"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "4, then 1, then 2, then 6"
-      },
-      {
-        "id": "other",
-        "label": "1, then 6, then 2, then 4"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "Children are enqueued when their parent is dequeued.",
     "retry": "1 is a child of 2, so it waits behind 6.",
     "objectiveId": "tree-traversal-trace-level-order"
@@ -1638,19 +1638,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "At 1, because the first insert stays the root"
+      },
+      {
+        "id": "b",
         "label": "At 2, so the tree is not a chain"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "At 3, because the last insert becomes the root"
-      },
-      {
-        "id": "other",
-        "label": "At 1, because the first insert stays the root"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "Rotations keep a logarithmic height on this insert order.",
     "retry": "A plain search tree would chain these keys.",
     "objectiveId": "balanced-tree-explain-height"
@@ -1662,24 +1662,24 @@
     "kind": "choice",
     "prompt": "A rotation changes the parent of a node. What stays true?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Inorder still lists the keys from small to large in this question.",
+      "Reject the claim that changes Inorder still lists the keys from small to large."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Inorder still lists the keys from small to large"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "Inorder reverses"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The root key is always the first key inserted"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "Left keys stay left and right keys stay right.",
     "retry": "Only the shape is edited.",
     "objectiveId": "balanced-tree-preserve-order-with-rotations"
@@ -1696,19 +1696,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "The item whose priority is 3"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The item pushed first, whose priority is 5"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The item pushed last, whose priority is 4"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "A min-heap root is the smallest priority.",
     "retry": "Push order is not the pop order.",
     "objectiveId": "priority-queue-map-operations"
@@ -1720,24 +1720,24 @@
     "kind": "choice",
     "prompt": "You will insert more items between extractions. Which structure matches that workload?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from A priority queue in this question.",
+      "Reject the claim that changes A priority queue."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "An unordered list scan that you call constant"
+      },
+      {
+        "id": "b",
         "label": "A priority queue, because each push and pop is logarithmic"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "A full sort before every extraction"
-      },
-      {
-        "id": "other",
-        "label": "An unordered list scan that you call constant"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The set of candidates changes between pops.",
     "retry": "Sorting a fixed array is the other workload.",
     "objectiveId": "priority-queue-choose-extraction-or-sort"
@@ -1754,19 +1754,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Three neighbor pairs, plus the vertex records"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "Sixteen filled matrix cells"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "One pair per vertex, whether or not an edge exists"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "The list stores edges you added, not the empty pairs.",
     "retry": "A matrix is the structure with a cell per ordered pair.",
     "objectiveId": "graph-representation-compare-space"
@@ -1778,24 +1778,24 @@
     "kind": "choice",
     "prompt": "You repeat 'list every neighbor' on a sparse graph. Which store fits?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from An adjacency list in this question.",
+      "Reject the claim that changes An adjacency list."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Either store, because both are proportional to vertices plus edges"
+      },
+      {
+        "id": "b",
         "label": "An adjacency list, because each neighbor scan reads one list"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "A matrix, because every row scan is proportional to the edges"
-      },
-      {
-        "id": "other",
-        "label": "Either store, because both are proportional to vertices plus edges"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "A matrix row scan is proportional to the vertex count.",
     "retry": "The list length is the degree.",
     "objectiveId": "graph-representation-choose-operations"
@@ -1812,19 +1812,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "The vertices whose indegree is zero"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "The vertices whose outdegree is zero"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "Any vertex on a cycle"
+      },
+      {
+        "id": "c",
+        "label": "The vertices whose indegree is zero"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "A source has no incoming edge left.",
     "retry": "A cycle has no vertex that can start the order.",
     "objectiveId": "topological-order-trace-kahn"
@@ -1836,24 +1836,24 @@
     "kind": "choice",
     "prompt": "topological_order is called on a directed cycle. What happens?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from It raises in this question.",
+      "Reject the claim that changes It raises."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "It returns an empty list for every graph"
+      },
+      {
+        "id": "b",
         "label": "It raises, because some vertex never reaches indegree zero"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "It returns the cycle vertices twice"
-      },
-      {
-        "id": "other",
-        "label": "It returns an empty list for every graph"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The queue empties before every vertex is emitted.",
     "retry": "A dag of the same size would return every vertex.",
     "objectiveId": "topological-order-detect-cycle"
@@ -1870,19 +1870,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "Distance 3, after relaxing the edge from B"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "Distance 4, because the direct edge is examined first"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "Distance 1, because B is the first neighbor"
+      },
+      {
+        "id": "c",
+        "label": "Distance 3, after relaxing the edge from B"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "Relaxation replaces a tentative distance when a better path appears.",
     "retry": "The first edge you see is not frozen unless the algorithm says so.",
     "objectiveId": "shortest-path-choose-algorithm"
@@ -1894,24 +1894,24 @@
     "kind": "choice",
     "prompt": "A negative edge is on the path. Which algorithm still applies?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Bellman-Ford in this question.",
+      "Reject the claim that changes Bellman-Ford."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "Bellman-Ford, which repeats relaxation enough times for a simple path"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "Dijkstra, because the heap ignores the sign"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "Breadth-first search, because every edge still counts as one hop"
+      },
+      {
+        "id": "c",
+        "label": "Bellman-Ford, which repeats relaxation enough times for a simple path"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "Dijkstra's proof needs non-negative weights.",
     "retry": "A negative cycle makes distances undefined.",
     "objectiveId": "shortest-path-trace-relaxation"
@@ -1928,19 +1928,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "It deletes the weight-1 edge to make room"
+      },
+      {
+        "id": "b",
         "label": "It rejects the edge, because its ends are already connected"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "It adds the edge, because heavier edges are preferred"
-      },
-      {
-        "id": "other",
-        "label": "It deletes the weight-1 edge to make room"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "Union-find reports one component, so the edge would close a cycle.",
     "retry": "The spanning tree wants n - 1 edges, not every edge.",
     "objectiveId": "mst-trace-kruskal"
@@ -1952,24 +1952,24 @@
     "kind": "choice",
     "prompt": "Why is the rejected edge unsafe to add?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Its ends are already in the same component in this question.",
+      "Reject the claim that changes Its ends are already in the same component."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Its ends are already in the same component, so the edge is not needed"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "Its ends are in different components, so the tree stays disconnected"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "Spanning trees are required to contain a cycle"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "A tree on n vertices has no cycle and has n - 1 edges.",
     "retry": "The cut property is what justifies the edge you do add.",
     "objectiveId": "mst-explain-cycle-check"
@@ -1986,19 +1986,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "The left index moves right, toward a larger value"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "The right index moves left, toward a smaller value"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "Both indexes jump to the middle"
+      },
+      {
+        "id": "c",
+        "label": "The left index moves right, toward a larger value"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "A larger left value is the only way to increase the sum.",
     "retry": "Sorted order is what makes the move safe.",
     "objectiveId": "two-pointers-justify-movement"
@@ -2010,24 +2010,24 @@
     "kind": "choice",
     "prompt": "Both indexes move only forward across n items. What is the total number of moves?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from At most n in this question.",
+      "Reject the claim that changes At most n."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "At most n, so the scan is linear"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "n squared, because each left index retries every right index"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "log n, because the array is binary-searched"
+      },
+      {
+        "id": "c",
+        "label": "At most n, so the scan is linear"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "A one-direction walk cannot revisit an item.",
     "retry": "Sorting first would be an extra n log n if the array started unsorted.",
     "objectiveId": "two-pointers-count-total-moves"
@@ -2044,19 +2044,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "The window restarts from index zero"
+      },
+      {
+        "id": "b",
         "label": "They are popped, because they cannot be a later maximum"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "They stay, because an older small value might win"
-      },
-      {
-        "id": "other",
-        "label": "The window restarts from index zero"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "A newer larger value dominates older smaller ones inside this window and the next.",
     "retry": "The front of the deque is the current maximum.",
     "objectiveId": "sliding-window-maintain-valid-range"
@@ -2068,24 +2068,24 @@
     "kind": "choice",
     "prompt": "The unique-substring window sees a repeated character. Which end moves?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from The left end advances past the earlier copy in this question.",
+      "Reject the claim that changes The left end advances past the earlier copy."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Neither end, because repeats are kept"
+      },
+      {
+        "id": "b",
         "label": "The left end advances past the earlier copy"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "The right end moves backward"
-      },
-      {
-        "id": "other",
-        "label": "Neither end, because repeats are kept"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The invariant is one copy of each character inside the window.",
     "retry": "Both ends still move only forward across the whole scan.",
     "objectiveId": "sliding-window-test-monotonicity"
@@ -2102,19 +2102,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "The total through the exclusive end, minus the total before the start"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "The value at index 1 multiplied by the value at index 3"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "A fresh loop from index 1 through index 3 inclusive"
+      },
+      {
+        "id": "c",
+        "label": "The total through the exclusive end, minus the total before the start"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "The library slice is half-open, so index 3 is excluded.",
     "retry": "The answer on this input is 2 + 3.",
     "objectiveId": "prefix-sums-derive-range-query"
@@ -2126,24 +2126,24 @@
     "kind": "choice",
     "prompt": "You know how many earlier prefixes equal the current prefix minus the target. What does that frequency count?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from The subarrays that end here and sum to the target in this question.",
+      "Reject the claim that changes The subarrays that end here and sum to the target."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Only the empty subarray"
+      },
+      {
+        "id": "b",
         "label": "The subarrays that end here and sum to the target"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "The single longest subarray in the whole array"
-      },
-      {
-        "id": "other",
-        "label": "Only the empty subarray"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "Each matching earlier prefix is one start index.",
     "retry": "The walk stores prefix frequencies as it goes.",
     "objectiveId": "prefix-sums-count-target-subarrays"
@@ -2160,19 +2160,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "The placement is undone so the pool is restored"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The placement stays, so later siblings see a shorter pool"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The search returns without visiting siblings"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "Choose, recurse, and undo is the shape.",
     "retry": "The six permutations of three items all share the same pool.",
     "objectiveId": "backtracking-trace-reversible-state"
@@ -2184,24 +2184,24 @@
     "kind": "choice",
     "prompt": "How many leaves does the permutation tree of n distinct items have?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from n factorial in this question.",
+      "Reject the claim that changes n factorial."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "n log n"
+      },
+      {
+        "id": "b",
         "label": "n factorial"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "n squared"
-      },
-      {
-        "id": "other",
-        "label": "n log n"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The first position has n choices and each next position has one fewer.",
     "retry": "Building each list also copies n items.",
     "objectiveId": "backtracking-analyze-search-tree"
@@ -2218,19 +2218,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "The longest interval is always optimal"
+      },
+      {
+        "id": "b",
         "label": "Some optimal schedule can be exchanged into the same first interval"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "The example with three intervals is already a proof"
-      },
-      {
-        "id": "other",
-        "label": "The longest interval is always optimal"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "Swapping in the earliest finish does not reduce the count.",
     "retry": "An example shows the rule. The exchange shows why it is safe.",
     "objectiveId": "greedy-methods-state-choice"
@@ -2242,24 +2242,24 @@
     "kind": "choice",
     "prompt": "Two lightest symbols become siblings in a Huffman tree. Why is that safe?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Some optimal tree has those two symbols as siblings in this question.",
+      "Reject the claim that changes Some optimal tree has those two symbols as siblings."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Any pairing of symbols has the same cost"
+      },
+      {
+        "id": "b",
         "label": "Some optimal tree has those two symbols as siblings"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "The heaviest symbol must be deepest"
-      },
-      {
-        "id": "other",
-        "label": "Any pairing of symbols has the same cost"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The exchange replaces a worse sibling pair with the two lightest.",
     "retry": "The heap then repeats the choice.",
     "objectiveId": "greedy-methods-justify-optimality"
@@ -2276,19 +2276,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "The fewest coins that sum to that amount"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The list of every combination that sums to that amount"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The largest coin that is at most that amount"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "The transition tries each coin and reads a smaller amount.",
     "retry": "Amount zero costs zero coins.",
     "objectiveId": "dp-state-define-recurrence"
@@ -2300,24 +2300,24 @@
     "kind": "choice",
     "prompt": "0-1 knapsack has an item index and a capacity. What dominates the time?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from 0 in this question.",
+      "Reject the claim that changes 0."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "The number of item-capacity pairs, times the work of one transition"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "The capacity alone, because items are free"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "The factorial of the item count"
+      },
+      {
+        "id": "c",
+        "label": "The number of item-capacity pairs, times the work of one transition"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "Each cell makes a constant number of choices.",
     "retry": "A rolling row can shrink the memory without changing the time.",
     "objectiveId": "dp-state-analyze-work-memory"
@@ -2334,19 +2334,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "It skips the rest of the text"
+      },
+      {
+        "id": "b",
         "label": "It resumes at the longest prefix that is also a suffix of the matched text"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "It restarts the text index at zero"
-      },
-      {
-        "id": "other",
-        "label": "It skips the rest of the text"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The text index does not move backward.",
     "retry": "The link is a fact about the pattern, computed before the search.",
     "objectiveId": "string-search-trace-kmp-fallback"
@@ -2358,24 +2358,24 @@
     "kind": "choice",
     "prompt": "Rabin-Karp reports equal hashes for a window and the pattern. What else is required?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from A character-by-character check of that window in this question.",
+      "Reject the claim that changes A character-by-character check of that window."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "A character-by-character check of that window"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "Nothing, because equal hashes are equal strings"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "A second modulus only, with no character check"
+      },
+      {
+        "id": "c",
+        "label": "A character-by-character check of that window"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "Different strings can share a hash.",
     "retry": "Unequal hashes are enough to reject a window.",
     "objectiveId": "string-search-verify-hash-candidates"
@@ -2392,19 +2392,19 @@
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "A miss, because a prefix was not inserted as its own key"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "A hit, because both keys start with ca"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "A hit only when every key has that prefix"
+      },
+      {
+        "id": "c",
+        "label": "A miss, because a prefix was not inserted as its own key"
       }
     ],
-    "answer": "yes",
+    "answer": "c",
     "correct": "This trie treats stored keys and proper prefixes differently.",
     "retry": "contains walks the whole key.",
     "objectiveId": "text-index-match-query"
@@ -2416,24 +2416,24 @@
     "kind": "choice",
     "prompt": "You compare a suffix-array query with a scan of the raw text. What must the comparison include?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from The cost of building the array in this question.",
+      "Reject the claim that changes The cost of building the array."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Only the length of the pattern"
+      },
+      {
+        "id": "b",
         "label": "The cost of building the array, not only the later binary search"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "Only the binary search"
-      },
-      {
-        "id": "other",
-        "label": "Only the length of the pattern"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "An index is not free to construct.",
     "retry": "The array itself is linear in the text.",
     "objectiveId": "text-index-include-build-cost"
@@ -2450,19 +2450,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Updates become constant and queries become linear"
+      },
+      {
+        "id": "b",
         "label": "A point update stays logarithmic instead of rebuilding the array"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "A range query becomes linear"
-      },
-      {
-        "id": "other",
-        "label": "Updates become constant and queries become linear"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "The flat prefix array is the static special case.",
     "retry": "The sparse table answers minima and does not take updates.",
     "objectiveId": "range-query-compare-operations"
@@ -2474,24 +2474,24 @@
     "kind": "choice",
     "prompt": "The array never changes and you need range minima. Which structure fits?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from A sparse table in this question.",
+      "Reject the claim that changes A sparse table."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "A fresh scan of the range on every query, called constant"
+      },
+      {
+        "id": "b",
         "label": "A sparse table, with a longer build and a constant query"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "A Fenwick tree, because it stores minima the same way"
-      },
-      {
-        "id": "other",
-        "label": "A fresh scan of the range on every query, called constant"
       }
     ],
-    "answer": "yes",
+    "answer": "b",
     "correct": "Minimum of overlapping blocks still covers the union.",
     "retry": "A changing array would push you back to a tree.",
     "objectiveId": "range-query-select-for-workload"
@@ -2508,19 +2508,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "The item was definitely not added"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The item was probably added"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The item was added and then deleted"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "add only sets bits, so a clear bit means this item was not inserted.",
     "retry": "A hit can be a false positive.",
     "objectiveId": "bloom-filter-state-guarantees"
@@ -2532,24 +2532,24 @@
     "kind": "choice",
     "prompt": "A Bloom filter says an item is present. What may you conclude?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from The item might be present in this question.",
+      "Reject the claim that changes The item might be present."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "The item might be present, or other items may have set those bits"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The item is definitely present"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The item is definitely absent"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "Every checked bit is set, and more than one item can set a bit.",
     "retry": "A definite answer is the miss, not the hit.",
     "objectiveId": "bloom-filter-explain-false-positive"
@@ -2566,19 +2566,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Touching neighboring items is the baseline when you need every value"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "A scan is the fastest way to test one missing key"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "A B-tree lookup is linear in the number of keys on every input"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "search walks a short path. The scan adds every item.",
     "retry": "Locality changes the practical cost, not the arithmetic identity.",
     "objectiveId": "storage-compare-write-read-tradeoffs"
@@ -2590,24 +2590,24 @@
     "kind": "choice",
     "prompt": "Why can two linear scans with the same arithmetic still differ in practice?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from One touches neighboring memory and the other jumps around in this question.",
+      "Reject the claim that changes One touches neighboring memory and the other jumps around."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "One touches neighboring memory and the other jumps around"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The jumping scan always does fewer additions"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "Locality changes the returned sum"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "Cache lines and pages reward the tight walk.",
     "retry": "The toy sum is the baseline, not a different formula.",
     "objectiveId": "storage-engines-explain-locality"
@@ -2624,19 +2624,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Every edge is either chosen or already touches a chosen vertex"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The scan adds one vertex from the whole graph"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The scan returns a matching and stops"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "Feasibility is separate from the ratio.",
     "retry": "The example cover contains all four endpoints.",
     "objectiveId": "approximation-prove-feasibility"
@@ -2648,24 +2648,24 @@
     "kind": "choice",
     "prompt": "The algorithm adds two vertices per selected edge, and those edges are disjoint. How does that bound the ratio?",
     "hints": [
-      "Use the same rule on this new question.",
-      "Reject the choice that changes the rule."
+      "Start from Any cover needs at least one vertex per selected edge in this question.",
+      "Reject the claim that changes Any cover needs at least one vertex per selected edge."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "Any cover needs at least one vertex per selected edge, so two is at most twice the optimum"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The cover is always the optimum"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "The cover can be arbitrarily larger than the optimum"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "The disjoint edges are a lower bound on the optimum.",
     "retry": "A single lucky example is not the proof.",
     "objectiveId": "approximation-derive-ratio"
@@ -2682,19 +2682,19 @@
     ],
     "options": [
       {
-        "id": "right-front",
-        "label": "The smaller remaining front, which is 4"
-      },
-      {
-        "id": "left-front",
+        "id": "a",
         "label": "The left front, which is 5"
       },
       {
-        "id": "both",
+        "id": "b",
         "label": "Both remaining fronts in one step"
+      },
+      {
+        "id": "c",
+        "label": "The smaller remaining front, which is 4"
       }
     ],
-    "answer": "right-front",
+    "answer": "c",
     "correct": "The remaining fronts are 5 and 4. The merge takes 4.",
     "retry": "After 2 and 3 leave, compare 5 with 4.",
     "objectiveId": "merge-sort-derive-cost"
@@ -2711,19 +2711,19 @@
     ],
     "options": [
       {
-        "id": "n-log",
+        "id": "a",
+        "label": "\u0398(log n), because only the depth matters"
+      },
+      {
+        "id": "b",
         "label": "\u0398(n log n), because each level does linear work"
       },
       {
-        "id": "n-squared",
+        "id": "c",
         "label": "\u0398(n\u00b2), because the levels multiply"
-      },
-      {
-        "id": "log-only",
-        "label": "\u0398(log n), because only the depth matters"
       }
     ],
-    "answer": "n-log",
+    "answer": "b",
     "correct": "\u0398(log n) levels times \u0398(n) merging is \u0398(n log n).",
     "retry": "Do not drop the linear work that happens on every level.",
     "objectiveId": "merge-sort-merge-runs"
@@ -2735,26 +2735,26 @@
     "kind": "choice",
     "prompt": "Every pivot lands at the end. What recurrence is that?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Write T(n) = T(n - 1) + \u0398(n).",
+      "A balanced split is the other shape."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "T(n) = \u0398(n) because the scan is linear"
+      },
+      {
+        "id": "b",
         "label": "T(n) = T(n - 1) + \u0398(n), which is quadratic"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "T(n) = 2T(n/2) + \u0398(n) for every pivot"
-      },
-      {
-        "id": "other",
-        "label": "T(n) = \u0398(n) because the scan is linear"
       }
     ],
-    "answer": "yes",
-    "correct": "T(n) = T(n - 1) + \u0398(n), which is quadratic",
-    "retry": "Check the count again. T(n) = 2T(n/2) + \u0398(n) for every pivot does not match this input.",
+    "answer": "b",
+    "correct": "An extreme pivot leaves one recursive call on n - 1 items plus a linear scan.",
+    "retry": "A linear scan is one partition. It is not the whole recurrence.",
     "objectiveId": "quicksort-state-partition"
   },
   {
@@ -2762,28 +2762,28 @@
     "lessonSlug": "quicksort-and-partition",
     "storageId": "quicksort-and-partition-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from quicksort-and-partition to one new case. Which statement holds?",
+    "prompt": "Every pivot lands in the middle. What recurrence is that?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Count the calls and the partition separately.",
+      "The chain shape is the unlucky pivot."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "T(n) = T(n - 1) + \u0398(n), which is quadratic"
+        "id": "a",
+        "label": "T(n) = 2T(n/2) + \u0398(n), which is n log n"
       },
       {
-        "id": "fails",
-        "label": "T(n) = 2T(n/2) + \u0398(n) for every pivot"
+        "id": "b",
+        "label": "T(n) = T(n - 1) + \u0398(n) for every pivot"
       },
       {
-        "id": "unrelated",
-        "label": "T(n) = \u0398(n) because the scan is linear"
+        "id": "c",
+        "label": "T(n) = \u0398(n), because the scan is linear"
       }
     ],
-    "answer": "holds",
-    "correct": "T(n) = T(n - 1) + \u0398(n), which is quadratic",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "a",
+    "correct": "Two half-size calls plus a linear partition is the n log n shape.",
+    "retry": "A middle pivot does not peel off one item.",
     "objectiveId": "quicksort-analyze-split-cost"
   },
   {
@@ -2793,26 +2793,26 @@
     "kind": "choice",
     "prompt": "n keys sit in b buckets. What is the average chain length?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Load factor is size over bucket count.",
+      "A long chain is the lookup cost."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Always 1, because hashing avoids collisions"
+      },
+      {
+        "id": "b",
         "label": "n divided by b, the load factor"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "n plus b"
-      },
-      {
-        "id": "other",
-        "label": "Always 1, because hashing avoids collisions"
       }
     ],
-    "answer": "yes",
-    "correct": "n divided by b, the load factor",
-    "retry": "Check the count again. n plus b does not match this input.",
+    "answer": "b",
+    "correct": "The keys are spread across the buckets, so the average chain is n divided by b.",
+    "retry": "Hashing does not promise that every chain has length 1.",
     "objectiveId": "hash-chaining-trace-bucket"
   },
   {
@@ -2820,28 +2820,28 @@
     "lessonSlug": "hash-chaining",
     "storageId": "hash-chaining-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from hash-chaining to one new case. Which statement holds?",
+    "prompt": "8 keys sit in 4 buckets. What is the average chain length?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Divide keys by buckets.",
+      "8 / 4 is the average."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "n divided by b, the load factor"
+        "id": "a",
+        "label": "4, the bucket count"
       },
       {
-        "id": "fails",
-        "label": "n plus b"
+        "id": "b",
+        "label": "1, because each key hashes alone"
       },
       {
-        "id": "unrelated",
-        "label": "Always 1, because hashing avoids collisions"
+        "id": "c",
+        "label": "2, because 8 divided by 4 is 2"
       }
     ],
-    "answer": "holds",
-    "correct": "n divided by b, the load factor",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "c",
+    "correct": "The load factor is 8 / 4, which is 2.",
+    "retry": "The bucket count is the divisor, not the chain length.",
     "objectiveId": "hash-chaining-analyze-load-factor"
   },
   {
@@ -2851,26 +2851,26 @@
     "kind": "choice",
     "prompt": "Node 2 has no right child, and its parent 4 is larger. Where is the successor of 2?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Successor means the next larger key.",
+      "A missing right subtree moves the search upward."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "The parent 4, the next larger ancestor"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "The left child of 2"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "There is no successor in a binary tree"
       }
     ],
-    "answer": "yes",
-    "correct": "The parent 4, the next larger ancestor",
-    "retry": "Check the count again. The left child of 2 does not match this input.",
+    "answer": "a",
+    "correct": "The parent is the next larger ancestor when the node has no right child.",
+    "retry": "The left child is smaller. It cannot be the successor.",
     "objectiveId": "bst-operations-trace-edits"
   },
   {
@@ -2878,28 +2878,28 @@
     "lessonSlug": "binary-search-tree-operations",
     "storageId": "binary-search-tree-operations-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from binary-search-tree-operations to one new case. Which statement holds?",
+    "prompt": "Node 6 has a right child 7. Where is the successor of 6?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Look right before you look up.",
+      "7 is the only node in that subtree."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "The parent 4, the next larger ancestor"
+        "id": "a",
+        "label": "The leftmost node in the right subtree, which is 7"
       },
       {
-        "id": "fails",
-        "label": "The left child of 2"
+        "id": "b",
+        "label": "The parent 4"
       },
       {
-        "id": "unrelated",
-        "label": "There is no successor in a binary tree"
+        "id": "c",
+        "label": "There is no successor once a right child exists"
       }
     ],
-    "answer": "holds",
-    "correct": "The parent 4, the next larger ancestor",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "a",
+    "correct": "A right subtree holds the next keys, and its leftmost node is the successor.",
+    "retry": "The parent rule is only for a missing right child.",
     "objectiveId": "bst-operations-find-successor"
   },
   {
@@ -2909,26 +2909,26 @@
     "kind": "choice",
     "prompt": "Index 1 in [3, 8, 1, 9, 4, 2] has children at 3 and 4. Which child is larger?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "Children of index 1 are indexes 3 and 4.",
+      "Compare 9 with 4."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
+        "label": "Index 1, because the parent is always largest"
+      },
+      {
+        "id": "b",
         "label": "Index 3, because 9 is larger than 4"
       },
       {
-        "id": "no",
+        "id": "c",
         "label": "Index 4, because it is the right child"
-      },
-      {
-        "id": "other",
-        "label": "Index 1, because the parent is always largest"
       }
     ],
-    "answer": "yes",
-    "correct": "Index 3, because 9 is larger than 4",
-    "retry": "Check the count again. Index 4, because it is the right child does not match this input.",
+    "answer": "b",
+    "correct": "Index 3 holds 9 and index 4 holds 4, so the left child is larger.",
+    "retry": "The right child is not larger just because it is on the right.",
     "objectiveId": "heap-operations-trace-sift"
   },
   {
@@ -2938,28 +2938,28 @@
     "kind": "fill-cell",
     "prompt": "Which value belongs in the named cell?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Add the build and the extracts.",
+      "n times log n is the extract total."
     ],
     "options": [
       {
-        "id": "shown",
+        "id": "a",
+        "label": "missing"
+      },
+      {
+        "id": "b",
         "label": "3"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "99"
-      },
-      {
-        "id": "missing",
-        "label": "missing"
       }
     ],
-    "answer": "shown",
+    "answer": "b",
     "correct": "The cell shows 3.",
-    "retry": "The cell shows 3.",
+    "retry": "The named cell is 3.",
     "objectiveId": "heap-operations-derive-heapsort-cost",
-    "frameLabel": "Sift 1",
+    "frameLabel": "sift",
     "rowLabel": "State",
     "cellIndex": 0
   },
@@ -2970,26 +2970,26 @@
     "kind": "choice",
     "prompt": "A breadth-first search marks a vertex when it is enqueued. What does that prevent?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "The mark is the visited set.",
+      "The queue still holds the first copy."
     ],
     "options": [
       {
-        "id": "yes",
-        "label": "A later edge cannot enqueue the same vertex again"
-      },
-      {
-        "id": "no",
+        "id": "a",
         "label": "The queue can hold the vertex twice, which is required"
       },
       {
-        "id": "other",
+        "id": "b",
         "label": "The search skips every edge"
+      },
+      {
+        "id": "c",
+        "label": "A later edge cannot enqueue the same vertex again"
       }
     ],
-    "answer": "yes",
-    "correct": "A later edge cannot enqueue the same vertex again",
-    "retry": "Check the count again. The queue can hold the vertex twice, which is required does not match this input.",
+    "answer": "c",
+    "correct": "A vertex is marked when it is enqueued, so a later edge cannot enqueue it again.",
+    "retry": "The search does not skip every edge. It skips a vertex it has already queued.",
     "objectiveId": "graph-traversal-trace-discovery"
   },
   {
@@ -2997,28 +2997,28 @@
     "lessonSlug": "graph-traversals",
     "storageId": "graph-traversals-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from graph-traversals to one new case. Which statement holds?",
+    "prompt": "A graph has 4 vertices and 3 edges. A breadth-first search marks each vertex once. What is the work?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Add vertices and edges.",
+      "3 edges are not 16 cells."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "A later edge cannot enqueue the same vertex again"
+        "id": "a",
+        "label": "1, because the source is the only vertex that matters"
       },
       {
-        "id": "fails",
-        "label": "The queue can hold the vertex twice, which is required"
+        "id": "b",
+        "label": "Proportional to 4 + 3, the vertices plus the edges"
       },
       {
-        "id": "unrelated",
-        "label": "The search skips every edge"
+        "id": "c",
+        "label": "16, because every vertex pair is scanned"
       }
     ],
-    "answer": "holds",
-    "correct": "A later edge cannot enqueue the same vertex again",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "b",
+    "correct": "Each vertex is enqueued once and each neighbor list is scanned once.",
+    "retry": "A matrix scan would be 16. This search reads the lists.",
     "objectiveId": "graph-traversal-analyze-work"
   },
   {
@@ -3028,26 +3028,26 @@
     "kind": "choice",
     "prompt": "Naive union links 2 under find(1), and find(1) is already 0. How long is the walk from 2?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "The parent write uses the root, not the item you passed.",
+      "One hop is parent[2] = 0."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "One hop, from 2 directly to 0"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "Two hops, from 2 to 1 to 0"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "No hop, because 2 stays a root"
       }
     ],
-    "answer": "yes",
-    "correct": "One hop, from 2 directly to 0",
-    "retry": "Check the count again. Two hops, from 2 to 1 to 0 does not match this input.",
+    "answer": "a",
+    "correct": "find(1) is already 0, so union links 2 directly under 0.",
+    "retry": "The link does not keep 1 on the path from 2.",
     "objectiveId": "union-find-track-components"
   },
   {
@@ -3055,28 +3055,28 @@
     "lessonSlug": "union-find",
     "storageId": "union-find-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from union-find to one new case. Which statement holds?",
+    "prompt": "Path compression runs on a chain of 3 nodes. What changes for the next find?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "The walk already knows the root.",
+      "The next walk should not repeat the chain."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "One hop, from 2 directly to 0"
+        "id": "a",
+        "label": "The parent array is left as a chain"
       },
       {
-        "id": "fails",
-        "label": "Two hops, from 2 to 1 to 0"
+        "id": "b",
+        "label": "Union by rank deletes the root"
       },
       {
-        "id": "unrelated",
-        "label": "No hop, because 2 stays a root"
+        "id": "c",
+        "label": "The walked nodes point at the root, so the next find is shorter"
       }
     ],
-    "answer": "holds",
-    "correct": "One hop, from 2 directly to 0",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "c",
+    "correct": "Compression points every visited node at the root it just found.",
+    "retry": "Rank chooses which root hangs under which. It does not delete a root.",
     "objectiveId": "union-find-explain-optimizations"
   },
   {
@@ -3086,26 +3086,26 @@
     "kind": "choice",
     "prompt": "Fibonacci keeps only the two previous values. What is the extra memory?",
     "hints": [
-      "Use the same rule as the lesson, on this new input.",
-      "Compare only the values named in the question."
+      "F(6) is 8.",
+      "The implementation updates two names."
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "O(1) extra memory, not a full table"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "O(n) extra memory for every F(i)"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "O(n\u00b2) extra memory for pairs of indexes"
       }
     ],
-    "answer": "yes",
-    "correct": "O(1) extra memory, not a full table",
-    "retry": "Check the count again. O(n) extra memory for every F(i) does not match this input.",
+    "answer": "a",
+    "correct": "Two running values are enough, so the extra memory is constant.",
+    "retry": "A full table would be linear. This function does not allocate it.",
     "objectiveId": "dp-build-recurrence"
   },
   {
@@ -3113,28 +3113,28 @@
     "lessonSlug": "dynamic-programming",
     "storageId": "dynamic-programming-transfer",
     "kind": "choice",
-    "prompt": "Apply the same rule from dynamic-programming to one new case. Which statement holds?",
+    "prompt": "A bottom-up table stores F(0) through F(6). How much extra memory is that?",
     "hints": [
-      "The lesson's rule does not change for a new input.",
-      "Reject the statement that contradicts the rule."
+      "Count the cells you keep.",
+      "n here is 6, and the table has 7 cells."
     ],
     "options": [
       {
-        "id": "holds",
-        "label": "O(1) extra memory, not a full table"
+        "id": "a",
+        "label": "\u0398(n) extra memory for one cell per index"
       },
       {
-        "id": "fails",
-        "label": "O(n) extra memory for every F(i)"
+        "id": "b",
+        "label": "\u0398(1), because only two values are required"
       },
       {
-        "id": "unrelated",
-        "label": "O(n\u00b2) extra memory for pairs of indexes"
+        "id": "c",
+        "label": "\u0398(n\u00b2), because each pair of indexes is stored"
       }
     ],
-    "answer": "holds",
-    "correct": "O(1) extra memory, not a full table",
-    "retry": "The new case uses the same rule. Do not switch rules.",
+    "answer": "a",
+    "correct": "Seven cells are linear in n. The two-value version is the constant one.",
+    "retry": "Storing every index is not the constant-memory version.",
     "objectiveId": "dp-identify-state"
   },
   {
@@ -3149,19 +3149,19 @@
     ],
     "options": [
       {
-        "id": "yes",
+        "id": "a",
         "label": "8"
       },
       {
-        "id": "no",
+        "id": "b",
         "label": "13"
       },
       {
-        "id": "other",
+        "id": "c",
         "label": "5"
       }
     ],
-    "answer": "yes",
+    "answer": "a",
     "correct": "The library keeps two running values, and F(6) is 8.",
     "retry": "Do not allocate a cell per index. The code updates two names.",
     "objectiveId": "dp-analyze-time-memory",

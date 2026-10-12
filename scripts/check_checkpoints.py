@@ -40,7 +40,37 @@ for slug, scenes in traces.items():
         if label in cells:
             print(f"{slug}: answer {label!r} is copied from the trace")
             failed = True
+        prompt = str(item.get("prompt", ""))
+        retry = str(item.get("retry", ""))
+        correct = str(item.get("correct", ""))
+        if prompt.startswith("Apply the same rule"):
+            print(f"{slug}: template prompt")
+            failed = True
+        if "does not match this input" in retry:
+            print(f"{slug}: template retry")
+            failed = True
+        banned_hints = (
+            "Use the same rule as the lesson, on this new input.",
+            "Compare only the values named in the question.",
+            "Use the same rule on this new question.",
+            "Reject the choice that changes the rule.",
+            "The lesson's rule does not change for a new input.",
+            "Reject the statement that contradicts the rule.",
+        )
+        for hint in item.get("hints", []):
+            if hint in banned_hints:
+                print(f"{slug}: template hint")
+                failed = True
+        if correct in {option["label"] for option in item["options"]}:
+            print(f"{slug}: correct feedback repeats an option")
+            failed = True
+    labels = [{option["label"] for option in item["options"]} for item in lesson_exercises if item.get("kind") not in {"fill-cell", "predict-output"}]
+    if len(labels) >= 2:
+        shared = set.intersection(*labels)
+        if len(shared) >= 2:
+            print(f"{slug}: two checkpoints share option labels")
+            failed = True
 
 if failed:
     sys.exit(1)
-print(f"checkpoints: {len(traces)} lessons, answers are not trace cells")
+print(f"checkpoints: {len(exercises)} items, 0 template strings")

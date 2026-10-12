@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { curriculumDetails, curriculumObjectiveIds } from "../src/lib/curriculum.ts";
+import { curriculumDetails, curriculumObjectiveIds, curriculumStages } from "../src/lib/curriculum.ts";
 
 const siteDir = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(siteDir, "../..");
@@ -167,6 +167,31 @@ try {
     for (const id of detail.traceIds) {
       assert(knownTraceIds.has(id), `unknown trace id ${id}`);
     }
+  }
+
+  const bannedIds = new Set(["yes", "no", "other", "holds", "fails", "unrelated"]);
+  const positionCounts = [0, 0, 0];
+  let positioned = 0;
+  for (const exercise of exercises) {
+    if (exercise.lessonSlug === "binary-search" || exercise.lessonSlug === "binary-search-on-answer") continue;
+    for (const option of exercise.options) {
+      assert(!bannedIds.has(option.id), `${exercise.id}: option id ${option.id} names the answer`);
+    }
+    if (exercise.kind === "choice" && exercise.options.length === 3) {
+      const index = exercise.options.findIndex((option) => option.id === exercise.answer);
+      assert(index >= 0, `${exercise.id}: answer is not an option`);
+      positionCounts[index] += 1;
+      positioned += 1;
+    }
+  }
+  const busiest = Math.max(...positionCounts);
+  assert(positioned >= 10 && busiest <= positioned * 0.5, `option positions are lopsided: ${positionCounts.join(",")}`);
+  console.log(`option positions: a=${positionCounts[0]} b=${positionCounts[1]} c=${positionCounts[2]}`);
+
+  const referenceSlugs = new Set(curriculumStages.find((stage) => stage.id === "reference").slugs);
+  const referencePage = fs.readFileSync(path.join(siteDir, "../src/app/reference/page.tsx"), "utf8");
+  for (const match of referencePage.matchAll(/lessonSlug: "([^"]+)"/g)) {
+    assert(!referenceSlugs.has(match[1]), `glossary or comparison points at reference page ${match[1]}`);
   }
 
   console.log(`curriculum data: ok (${slugs.size} lessons, ${moduleCount} source modules, ${traces.length} trace scenarios)`);

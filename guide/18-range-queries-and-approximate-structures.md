@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.range_queries.structures, bitsandbytes.approximate.structures
 ---
 
+This page is the module index for range queries and approximate structures.
+
 * `range_queries/structures.py` — Fenwick tree, lazy segment tree, sparse table for RMQ.
 
 ## Focused lessons

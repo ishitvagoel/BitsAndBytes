@@ -98,6 +98,8 @@ class ChainingHashTable(MutableMapping[K, V]):
 
         for stored_key, value in self._buckets[self._bucket_index(key)]:
             if stored_key == key:
+                if self._trace_sink is not None:
+                    self._trace_sink(TraceEvent("lookup", {"key": key, "value": value, "index": self._bucket_index(key)}))
                 return value
         raise KeyError(key)
 

@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.storage.engines
 ---
 
+This page is the module index for storage and locality.
+
 * `storage/engines.py` — in-memory B-tree, write-ahead log, toy LSM with Bloom-filtered runs, scan benchmark, brute-force nearest neighbor.
 
 ## Focused lesson

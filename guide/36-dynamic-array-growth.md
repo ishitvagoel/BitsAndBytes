@@ -8,18 +8,27 @@ module: bitsandbytes.linear.dynamic_array
 
 ## The idea
 
+Three appends from capacity 1 copy 0, then 1, then 2 references. The total is 3.
+
 A dynamic array stores items in a contiguous block and remembers a length and a capacity. append writes into the next free slot when length < capacity. When the block is full, the array allocates a new block with twice the capacity, copies the old references, and then writes the new item. The example starts at capacity 1. Appending a, b, and c copies 0, then 1, then 2 references. The library's DynamicArray.capacity after those three appends is 4, and the stored items are a, b, c.
 
 ## A worked trace
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Resize | capacity = 2 | The grow copied 1 references. |
-| Resize | capacity = 4 | The grow copied 2 references. |
+| append | append = 1 | Appended a. Length is 1. |
+| resize | resize = 2 | The grow copied 1 references. Capacity is 2. |
+| append | append = 2 | Appended b. Length is 2. |
+| resize | resize = 4 | The grow copied 2 references. Capacity is 4. |
+| append | append = 3 | Appended c. Length is 3. |
 
 ## Why it is correct
 
-Each resize copies every item that is already stored, because the new block is a different region of memory. Doubling is what makes the total copy count linear. The copy sizes are 1 + 2 + 4 + ... + n/2, which is less than n. Every item is copied once per doubling that happens after it was appended, and an item appended. When the length is about n/2 is copied only once more before the length reaches n. Charging each append a constant amount covers all of those copies. That charge is the amortized bound.
+Each resize copies every item that is already stored, because the new block is a different region of memory. Doubling is what makes the total copy count linear. The copy sizes are 1 + 2 + 4 + ... + n/2, which is less than n. Every item is copied once per doubling after it arrives. An item that arrives near length n/2 is copied only once more before the length reaches n. Charging each append a constant amount covers all of those copies. That charge is the amortized bound.
+
+## A common mistake
+
+Adding one slot each time, instead of doubling, copies a quadratic number of references.
 
 ## What it costs
 
@@ -36,4 +45,4 @@ print(array.total_copy_cost_for_appends(3))
 
 ## Practice and next step
 
-Answer the checkpoints, then open Recursion and recurrences. The checkpoint stays in this browser.
+Open Recursion and recurrences next. Recursion and recurrences turn the same counting habit onto a tree of calls.

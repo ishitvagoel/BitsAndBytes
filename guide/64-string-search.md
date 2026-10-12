@@ -8,21 +8,30 @@ module: bitsandbytes.strings.algorithms
 
 ## The idea
 
-A naive search tries the pattern at every index of the text and compares characters until one differs. Knuth-Morris-Pratt avoids restarting the text index after a partial match. kmp_search of pattern ababa in text ababcababa returns 5. Index 0 matches four characters and then fails, because the text has c where the pattern needs a. The failure links say how long a prefix of the pattern is also a suffix of the part just matched. So the search resumes in the middle of the pattern instead of at its first character. rabin_karp_search on the same strings also returns 5. It compares a rolling hash of the pattern with the hash of each window, and it still checks the characters when the hashes agree. A hash hit is a candidate, not a proof.
+kmp_search finds ababa inside ababcababa at index 5.
+
+A naive search tries the pattern at every index of the text and compares characters until one differs. Knuth-Morris-Pratt avoids restarting the text index after a partial match. kmp_search of pattern ababa in text ababcababa returns 5. Index 0 matches four characters and then fails, because the text has c where the pattern needs a. The failure links say how long a prefix of the pattern is also a suffix of the part just matched. The search then resumes in the middle of the pattern instead of at its first character. rabin_karp_search on the same strings also returns 5. It compares a rolling hash of the pattern with the hash of each window, and it still checks the characters when the hashes agree. A hash hit is a candidate, not a proof.
 
 ## A worked trace
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Match | index = 5 | The first full match of ababa starts at index 5. |
+| Scan | state = 1 | At text index 0 the pattern state is 1. |
+| Scan | state = 0 | At text index 4 the pattern state is 0. |
+| Scan | state = 1 | At text index 5 the pattern state is 1. |
+| Scan | state = 5 | At text index 9 the pattern state is 5. |
 
 ## Why it is correct
 
 The failure link at a position is the longest proper prefix that is also a suffix of the pattern up to that position. Following it on a mismatch preserves the characters that are already known to match. That is why the text index does not move backward. Rabin-Karp's window hash can be updated in constant time by removing the character that leaves and adding the character that enters. Equal hashes can still be different strings, so the character check is part of correctness. Unequal hashes are a sure miss.
 
+## A common mistake
+
+Equal hashes are not equal strings. Rabin-Karp still checks the characters.
+
 ## What it costs
 
-The failure table is linear in the pattern length. The search is linear in the text length. Extra memory is the failure table. The naive search is linear in the product of the two lengths. Rabin-Karp is linear in expectation and can degrade if every window collides. Use KMP when you want a worst-case linear bound. Use a rolling hash when you already have a modulus you trust and you verify candidates.
+The failure table is linear in the pattern length. The search is linear in the text length. Extra memory is the failure table. The naive search is linear in the product of the two lengths. Rabin-Karp is linear in expectation and can degrade if every window collides. Use KMP when you want a worst-case linear bound. Use a rolling hash when you already have a modulus you trust and you verify candidates. The KMP search is Θ(n + m) time, and the failure table is Θ(m) extra memory.
 
 ## Run it
 
@@ -34,4 +43,4 @@ print(kmp_search('ababcababa', 'ababa'))
 
 ## Practice and next step
 
-Answer the checkpoints, then open Tries and text indexes. The checkpoint stays in this browser.
+Open Tries and text indexes next. A trie stores whole keys. A suffix array stores the sorted positions of one text.

@@ -32,6 +32,21 @@ function run(script) {
 
 for (const check of checks) run(check);
 
+const lessonHtmlDir = path.join(buildDir, "server/app/lessons");
+if (fs.existsSync(lessonHtmlDir)) {
+  const lessonFiles = fs.readdirSync(lessonHtmlDir).filter((name) => name.endsWith(".html"));
+  const rawTables = [];
+  for (const name of lessonFiles) {
+    const html = fs.readFileSync(path.join(lessonHtmlDir, name), "utf8");
+    if (html.includes("| --- |")) rawTables.push(name);
+  }
+  if (rawTables.length > 0) {
+    console.error(`trace tables still raw in ${rawTables.join(", ")}`);
+    process.exit(1);
+  }
+  console.log(`trace tables: ${lessonFiles.length} lessons checked`);
+}
+
 if (!fs.existsSync(journeyHtml)) {
   const files = [];
   function walk(directory) {

@@ -8,21 +8,30 @@ module: bitsandbytes.heaps.priority_queue
 
 ## The idea
 
+push 5, then 3, then 4. The first pop returns priority 3 and item b.
+
 A priority queue returns the best priority, not the oldest item and not the newest item. The library's PriorityQueue is a binary min-heap. push(5, a), push(3, b), and push(4, c) leave 3 at the root. The first pop returns the pair 3, b. Later pops return 4, c and then 5, a. Each push returns a token. decrease_key uses that token to find the heap index without scanning. The heap stores priority, token, and item. The token breaks ties so two equal priorities stay distinct. This is the structure Dijkstra and Prim need when they repeatedly ask for the next smallest tentative weight. Sorting the whole set once is cheaper when you need every item in order and you will not insert anything in between.
 
 ## A worked trace
 
 | Step | State | What changed |
 | --- | --- | --- |
-| Pop | item = b | The smallest priority leaves first. |
+| Push | priority = 5 | Push priority 5 for item a. |
+| Push | priority = 3 | Push priority 3 for item b. |
+| Push | priority = 4 | Push priority 4 for item c. |
+| Pop | item = b | The first pop returns priority 3 and item b. |
 
 ## Why it is correct
 
 The heap invariant says every parent priority is less than or equal to its children. push appends and sifts up until the invariant holds. pop swaps the root with the last item, removes the old root, and sifts down. The item that leaves is the minimum because the root is the minimum. decrease_key is allowed to move a priority down, toward a better min, and then sifts up. An equal priority is not a decrease. The map from token to index is updated on every swap, so the next decrease still finds the item.
 
+## A common mistake
+
+Push order is not pop order. The smallest priority leaves first.
+
 ## What it costs
 
-push and pop are logarithmic in the number of stored items. The token map makes the find step constant time, so it does not hide a linear scan inside the logarithmic sift. Extra memory is the heap array plus the map, both linear. n pushes followed by n pops are n log n, the same family as heapsort. Prefer the queue when the set of candidates changes between extractions. Prefer a sort when the set is fixed.
+push and pop are logarithmic in the number of stored items. The token map makes the find step constant time, so it does not hide a linear scan inside the logarithmic sift. Extra memory is the heap array plus the map, both linear. n pushes followed by n pops are n log n, the same family as heapsort. Prefer the queue when the set of candidates changes between extractions. Prefer a sort when the set is fixed. push and pop are Θ(log n) time, and extra memory is Θ(n).
 
 ## Run it
 
@@ -38,4 +47,4 @@ print(queue.pop())
 
 ## Practice and next step
 
-Answer the checkpoints, then open Graph representations. The checkpoint stays in this browser.
+Open Graph representations next. Graph representations decide whether neighbor scans read a list or a matrix row.

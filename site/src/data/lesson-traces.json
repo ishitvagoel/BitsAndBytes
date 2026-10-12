@@ -6,12 +6,12 @@
       "prompt": "Watch a nested scan of four items. The outer index moves once per item. The inner index only looks to the right.",
       "frames": [
         {
-          "label": "Example",
-          "narration": "The lesson counts this input.",
+          "label": "Pair",
+          "narration": "Compare 3 with 1. The pair count is 1.",
           "state": [
             {
-              "name": "n",
-              "value": "3"
+              "name": "count",
+              "value": "1"
             }
           ],
           "rows": [
@@ -20,15 +20,49 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "idle"
-                },
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Pair",
+          "narration": "Compare 3 with 2. The pair count is 2.",
+          "state": [
+            {
+              "name": "count",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
                 {
                   "text": "2",
-                  "status": "idle"
-                },
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Pair",
+          "narration": "Compare 1 with 2. The pair count is 3.",
+          "state": [
+            {
+              "name": "count",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
                 {
                   "text": "3",
-                  "status": "idle"
+                  "status": "chosen"
                 }
               ]
             }
@@ -44,12 +78,12 @@
       "prompt": "The same n is plugged into three formulas. Read which one pulls away.",
       "frames": [
         {
-          "label": "Example",
-          "narration": "The lesson counts this input.",
+          "label": "n=4",
+          "narration": "At n = 4, n log2 n is 8 and n squared is 16.",
           "state": [
             {
               "name": "n",
-              "value": "3"
+              "value": "4"
             }
           ],
           "rows": [
@@ -57,16 +91,103 @@
               "label": "State",
               "cells": [
                 {
-                  "text": "1",
-                  "status": "idle"
+                  "text": "4",
+                  "status": "chosen"
                 },
                 {
-                  "text": "2",
-                  "status": "idle"
+                  "text": "8",
+                  "status": "chosen"
                 },
                 {
-                  "text": "3",
-                  "status": "idle"
+                  "text": "16",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "n=16",
+          "narration": "At n = 16, n log2 n is 64 and n squared is 256.",
+          "state": [
+            {
+              "name": "n",
+              "value": "16"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "16",
+                  "status": "chosen"
+                },
+                {
+                  "text": "64",
+                  "status": "chosen"
+                },
+                {
+                  "text": "256",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "n=64",
+          "narration": "At n = 64, n log2 n is 384 and n squared is 4096.",
+          "state": [
+            {
+              "name": "n",
+              "value": "64"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "64",
+                  "status": "chosen"
+                },
+                {
+                  "text": "384",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4096",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "n=256",
+          "narration": "At n = 256, n log2 n is 2048 and n squared is 65536.",
+          "state": [
+            {
+              "name": "n",
+              "value": "256"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "256",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2048",
+                  "status": "chosen"
+                },
+                {
+                  "text": "65536",
+                  "status": "chosen"
                 }
               ]
             }
@@ -82,12 +203,41 @@
       "prompt": "The prefix to the left of the active item stays sorted. Watch the hole move.",
       "frames": [
         {
-          "label": "Example",
-          "narration": "The lesson counts this input.",
+          "label": "start",
+          "narration": "The input is 3, 1, 2. Nothing is inserted yet.",
           "state": [
             {
-              "name": "n",
-              "value": "3"
+              "name": "list",
+              "value": "[3, 1, 2]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "insert",
+          "narration": "After inserting 1, the prefix through index 1 is sorted.",
+          "state": [
+            {
+              "name": "list",
+              "value": "[1, 3, 2]"
             }
           ],
           "rows": [
@@ -96,15 +246,44 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "idle"
-                },
-                {
-                  "text": "2",
-                  "status": "idle"
+                  "status": "active"
                 },
                 {
                   "text": "3",
-                  "status": "idle"
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "insert",
+          "narration": "After inserting 2, the prefix through index 2 is sorted.",
+          "state": [
+            {
+              "name": "list",
+              "value": "[1, 2, 3]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
                 }
               ]
             }
@@ -120,12 +299,33 @@
       "prompt": "Three items sit in a contiguous array. Removing index 0 moves the other two.",
       "frames": [
         {
-          "label": "Example",
-          "narration": "The lesson counts this input.",
+          "label": "Start",
+          "narration": "Front removal has slid 0 references toward index 0.",
           "state": [
             {
-              "name": "n",
-              "value": "3"
+              "name": "moved",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Slide",
+          "narration": "Front removal has slid 1 references toward index 0.",
+          "state": [
+            {
+              "name": "moved",
+              "value": "1"
             }
           ],
           "rows": [
@@ -134,15 +334,28 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "idle"
-                },
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Slide",
+          "narration": "Front removal has slid 2 references toward index 0.",
+          "state": [
+            {
+              "name": "moved",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
                 {
                   "text": "2",
-                  "status": "idle"
-                },
-                {
-                  "text": "3",
-                  "status": "idle"
+                  "status": "chosen"
                 }
               ]
             }
@@ -158,11 +371,36 @@
       "prompt": "Capacity starts at 1 and doubles when an append finds the array full. Copied slots are marked chosen.",
       "frames": [
         {
-          "label": "Resize",
-          "narration": "The grow copied 1 references.",
+          "label": "append",
+          "narration": "Appended a. Length is 1.",
           "state": [
             {
-              "name": "capacity",
+              "name": "append",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "resize",
+          "narration": "The grow copied 1 references. Capacity is 2.",
+          "state": [
+            {
+              "name": "resize",
               "value": "2"
             }
           ],
@@ -183,11 +421,36 @@
           ]
         },
         {
-          "label": "Resize",
-          "narration": "The grow copied 2 references.",
+          "label": "append",
+          "narration": "Appended b. Length is 2.",
           "state": [
             {
-              "name": "capacity",
+              "name": "append",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "b",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "resize",
+          "narration": "The grow copied 2 references. Capacity is 4.",
+          "state": [
+            {
+              "name": "resize",
               "value": "4"
             }
           ],
@@ -206,6 +469,31 @@
               ]
             }
           ]
+        },
+        {
+          "label": "append",
+          "narration": "Appended c. Length is 3.",
+          "state": [
+            {
+              "name": "append",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "c",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -217,12 +505,12 @@
       "prompt": "Each call splits into two half-size calls. This frame shows one root-to-leaf path and the size at that level.",
       "frames": [
         {
-          "label": "Example",
-          "narration": "The lesson counts this input.",
+          "label": "Level 0",
+          "narration": "Level 0 has 1 calls of size 8. The level still does 8 work.",
           "state": [
             {
-              "name": "n",
-              "value": "3"
+              "name": "work",
+              "value": "8"
             }
           ],
           "rows": [
@@ -231,15 +519,102 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "idle"
+                  "status": "active"
+                },
+                {
+                  "text": "8",
+                  "status": "active"
+                },
+                {
+                  "text": "8",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Level 1",
+          "narration": "Level 1 has 2 calls of size 4. The level still does 8 work.",
+          "state": [
+            {
+              "name": "work",
+              "value": "8"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "8",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Level 2",
+          "narration": "Level 2 has 4 calls of size 2. The level still does 8 work.",
+          "state": [
+            {
+              "name": "work",
+              "value": "8"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "active"
                 },
                 {
                   "text": "2",
-                  "status": "idle"
+                  "status": "active"
                 },
                 {
-                  "text": "3",
-                  "status": "idle"
+                  "text": "8",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Level 3",
+          "narration": "Level 3 has 8 calls of size 1. The level still does 8 work.",
+          "state": [
+            {
+              "name": "work",
+              "value": "8"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "8",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "8",
+                  "status": "active"
                 }
               ]
             }
@@ -255,11 +630,57 @@
       "prompt": "Head and tail both move only when the end they point at changes.",
       "frames": [
         {
-          "label": "Example",
-          "narration": "The lesson counts this input.",
+          "label": "Append",
+          "narration": "Append a. The head and the tail are both a.",
           "state": [
             {
-              "name": "n",
+              "name": "head",
+              "value": "a"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Append",
+          "narration": "Append b. The tail moves to b.",
+          "state": [
+            {
+              "name": "tail",
+              "value": "b"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Append",
+          "narration": "Append c. The chain is a, b, c.",
+          "state": [
+            {
+              "name": "size",
               "value": "3"
             }
           ],
@@ -268,16 +689,70 @@
               "label": "State",
               "cells": [
                 {
-                  "text": "1",
-                  "status": "idle"
+                  "text": "a",
+                  "status": "active"
                 },
                 {
-                  "text": "2",
-                  "status": "idle"
+                  "text": "b",
+                  "status": "active"
                 },
                 {
-                  "text": "3",
-                  "status": "idle"
+                  "text": "c",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Visit",
+          "narration": "The scan visits a while looking for b.",
+          "state": [
+            {
+              "name": "node",
+              "value": "a"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "active"
+                },
+                {
+                  "text": "c",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Visit",
+          "narration": "The scan visits b while looking for b.",
+          "state": [
+            {
+              "name": "node",
+              "value": "b"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "c",
+                  "status": "active"
                 }
               ]
             }
@@ -294,7 +769,7 @@
       "frames": [
         {
           "label": "Push",
-          "narration": "Pushed 1.",
+          "narration": "Pushed 1. The top is 1.",
           "state": [
             {
               "name": "top",
@@ -315,7 +790,7 @@
         },
         {
           "label": "Push",
-          "narration": "Pushed 2.",
+          "narration": "Pushed 2. The top is 2.",
           "state": [
             {
               "name": "top",
@@ -340,7 +815,7 @@
         },
         {
           "label": "Push",
-          "narration": "Pushed 3.",
+          "narration": "Pushed 3. The top is 3.",
           "state": [
             {
               "name": "top",
@@ -369,7 +844,7 @@
         },
         {
           "label": "Pop",
-          "narration": "The first pop returns 3.",
+          "narration": "The first pop returns 3. The top is now 2.",
           "state": [
             {
               "name": "top",
@@ -403,7 +878,7 @@
       "frames": [
         {
           "label": "Enqueue",
-          "narration": "Enqueued a.",
+          "narration": "Enqueued a. The front is a.",
           "state": [
             {
               "name": "front",
@@ -424,7 +899,7 @@
         },
         {
           "label": "Enqueue",
-          "narration": "Enqueued b.",
+          "narration": "Enqueued b. The front is a.",
           "state": [
             {
               "name": "front",
@@ -449,7 +924,7 @@
         },
         {
           "label": "Enqueue",
-          "narration": "Enqueued c.",
+          "narration": "Enqueued c. The front is a.",
           "state": [
             {
               "name": "front",
@@ -478,7 +953,7 @@
         },
         {
           "label": "Dequeue",
-          "narration": "The first dequeue returns a.",
+          "narration": "The first dequeue returns a. The front is now b.",
           "state": [
             {
               "name": "front",
@@ -511,11 +986,69 @@
       "prompt": "The library insertion_sort shifts the prefix with a strict < comparison, so equal keys would not pass each other. This input has no ties.",
       "frames": [
         {
-          "label": "Sorted",
-          "narration": "insertion_sort returns the sorted list.",
+          "label": "start",
+          "narration": "The input is 3, 1, 2. Nothing is inserted yet.",
           "state": [
             {
-              "name": "result",
+              "name": "list",
+              "value": "[3, 1, 2]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "insert",
+          "narration": "Inserted 1. The list is now [1, 3, 2].",
+          "state": [
+            {
+              "name": "list",
+              "value": "[1, 3, 2]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "insert",
+          "narration": "Inserted 2. The list is now [1, 2, 3].",
+          "state": [
+            {
+              "name": "list",
               "value": "[1, 2, 3]"
             }
           ],
@@ -525,15 +1058,15 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "done"
+                  "status": "active"
                 },
                 {
                   "text": "2",
-                  "status": "done"
+                  "status": "active"
                 },
                 {
                   "text": "3",
-                  "status": "done"
+                  "status": "active"
                 }
               ]
             }
@@ -556,11 +1089,53 @@
       "prompt": "list_pop_front_cost_demo(3) returns 2. That is the number of references one pop(0) moves, not a count of three pops.",
       "frames": [
         {
-          "label": "Front pop",
-          "narration": "One pop(0) on three items moves 2 references.",
+          "label": "Start",
+          "narration": "A list of length 3 has moved 0 references so far.",
           "state": [
             {
-              "name": "copies",
+              "name": "moved",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Slide",
+          "narration": "A list of length 3 has moved 1 references so far.",
+          "state": [
+            {
+              "name": "moved",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Slide",
+          "narration": "A list of length 3 has moved 2 references so far.",
+          "state": [
+            {
+              "name": "moved",
               "value": "2"
             }
           ],
@@ -587,7 +1162,7 @@
       "frames": [
         {
           "label": "Middle",
-          "narration": "The slow pointer stops on the single middle.",
+          "narration": "The slow pointer on 1 through 5 stops on 3.",
           "state": [
             {
               "name": "middle",
@@ -624,7 +1199,7 @@
         },
         {
           "label": "Even",
-          "narration": "The second of the two middles is kept.",
+          "narration": "The even list 1 through 4 keeps the later middle 3.",
           "state": [
             {
               "name": "middle",
@@ -702,8 +1277,54 @@
       "prompt": "reverse_iterative rewrites next links. The list that started as 1, 2, 3 ends as 3, 2, 1.",
       "frames": [
         {
-          "label": "Reversed",
-          "narration": "The head is now 3.",
+          "label": "Flip",
+          "narration": "The reversed prefix now starts at 1.",
+          "state": [
+            {
+              "name": "head",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Flip",
+          "narration": "The reversed prefix now starts at 2.",
+          "state": [
+            {
+              "name": "head",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Flip",
+          "narration": "The reversed prefix now starts at 3.",
           "state": [
             {
               "name": "head",
@@ -716,15 +1337,15 @@
               "cells": [
                 {
                   "text": "3",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": "2",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": "1",
-                  "status": "done"
+                  "status": "chosen"
                 }
               ]
             }
@@ -740,12 +1361,12 @@
       "prompt": "merge_sorted relinks the existing nodes. The result is 1, 2, 3, 4, and both inputs are left empty.",
       "frames": [
         {
-          "label": "Merged",
-          "narration": "The heads were compared in order.",
+          "label": "Take",
+          "narration": "The merge takes 1. The result so far is [1].",
           "state": [
             {
-              "name": "result",
-              "value": "[1, 2, 3, 4]"
+              "name": "taken",
+              "value": "1"
             }
           ],
           "rows": [
@@ -754,19 +1375,61 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "done"
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Take",
+          "narration": "The merge takes 2. The result so far is [1, 2].",
+          "state": [
+            {
+              "name": "taken",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
                 },
                 {
                   "text": "2",
-                  "status": "done"
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Take",
+          "narration": "The merge takes 3. The result so far is [1, 2, 3].",
+          "state": [
+            {
+              "name": "taken",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
                 },
                 {
                   "text": "3",
-                  "status": "done"
-                },
-                {
-                  "text": "4",
-                  "status": "done"
+                  "status": "chosen"
                 }
               ]
             }
@@ -789,11 +1452,110 @@
       "prompt": "nth_from_end counts the tail as 1. A gap of 2 on this list lands on 3.",
       "frames": [
         {
-          "label": "From end",
-          "narration": "Two steps from the end lands on 3.",
+          "label": "gap",
+          "narration": "The leader has taken 1 steps. It sits on 2.",
           "state": [
             {
-              "name": "node",
+              "name": "step",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "gap",
+          "narration": "The leader has taken 2 steps. It sits on 3.",
+          "state": [
+            {
+              "name": "step",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "walk",
+          "narration": "Both pointers move. The trailer is on 2.",
+          "state": [
+            {
+              "name": "step",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "walk",
+          "narration": "Both pointers move. The trailer is on 3.",
+          "state": [
+            {
+              "name": "step",
               "value": "3"
             }
           ],
@@ -803,19 +1565,19 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "2",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "3",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "4",
-                  "status": "chosen"
+                  "status": "active"
                 }
               ]
             }
@@ -831,8 +1593,54 @@
       "prompt": "append a, then b. remove_node on the node for a returns a, and the list that remains is b.",
       "frames": [
         {
+          "label": "Append",
+          "narration": "Append a. Head and tail both hold a.",
+          "state": [
+            {
+              "name": "head",
+              "value": "a"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Append",
+          "narration": "Append b. The tail is now b.",
+          "state": [
+            {
+              "name": "tail",
+              "value": "b"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "a",
+                  "status": "active"
+                },
+                {
+                  "text": "b",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "label": "Unlink",
-          "narration": "Removing a known node does not walk the list.",
+          "narration": "Removing the known node a leaves b.",
           "state": [
             {
               "name": "removed",
@@ -845,7 +1653,7 @@
               "cells": [
                 {
                   "text": "b",
-                  "status": "chosen"
+                  "status": "done"
                 }
               ]
             }
@@ -861,11 +1669,159 @@
       "prompt": "next_greater on 2, 1, 2, 4, 3 returns 4, 2, 4, None, None. The histogram area is 10.",
       "frames": [
         {
-          "label": "Answers",
-          "narration": "next_greater writes the first strictly larger value on the right.",
+          "label": "Scan",
+          "narration": "Index 0 holds 2. Answers are [None, None, None, None, None].",
           "state": [
             {
-              "name": "first",
+              "name": "index",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "Index 1 holds 1. Answers are [None, None, None, None, None].",
+          "state": [
+            {
+              "name": "index",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "Index 2 holds 2. Answers are [None, 2, None, None, None].",
+          "state": [
+            {
+              "name": "index",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "Index 3 holds 4. Answers are [4, 2, 4, None, None].",
+          "state": [
+            {
+              "name": "index",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                },
+                {
+                  "text": "None",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "Index 4 holds 3. Answers are [4, 2, 4, None, None].",
+          "state": [
+            {
+              "name": "index",
               "value": "4"
             }
           ],
@@ -875,63 +1831,22 @@
               "cells": [
                 {
                   "text": "4",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "2",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "4",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "None",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "None",
-                  "status": "chosen"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "label": "Area",
-          "narration": "The largest rectangle in this histogram has area 10.",
-          "state": [
-            {
-              "name": "area",
-              "value": "10"
-            }
-          ],
-          "rows": [
-            {
-              "label": "State",
-              "cells": [
-                {
-                  "text": "2",
-                  "status": "active"
-                },
-                {
-                  "text": "1",
-                  "status": "active"
-                },
-                {
-                  "text": "5",
-                  "status": "active"
-                },
-                {
-                  "text": "6",
-                  "status": "active"
-                },
-                {
-                  "text": "2",
-                  "status": "active"
-                },
-                {
-                  "text": "3",
                   "status": "active"
                 }
               ]
@@ -948,12 +1863,12 @@
       "prompt": "([]) is balanced and ([)] is not. 2+3*4 becomes 2 3 4 * + and evaluates to 14.",
       "frames": [
         {
-          "label": "Brackets",
-          "narration": "([]) is balanced. ([)] crosses pairs and is not.",
+          "label": "Match",
+          "narration": "([]) is balanced. Each closer matches the top opener.",
           "state": [
             {
-              "name": "balanced",
-              "value": "yes"
+              "name": "ok",
+              "value": "true"
             }
           ],
           "rows": [
@@ -962,27 +1877,60 @@
               "cells": [
                 {
                   "text": "(",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": "[",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": "]",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": ")",
-                  "status": "done"
+                  "status": "chosen"
                 }
               ]
             }
           ]
         },
         {
-          "label": "Postfix",
-          "narration": "Multiplication leaves the operator stack before addition.",
+          "label": "Cross",
+          "narration": "([)] is not balanced. The closer does not match the top.",
+          "state": [
+            {
+              "name": "ok",
+              "value": "false"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "(",
+                  "status": "active"
+                },
+                {
+                  "text": "[",
+                  "status": "active"
+                },
+                {
+                  "text": ")",
+                  "status": "active"
+                },
+                {
+                  "text": "]",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Value",
+          "narration": "2+3*4 evaluates to 14. Multiplication runs first.",
           "state": [
             {
               "name": "value",
@@ -995,23 +1943,19 @@
               "cells": [
                 {
                   "text": "2",
-                  "status": "chosen"
+                  "status": "done"
                 },
                 {
                   "text": "3",
-                  "status": "chosen"
+                  "status": "done"
                 },
                 {
                   "text": "4",
-                  "status": "chosen"
+                  "status": "done"
                 },
                 {
-                  "text": "*",
-                  "status": "chosen"
-                },
-                {
-                  "text": "+",
-                  "status": "chosen"
+                  "text": "14",
+                  "status": "done"
                 }
               ]
             }
@@ -1027,11 +1971,65 @@
       "prompt": "counting_sort of 3, 1, 2, 1 with maximum 3 returns 1, 1, 2, 3. A radix pass keeps equal digits in their old order.",
       "frames": [
         {
-          "label": "Counts",
-          "narration": "counting_sort places keys by value, not by comparing neighbors.",
+          "label": "Place",
+          "narration": "Place 2 copies of 1. Output is [1, 1].",
           "state": [
             {
-              "name": "maximum",
+              "name": "digit",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Place",
+          "narration": "Place 1 copies of 2. Output is [1, 1, 2].",
+          "state": [
+            {
+              "name": "digit",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Place",
+          "narration": "Place 1 copies of 3. Output is [1, 1, 2, 3].",
+          "state": [
+            {
+              "name": "digit",
               "value": "3"
             }
           ],
@@ -1041,52 +2039,19 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": "1",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": "2",
-                  "status": "done"
+                  "status": "chosen"
                 },
                 {
                   "text": "3",
-                  "status": "done"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "label": "Digits",
-          "narration": "Least-significant digit passes keep equal-digit order.",
-          "state": [
-            {
-              "name": "base",
-              "value": "10"
-            }
-          ],
-          "rows": [
-            {
-              "label": "State",
-              "cells": [
-                {
-                  "text": "2",
-                  "status": "active"
-                },
-                {
-                  "text": "24",
-                  "status": "active"
-                },
-                {
-                  "text": "45",
-                  "status": "active"
-                },
-                {
-                  "text": "66",
-                  "status": "active"
+                  "status": "chosen"
                 }
               ]
             }
@@ -1102,12 +2067,12 @@
       "prompt": "quickselect uses the rightmost value as the pivot. k = 0 returns 1 and k = 2 returns 3 on 3, 1, 4, 2.",
       "frames": [
         {
-          "label": "Smallest",
-          "narration": "quickselect with k = 0 returns the minimum.",
+          "label": "Partition",
+          "narration": "Pivot 2 lands at index 1. The array is [1, 2, 4, 3].",
           "state": [
             {
-              "name": "k",
-              "value": "0"
+              "name": "index",
+              "value": "1"
             }
           ],
           "rows": [
@@ -1117,14 +2082,59 @@
                 {
                   "text": "1",
                   "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
                 }
               ]
             }
           ]
         },
         {
-          "label": "Third",
-          "narration": "k = 2 is the third smallest key, which is 3.",
+          "label": "Partition",
+          "narration": "Pivot 3 lands at index 2. The array is [1, 2, 3, 4].",
+          "state": [
+            {
+              "name": "index",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Answer",
+          "narration": "k is 2, so the value at that index is the answer 3.",
           "state": [
             {
               "name": "k",
@@ -1137,7 +2147,7 @@
               "cells": [
                 {
                   "text": "3",
-                  "status": "active"
+                  "status": "done"
                 }
               ]
             }
@@ -1153,8 +2163,50 @@
       "prompt": "inversion_count on 3, 1, 4, 2 returns 3. The pairs are (3, 1), (3, 2), and (4, 2).",
       "frames": [
         {
-          "label": "Pairs",
-          "narration": "Three pairs are out of order in 3, 1, 4, 2.",
+          "label": "Cross",
+          "narration": "Taking 1 adds 1 inversions. The total is 1.",
+          "state": [
+            {
+              "name": "count",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Cross",
+          "narration": "Taking 2 adds 1 inversions. The total is 1.",
+          "state": [
+            {
+              "name": "count",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Cross",
+          "narration": "Taking 2 adds 1 inversions. The total is 3.",
           "state": [
             {
               "name": "count",
@@ -1167,18 +2219,6 @@
               "cells": [
                 {
                   "text": "3",
-                  "status": "chosen"
-                },
-                {
-                  "text": "1",
-                  "status": "chosen"
-                },
-                {
-                  "text": "4",
-                  "status": "chosen"
-                },
-                {
-                  "text": "2",
                   "status": "chosen"
                 }
               ]
@@ -1195,12 +2235,33 @@
       "prompt": "With capacity 4, keys 0 and 4 share a start slot. Deleting 0 leaves a tombstone and lookup of 4 still returns 2.",
       "frames": [
         {
-          "label": "Probe",
-          "narration": "Key 4 finds slot 0 full and takes the next slot.",
+          "label": "Insert",
+          "narration": "Key 0 takes slot 0.",
           "state": [
             {
-              "name": "capacity",
-              "value": "4"
+              "name": "slot",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Probe",
+          "narration": "Key 4 shares the start slot and takes slot 1.",
+          "state": [
+            {
+              "name": "slot",
+              "value": "1"
             }
           ],
           "rows": [
@@ -1221,7 +2282,7 @@
         },
         {
           "label": "Tombstone",
-          "narration": "Deleting 0 leaves a marker so the probe can still reach 4.",
+          "narration": "Deleting 0 leaves a tombstone. Lookup of 4 still returns 2.",
           "state": [
             {
               "name": "found",
@@ -1234,7 +2295,7 @@
               "cells": [
                 {
                   "text": "4",
-                  "status": "chosen"
+                  "status": "done"
                 }
               ]
             }
@@ -1250,12 +2311,37 @@
       "prompt": "A cache of capacity 2 stores a, then b, uses a, then stores c. b is the key that disappears.",
       "frames": [
         {
-          "label": "Evict",
-          "narration": "b was the least recent key, so c replaces it.",
+          "label": "Put",
+          "narration": "Put a, then b. Capacity 2 is full.",
           "state": [
             {
-              "name": "miss",
-              "value": "b"
+              "name": "tail",
+              "value": "a"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "b",
+                  "status": "active"
+                },
+                {
+                  "text": "a",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Get",
+          "narration": "Get a moves a off the tail. b is now least recent.",
+          "state": [
+            {
+              "name": "recent",
+              "value": "a"
             }
           ],
           "rows": [
@@ -1267,8 +2353,33 @@
                   "status": "chosen"
                 },
                 {
-                  "text": "c",
+                  "text": "b",
                   "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Evict",
+          "narration": "Put c evicts b. A later get of b returns None.",
+          "state": [
+            {
+              "name": "evicted",
+              "value": "b"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "c",
+                  "status": "done"
+                },
+                {
+                  "text": "a",
+                  "status": "done"
                 }
               ]
             }
@@ -1285,10 +2396,43 @@
       "frames": [
         {
           "label": "Preorder",
-          "narration": "Visit the node before either child.",
+          "narration": "Preorder visits 4, then 2, then 1, then 6.",
           "state": [
             {
-              "name": "root",
+              "name": "first",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "6",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Level",
+          "narration": "Level order is 4, then 2, then 6, then 1.",
+          "state": [
+            {
+              "name": "queue",
               "value": "4"
             }
           ],
@@ -1305,11 +2449,11 @@
                   "status": "active"
                 },
                 {
-                  "text": "1",
+                  "text": "6",
                   "status": "active"
                 },
                 {
-                  "text": "6",
+                  "text": "1",
                   "status": "active"
                 }
               ]
@@ -1317,22 +2461,18 @@
           ]
         },
         {
-          "label": "Levels",
-          "narration": "A queue visits each depth before the next.",
+          "label": "Child",
+          "narration": "1 hangs under 2, so it waits behind 6.",
           "state": [
             {
-              "name": "root",
-              "value": "4"
+              "name": "node",
+              "value": "1"
             }
           ],
           "rows": [
             {
               "label": "State",
               "cells": [
-                {
-                  "text": "4",
-                  "status": "done"
-                },
                 {
                   "text": "2",
                   "status": "done"
@@ -1359,8 +2499,54 @@
       "prompt": "Inserting 1, then 2, then 3 into a left-leaning red-black tree leaves 2 at the root. Inorder is still 1, 2, 3.",
       "frames": [
         {
-          "label": "Root",
-          "narration": "Sorted inserts still leave 2 at the root.",
+          "label": "Insert",
+          "narration": "After inserting 1, the root is 1. Inorder is [1].",
+          "state": [
+            {
+              "name": "root",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert",
+          "narration": "After inserting 2, the root is 2. Inorder is [1, 2].",
+          "state": [
+            {
+              "name": "root",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert",
+          "narration": "After inserting 3, the root is 2. Inorder is [1, 2, 3].",
           "state": [
             {
               "name": "root",
@@ -1397,8 +2583,71 @@
       "prompt": "push 5, then 3, then 4. The first pop returns priority 3 and item b.",
       "frames": [
         {
+          "label": "Push",
+          "narration": "Push priority 5 for item a.",
+          "state": [
+            {
+              "name": "priority",
+              "value": "5"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "5",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Push",
+          "narration": "Push priority 3 for item b.",
+          "state": [
+            {
+              "name": "priority",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Push",
+          "narration": "Push priority 4 for item c.",
+          "state": [
+            {
+              "name": "priority",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "label": "Pop",
-          "narration": "The smallest priority leaves first.",
+          "narration": "The first pop returns priority 3 and item b.",
           "state": [
             {
               "name": "item",
@@ -1414,11 +2663,7 @@
                   "status": "chosen"
                 },
                 {
-                  "text": "4",
-                  "status": "chosen"
-                },
-                {
-                  "text": "5",
+                  "text": "b",
                   "status": "chosen"
                 }
               ]
@@ -1435,12 +2680,12 @@
       "prompt": "A directed graph with vertices A, B, C, D and three edges stores three neighbor pairs. A matrix would store 16 cells.",
       "frames": [
         {
-          "label": "Edges",
-          "narration": "Three adjacency-list pairs store this graph.",
+          "label": "Edge",
+          "narration": "Add A to B. The list now stores 1 neighbor pairs.",
           "state": [
             {
-              "name": "vertices",
-              "value": "4"
+              "name": "edges",
+              "value": "1"
             }
           ],
           "rows": [
@@ -1449,19 +2694,61 @@
               "cells": [
                 {
                   "text": "A",
-                  "status": "idle"
+                  "status": "active"
                 },
                 {
                   "text": "B",
-                  "status": "idle"
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Edge",
+          "narration": "Add A to C. The list now stores 2 neighbor pairs.",
+          "state": [
+            {
+              "name": "edges",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "active"
                 },
                 {
                   "text": "C",
-                  "status": "idle"
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Edge",
+          "narration": "Add B to D. The list now stores 3 neighbor pairs.",
+          "state": [
+            {
+              "name": "edges",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "B",
+                  "status": "active"
                 },
                 {
                   "text": "D",
-                  "status": "idle"
+                  "status": "active"
                 }
               ]
             }
@@ -1477,12 +2764,87 @@
       "prompt": "Edges A to B, A to C, B to D, and C to D produce the order A, B, C, D. A cycle makes topological_order raise ValueError.",
       "frames": [
         {
-          "label": "Order",
-          "narration": "Kahn's algorithm emits every vertex once.",
+          "label": "Emit",
+          "narration": "Emit A. The order so far is ['A'].",
           "state": [
             {
-              "name": "start",
+              "name": "vertex",
               "value": "A"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Emit",
+          "narration": "Emit B. The order so far is ['A', 'B'].",
+          "state": [
+            {
+              "name": "vertex",
+              "value": "B"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "done"
+                },
+                {
+                  "text": "B",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Emit",
+          "narration": "Emit C. The order so far is ['A', 'B', 'C'].",
+          "state": [
+            {
+              "name": "vertex",
+              "value": "C"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "done"
+                },
+                {
+                  "text": "B",
+                  "status": "done"
+                },
+                {
+                  "text": "C",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Emit",
+          "narration": "Emit D. The order so far is ['A', 'B', 'C', 'D'].",
+          "state": [
+            {
+              "name": "vertex",
+              "value": "D"
             }
           ],
           "rows": [
@@ -1519,12 +2881,12 @@
       "prompt": "Dijkstra from A reports distance 3 at C, not the direct weight 4. Bellman-Ford allows the negative edge and reports -1.",
       "frames": [
         {
-          "label": "Relax",
-          "narration": "The path through B beats the direct edge into C.",
+          "label": "Settle",
+          "narration": "Settle A at distance 0.",
           "state": [
             {
               "name": "distance",
-              "value": "3"
+              "value": "0"
             }
           ],
           "rows": [
@@ -1536,11 +2898,57 @@
                   "status": "chosen"
                 },
                 {
+                  "text": "0",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Settle",
+          "narration": "Settle B at distance 1.",
+          "state": [
+            {
+              "name": "distance",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
                   "text": "B",
                   "status": "chosen"
                 },
                 {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Settle",
+          "narration": "Settle C at distance 3.",
+          "state": [
+            {
+              "name": "distance",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
                   "text": "C",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
                   "status": "chosen"
                 }
               ]
@@ -1557,12 +2965,12 @@
       "prompt": "Undirected edges of weight 1, 2, and 4. Prim and Kruskal both return total weight 3. The weight-4 edge is the one that closes a cycle.",
       "frames": [
         {
-          "label": "Skip",
-          "narration": "The weight-4 edge closes a cycle and is rejected.",
+          "label": "take",
+          "narration": "Take weight 1. The total is 1.",
           "state": [
             {
-              "name": "weight",
-              "value": "3"
+              "name": "total",
+              "value": "1"
             }
           ],
           "rows": [
@@ -1574,7 +2982,57 @@
                   "status": "chosen"
                 },
                 {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "take",
+          "narration": "Take weight 2. The total is 3.",
+          "state": [
+            {
+              "name": "total",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
                   "text": "2",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "reject",
+          "narration": "Reject weight 4. The total is 3.",
+          "state": [
+            {
+              "name": "total",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
                   "status": "chosen"
                 }
               ]
@@ -1591,11 +3049,69 @@
       "prompt": "two_sum_sorted on 1, 2, 4, 7 with target 6 returns indexes 1 and 2.",
       "frames": [
         {
-          "label": "Pair",
-          "narration": "Indexes 1 and 2 hold 2 and 4, which sum to 6.",
+          "label": "Move",
+          "narration": "Indexes 0 and 3 sum to 8.",
           "state": [
             {
-              "name": "target",
+              "name": "sum",
+              "value": "8"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "8",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Move",
+          "narration": "Indexes 0 and 2 sum to 5.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "5"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "5",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Move",
+          "narration": "Indexes 1 and 2 sum to 6.",
+          "state": [
+            {
+              "name": "sum",
               "value": "6"
             }
           ],
@@ -1605,19 +3121,15 @@
               "cells": [
                 {
                   "text": "1",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
                   "text": "2",
-                  "status": "chosen"
+                  "status": "active"
                 },
                 {
-                  "text": "4",
-                  "status": "chosen"
-                },
-                {
-                  "text": "7",
-                  "status": "chosen"
+                  "text": "6",
+                  "status": "active"
                 }
               ]
             }
@@ -1633,12 +3145,12 @@
       "prompt": "sliding_window_maximum on 1, 3, 2, 5 with window 2 returns 3, 3, 5. The longest unique substring of abcabcbb has length 3.",
       "frames": [
         {
-          "label": "Windows",
-          "narration": "Each window of length 2 reports its maximum.",
+          "label": "Window",
+          "narration": "The window ending at index 1 has maximum 3.",
           "state": [
             {
-              "name": "window",
-              "value": "2"
+              "name": "max",
+              "value": "3"
             }
           ],
           "rows": [
@@ -1647,15 +3159,61 @@
               "cells": [
                 {
                   "text": "3",
-                  "status": "active"
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Window",
+          "narration": "The window ending at index 2 has maximum 3.",
+          "state": [
+            {
+              "name": "max",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "chosen"
                 },
                 {
                   "text": "3",
-                  "status": "active"
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Window",
+          "narration": "The window ending at index 3 has maximum 5.",
+          "state": [
+            {
+              "name": "max",
+              "value": "5"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
                 },
                 {
                   "text": "5",
-                  "status": "active"
+                  "status": "chosen"
                 }
               ]
             }
@@ -1671,8 +3229,71 @@
       "prompt": "PrefixSum on 1, 2, 3, 4 answers range_sum(1, 3) with 5, the sum of values[1:3].",
       "frames": [
         {
-          "label": "Range",
-          "narration": "The half-open slice from 1 to 3 sums to 5.",
+          "label": "Prefix",
+          "narration": "range_sum from 0 to 1 returns 1.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Prefix",
+          "narration": "range_sum from 0 to 2 returns 3.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Prefix",
+          "narration": "range_sum from 0 to 4 returns 10.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "10"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "10",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Slice",
+          "narration": "range_sum from 1 to 3 returns 5, which is 2 + 3.",
           "state": [
             {
               "name": "sum",
@@ -1684,20 +3305,8 @@
               "label": "State",
               "cells": [
                 {
-                  "text": "1",
-                  "status": "chosen"
-                },
-                {
-                  "text": "2",
-                  "status": "chosen"
-                },
-                {
-                  "text": "3",
-                  "status": "chosen"
-                },
-                {
-                  "text": "4",
-                  "status": "chosen"
+                  "text": "5",
+                  "status": "done"
                 }
               ]
             }
@@ -1713,12 +3322,12 @@
       "prompt": "permutations of 1, 2, 3 returns six lists. Each call chooses, recurses, and undoes.",
       "frames": [
         {
-          "label": "Leaves",
-          "narration": "Three distinct items have six permutations.",
+          "label": "Leaf",
+          "narration": "Leaf 1 is [1, 2, 3].",
           "state": [
             {
               "name": "count",
-              "value": "6"
+              "value": "1"
             }
           ],
           "rows": [
@@ -1735,6 +3344,151 @@
                 },
                 {
                   "text": "3",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Leaf",
+          "narration": "Leaf 2 is [1, 3, 2].",
+          "state": [
+            {
+              "name": "count",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Leaf",
+          "narration": "Leaf 3 is [2, 1, 3].",
+          "state": [
+            {
+              "name": "count",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Leaf",
+          "narration": "Leaf 4 is [2, 3, 1].",
+          "state": [
+            {
+              "name": "count",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Leaf",
+          "narration": "Leaf 5 is [3, 1, 2].",
+          "state": [
+            {
+              "name": "count",
+              "value": "5"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Leaf",
+          "narration": "Leaf 6 is [3, 2, 1].",
+          "state": [
+            {
+              "name": "count",
+              "value": "6"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                },
+                {
+                  "text": "1",
                   "status": "done"
                 }
               ]
@@ -1751,12 +3505,12 @@
       "prompt": "Intervals (1, 3), (2, 4), and (3, 5) yield two compatible intervals. The frequent symbol gets the short Huffman code.",
       "frames": [
         {
-          "label": "Schedule",
-          "narration": "Sorting by finish time keeps two compatible intervals.",
+          "label": "take",
+          "narration": "Take interval a. The count is 1.",
           "state": [
             {
               "name": "count",
-              "value": "2"
+              "value": "1"
             }
           ],
           "rows": [
@@ -1768,7 +3522,57 @@
                   "status": "chosen"
                 },
                 {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "skip",
+          "narration": "Skip interval b. The count is 1.",
+          "state": [
+            {
+              "name": "count",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "b",
+                  "status": "chosen"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "take",
+          "narration": "Take interval c. The count is 2.",
+          "state": [
+            {
+              "name": "count",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
                   "text": "c",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
                   "status": "chosen"
                 }
               ]
@@ -1785,8 +3589,8 @@
       "prompt": "min_coin_change of coins 1, 3, 4 and amount 6 returns 2. The 0-1 knapsack on weights 1, 3 and values 2, 4 with capacity 4 returns 6.",
       "frames": [
         {
-          "label": "Coins",
-          "narration": "Amount 6 needs two coins from 1, 3, and 4.",
+          "label": "Amount",
+          "narration": "Amount 2 takes 2 coins.",
           "state": [
             {
               "name": "coins",
@@ -1798,15 +3602,61 @@
               "label": "State",
               "cells": [
                 {
-                  "text": "1",
+                  "text": "2",
                   "status": "chosen"
                 },
                 {
-                  "text": "3",
+                  "text": "2",
                   "status": "chosen"
-                },
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Amount",
+          "narration": "Amount 4 takes 1 coins.",
+          "state": [
+            {
+              "name": "coins",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
                 {
                   "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Amount",
+          "narration": "Amount 6 takes 2 coins.",
+          "state": [
+            {
+              "name": "coins",
+              "value": "2"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "6",
+                  "status": "chosen"
+                },
+                {
+                  "text": "2",
                   "status": "chosen"
                 }
               ]
@@ -1823,11 +3673,86 @@
       "prompt": "kmp_search and rabin_karp_search both find ababa inside ababcababa at index 5.",
       "frames": [
         {
-          "label": "Match",
-          "narration": "The first full match of ababa starts at index 5.",
+          "label": "Scan",
+          "narration": "At text index 0 the pattern state is 1.",
           "state": [
             {
-              "name": "index",
+              "name": "state",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "At text index 4 the pattern state is 0.",
+          "state": [
+            {
+              "name": "state",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "0",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "At text index 5 the pattern state is 1.",
+          "state": [
+            {
+              "name": "state",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "5",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "At text index 9 the pattern state is 5.",
+          "state": [
+            {
+              "name": "state",
               "value": "5"
             }
           ],
@@ -1836,24 +3761,12 @@
               "label": "State",
               "cells": [
                 {
-                  "text": "a",
-                  "status": "chosen"
+                  "text": "9",
+                  "status": "active"
                 },
                 {
-                  "text": "b",
-                  "status": "chosen"
-                },
-                {
-                  "text": "a",
-                  "status": "chosen"
-                },
-                {
-                  "text": "b",
-                  "status": "chosen"
-                },
-                {
-                  "text": "a",
-                  "status": "chosen"
+                  "text": "5",
+                  "status": "active"
                 }
               ]
             }
@@ -1869,11 +3782,40 @@
       "prompt": "After inserting cat and car, contains(car) is true and contains(ca) is false. The suffix array of banana starts 5, 3, 1, 0, 4, 2.",
       "frames": [
         {
-          "label": "Keys",
-          "narration": "car is a stored key. ca is only a prefix.",
+          "label": "Insert",
+          "narration": "Insert cat. contains cat is true.",
           "state": [
             {
-              "name": "hit",
+              "name": "key",
+              "value": "cat"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "c",
+                  "status": "chosen"
+                },
+                {
+                  "text": "a",
+                  "status": "chosen"
+                },
+                {
+                  "text": "t",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Insert",
+          "narration": "Insert car. contains car is true.",
+          "state": [
+            {
+              "name": "key",
               "value": "car"
             }
           ],
@@ -1896,6 +3838,31 @@
               ]
             }
           ]
+        },
+        {
+          "label": "Miss",
+          "narration": "contains ca is false. A prefix is not a stored key.",
+          "state": [
+            {
+              "name": "key",
+              "value": "ca"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "c",
+                  "status": "done"
+                },
+                {
+                  "text": "a",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -1907,8 +3874,50 @@
       "prompt": "A Fenwick tree that adds 1, 2, and 3 reports prefix 6. A segment tree adds 5 across a span. A sparse table answers a static minimum.",
       "frames": [
         {
-          "label": "Prefix",
-          "narration": "The Fenwick prefix through index 2 is 6.",
+          "label": "Add",
+          "narration": "Add 1 at index 0. The prefix through that index is 1.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Add",
+          "narration": "Add 2 at index 1. The prefix through that index is 3.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Add",
+          "narration": "Add 3 at index 2. The prefix through that index is 6.",
           "state": [
             {
               "name": "sum",
@@ -1920,15 +3929,7 @@
               "label": "State",
               "cells": [
                 {
-                  "text": "1",
-                  "status": "chosen"
-                },
-                {
-                  "text": "2",
-                  "status": "chosen"
-                },
-                {
-                  "text": "3",
+                  "text": "6",
                   "status": "chosen"
                 }
               ]
@@ -1945,12 +3946,12 @@
       "prompt": "A Bloom filter with 64 bits and 3 hashes inserts cat. maybe_contains(cat) is true. A miss would mean the item was never added.",
       "frames": [
         {
-          "label": "Membership",
-          "narration": "cat was inserted, so every bit it hashes to is set.",
+          "label": "Add",
+          "narration": "add cat sets the three bits that hash names.",
           "state": [
             {
-              "name": "cat",
-              "value": "maybe"
+              "name": "key",
+              "value": "cat"
             }
           ],
           "rows": [
@@ -1960,6 +3961,52 @@
                 {
                   "text": "cat",
                   "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Hit",
+          "narration": "maybe_contains cat is true. Every required bit is set.",
+          "state": [
+            {
+              "name": "hit",
+              "value": "true"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "cat",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Bits",
+          "narration": "A clear bit would be a definite miss. This query has none.",
+          "state": [
+            {
+              "name": "bits",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "64",
+                  "status": "done"
+                },
+                {
+                  "text": "3",
+                  "status": "done"
                 }
               ]
             }
@@ -1976,7 +4023,53 @@
       "frames": [
         {
           "label": "Scan",
-          "narration": "A sequential sum touches 1, 2, and 3 in order.",
+          "narration": "sequential_scan_sum of [1] returns 1.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "1"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "sequential_scan_sum of [1, 2] returns 3.",
+          "state": [
+            {
+              "name": "sum",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "done"
+                },
+                {
+                  "text": "2",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Scan",
+          "narration": "sequential_scan_sum of [1, 2, 3] returns 6.",
           "state": [
             {
               "name": "sum",
@@ -2013,12 +4106,58 @@
       "prompt": "Two disjoint edges produce a cover of all four endpoints. The optimum picks one endpoint from each edge. The constructed cover is twice that size.",
       "frames": [
         {
-          "label": "Cover",
-          "narration": "Each uncovered edge contributes both endpoints.",
+          "label": "start",
+          "narration": "The cover starts empty. No edge has been scanned.",
           "state": [
             {
-              "name": "edges",
-              "value": "2"
+              "name": "cover",
+              "value": "[]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "-",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "pair",
+          "narration": "The edge A to B adds both ends.",
+          "state": [
+            {
+              "name": "cover",
+              "value": "['A', 'B']"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "A",
+                  "status": "chosen"
+                },
+                {
+                  "text": "B",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "pair",
+          "narration": "The edge C to D adds both ends.",
+          "state": [
+            {
+              "name": "cover",
+              "value": "['A', 'B', 'C', 'D']"
             }
           ],
           "rows": [
@@ -2056,15 +4195,11 @@
       "frames": [
         {
           "label": "Split",
-          "narration": "The midpoint splits this run.",
+          "narration": "Split into [3, 1] and [4, 2].",
           "state": [
             {
               "name": "left",
               "value": "[3, 1]"
-            },
-            {
-              "name": "right",
-              "value": "[4, 2]"
             }
           ],
           "rows": [
@@ -2093,15 +4228,11 @@
         },
         {
           "label": "Split",
-          "narration": "The midpoint splits this run.",
+          "narration": "Split into [3] and [1].",
           "state": [
             {
               "name": "left",
               "value": "[3]"
-            },
-            {
-              "name": "right",
-              "value": "[1]"
             }
           ],
           "rows": [
@@ -2121,8 +4252,8 @@
           ]
         },
         {
-          "label": "Take 1",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 1. The output is [1].",
           "state": [
             {
               "name": "output",
@@ -2142,8 +4273,8 @@
           ]
         },
         {
-          "label": "Take 3",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 3. The output is [1, 3].",
           "state": [
             {
               "name": "output",
@@ -2168,15 +4299,11 @@
         },
         {
           "label": "Split",
-          "narration": "The midpoint splits this run.",
+          "narration": "Split into [4] and [2].",
           "state": [
             {
               "name": "left",
               "value": "[4]"
-            },
-            {
-              "name": "right",
-              "value": "[2]"
             }
           ],
           "rows": [
@@ -2196,8 +4323,8 @@
           ]
         },
         {
-          "label": "Take 2",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 2. The output is [2].",
           "state": [
             {
               "name": "output",
@@ -2217,8 +4344,8 @@
           ]
         },
         {
-          "label": "Take 4",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 4. The output is [2, 4].",
           "state": [
             {
               "name": "output",
@@ -2242,8 +4369,8 @@
           ]
         },
         {
-          "label": "Take 1",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 1. The output is [1].",
           "state": [
             {
               "name": "output",
@@ -2263,8 +4390,8 @@
           ]
         },
         {
-          "label": "Take 2",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 2. The output is [1, 2].",
           "state": [
             {
               "name": "output",
@@ -2288,8 +4415,8 @@
           ]
         },
         {
-          "label": "Take 3",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 3. The output is [1, 2, 3].",
           "state": [
             {
               "name": "output",
@@ -2317,8 +4444,8 @@
           ]
         },
         {
-          "label": "Take 4",
-          "narration": "The merge takes the smaller front.",
+          "label": "Take",
+          "narration": "The merge takes 4. The output is [1, 2, 3, 4].",
           "state": [
             {
               "name": "output",
@@ -2367,7 +4494,7 @@
       "frames": [
         {
           "label": "pivot",
-          "narration": "The pivot step recorded 2.",
+          "narration": "Pivot 2 sits at index 3.",
           "state": [
             {
               "name": "array",
@@ -2400,7 +4527,7 @@
         },
         {
           "label": "swap",
-          "narration": "The pivot step recorded 1.",
+          "narration": "Swap index 1 with the boundary at 0.",
           "state": [
             {
               "name": "array",
@@ -2433,7 +4560,7 @@
         },
         {
           "label": "pivot",
-          "narration": "The pivot step recorded 3.",
+          "narration": "Pivot 3 sits at index 3.",
           "state": [
             {
               "name": "array",
@@ -2525,6 +4652,56 @@
               ]
             }
           ]
+        },
+        {
+          "label": "Bucket",
+          "narration": "Lookup of 0 returns 1.",
+          "state": [
+            {
+              "name": "index",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Bucket",
+          "narration": "Lookup of 4 returns 2.",
+          "state": [
+            {
+              "name": "index",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -2537,7 +4714,7 @@
       "frames": [
         {
           "label": "root",
-          "narration": "4 becomes the root child.",
+          "narration": "4 becomes the root child of None.",
           "state": [
             {
               "name": "parent",
@@ -2558,7 +4735,7 @@
         },
         {
           "label": "left",
-          "narration": "2 becomes the left child.",
+          "narration": "2 becomes the left child of 4.",
           "state": [
             {
               "name": "parent",
@@ -2579,7 +4756,7 @@
         },
         {
           "label": "right",
-          "narration": "6 becomes the right child.",
+          "narration": "6 becomes the right child of 4.",
           "state": [
             {
               "name": "parent",
@@ -2600,7 +4777,7 @@
         },
         {
           "label": "left",
-          "narration": "1 becomes the left child.",
+          "narration": "1 becomes the left child of 2.",
           "state": [
             {
               "name": "parent",
@@ -2629,8 +4806,8 @@
       "prompt": "Children of index i are 2i + 1 and 2i + 2. heapify sifts from the last parent down to the root. heapsort then extracts until the array is sorted ascending.",
       "frames": [
         {
-          "label": "Sift 1",
-          "narration": "Sift-down restored the parent.",
+          "label": "sift",
+          "narration": "Sift-down at index 1 leaves [3, 2, 4, 1].",
           "state": [
             {
               "name": "heap",
@@ -2662,8 +4839,8 @@
           ]
         },
         {
-          "label": "Sift 0",
-          "narration": "Sift-down restored the parent.",
+          "label": "sift",
+          "narration": "Sift-down at index 0 leaves [4, 2, 3, 1].",
           "state": [
             {
               "name": "heap",
@@ -2693,6 +4870,105 @@
               ]
             }
           ]
+        },
+        {
+          "label": "extract",
+          "narration": "Extract moves the next root. The array is [3, 2, 1, 4].",
+          "state": [
+            {
+              "name": "heap",
+              "value": "[3, 2, 1, 4]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "extract",
+          "narration": "Extract moves the next root. The array is [2, 1, 3, 4].",
+          "state": [
+            {
+              "name": "heap",
+              "value": "[2, 1, 3, 4]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "extract",
+          "narration": "Extract moves the next root. The array is [1, 2, 3, 4].",
+          "state": [
+            {
+              "name": "heap",
+              "value": "[1, 2, 3, 4]"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "active"
+                },
+                {
+                  "text": "2",
+                  "status": "active"
+                },
+                {
+                  "text": "3",
+                  "status": "active"
+                },
+                {
+                  "text": "4",
+                  "status": "active"
+                }
+              ]
+            }
+          ]
         }
       ],
       "labels": {
@@ -2712,7 +4988,7 @@
       "frames": [
         {
           "label": "enqueue",
-          "narration": "enqueue A.",
+          "narration": "The search marks A during enqueue.",
           "state": [
             {
               "name": "vertex",
@@ -2733,7 +5009,7 @@
         },
         {
           "label": "dequeue",
-          "narration": "dequeue A.",
+          "narration": "The search marks A during dequeue.",
           "state": [
             {
               "name": "vertex",
@@ -2754,7 +5030,7 @@
         },
         {
           "label": "enqueue",
-          "narration": "enqueue B.",
+          "narration": "The search marks B during enqueue.",
           "state": [
             {
               "name": "vertex",
@@ -2775,7 +5051,7 @@
         },
         {
           "label": "enqueue",
-          "narration": "enqueue C.",
+          "narration": "The search marks C during enqueue.",
           "state": [
             {
               "name": "vertex",
@@ -2796,7 +5072,7 @@
         },
         {
           "label": "dequeue",
-          "narration": "dequeue B.",
+          "narration": "The search marks B during dequeue.",
           "state": [
             {
               "name": "vertex",
@@ -2821,7 +5097,7 @@
         },
         {
           "label": "enqueue",
-          "narration": "enqueue D.",
+          "narration": "The search marks D during enqueue.",
           "state": [
             {
               "name": "vertex",
@@ -2842,7 +5118,7 @@
         },
         {
           "label": "dequeue",
-          "narration": "dequeue C.",
+          "narration": "The search marks C during dequeue.",
           "state": [
             {
               "name": "vertex",
@@ -2871,7 +5147,7 @@
         },
         {
           "label": "dequeue",
-          "narration": "dequeue D.",
+          "narration": "The search marks D during dequeue.",
           "state": [
             {
               "name": "vertex",
@@ -2968,6 +5244,35 @@
               ]
             }
           ]
+        },
+        {
+          "label": "Find",
+          "narration": "find of 2 walks to the root 0.",
+          "state": [
+            {
+              "name": "root",
+              "value": "0"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "0",
+                  "status": "done"
+                },
+                {
+                  "text": "0",
+                  "status": "done"
+                },
+                {
+                  "text": "0",
+                  "status": "done"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -2979,13 +5284,9 @@
       "prompt": "Each cell is the sum of the two cells before it. The library keeps only the last two values. The table here shows the same numbers.",
       "frames": [
         {
-          "label": "Start",
-          "narration": "F(0) and F(1) are the two running values.",
+          "label": "F(1)",
+          "narration": "F(1) is 1. The previous value is 0.",
           "state": [
-            {
-              "name": "previous",
-              "value": "0"
-            },
             {
               "name": "current",
               "value": "1"
@@ -2997,11 +5298,11 @@
               "cells": [
                 {
                   "text": "0",
-                  "status": "idle"
+                  "status": "chosen"
                 },
                 {
                   "text": "1",
-                  "status": "idle"
+                  "status": "chosen"
                 }
               ]
             }
@@ -3009,7 +5310,7 @@
         },
         {
           "label": "F(2)",
-          "narration": "The next value is the sum of the two previous values.",
+          "narration": "F(2) is 1. The previous value is 1.",
           "state": [
             {
               "name": "current",
@@ -3034,7 +5335,7 @@
         },
         {
           "label": "F(3)",
-          "narration": "The next value is the sum of the two previous values.",
+          "narration": "F(3) is 2. The previous value is 1.",
           "state": [
             {
               "name": "current",
@@ -3059,7 +5360,7 @@
         },
         {
           "label": "F(4)",
-          "narration": "The next value is the sum of the two previous values.",
+          "narration": "F(4) is 3. The previous value is 2.",
           "state": [
             {
               "name": "current",
@@ -3084,7 +5385,7 @@
         },
         {
           "label": "F(5)",
-          "narration": "The next value is the sum of the two previous values.",
+          "narration": "F(5) is 5. The previous value is 3.",
           "state": [
             {
               "name": "current",
@@ -3109,7 +5410,7 @@
         },
         {
           "label": "F(6)",
-          "narration": "The next value is the sum of the two previous values.",
+          "narration": "F(6) is 8. The previous value is 5.",
           "state": [
             {
               "name": "current",
@@ -3127,6 +5428,123 @@
                 {
                   "text": "8",
                   "status": "chosen"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "binary-search-on-answer": [
+    {
+      "id": "binary-search-on-answer-core",
+      "title": "Rates for piles 3, 6, 7, 11",
+      "prompt": "The library tests rates 6, 3, and 4, then returns 4.",
+      "frames": [
+        {
+          "label": "Test",
+          "narration": "Test rate 6. Feasible is True.",
+          "state": [
+            {
+              "name": "rate",
+              "value": "6"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "6",
+                  "status": "chosen"
+                },
+                {
+                  "text": "11",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Test",
+          "narration": "Test rate 3. Feasible is False.",
+          "state": [
+            {
+              "name": "rate",
+              "value": "3"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "1",
+                  "status": "chosen"
+                },
+                {
+                  "text": "3",
+                  "status": "chosen"
+                },
+                {
+                  "text": "5",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Test",
+          "narration": "Test rate 4. Feasible is True.",
+          "state": [
+            {
+              "name": "rate",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "4",
+                  "status": "chosen"
+                },
+                {
+                  "text": "5",
+                  "status": "chosen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Answer",
+          "narration": "The smallest feasible rate is 4.",
+          "state": [
+            {
+              "name": "rate",
+              "value": "4"
+            }
+          ],
+          "rows": [
+            {
+              "label": "State",
+              "cells": [
+                {
+                  "text": "4",
+                  "status": "done"
                 }
               ]
             }

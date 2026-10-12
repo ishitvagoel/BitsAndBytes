@@ -6,6 +6,8 @@ status: present
 module: bitsandbytes.complexity, bitsandbytes.library_costs
 ---
 
+This page is the module index for analysis and library costs.
+
 This legacy page is a short map to the foundation sequence: [input size and operation counts](./input-size-and-operation-counts.md), [asymptotic growth](./asymptotic-growth.md), [cost models](./cost-models.md), [loop invariants](./loop-invariants.md), [array and Python sequence costs](./arrays-and-python-costs.md), and [recursion and recurrences](./recursion-and-recurrences.md).
 
 * `bitsandbytes/complexity.py` — word RAM model, O/Θ/Ω vocabulary, recursion limit, and the three recurrence shapes (merge divide, halving, linear decrement).

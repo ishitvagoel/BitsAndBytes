@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo } from "react";
 import traceFixtures from "@/data/binary-search-traces.json";
-import exerciseFixtures from "@/data/exercises.json";
 import { CopyableCodeBlock } from "@/components/copyable-code-block";
 import { practiceStorageKey } from "@/lib/practice-storage";
 import { useLocalJsonState } from "@/lib/use-local-json-state";
@@ -37,13 +36,11 @@ type TraceFrame = {
 const scenarios = traceFixtures as Scenario[];
 
 const TRACE_STORAGE_KEY = "bitsandbytes.binary-search-trace.v1";
-type PracticeKind = "choice" | "predict-output" | "fill-cell";
-
 type PracticeQuestion = {
   id: string;
   lessonSlug: string;
   storageId: string;
-  kind?: PracticeKind;
+  kind?: string;
   objectiveId: string;
   prompt: string;
   hints: string[];
@@ -56,8 +53,6 @@ type PracticeQuestion = {
   rowLabel?: string;
   cellIndex?: number;
 };
-
-const allQuestions = exerciseFixtures as PracticeQuestion[];
 
 type SavedAnswer = { selected: string; checked: boolean; hintIndex: number };
 
@@ -75,10 +70,11 @@ function validateTraceState(value: unknown): { scenarioId: string; frameIndex: n
   return { scenarioId: scenarios[0].id, frameIndex: 0 };
 }
 
-function validatePracticeState(value: unknown): Record<string, SavedAnswer> {
+function practiceValidator(questions: PracticeQuestion[]) {
+  return (value: unknown): Record<string, SavedAnswer> => {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return {};
   const answers: Record<string, SavedAnswer> = {};
-  for (const question of allQuestions) {
+  for (const question of questions) {
     const raw = (value as Record<string, unknown>)[question.storageId];
     if (typeof raw !== "object" || raw === null || !("selected" in raw) || !("checked" in raw)) continue;
     const answer = raw as { selected: unknown; checked: unknown; hintIndex?: unknown };
@@ -96,6 +92,7 @@ function validatePracticeState(value: unknown): Record<string, SavedAnswer> {
     }
   }
   return answers;
+  };
 }
 
 export function BinarySearchLab({
@@ -223,9 +220,10 @@ export function BinarySearchLab({
 export function LessonPractice({
   lessonSlug,
   progressConfig,
-}: { lessonSlug: string; progressConfig: LessonProgressConfig }) {
-  const [answers, setAnswers] = useLocalJsonState(practiceStorageKey(lessonSlug), {}, validatePracticeState);
-  const questions = useMemo(() => allQuestions.filter((question) => question.lessonSlug === lessonSlug), [lessonSlug]);
+  questions,
+}: { lessonSlug: string; progressConfig: LessonProgressConfig; questions: PracticeQuestion[] }) {
+  const validate = useMemo(() => practiceValidator(questions), [questions]);
+  const [answers, setAnswers] = useLocalJsonState(practiceStorageKey(lessonSlug), {}, validate);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -308,10 +306,8 @@ export function LessonPractice({
                 return <pre className="practice-code"><code>{question.code}</code></pre>;
               case "fill-cell":
                 return <p className="practice-code">Fill {question.frameLabel}, row {question.rowLabel}, cell {question.cellIndex}.</p>;
-              default: {
-                const unsupported: never = kind;
-                return unsupported;
-              }
+              default:
+                return null;
             }
           })();
           return (
